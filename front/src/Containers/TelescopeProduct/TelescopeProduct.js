@@ -9,3 +9,8 @@ const TelescopeProduct = () => {
 };
 
 export default TelescopeProduct;
+
+/* DESCRIPTION :
+description title : Tout savoir sur ${nom du téléscope}
+
+*/

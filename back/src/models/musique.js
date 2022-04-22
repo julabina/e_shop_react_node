@@ -33,13 +33,26 @@ module.exports = (sequelize, DataTypes) => {
         stock: {
             type: DataTypes.INTEGER,
             allowNull: false
-        }, note: {
-            type: DataTypes.INTEGER,
-            allowNull: false
         }, 
-        description: {
+        descriptionTitle: {
             type: DataTypes.TEXT,
             allowNull: false
+        },
+        description1: {
+            type: DataTypes.TEXT,
+            allowNull: false
+        },
+        description2: {
+            type: DataTypes.TEXT,
+            allowNull: true
+        },
+        description3: {
+            type: DataTypes.TEXT,
+            allowNull: true
+        },
+        descriptionPicture: {
+            type: DataTypes.STRING,
+            allowNull: false,
         },
         promo: {
             type: DataTypes.BOOLEAN,
