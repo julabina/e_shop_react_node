@@ -1,13 +1,16 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('Product', {
+    return sequelize.define('Telescope', {
         id: {
             type: DataTypes.INTEGER,
-            primarayKey: true,
+            primaryKey: true,
             autoIncrement: true
         },
         name: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: {
+                msg: 'Le nom est deja pris.'
+            }
         },
         type: {
             type: DataTypes.STRING,
@@ -53,6 +56,15 @@ module.exports = (sequelize, DataTypes) => {
         },
         description: {
             type: DataTypes.TEXT,
+            allowNull: false
+        },
+        promo: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+            allowNull: false
+        },
+        promoValue: {
+            type: DataTypes.INTEGER,
             allowNull: false
         }
     }, {

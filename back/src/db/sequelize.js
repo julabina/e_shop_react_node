@@ -1,5 +1,5 @@
-const { Sequelize } = require("sequelize");
-const ProductModel = require('../models/product');
+const { Sequelize, DataTypes } = require("sequelize");
+const TelescopeModel = require('../models/telescope');
 const CommentModel = require('../models/comment');
 const data = require('../db/mock-products');
 
@@ -17,9 +17,9 @@ const sequelize = new Sequelize(
     }
 )
 
-const Product = ProductModel(sequelize, DataTypes);
+const Telescope = TelescopeModel(sequelize, DataTypes);
 const Comment = CommentModel(sequelize, DataTypes);
 
 module.exports = {
-    Product, Comment
+    Telescope, Comment
 }
