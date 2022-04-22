@@ -1,0 +1,55 @@
+.header {
+    &__section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 120px;
+        width: 100%;
+        padding: 0 200px;
+        background: map-get($map: $colors, $key:primary );
+        &__box {
+            display: flex;
+            border-left: 1px solid map-get($map: $colors, $key:whiteTrans );
+            &__menu {
+                display: flex;
+                position: relative;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                padding: 5px 0 ;
+                border-right: 1px solid map-get($map: $colors, $key:whiteTrans );
+                height: 50px;
+                width: 100px;
+                color: map-get($map: $colors, $key:whiteLight );
+                transition: all 250ms ease-in-out;
+                &:hover {
+                    color: map-get($map: $colors, $key: tertiary);
+                    transition: all 250ms ease-in-out;
+                }
+                &__cartCount {
+                    position: absolute;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    right: 15px;
+                    top: 0px;
+                    background: map-get($map: $colors, $key: tertiary);
+                    width: 17px;
+                    height: 17px;
+                    border-radius: 50%;
+                    &__count {
+                        font-size: 0.7em;
+                        color: map-get($map: $colors, $key: whiteLight);
+                    }
+                }
+                &__title {
+                    text-transform: uppercase;
+                    font-size: 0.9em;
+                }
+            }
+        }
+        &__title {
+            color: map-get($map: $colors, $key:whiteLight );
+        }
+    }
+}
