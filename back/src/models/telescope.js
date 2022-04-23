@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        FD: {
+        fd: {
             type: DataTypes.FLOAT,
             allowNull: false
         },
@@ -56,11 +56,15 @@ module.exports = (sequelize, DataTypes) => {
         },
         description2: {
             type: DataTypes.TEXT,
-            allowNull: false
+            allowNull: true
+        },
+        description3: {
+            type: DataTypes.TEXT,
+            allowNull: true
         },
         descriptionPicture: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         promo: {
             type: DataTypes.BOOLEAN,
