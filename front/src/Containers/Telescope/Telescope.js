@@ -1,6 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTelescopes } from '../../redux/telescope/telescopeReducer';
 
 const Telescope = () => {
+
+    const { telescopes } = useSelector(state => ({
+        ...state.telescopeReducer
+    }))
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (telescopes.length === 0) {
+            dispatch(getTelescopes());
+        }
+    }, [])
+
     return (
         <main>
             <section className='telescopesList'>
@@ -19,7 +34,7 @@ const Telescope = () => {
 
                 </div>
                 <div className="telescopesList__bot">
-                    
+
                 </div>
             </section>
         </main>

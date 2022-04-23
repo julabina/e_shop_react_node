@@ -1,9 +1,9 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
-import productReducer from './products/productReducer';
+import telescopeReducer from './telescope/telescopeReducer';
 import thunk from "redux-thunk";
 
 const rootReducer = combineReducers({   
-    productReducer    
+    telescopeReducer    
 })
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
