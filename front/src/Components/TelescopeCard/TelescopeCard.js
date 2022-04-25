@@ -64,6 +64,7 @@ const TelescopeCard = (props) => {
             price: props.price,
             stock: props.stock
         }
+        
         dispatch({
             type: 'ADDTOCART',
             payload : item
