@@ -1,0 +1,63 @@
+.telescopeProduct {
+    width: 1480px;
+    &__top {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        &__right {
+            width: 790px;
+            border-bottom: 1px solid map-get($map: $colors, $key:grayTrans );
+            border-left: 1px solid map-get($map: $colors, $key:grayTrans );
+        }
+        &__left {
+            display: flex;
+            justify-content:space-between ;
+            width: 690px;
+            display: flex;
+            border-bottom: 1px solid map-get($map: $colors, $key:grayTrans );
+            &__mainImg {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 500px;
+                &__img {
+                    height: 400px;
+                    width: 400px;
+                    object-fit: cover;
+                }
+            }
+            &__tinyImg {
+                display: flex;
+                flex-direction: column;
+                margin-top: 40px;
+                &__cont {
+                    margin: 20px 40px;
+                    &__cover {
+                        position: absolute;
+                        width: 80px;height: 80px;
+                        background: rgba(0, 0, 0, 0.37);
+                        opacity: 0;
+                        cursor: pointer;
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+                    img {
+                        height: 80px;
+                        width: 80px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.telescopeInfos {
+    width: 1480px;
+    &__infos {
+        &__description {
+            margin: 15px 0;
+        }
+    }
+}

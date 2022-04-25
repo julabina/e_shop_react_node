@@ -23,22 +23,17 @@ const TelescopeCard = (props) => {
         }
 
         if(action === 'add') {
-            if(inputValue !== props.stock) {
-                newVal = val + 1;
-            } else {
-                newVal = val;
-            }
+            
+            (inputValue !== props.stock) ? (newVal = val + 1) : (newVal = val)
+
         } else if(action === 'less') {
-            if(val > 1) {
-                newVal =  val - 1;
-            } else {
-                newVal = val
-            }
+
+            (val > 1) ? (newVal = val -1) : (newVal = val)
+
         } else if(action === 'change') {
             newVal = parseInt(value);
-            if (newVal >= props.stock) {
-                newVal = props.stock
-            }
+            
+            (newVal >= props.stock) && (newVal = props.stock)
         }
 
         if(newVal > 1 && newVal !== props.stock) {

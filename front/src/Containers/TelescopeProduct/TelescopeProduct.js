@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { v4 as uuidv4 } from 'uuid';
 
 const TelescopeProduct = () => {
 
     const params = useParams();
     const [telescopeData, setTelescopeData] = useState({});
+    const [picturesData, setPicturesData] = useState([]);
     let back = '< retour'
 
     useEffect(() => {
@@ -12,20 +16,81 @@ const TelescopeProduct = () => {
         .then(res => res.json())
         .then(data => {
             console.log(data);
+            let price = (data.data.price).toFixed(2);
+            let newArr = [];
             let item = {
-                img: data.data.descriptionPicture,
-                name: data.data.name
+                img: data.data.pictures[0],
+                imgDesc: data.data.descriptionPicture,
+                name: data.data.name,
+                price: price,
+                stock: data.data.stock,
+                description1: data.data.description1,
+                description2: data.data.description2,
+                description3: data.data.description3
             }
-            setTelescopeData(item)
+            for(let i = 0; i < data.data.pictures.length; i++) {
+                let pict = {
+                    img: data.data.pictures[i],
+                    id: uuidv4()
+                }
+                newArr.push(pict);
+            }
+            setPicturesData(newArr);
+            setTelescopeData(item);
         })
     },[])
 
     return (
-        <main className='telescopeProduct'>
+        <main>
+        <section className='telescopeProduct'>
             <p>{back}</p>
             <div className="telescopeProduct__top">
-                
+                <div className="telescopeProduct__top__left">
+                <div className="telescopeProduct__top__left__mainImg">
+                    <img className='telescopeProduct__top__left__mainImg__img' src={process.env.PUBLIC_URL + telescopeData.img} alt={'photo de ' + telescopeData.name} />
+                </div>
+                    <div className="telescopeProduct__top__left__tinyImg">
+                        {picturesData.map(el => {
+                            if (picturesData.length > 1) {
+                                return (
+                                    <div className="telescopeProduct__top__left__tinyImg__cont">
+                                        <div className="telescopeProduct__top__left__tinyImg__cont__cover"></div>
+                                        <img key={el.id} className='telescopeProduct__top__left__tinyImg__cont__img' src={process.env.PUBLIC_URL + el.img} alt={'photo de ' + telescopeData.name} />
+                                    </div>
+                                ) 
+                            }
+                        })}
+                    </div>
+                </div>
+                <div className="telescopeProduct__top__right">
+                    <h2>{telescopeData.name}</h2>
+                    <p className='telescopeProduct__top__right__price'>{telescopeData.price} €</p>
+                    {(telescopeData.stock === 0) ? <p className="telescopeProduct__top__right__stock telescopeProduct__top__right__stock--out">Rupture</p> : <p className="telescopeProduct__top__right__stock">En Stock</p> }
+                    <div className="telescopeProduct__top__right__addCart">
+                        <div className="telescopeProduct__top__right__addCart__countCont">
+                            <button className="telescopeProduct__top__right__addCart__countCont__btn">-</button>
+                            <input type="number" className="telescopeProduct__top__right__addCart__countCont__input" />
+                            <button className="telescopeProduct__top__right__addCart__countCont__btn">+</button>
+                        </div>
+                        <button><FontAwesomeIcon icon={faShoppingCart} /> Ajouter au panier</button>
+                    </div>
+                </div>
             </div>
+        </section>
+        <section className="telescopeInfos">
+            <div className="telescopeInfos__tabsCont">
+                <div className="telescopeInfos__tabsCont__tab">Desciption</div>
+                <div className="telescopeInfos__tabsCont__tab">Caractéristiques</div>
+                <div className="telescopeInfos__tabsCont__tab">Commentaire</div>
+            </div>
+            <div className="">
+                <h3>Tout savoir sur {telescopeData.name}</h3>
+                <p className='telescopeInfos__infos__description'>{telescopeData.description1}</p>
+                {telescopeData.description2 !== null && <p className='telescopeInfos__infos__description'>{telescopeData.description2}</p>}
+                {telescopeData.imgDesc !== null && <img src={process.env.PUBLIC_URL + telescopeData.imgDesc} alt={"photo de " + telescopeData.name} />}
+                {telescopeData.description3 !== null && <p className='telescopeInfos__infos__description'>{telescopeData.description3}</p>}
+            </div>
+        </section>
         </main>
     );
 };
