@@ -154,7 +154,7 @@ body {
 }
 .telescopeCard__addCount__btn--unselected {
   opacity: 0.5;
-  user-select: none;
+  pointer-events: none;
 }
 .telescopeCard__addCount__btn--unselected:hover {
   background: #f3f3f3;

@@ -5,8 +5,11 @@ import { NavLink } from 'react-router-dom';
 const TelescopeCard = (props) => {
 
     const dispatch = useDispatch();
+    let inputFirstValue;
+    
+    (props.stock === 0) ? (inputFirstValue = 0): (inputFirstValue = 1);
 
-    const [inputValue, setInputValue] = useState(1)
+    const [inputValue, setInputValue] = useState(inputFirstValue)
 
 
     const changeInputValue = (action, value) => {
@@ -14,12 +17,12 @@ const TelescopeCard = (props) => {
         const addBtn = document.getElementById('telescopeCard__addBtn');
         let val = inputValue, newVal; 
 
+        console.log(props.stock);
         if (isNaN(val)) {
             val = 1;
         }
 
         if(action === 'add') {
-            console.log(props.stock);
             if(inputValue !== props.stock) {
                 newVal = val + 1;
             } else {
@@ -58,17 +61,21 @@ const TelescopeCard = (props) => {
     }
     
     const addToCart = (value) => {
-        let item = {
-            id: props.id,
-            count: value,
-            price: props.price,
-            stock: props.stock
-        }
+        if (props.stock !== 0) {
+
+            let item = {
+                id: props.id,
+                count: value,
+                price: props.price,
+                stock: props.stock
+            }
+            
+            dispatch({
+                type: 'ADDTOCART',
+                payload : item
+            })
         
-        dispatch({
-            type: 'ADDTOCART',
-            payload : item
-        })
+        } 
     }
 
     return (
@@ -81,7 +88,7 @@ const TelescopeCard = (props) => {
                 <div className="telescopeCard__addCount">
                     <button onClick={() => changeInputValue('less')} className='telescopeCard__addCount__btn telescopeCard__addCount__btn--unselected' id='telescopeCard__lessBtn'>-</button>
                     <input onInput={(e) => changeInputValue('change', e.target.value)} className='telescopeCard__addCount__input' type="number" name="" min='1' max={props.stock} value={inputValue} />
-                    <button onClick={() => changeInputValue('add')} className='telescopeCard__addCount__btn' id='telescopeCard__addBtn'>+</button>
+                    <button onClick={() => changeInputValue('add')} className={props.stock === 0 ? 'telescopeCard__addCount__btn telescopeCard__addCount__btn--unselected' : 'telescopeCard__addCount__btn'} id='telescopeCard__addBtn'>+</button>
                 </div>
                 <div className="telescopeCard__buttons">
                     <NavLink to={'/telescope/' + props.id}>

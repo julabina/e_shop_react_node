@@ -5,6 +5,7 @@ const TelescopeProduct = () => {
 
     const params = useParams();
     const [telescopeData, setTelescopeData] = useState({});
+    let back = '< retour'
 
     useEffect(() => {
         fetch('http://localhost:3000/api/telescopes/' + params.id)
@@ -20,11 +21,15 @@ const TelescopeProduct = () => {
     },[])
 
     return (
-        <main>
-            <img src={process.env.PUBLIC_URL + telescopeData.img} alt={'photo de ' + telescopeData.name} />
+        <main className='telescopeProduct'>
+            <p>{back}</p>
+            <div className="telescopeProduct__top">
+                
+            </div>
         </main>
     );
 };
+{/* <img src={process.env.PUBLIC_URL + telescopeData.img} alt={'photo de ' + telescopeData.name} /> */}
 
 export default TelescopeProduct;
 

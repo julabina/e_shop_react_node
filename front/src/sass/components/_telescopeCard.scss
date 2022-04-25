@@ -50,7 +50,7 @@
             }
             &--unselected {
                 opacity: 0.5;
-                user-select: none;
+                pointer-events: none;
                 &:hover {
                     background: map-get($colors, whiteLight);
                 }
