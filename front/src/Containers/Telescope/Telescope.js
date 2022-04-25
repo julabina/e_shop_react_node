@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import TelescopeCard from '../../Components/TelescopeCard/TelescopeCard';
 import { getTelescopes } from '../../redux/telescope/telescopeReducer';
 
 const Telescope = () => {
@@ -31,7 +32,11 @@ const Telescope = () => {
                     </select>
                 </div>
                 <div className="telescopesList__main">
-
+                    <ul>
+                        {telescopes.map(el => {
+                            return <TelescopeCard id={el.id} name={el.name} price={el.price} key={el.id} image={el.descriptionPicture} stock={el.stock} />
+                        })} 
+                    </ul>
                 </div>
                 <div className="telescopesList__bot">
 

@@ -19,18 +19,13 @@ function telescopeReducer(state = INITIAL_STATE, action) {
 export default telescopeReducer;
 
 export const getTelescopes = () => dispatch => {
-    fetch('http://localhost:3000',{
-        mode: 'no-cors',
-        method: "get",
-        headers: {
-             "Content-Type": "application/json"
-        }
-    })
+    fetch('http://localhost:3000/api/telescopes')
     .then(res => res.json())
     .then(data => {
+        console.log(data.data);
         dispatch({
             type: 'LOADTELESCOPE',
-            payload: data
+            payload: data.data
         })
     })
 }

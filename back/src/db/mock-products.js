@@ -12,7 +12,7 @@ const telescopes = [
         description1: 'Lunette achromatique de 70mm, ce modèle est un grand classique pour l\'initiation à l\'observation du ciel. Disponible à un prix très attractif elle permet à chacun de se lancer tout en bénéficiant d\'un instrument de qualité (contrairement aux instruments vendus dans les magasins non-spécialisés). L\'objectif achromatique à deux éléments à air est traité multi-couches et fournit des images de qualité à faibles et moyens grossissements des planètes. Le barillet est collimaté en usine et ne nécessite aucune maintenance au contraire des télescopes.',
         description2: 'Sa longueur focale de 700mm (rapport à f/10) est importante pour permettre de voir de fins détails sur la Lune (nombreux cratères) et les surfaces planétaires (Jupiter et Saturne). Le chercheur droit permet de localiser la cible avant le déplacement de la monture. C\'est un modèle AZ2 simple à utiliser (mode altazimutale avec déplacements haut-bas / gauche-droite). Le positionnement de l\'objet se fait par déserrage de 2 vis. Le trépied comporte un plateau porte-accessoires (pour poser bouchons, oculaires ou filtres).',
         description3: null,
-        descriptionPicture: "",
+        descriptionPicture: "/assets/sw70-700-desc.jpg",
         promo: false,
         promoValue: 0
     },

@@ -9,6 +9,11 @@ const port = 3000;
 app
     .use(morgan('dev'))
     .use(bodyParser.json())
+    .use(function(req, res, next) {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        next();
+    });
 
 sequelize.initDb();
 
