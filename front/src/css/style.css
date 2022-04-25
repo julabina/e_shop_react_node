@@ -271,6 +271,13 @@ main {
 .telescopeProduct {
   width: 1480px;
 }
+.telescopeProduct__back {
+  margin: 30px 0 10px;
+  cursor: pointer;
+}
+.telescopeProduct__back:hover {
+  opacity: 0.7;
+}
 .telescopeProduct__top {
   display: flex;
   justify-content: space-between;
@@ -280,6 +287,72 @@ main {
   width: 790px;
   border-bottom: 1px solid rgba(128, 128, 128, 0.452);
   border-left: 1px solid rgba(128, 128, 128, 0.452);
+  padding: 10px 0 0 40px;
+}
+.telescopeProduct__top__right h2 {
+  font-size: 1.9em;
+  font-weight: 700;
+  width: 80%;
+  line-height: 1.4;
+}
+.telescopeProduct__top__right__price {
+  margin: 60px 0 20px;
+  font-size: 2.5em;
+  font-weight: 700;
+}
+.telescopeProduct__top__right__stock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  background: #74c13b;
+  width: 80px;
+  height: 25px;
+}
+.telescopeProduct__top__right__stock--out {
+  background: #FF0000;
+}
+.telescopeProduct__top__right__addCart {
+  display: flex;
+  margin: 50px 0;
+}
+.telescopeProduct__top__right__addCart__countCont {
+  display: flex;
+}
+.telescopeProduct__top__right__addCart__countCont__btn {
+  height: 45px;
+  width: 45px;
+  border: 1px solid rgba(128, 128, 128, 0.452);
+  padding-bottom: 5px;
+  font-size: 1.5em;
+  font-weight: 700;
+  cursor: pointer;
+}
+.telescopeProduct__top__right__addCart__countCont__input {
+  height: 45px;
+  width: 120px;
+  border-top: 1px solid rgba(128, 128, 128, 0.452);
+  border-bottom: 1px solid rgba(128, 128, 128, 0.452);
+  border-left: none;
+  border-right: none;
+  padding-bottom: 5px;
+}
+.telescopeProduct__top__right__addCart__addBtn {
+  height: 45px;
+  margin-left: 20px;
+  width: 100vw;
+  text-transform: uppercase;
+  font-size: 1.4em;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  background: #14416A;
+  border: none;
+  border-radius: 1px;
+  color: #f3f3f3;
+}
+.telescopeProduct__top__right__addCart__addBtn__cart {
+  margin-right: 15px;
+  font-size: 0.9em;
 }
 .telescopeProduct__top__left {
   display: flex;
@@ -320,6 +393,7 @@ main {
   opacity: 1;
 }
 .telescopeProduct__top__left__tinyImg__cont img {
+  object-fit: cover;
   height: 80px;
   width: 80px;
 }

@@ -74,7 +74,7 @@ const TelescopeCard = (props) => {
     }
 
     return (
-            <li className='telescopeCard'>
+            <li className='telescopeCard' >
                 <NavLink className='telescopeCard__link' to={'/telescope/' + props.id}>
                     <h3>{props.name}</h3>
                     <img className='telescopeCard__img' src={process.env.PUBLIC_URL + props.image} alt={"photo de " + props.name} />

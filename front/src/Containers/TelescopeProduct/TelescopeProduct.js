@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { v4 as uuidv4 } from 'uuid';
@@ -9,6 +9,7 @@ const TelescopeProduct = () => {
     const params = useParams();
     const [telescopeData, setTelescopeData] = useState({});
     const [picturesData, setPicturesData] = useState([]);
+    const [mainPicture, setMainPicture] = useState();
     let back = '< retour'
 
     useEffect(() => {
@@ -19,7 +20,6 @@ const TelescopeProduct = () => {
             let price = (data.data.price).toFixed(2);
             let newArr = [];
             let item = {
-                img: data.data.pictures[0],
                 imgDesc: data.data.descriptionPicture,
                 name: data.data.name,
                 price: price,
@@ -37,24 +37,33 @@ const TelescopeProduct = () => {
             }
             setPicturesData(newArr);
             setTelescopeData(item);
+            setMainPicture(process.env.PUBLIC_URL + data.data.pictures[0])
         })
     },[])
+
+    const changeImg = (img) => {
+
+        let test =  process.env.PUBLIC_URL + img;
+        setMainPicture(test);
+    }
 
     return (
         <main>
         <section className='telescopeProduct'>
-            <p>{back}</p>
+            <NavLink to={"/telescope"}>
+                <p className='telescopeProduct__back'>{back}</p>
+            </NavLink>
             <div className="telescopeProduct__top">
                 <div className="telescopeProduct__top__left">
                 <div className="telescopeProduct__top__left__mainImg">
-                    <img className='telescopeProduct__top__left__mainImg__img' src={process.env.PUBLIC_URL + telescopeData.img} alt={'photo de ' + telescopeData.name} />
+                    <img className='telescopeProduct__top__left__mainImg__img' src={mainPicture} alt={'photo de ' + telescopeData.name} />
                 </div>
                     <div className="telescopeProduct__top__left__tinyImg">
                         {picturesData.map(el => {
                             if (picturesData.length > 1) {
                                 return (
                                     <div className="telescopeProduct__top__left__tinyImg__cont">
-                                        <div className="telescopeProduct__top__left__tinyImg__cont__cover"></div>
+                                        <div onClick={() => changeImg(el.img)} className="telescopeProduct__top__left__tinyImg__cont__cover"></div>
                                         <img key={el.id} className='telescopeProduct__top__left__tinyImg__cont__img' src={process.env.PUBLIC_URL + el.img} alt={'photo de ' + telescopeData.name} />
                                     </div>
                                 ) 
@@ -72,7 +81,7 @@ const TelescopeProduct = () => {
                             <input type="number" className="telescopeProduct__top__right__addCart__countCont__input" />
                             <button className="telescopeProduct__top__right__addCart__countCont__btn">+</button>
                         </div>
-                        <button><FontAwesomeIcon icon={faShoppingCart} /> Ajouter au panier</button>
+                        <button className='telescopeProduct__top__right__addCart__addBtn'><FontAwesomeIcon className='telescopeProduct__top__right__addCart__addBtn__cart' icon={faShoppingCart} /> Ajouter au panier</button>
                     </div>
                 </div>
             </div>
