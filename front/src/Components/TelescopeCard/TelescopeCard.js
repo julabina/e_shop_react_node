@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 const TelescopeCard = (props) => {
+
+    const dispatch = useDispatch();
 
     const [inputValue, setInputValue] = useState(1)
 
@@ -53,6 +56,19 @@ const TelescopeCard = (props) => {
         }
         setInputValue(newVal);
     }
+    
+    const addToCart = (value) => {
+        let item = {
+            id: props.id,
+            count: value,
+            price: props.price,
+            stock: props.stock
+        }
+        dispatch({
+            type: 'ADDTOCART',
+            payload : item
+        })
+    }
 
     return (
             <li className='telescopeCard'>
@@ -67,8 +83,10 @@ const TelescopeCard = (props) => {
                     <button onClick={() => changeInputValue('add')} className='telescopeCard__addCount__btn' id='telescopeCard__addBtn'>+</button>
                 </div>
                 <div className="telescopeCard__buttons">
-                    <button className='telescopeCard__buttons__btn telescopeCard__buttons__btn__1'>Infos</button>
-                    <button className='telescopeCard__buttons__btn telescopeCard__buttons__btn__2'>Acheter</button>
+                    <NavLink to={'/telescope/' + props.id}>
+                        <button className='telescopeCard__buttons__btn telescopeCard__buttons__btn__1'>Infos</button>
+                    </NavLink>
+                    <button onClick={() => addToCart(inputValue)} className='telescopeCard__buttons__btn telescopeCard__buttons__btn__2'>Acheter</button>
                 </div>
             </li>
     );
