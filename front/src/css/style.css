@@ -78,10 +78,15 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+html, body {
+  height: 100vh;
+}
+
 main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 78vh;
 }
 
 .navBar {
@@ -286,6 +291,49 @@ main {
   margin-left: 3px;
   border: none;
   color: #f3f3f3;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  background: #14416A;
+}
+.footer__section {
+  display: flex;
+  justify-content: space-between;
+  background: #14416A;
+  padding: 70px 0 120px;
+  width: 1480px;
+  color: #f3f3f3;
+}
+.footer__section h2 {
+  font-size: 2em;
+  width: 250px;
+}
+.footer__section__cont {
+  display: flex;
+}
+.footer__section__cont__box {
+  width: 220px;
+  margin: 0 0 0 45px;
+  line-height: 1.5;
+}
+.footer__section__cont__box h3 {
+  border-bottom: 1px solid #f3f3f3;
+  text-transform: uppercase;
+  margin-bottom: 11px;
+  padding-bottom: 4px;
+  font-weight: 700;
+  font-size: 0.9em;
+}
+.footer__section__cont__box p {
+  font-size: 0.9em;
+  cursor: pointer;
+  transition: opacity 200ms ease-in-out;
+}
+.footer__section__cont__box p:hover {
+  opacity: 0.6;
+  transition: opacity 200ms ease-in-out;
 }
 
 .telescopesList {

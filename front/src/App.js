@@ -12,6 +12,7 @@ import MusiqueProduct from "./Containers/MusiqueProduct/MusiqueProduct";
 import TelescopeProduct from "./Containers/TelescopeProduct/TelescopeProduct";
 import ChienProduct from "./Containers/ChienProduct/ChienProduct";
 import PromotionProduct from "./Containers/PromotionProduct/PromotionProduct";
+import Footer from "./Components/Footer/Footer";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path='/contact' element={<Contact />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
+      <Footer />
     </>
   );
 }

@@ -1,0 +1,42 @@
+.footer {
+    display: flex;
+    justify-content: center;
+    background: map-get($colors, primary);
+    &__section {
+        display: flex;
+        justify-content: space-between;
+        background: map-get($colors, primary);
+        padding: 70px 0 120px;
+        width: 1480px;
+        color: map-get($map: $colors, $key:whiteLight);
+        h2 {
+            font-size: 2em;
+            width: 250px;
+        }
+        &__cont {
+            display: flex;
+            &__box {
+                width: 220px;
+                margin: 0 0 0 45px;
+                line-height: 1.5;
+                h3 {
+                    border-bottom: 1px solid map-get($map: $colors, $key:whiteLight );
+                    text-transform: uppercase;
+                    margin-bottom: 11px;
+                    padding-bottom: 4px;
+                    font-weight: 700;
+                    font-size: 0.9em;
+                }
+                p {
+                    font-size: 0.9em;
+                    cursor: pointer;
+                    transition: opacity 200ms ease-in-out;
+                    &:hover {
+                        opacity: 0.6;
+                        transition: opacity 200ms ease-in-out;
+                    }
+                }
+            }
+        }
+    }
+}
