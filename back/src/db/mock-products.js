@@ -392,10 +392,27 @@ const telescopes = [
     }
 ];
 
-const musiques = [];
-
-const chiens = [];
+const oculaires = [
+    {
+        name: "",
+        brand: "",
+        model: "",
+        focal: 2,
+        coulant: 2,
+        fov: 2,
+        eyeRelief: 2,
+        pictures : [],
+        price: 2,
+        stock: 2,
+        description1: '',
+        description2: '',
+        description3: '',
+        descriptionPicture: '',
+        promo: false,
+        promoValue: 2
+    }
+];
 
 module.exports = {
-    telescopes, musiques, chiens
+    telescopes, oculaires
 }

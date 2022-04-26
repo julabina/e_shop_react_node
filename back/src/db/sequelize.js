@@ -39,7 +39,7 @@ const initDb = () => {
                 description3: el.description3,
                 descriptionPicture: el.descriptionPicture,
                 promo: el.promo,
-                promoValue: 0
+                promoValue: el.promoValue
             })
         })
     })

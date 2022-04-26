@@ -16,13 +16,18 @@ const TelescopeProduct = () => {
         fetch('http://localhost:3000/api/telescopes/' + params.id)
         .then(res => res.json())
         .then(data => {
-            console.log(data);
-            let price = (data.data.price).toFixed(2);
+            let price;
             let newArr = [];
+            if (data.data.promo) {
+                let reduction = (data.data.price / 100) * data.data.promoValue;
+                price = data.data.price - reduction;
+            } else {
+                price = data.data.price;
+            }
             let item = {
                 imgDesc: data.data.descriptionPicture,
                 name: data.data.name,
-                price: price,
+                price: (price).toFixed(2),
                 stock: data.data.stock,
                 description1: data.data.description1,
                 description2: data.data.description2,
@@ -31,12 +36,16 @@ const TelescopeProduct = () => {
                 focal: data.data.focal,
                 fd: data.data.fd,
                 mount: data.data.mount,
-                type: data.data.type
+                type: data.data.type,
+                priceNoPromo: data.data.price,
+                promoValue: data.data.promoValue,
+                promo: data.data.promo
             }
             for(let i = 0; i < data.data.pictures.length; i++) {
                 let pict = {
                     img: data.data.pictures[i],
-                    id: uuidv4()
+                    id: uuidv4(),
+                    ind: i
                 }
                 newArr.push(pict);
             }
@@ -46,8 +55,16 @@ const TelescopeProduct = () => {
         })
     },[])
 
-    const changeImg = (img) => {
-
+    const changeImg = (img, ind) => {
+        const tinyImgs = document.querySelectorAll('.telescopeProduct__top__left__tinyImg__cont__cover');
+        for (let i = 0; i < tinyImgs.length; i++) {
+            if (tinyImgs[i].classList.contains('telescopeProduct__top__left__tinyImg__cont__cover--active') && i !== parseInt(ind)) {
+                tinyImgs[i].classList.remove('telescopeProduct__top__left__tinyImg__cont__cover--active');
+            }
+            if(i === parseInt(ind) && !tinyImgs[i].classList.contains('telescopeProduct__top__left__tinyImg__cont__cover--active')) {
+                tinyImgs[i].classList.add('telescopeProduct__top__left__tinyImg__cont__cover--active')
+            }
+        }
         let test =  process.env.PUBLIC_URL + img;
         setMainPicture(test);
     }
@@ -86,9 +103,9 @@ const TelescopeProduct = () => {
                         {picturesData.map(el => {
                             if (picturesData.length > 1) {
                                 return (
-                                    <div className="telescopeProduct__top__left__tinyImg__cont">
-                                        <div onClick={() => changeImg(el.img)} className="telescopeProduct__top__left__tinyImg__cont__cover"></div>
-                                        <img key={el.id} className='telescopeProduct__top__left__tinyImg__cont__img' src={process.env.PUBLIC_URL + el.img} alt={'photo de ' + telescopeData.name} />
+                                    <div key={el.id} className="telescopeProduct__top__left__tinyImg__cont">
+                                        <div onClick={() => changeImg(el.img, el.ind)} className={el.ind === 0 ? "telescopeProduct__top__left__tinyImg__cont__cover telescopeProduct__top__left__tinyImg__cont__cover--active" : "telescopeProduct__top__left__tinyImg__cont__cover" }></div>
+                                        <img className='telescopeProduct__top__left__tinyImg__cont__img' src={process.env.PUBLIC_URL + el.img} alt={'photo de ' + telescopeData.name} />
                                     </div>
                                 ) 
                             }
@@ -97,7 +114,7 @@ const TelescopeProduct = () => {
                 </div>
                 <div className="telescopeProduct__top__right">
                     <h2>{telescopeData.name}</h2>
-                    <p className='telescopeProduct__top__right__price'>{telescopeData.price} €</p>
+                    <p className='telescopeProduct__top__right__price'>{telescopeData.price} € {telescopeData.promo && <span className='telescopeProduct__top__right__price__span'>{(telescopeData.priceNoPromo).toFixed(2)} €</span>}</p>
                     {(telescopeData.stock === 0) ? <p className="telescopeProduct__top__right__stock telescopeProduct__top__right__stock--out">Rupture</p> : <p className="telescopeProduct__top__right__stock">En Stock</p> }
                     <div className="telescopeProduct__top__right__addCart">
                         <div className="telescopeProduct__top__right__addCart__countCont">

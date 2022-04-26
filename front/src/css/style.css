@@ -145,6 +145,12 @@ main {
   font-weight: 700;
   color: #FF0000;
 }
+.telescopeCard__price__span {
+  position: absolute;
+  color: #000;
+  font-size: 0.8em;
+  margin: 3px 0 0 -40px;
+}
 .telescopeCard__addCount {
   margin: 7px 0 10px;
 }
@@ -372,6 +378,14 @@ main {
   font-size: 2.5em;
   font-weight: 700;
 }
+.telescopeProduct__top__right__price__span {
+  margin-left: 20px;
+  font-size: 0.8em;
+  text-decoration: line-through;
+  text-decoration-thickness: 3px;
+  text-decoration-color: #000;
+  color: #FF0000;
+}
 .telescopeProduct__top__right__stock {
   display: flex;
   justify-content: center;
@@ -468,6 +482,10 @@ main {
   cursor: pointer;
 }
 .telescopeProduct__top__left__tinyImg__cont__cover:hover {
+  opacity: 1;
+}
+.telescopeProduct__top__left__tinyImg__cont__cover--active {
+  background: rgba(0, 0, 0, 0.527);
   opacity: 1;
 }
 .telescopeProduct__top__left__tinyImg__cont img {

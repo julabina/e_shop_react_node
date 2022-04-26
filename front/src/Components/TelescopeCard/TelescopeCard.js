@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
@@ -9,8 +9,19 @@ const TelescopeCard = (props) => {
     
     (props.stock === 0) ? (inputFirstValue = 0): (inputFirstValue = 1);
 
-    const [inputValue, setInputValue] = useState(inputFirstValue)
+    const [inputValue, setInputValue] = useState(inputFirstValue);
+    const [price, setPrice] = useState();
 
+    useEffect(() => {
+        let val;
+        if(props.promo === true) {
+            let reduction = (props.price / 100) * props.promoValue;
+            val = props.price - reduction;
+        } else {
+            val = props.price;
+        }
+        setPrice((val).toFixed(2));
+    },[]);
 
     const changeInputValue = (action, value) => {
         const lessBtn = document.getElementById('telescopeCard__lessBtn');
@@ -79,7 +90,7 @@ const TelescopeCard = (props) => {
                     <h3>{props.name}</h3>
                     <img className='telescopeCard__img' src={process.env.PUBLIC_URL + props.image} alt={"photo de " + props.name} />
                 </NavLink>
-                <p className='telescopeCard__price'>{(props.price).toFixed(2)} €</p>
+                <p className='telescopeCard__price'>{props.promo && <span className='telescopeCard__price__span'>{'-' + props.promoValue + "%"}</span>}{price} €</p>
                 <div className="telescopeCard__addCount">
                     <button onClick={() => changeInputValue('less')} className='telescopeCard__addCount__btn telescopeCard__addCount__btn--unselected' id='telescopeCard__lessBtn'>-</button>
                     <input onInput={(e) => changeInputValue('change', e.target.value)} className='telescopeCard__addCount__input' type="number" name="" min='1' max={props.stock} value={inputValue} />

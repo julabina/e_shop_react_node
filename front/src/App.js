@@ -7,7 +7,6 @@ import Promotion from "./Containers/Promotion/Promotion";
 import NotFound from "./Containers/NotFound/NotFound";
 import Cart from "./Containers/Cart/Cart";
 import TelescopeProduct from "./Containers/TelescopeProduct/TelescopeProduct";
-import PromotionProduct from "./Containers/PromotionProduct/PromotionProduct";
 import Footer from "./Components/Footer/Footer";
 import Search from "./Containers/Search/Search";
 
@@ -20,7 +19,6 @@ function App() {
         <Route path="/telescope" element={<Telescope />} />
         <Route path="/telescope/ref_=:id" element={<TelescopeProduct />} />
         <Route path="/promotion" element={<Promotion />} />
-        <Route path="/promotion/ref_=:id" element={<PromotionProduct />} />
         <Route path="/cart" element={<Cart />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/search/' element={<Search />} />

@@ -34,7 +34,7 @@ const Telescope = () => {
                 <div className="telescopesList__main">
                     <ul>
                         {telescopes.map(el => {
-                            return <TelescopeCard id={el.id} name={el.name} price={el.price} key={el.id} image={el.pictures[0]} stock={el.stock} />
+                            return <TelescopeCard id={el.id} name={el.name} price={el.price} key={el.id} image={el.pictures[0]} stock={el.stock} promo={el.promo} promoValue={el.promoValue} />
                         })} 
                     </ul>
                 </div>
