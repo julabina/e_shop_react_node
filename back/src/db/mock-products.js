@@ -257,7 +257,7 @@ const telescopes = [
     {
         name : "Télescope eVscope 2 Unistellar",
         type: 'téléscope Newton',
-        pictures : ["/assets/eVscope2-1.webp", "/assets/eVscope2-2.webp", "/assets/eVscope2-3.webp"],
+        pictures : ["/assets/eVscope2-1.webp", "/assets/eVscope2-2.webp"],
         diameter: 114,
         focal: 900,
         fd: 7.8,

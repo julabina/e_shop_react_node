@@ -262,6 +262,30 @@ main {
 }
 .header__section__title {
   color: #f3f3f3;
+  font-size: 2em;
+  font-weight: 700;
+}
+.header__section__search {
+  display: flex;
+}
+.header__section__search__input {
+  height: 40px;
+  width: 360px;
+  border-radius: 4px;
+  border: none;
+  background: rgba(255, 255, 255, 0.226);
+  color: #f3f3f3;
+  padding-left: 15px;
+}
+.header__section__search__btn {
+  height: 40px;
+  width: 40px;
+  font-size: 1.2em;
+  background: #1a1c17;
+  border-radius: 4px;
+  margin-left: 3px;
+  border: none;
+  color: #f3f3f3;
 }
 
 .telescopesList {
@@ -349,10 +373,16 @@ main {
   border: none;
   border-radius: 1px;
   color: #f3f3f3;
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
 }
 .telescopeProduct__top__right__addCart__addBtn__cart {
   margin-right: 15px;
   font-size: 0.9em;
+}
+.telescopeProduct__top__right__addCart__addBtn:hover {
+  background: #FF0000;
+  transition: all 250ms ease-in-out;
 }
 .telescopeProduct__top__left {
   display: flex;
@@ -425,6 +455,7 @@ main {
   text-transform: uppercase;
   padding: 15px 30px 12px;
   cursor: pointer;
+  user-select: none;
 }
 .telescopeInfos__tabsCont__tab--active {
   background: #14416A;

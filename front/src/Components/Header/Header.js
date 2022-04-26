@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faShoppingCart, faHomeLg, faPen, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart, faHomeLg, faPen, faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
 import NavBar from '../NavBar/NavBar';
 import { NavLink } from 'react-router-dom';
 
 const Header = () => {
+
+    const [searchValue, setSearchValue] = useState();
+
     return (
         <header className='header'>
             <section className='header__section'>
                 <NavLink to="/">
-                    <h1 className='header__section__title'>TITRE</h1>
+                    <h1 className='header__section__title'>REACT OPTIQUE SHOP</h1>
                 </NavLink>
+                <form className="header__section__search">
+                    <input type="search" className='header__section__search__input' placeholder='Rechercher' />
+                    <button className='header__section__search__btn'><FontAwesomeIcon className='header__section__search__btn__icon' icon={faSearch} /></button>
+                </form>
                 <div className="header__section__box">
                     <NavLink to='/'>
                         <div className="header__section__box__menu">

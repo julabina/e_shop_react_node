@@ -53,6 +53,30 @@
         }
         &__title {
             color: map-get($map: $colors, $key:whiteLight );
+            font-size: 2em;
+            font-weight: 700;
+        }
+        &__search {
+            display: flex;
+            &__input {
+                height: 40px;
+                width: 360px;
+                border-radius: 4px;
+                border: none;
+                background: map-get($map: $colors, $key:searchInput );
+                color: map-get($map: $colors, $key:whiteLight );
+                padding-left: 15px;
+            }
+            &__btn {
+                height: 40px;
+                width: 40px;
+                font-size: 1.2em;
+                background: map-get($map: $colors, $key:searchBtn );
+                border-radius: 4px;
+                margin-left: 3px;
+                border: none;
+                color: map-get($map: $colors, $key:whiteLight );
+            }
         }
     }
 }
