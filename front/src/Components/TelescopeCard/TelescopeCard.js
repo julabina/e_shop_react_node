@@ -75,7 +75,7 @@ const TelescopeCard = (props) => {
 
     return (
             <li className='telescopeCard' >
-                <NavLink className='telescopeCard__link' to={'/telescope/' + props.id}>
+                <NavLink className='telescopeCard__link' to={'/telescope/ref_=' + props.id}>
                     <h3>{props.name}</h3>
                     <img className='telescopeCard__img' src={process.env.PUBLIC_URL + props.image} alt={"photo de " + props.name} />
                 </NavLink>
@@ -86,7 +86,7 @@ const TelescopeCard = (props) => {
                     <button onClick={() => changeInputValue('add')} className={props.stock === 0 ? 'telescopeCard__addCount__btn telescopeCard__addCount__btn--unselected' : 'telescopeCard__addCount__btn'} id='telescopeCard__addBtn'>+</button>
                 </div>
                 <div className="telescopeCard__buttons">
-                    <NavLink to={'/telescope/' + props.id}>
+                    <NavLink to={'/telescope/ref_=' + props.id}>
                         <button className='telescopeCard__buttons__btn telescopeCard__buttons__btn__1'>Infos</button>
                     </NavLink>
                     <button onClick={() => addToCart(inputValue)} className='telescopeCard__buttons__btn telescopeCard__buttons__btn__2'>Acheter</button>
