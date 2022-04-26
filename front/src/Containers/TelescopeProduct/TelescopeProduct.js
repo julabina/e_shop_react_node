@@ -26,7 +26,12 @@ const TelescopeProduct = () => {
                 stock: data.data.stock,
                 description1: data.data.description1,
                 description2: data.data.description2,
-                description3: data.data.description3
+                description3: data.data.description3,
+                diameter: data.data.diameter,
+                focal: data.data.focal,
+                fd: data.data.fd,
+                mount: data.data.mount,
+                type: data.data.type
             }
             for(let i = 0; i < data.data.pictures.length; i++) {
                 let pict = {
@@ -45,6 +50,25 @@ const TelescopeProduct = () => {
 
         let test =  process.env.PUBLIC_URL + img;
         setMainPicture(test);
+    }
+
+    const changeTab = (valArr) => {
+        const tabs = document.querySelectorAll('.telescopeInfos__tabsCont__tab');
+        const infos = document.querySelectorAll('.telescopeInfos__infos');
+
+        for(let i = 0; i < tabs.length; i++) {
+            if(tabs[i].classList.contains('telescopeInfos__tabsCont__tab--active') && i !== parseInt(valArr)) {
+                tabs[i].classList.remove('telescopeInfos__tabsCont__tab--active');
+                infos[i].classList.remove('telescopeInfos__infos--active');
+            }
+            
+            if(i === parseInt(valArr)) {
+                if(!tabs[i].classList.contains('telescopeInfos__tabsCont__tab--active')) {
+                    tabs[i].classList.add('telescopeInfos__tabsCont__tab--active')
+                    infos[i].classList.add('telescopeInfos__infos--active');
+                }
+            }
+        }
     }
 
     return (
@@ -88,16 +112,49 @@ const TelescopeProduct = () => {
         </section>
         <section className="telescopeInfos">
             <div className="telescopeInfos__tabsCont">
-                <div className="telescopeInfos__tabsCont__tab">Desciption</div>
-                <div className="telescopeInfos__tabsCont__tab">Caractéristiques</div>
-                <div className="telescopeInfos__tabsCont__tab">Commentaire</div>
+                <div onClick={() => changeTab(0)} className="telescopeInfos__tabsCont__tab telescopeInfos__tabsCont__tab--active">Description</div>
+                <div onClick={() => changeTab(1)} className="telescopeInfos__tabsCont__tab">Caractéristiques</div>
+                <div onClick={() => changeTab(2)} className="telescopeInfos__tabsCont__tab">Commentaire</div>
             </div>
-            <div className="">
+            <div className="telescopeInfos__infos telescopeInfos__infos--active">
                 <h3>Tout savoir sur {telescopeData.name}</h3>
                 <p className='telescopeInfos__infos__description'>{telescopeData.description1}</p>
                 {telescopeData.description2 !== null && <p className='telescopeInfos__infos__description'>{telescopeData.description2}</p>}
-                {telescopeData.imgDesc !== null && <img src={process.env.PUBLIC_URL + telescopeData.imgDesc} alt={"photo de " + telescopeData.name} />}
+                {telescopeData.imgDesc !== null && <img className='telescopeInfos__infos__img' src={process.env.PUBLIC_URL + telescopeData.imgDesc} alt={"photo de " + telescopeData.name} />}
                 {telescopeData.description3 !== null && <p className='telescopeInfos__infos__description'>{telescopeData.description3}</p>}
+            </div>
+            <div className="telescopeInfos__infos">
+                <div className="telescopeInfos__infos__caractCont">
+                    <div className="telescopeInfos__infos__caractCont__caract telescopeInfos__infos__caractCont__caract__title">
+                        <p className="telescopeInfos__infos__caractCont__caract__type">Caractéristiques</p>
+                        <p className="telescopeInfos__infos__caractCont__caract__value">{telescopeData.name}</p>
+                    </div>
+                    <div className="telescopeInfos__infos__caractCont__caract">
+                        <p className="telescopeInfos__infos__caractCont__caract__type">Formule optique</p>
+                        <p className="telescopeInfos__infos__caractCont__caract__value">{telescopeData.type}</p>
+                    </div>
+                    <div className="telescopeInfos__infos__caractCont__caract telescopeInfos__infos__caractCont__caract--even">
+                        <p className="telescopeInfos__infos__caractCont__caract__type">Diamètre</p>
+                        <p className="telescopeInfos__infos__caractCont__caract__value">{telescopeData.diameter}mm</p>
+                    </div>
+                    <div className="telescopeInfos__infos__caractCont__caract">
+                        <p className="telescopeInfos__infos__caractCont__caract__type">Longueur focale</p>
+                        <p className="telescopeInfos__infos__caractCont__caract__value">{telescopeData.focal}mm</p>
+                    </div>
+                    <div className="telescopeInfos__infos__caractCont__caract telescopeInfos__infos__caractCont__caract--even">
+                        <p className="telescopeInfos__infos__caractCont__caract__type">Rapport F/D</p>
+                        <p className="telescopeInfos__infos__caractCont__caract__value">{telescopeData.fd}</p>
+                    </div>
+                    <div className="telescopeInfos__infos__caractCont__caract">
+                        <p className="telescopeInfos__infos__caractCont__caract__type">Monture</p>
+                        <p className="telescopeInfos__infos__caractCont__caract__value">{telescopeData.mount === null ? 'aucune' : telescopeData.mount}</p>
+                    </div>
+                </div>
+            </div>
+            <div className="telescopeInfos__infos">
+                <div className="telescopeInfos__infos__commentsCont">
+                    <p className='telescopeInfos__infos__commentsCont__status'>PAS ENCORE DE COMMENTAIRES</p>
+                </div>
             </div>
         </section>
         </main>
