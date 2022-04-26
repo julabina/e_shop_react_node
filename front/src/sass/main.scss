@@ -1,4 +1,5 @@
 @import './utils/variable';
+@import './utils/mixin';
 
 @import './base/reset';
 @import './base/typography';
@@ -6,6 +7,7 @@
 
 @import './components/navBar';
 @import './components/telescopeCard';
+@import './components/productCarrousel';
 
 @import './layouts/header';
 @import './layouts/footer';

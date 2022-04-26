@@ -216,6 +216,125 @@ main {
   align-items: center;
 }
 
+.carrousel {
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.705);
+  cursor: default;
+}
+.carrousel__modal {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  width: 600px;
+  min-height: 600px;
+  padding: 20px;
+  border-radius: 4px;
+  user-select: none;
+}
+.carrousel__modal img {
+  width: 560px;
+  height: 560px;
+  object-fit: cover;
+}
+.carrousel__modal__tinyImgs {
+  display: flex;
+  margin-top: 15px;
+}
+.carrousel__modal__tinyImgs__cont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 100px;
+  border: 1px solid rgba(0, 0, 0, 0.219);
+  border-radius: 3px;
+  cursor: pointer;
+  margin-right: 15px;
+}
+.carrousel__modal__tinyImgs__cont__cover {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: rgba(0, 0, 0, 0.37);
+  opacity: 0;
+  cursor: pointer;
+}
+.carrousel__modal__tinyImgs__cont__cover:hover {
+  opacity: 1;
+}
+.carrousel__modal__tinyImgs__cont__cover--active {
+  background: rgba(0, 0, 0, 0.527);
+  opacity: 1;
+}
+.carrousel__modal__tinyImgs__cont img {
+  object-fit: cover;
+  height: 80px;
+  width: 80px;
+}
+.carrousel__modal__closeBtn {
+  position: absolute;
+  right: 20px;
+  font-size: 1.2em;
+  font-weight: 700;
+  border: 2px solid black;
+  padding: 3px 6px;
+  border-radius: 50%;
+  background: #14416A;
+  color: #f3f3f3;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+}
+.carrousel__modal__closeBtn:hover {
+  color: #FF0000;
+  border-color: #FF0000;
+  transition: all 200ms ease-out;
+}
+.carrousel__modal__previous {
+  position: absolute;
+  left: 10px;
+  top: 300px;
+  height: 40px;
+  width: 40px;
+  font-weight: 700;
+  font-size: 1.4em;
+  padding-bottom: 2px;
+  background: rgba(205, 205, 205, 0.452);
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  transition: all 150ms ease-in-out;
+}
+.carrousel__modal__previous:hover {
+  background: rgba(128, 128, 128, 0.452);
+  transition: all 150ms ease-in-out;
+}
+.carrousel__modal__next {
+  position: absolute;
+  right: 10px;
+  top: 300px;
+  height: 40px;
+  width: 40px;
+  font-weight: 700;
+  font-size: 1.4em;
+  padding-bottom: 2px;
+  background: rgba(205, 205, 205, 0.452);
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  transition: all 150ms ease-in-out;
+}
+.carrousel__modal__next:hover {
+  background: rgba(128, 128, 128, 0.452);
+  transition: all 150ms ease-in-out;
+}
+
 .header {
   display: flex;
   flex-direction: column;
@@ -459,6 +578,7 @@ main {
   align-items: center;
   width: 100%;
   height: 500px;
+  cursor: zoom-in;
 }
 .telescopeProduct__top__left__mainImg__img {
   height: 400px;

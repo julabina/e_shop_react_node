@@ -3,6 +3,7 @@ import { useParams, NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { v4 as uuidv4 } from 'uuid';
+import ProductCarrousel from '../../Components/ProductCarrousel/ProductCarrousel';
 
 const TelescopeProduct = () => {
 
@@ -10,6 +11,7 @@ const TelescopeProduct = () => {
     const [telescopeData, setTelescopeData] = useState({});
     const [picturesData, setPicturesData] = useState([]);
     const [mainPicture, setMainPicture] = useState();
+    const [toggleCarrousel, setToggleCarrousel] = useState(false);
     let back = '< retour'
 
     useEffect(() => {
@@ -65,8 +67,8 @@ const TelescopeProduct = () => {
                 tinyImgs[i].classList.add('telescopeProduct__top__left__tinyImg__cont__cover--active')
             }
         }
-        let test =  process.env.PUBLIC_URL + img;
-        setMainPicture(test);
+        let pict =  process.env.PUBLIC_URL + img;
+        setMainPicture(pict);
     }
 
     const changeTab = (valArr) => {
@@ -88,6 +90,10 @@ const TelescopeProduct = () => {
         }
     }
 
+    const toggleCarrouselFunc = () => {
+        setToggleCarrousel(!toggleCarrousel);
+    }
+
     return (
         <main>
         <section className='telescopeProduct'>
@@ -97,7 +103,8 @@ const TelescopeProduct = () => {
             <div className="telescopeProduct__top">
                 <div className="telescopeProduct__top__left">
                 <div className="telescopeProduct__top__left__mainImg">
-                    <img className='telescopeProduct__top__left__mainImg__img' src={mainPicture} alt={'photo de ' + telescopeData.name} />
+                    <img onClick={toggleCarrouselFunc} className='telescopeProduct__top__left__mainImg__img' src={mainPicture} alt={'photo de ' + telescopeData.name} />
+                    {toggleCarrousel && <ProductCarrousel mainImg={mainPicture} images={picturesData} func={toggleCarrouselFunc} />}
                 </div>
                     <div className="telescopeProduct__top__left__tinyImg">
                         {picturesData.map(el => {
@@ -177,11 +184,5 @@ const TelescopeProduct = () => {
         </main>
     );
 };
-{/* <img src={process.env.PUBLIC_URL + telescopeData.img} alt={'photo de ' + telescopeData.name} /> */}
 
 export default TelescopeProduct;
-
-/* DESCRIPTION :
-description title : Tout savoir sur ${nom du téléscope}
-
-*/
