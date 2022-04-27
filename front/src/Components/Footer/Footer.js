@@ -24,7 +24,9 @@ const Footer = () => {
                         <NavLink to="/oculaire">
                             <p>Oculaires</p>
                         </NavLink>
-                        <p>Autres</p>
+                        <NavLink to="/monture">
+                            <p>Montures</p>
+                        </NavLink>
                         <NavLink to="/promotion">
                             <p>Promotions</p>
                         </NavLink>

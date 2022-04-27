@@ -11,6 +11,8 @@ import Footer from "./Components/Footer/Footer";
 import Search from "./Containers/Search/Search";
 import Oculaire from "./Containers/Oculaire/Oculaire";
 import OculaireProduct from "./Containers/OculaireProduct/OculaireProduct";
+import Monture from './Containers/Monture/Monture';
+import MontureProduct from './Containers/MontureProduct/MontureProduct';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route path="/telescope/ref_=:id" element={<TelescopeProduct />} />
         <Route path="/oculaire" element={<Oculaire />} />
         <Route path="/oculaire/ref_=:id" element={<OculaireProduct />} />
+        <Route path="/monture" element={<Monture />} />
+        <Route path="/monture/ref_=:id" element={<MontureProduct />} />
         <Route path="/promotion" element={<Promotion />} />
         <Route path="/cart" element={<Cart />} />
         <Route path='/contact' element={<Contact />} />

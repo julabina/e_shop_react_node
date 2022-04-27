@@ -1,24 +1,30 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('Telescope', {
-        id: {
+    return sequelize.define('Monture', {
+        id : {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
         name: {
             type: DataTypes.STRING,
-            allowNull: false,
-            unique: {
-                msg: 'Le nom est deja pris.'
-            }
-        },
-        brand: {
-            type: DataTypes.STRING,
             allowNull: false
         },
         type: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        brand: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        capacity: {
+            type: DataTypes.FLOAT,
+            allowNull: false
+        },
+        goTo: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
         },
         pictures: {
             type: DataTypes.TEXT,
@@ -29,22 +35,6 @@ module.exports = (sequelize, DataTypes) => {
             set(pictures) { 
                 return this.setDataValue('pictures', pictures.join())
             }
-        },
-        diameter: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        focal: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        fd: {
-            type: DataTypes.FLOAT,
-            allowNull: false
-        },
-        mount: {
-            type: DataTypes.STRING,
-            allowNull: true
         },
         price: {
             type: DataTypes.FLOAT,
@@ -79,7 +69,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false
         }
-    }, {
+    }  , {
         timestamps: true,
         createdAt: 'created',
         updatedAt: false

@@ -12,10 +12,10 @@ const NavBar = () => {
                     return isActive ? 'navBar__link navBar__link--active' : 'navBar__link'
                     }
                 }>Oculaires</NavLink>
-                <NavLink to="/home" className={({isActive}) => {
+                <NavLink to="/monture" className={({isActive}) => {
                     return isActive ? 'navBar__link navBar__link--active' : 'navBar__link'
                     }
-                }>Autres</NavLink>
+                }>Montures</NavLink>
                 <NavLink to="/promotion" className={({isActive}) => {
                     return isActive ? 'navBar__link navBar__link--active' : 'navBar__link'
                     }
