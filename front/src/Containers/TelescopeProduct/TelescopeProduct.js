@@ -248,8 +248,10 @@ const TelescopeProduct = () => {
             </div>
             <div className="telescopeInfos__infos">
                 <div className="telescopeInfos__infos__commentsCont">
-                    <textarea onInput={(e) => changeCommentValue(e.target.value)} value={commentData} className="telescopeInfos__infos__commentsCont__textArea"></textarea>
-                    <button className='telescopeInfos__infos__commentsCont__btn'>Envoyer</button>
+                    <form className='telescopeInfos__infos__commentsCont__form' action="" method="post">
+                        <textarea onInput={(e) => changeCommentValue(e.target.value)} value={commentData} className="telescopeInfos__infos__commentsCont__form__textArea"></textarea>
+                        <button className='telescopeInfos__infos__commentsCont__form__btn'>Envoyer</button>
+                    </form>
                     <p className='telescopeInfos__infos__commentsCont__status'>PAS ENCORE DE COMMENTAIRES</p>
                 </div>
             </div>

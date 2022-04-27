@@ -710,7 +710,12 @@ main {
   align-items: center;
   margin: 50px 0;
 }
-.telescopeInfos__infos__commentsCont__textArea {
+.telescopeInfos__infos__commentsCont__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.telescopeInfos__infos__commentsCont__form__textArea {
   resize: none;
   width: 600px;
   height: 200px;
@@ -719,7 +724,7 @@ main {
   border: none;
   padding: 10px;
 }
-.telescopeInfos__infos__commentsCont__btn {
+.telescopeInfos__infos__commentsCont__form__btn {
   height: 40px;
   width: 80px;
   text-transform: uppercase;
@@ -732,7 +737,7 @@ main {
   cursor: pointer;
   transition: all 150ms ease-in-out;
 }
-.telescopeInfos__infos__commentsCont__btn:hover {
+.telescopeInfos__infos__commentsCont__form__btn:hover {
   background: #FF0000;
   transition: all 150ms ease-in-out;
 }
