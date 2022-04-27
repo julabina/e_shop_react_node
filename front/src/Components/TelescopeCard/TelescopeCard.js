@@ -24,11 +24,10 @@ const TelescopeCard = (props) => {
     },[]);
 
     const changeInputValue = (action, value) => {
-        const lessBtn = document.getElementById('telescopeCard__lessBtn');
-        const addBtn = document.getElementById('telescopeCard__addBtn');
+        const lessBtn = document.getElementById('telescopeCard__lessBtn' + props.id);
+        const addBtn = document.getElementById('telescopeCard__addBtn' + props.id);
         let val = inputValue, newVal; 
 
-        console.log(props.stock);
         if (isNaN(val)) {
             val = 1;
         }
@@ -46,6 +45,7 @@ const TelescopeCard = (props) => {
             
             (newVal >= props.stock) && (newVal = props.stock)
         }
+        console.log(newVal);
 
         if(newVal > 1 && newVal !== props.stock) {
             if(lessBtn.classList.contains('telescopeCard__addCount__btn--unselected')) {
@@ -55,10 +55,22 @@ const TelescopeCard = (props) => {
                 addBtn.classList.remove('telescopeCard__addCount__btn--unselected')
             }
         } else if(newVal === 1) {
+            if(addBtn.classList.contains('telescopeCard__addCount__btn--unselected')) {
+                addBtn.classList.remove('telescopeCard__addCount__btn--unselected')
+            }
+
             if(!lessBtn.classList.contains('telescopeCard__addCount__btn--unselected')) {
                 lessBtn.classList.add('telescopeCard__addCount__btn--unselected')
             }
         } else if(newVal === props.stock) {
+            if (newVal === 2) {
+                if(lessBtn.classList.contains('telescopeCard__addCount__btn--unselected')) {
+                    lessBtn.classList.remove('telescopeCard__addCount__btn--unselected')
+                } 
+                if(addBtn.classList.contains('telescopeCard__addCount__btn--unselected')) {
+                    addBtn.classList.remove('telescopeCard__addCount__btn--unselected')
+                }
+            }
             if(!addBtn.classList.contains('telescopeCard__addCount__btn--unselected')) {
                 addBtn.classList.add('telescopeCard__addCount__btn--unselected')
             }
@@ -92,9 +104,9 @@ const TelescopeCard = (props) => {
                 </NavLink>
                 <p className='telescopeCard__price'>{props.promo && <span className='telescopeCard__price__span'>{'-' + props.promoValue + "%"}</span>}{price} €</p>
                 <div className="telescopeCard__addCount">
-                    <button onClick={() => changeInputValue('less')} className='telescopeCard__addCount__btn telescopeCard__addCount__btn--unselected' id='telescopeCard__lessBtn'>-</button>
+                    <button onClick={() => changeInputValue('less')} className='telescopeCard__addCount__btn telescopeCard__addCount__btn--unselected' id={"telescopeCard__lessBtn" + props.id}>-</button>
                     <input onInput={(e) => changeInputValue('change', e.target.value)} className='telescopeCard__addCount__input' type="number" min='1' max={props.stock} value={inputValue} />
-                    <button onClick={() => changeInputValue('add')} className={props.stock === 0 ? 'telescopeCard__addCount__btn telescopeCard__addCount__btn--unselected' : 'telescopeCard__addCount__btn'} id='telescopeCard__addBtn'>+</button>
+                    <button onClick={() => changeInputValue('add')} className={props.stock < 2 ? 'telescopeCard__addCount__btn telescopeCard__addCount__btn--unselected' : 'telescopeCard__addCount__btn'} id={"telescopeCard__addBtn" + props.id}>+</button>
                 </div>
                 <div className="telescopeCard__buttons">
                     <NavLink to={'/telescope/ref_=' + props.id}>

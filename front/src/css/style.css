@@ -335,6 +335,112 @@ main {
   transition: all 150ms ease-in-out;
 }
 
+.oculaireCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 302px;
+  border: 1px solid rgba(0, 0, 0, 0.068);
+}
+.oculaireCard h3 {
+  text-align: center;
+  padding: 0 25px;
+  margin: 5px 0 15px;
+  height: 40px;
+  line-height: 1.23;
+  font-weight: 700;
+}
+.oculaireCard img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+.oculaireCard__img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 0.7em;
+  max-width: 250px;
+  min-width: 250px;
+  height: 250px;
+}
+.oculaireCard__price {
+  margin-top: 15px;
+  font-weight: 700;
+  color: #FF0000;
+}
+.oculaireCard__price__span {
+  position: absolute;
+  color: #000;
+  font-size: 0.8em;
+  margin: 3px 0 0 -40px;
+}
+.oculaireCard__addCount {
+  margin: 7px 0 10px;
+}
+.oculaireCard__addCount__btn {
+  width: 30px;
+  height: 30px;
+  background: #f3f3f3;
+  border: none;
+  font-size: 1.3em;
+  font-weight: 700;
+  padding-bottom: 7px;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+}
+.oculaireCard__addCount__btn:hover {
+  background: #dadada;
+  transition: all 200ms ease-in-out;
+}
+.oculaireCard__addCount__btn--unselected {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.oculaireCard__addCount__btn--unselected:hover {
+  background: #f3f3f3;
+}
+.oculaireCard__addCount__input {
+  text-align: center;
+  height: 30px;
+  width: 50px;
+  font-size: 1.1em;
+  margin: 0 15px;
+}
+.oculaireCard__buttons__btn {
+  width: 75px;
+  height: 35px;
+  margin: 0 5px 15px;
+  color: #f3f3f3;
+  border: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.oculaireCard__buttons__btn__infos {
+  background: #14416A;
+  transition: opacity 200ms ease-in-out;
+}
+.oculaireCard__buttons__btn__infos:hover {
+  opacity: 0.6;
+  transition: opacity 200ms ease-in-out;
+}
+.oculaireCard__buttons__btn__buy {
+  background: #000;
+  transition: all 200ms ease-in-out;
+}
+.oculaireCard__buttons__btn__buy:hover {
+  background: #14416A;
+  transition: all 200ms ease-in-out;
+}
+.oculaireCard__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .header {
   display: flex;
   flex-direction: column;
@@ -532,13 +638,19 @@ main {
   font-size: 1.5em;
   font-weight: 700;
   cursor: pointer;
+  transition: all 150ms ease-in-out;
 }
 .telescopeProduct__top__right__addCart__countCont__btn--unselected {
   opacity: 0.5;
   pointer-events: none;
+  transition: all 150ms ease-in-out;
 }
 .telescopeProduct__top__right__addCart__countCont__btn--unselected:hover {
   background: initial;
+  transition: all 150ms ease-in-out;
+}
+.telescopeProduct__top__right__addCart__countCont__btn:hover {
+  transition: all 150ms ease-in-out;
 }
 .telescopeProduct__top__right__addCart__countCont__input {
   height: 50px;
@@ -738,6 +850,293 @@ main {
   transition: all 150ms ease-in-out;
 }
 .telescopeInfos__infos__commentsCont__form__btn:hover {
+  background: #FF0000;
+  transition: all 150ms ease-in-out;
+}
+
+.oculaireList {
+  width: 1480px;
+}
+
+.oculaireProduct {
+  width: 1480px;
+}
+.oculaireProduct__back {
+  margin: 30px 0 10px;
+  cursor: pointer;
+}
+.oculaireProduct__back:hover {
+  opacity: 0.7;
+}
+.oculaireProduct__top {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.oculaireProduct__top__right {
+  width: 840px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.452);
+  border-left: 1px solid rgba(128, 128, 128, 0.452);
+  padding: 10px 0 0 40px;
+}
+.oculaireProduct__top__right h2 {
+  font-size: 1.9em;
+  font-weight: 700;
+  width: 80%;
+  line-height: 1.4;
+}
+.oculaireProduct__top__right__price {
+  margin: 60px 0 20px;
+  font-size: 2.5em;
+  font-weight: 700;
+}
+.oculaireProduct__top__right__price__span {
+  margin-left: 20px;
+  font-size: 0.8em;
+  text-decoration: line-through;
+  text-decoration-thickness: 3px;
+  text-decoration-color: #000;
+  color: #FF0000;
+}
+.oculaireProduct__top__right__stock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  background: #74c13b;
+  width: 80px;
+  height: 25px;
+}
+.oculaireProduct__top__right__stock--out {
+  background: #FF0000;
+}
+.oculaireProduct__top__right__addCart {
+  display: flex;
+  margin: 50px 0;
+}
+.oculaireProduct__top__right__addCart__countCont {
+  display: flex;
+}
+.oculaireProduct__top__right__addCart__countCont__btn {
+  height: 50px;
+  width: 50px;
+  border: 1px solid rgba(128, 128, 128, 0.452);
+  padding-bottom: 5px;
+  font-size: 1.5em;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 150ms ease-in-out;
+}
+.oculaireProduct__top__right__addCart__countCont__btn--unselected {
+  opacity: 0.5;
+  pointer-events: none;
+  transition: all 150ms ease-in-out;
+}
+.oculaireProduct__top__right__addCart__countCont__btn--unselected:hover {
+  background: initial;
+  transition: all 150ms ease-in-out;
+}
+.oculaireProduct__top__right__addCart__countCont__btn:hover {
+  transition: all 150ms ease-in-out;
+}
+.oculaireProduct__top__right__addCart__countCont__input {
+  height: 50px;
+  width: 120px;
+  border-top: 1px solid rgba(128, 128, 128, 0.452);
+  border-bottom: 1px solid rgba(128, 128, 128, 0.452);
+  border-left: none;
+  border-right: none;
+  padding-bottom: 3px;
+  text-align: center;
+  font-size: 1.4em;
+}
+.oculaireProduct__top__right__addCart__addBtn {
+  height: 50px;
+  margin-left: 20px;
+  width: 100vw;
+  text-transform: uppercase;
+  font-size: 1.4em;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  background: #14416A;
+  border: none;
+  border-radius: 1px;
+  color: #f3f3f3;
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+}
+.oculaireProduct__top__right__addCart__addBtn__cart {
+  margin-right: 15px;
+  font-size: 0.9em;
+}
+.oculaireProduct__top__right__addCart__addBtn:hover {
+  background: #FF0000;
+  transition: all 250ms ease-in-out;
+}
+.oculaireProduct__top__left {
+  display: flex;
+  justify-content: space-between;
+  width: 640px;
+  display: flex;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.452);
+}
+.oculaireProduct__top__left__mainImg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 500px;
+  cursor: zoom-in;
+}
+.oculaireProduct__top__left__mainImg__img {
+  height: 400px;
+  width: 400px;
+  object-fit: cover;
+}
+.oculaireProduct__top__left__tinyImg {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+}
+.oculaireProduct__top__left__tinyImg__cont {
+  margin: 20px 40px;
+}
+.oculaireProduct__top__left__tinyImg__cont__cover {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background: rgba(0, 0, 0, 0.37);
+  opacity: 0;
+  cursor: pointer;
+}
+.oculaireProduct__top__left__tinyImg__cont__cover:hover {
+  opacity: 1;
+}
+.oculaireProduct__top__left__tinyImg__cont__cover--active {
+  background: rgba(0, 0, 0, 0.527);
+  opacity: 1;
+}
+.oculaireProduct__top__left__tinyImg__cont img {
+  object-fit: cover;
+  height: 80px;
+  width: 80px;
+}
+
+.oculaireInfos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1480px;
+  background: rgba(128, 128, 128, 0.452);
+  margin: 40px 0;
+  border-radius: 3px;
+  padding: 40px;
+}
+.oculaireInfos h3 {
+  font-size: 1.25em;
+  text-decoration: underline;
+  font-weight: 700;
+  margin: 40px 0 25px;
+  width: 100%;
+}
+.oculaireInfos__tabsCont {
+  display: flex;
+  justify-content: space-between;
+  width: 900px;
+}
+.oculaireInfos__tabsCont__tab {
+  font-size: 1.6em;
+  text-transform: uppercase;
+  padding: 15px 30px 12px;
+  cursor: pointer;
+  user-select: none;
+}
+.oculaireInfos__tabsCont__tab--active {
+  background: #14416A;
+  color: #f3f3f3;
+  border-radius: 2px;
+}
+.oculaireInfos__infos {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+.oculaireInfos__infos__description {
+  margin: 18px 0;
+  line-height: 1.3;
+  width: 100%;
+  font-size: 1.08em;
+}
+.oculaireInfos__infos__img {
+  margin: 25px 0;
+  max-width: 900px;
+}
+.oculaireInfos__infos--active {
+  display: flex;
+}
+.oculaireInfos__infos__caractCont {
+  width: 820px;
+  border: 1px solid black;
+  margin: 60px 0;
+}
+.oculaireInfos__infos__caractCont__caract {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 38px;
+  display: flex;
+  font-weight: 700;
+  font-size: 1.05em;
+}
+.oculaireInfos__infos__caractCont__caract__type {
+  width: 320px;
+  padding-left: 5px;
+}
+.oculaireInfos__infos__caractCont__caract__value {
+  width: 500px;
+}
+.oculaireInfos__infos__caractCont__caract__title {
+  background: #000;
+  color: #f3f3f3;
+  font-size: 1.1em;
+}
+.oculaireInfos__infos__caractCont__caract--even {
+  background: rgba(125, 125, 125, 0.452);
+}
+.oculaireInfos__infos__commentsCont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 50px 0;
+}
+.oculaireInfos__infos__commentsCont__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.oculaireInfos__infos__commentsCont__form__textArea {
+  resize: none;
+  width: 600px;
+  height: 200px;
+  margin: 0 0 20px;
+  border-radius: 3px;
+  border: none;
+  padding: 10px;
+}
+.oculaireInfos__infos__commentsCont__form__btn {
+  height: 40px;
+  width: 80px;
+  text-transform: uppercase;
+  font-weight: 700;
+  background: #14416A;
+  color: #f3f3f3;
+  border: none;
+  border-radius: 2px;
+  margin-bottom: 50px;
+  cursor: pointer;
+  transition: all 150ms ease-in-out;
+}
+.oculaireInfos__infos__commentsCont__form__btn:hover {
   background: #FF0000;
   transition: all 150ms ease-in-out;
 }

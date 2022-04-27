@@ -15,7 +15,7 @@ const TelescopeProduct = () => {
     const [mainPicture, setMainPicture] = useState();
     const [toggleCarrousel, setToggleCarrousel] = useState(false);
     const [commentData, setCommentData] = useState("");
-    const [inputAddCart, setInputAddCart] = useState();
+    const [inputAddCart, setInputAddCart] = useState("");
     let back = '< retour'
 
     useEffect(() => {
@@ -154,10 +154,22 @@ const TelescopeProduct = () => {
                 addBtn.classList.remove('telescopeProduct__top__right__addCart__countCont__btn--unselected')
             }
         } else if(newVal === 1) {
+            if(addBtn.classList.contains('telescopeProduct__top__right__addCart__countCont__btn--unselected')) {
+                addBtn.classList.remove('telescopeProduct__top__right__addCart__countCont__btn--unselected')
+            }
+
             if(!lessBtn.classList.contains('telescopeProduct__top__right__addCart__countCont__btn--unselected')) {
                 lessBtn.classList.add('telescopeProduct__top__right__addCart__countCont__btn--unselected')
             }
         } else if(newVal === telescopeData.stock) {
+            if (newVal === 2) {
+                if(lessBtn.classList.contains('telescopeProduct__top__right__addCart__countCont__btn--unselected')) {
+                    lessBtn.classList.remove('telescopeProduct__top__right__addCart__countCont__btn--unselected')
+                } 
+                if(addBtn.classList.contains('telescopeProduct__top__right__addCart__countCont__btn--unselected')) {
+                    addBtn.classList.remove('telescopeProduct__top__right__addCart__countCont__btn--unselected')
+                }
+            }
             if(!addBtn.classList.contains('telescopeProduct__top__right__addCart__countCont__btn--unselected')) {
                 addBtn.classList.add('telescopeProduct__top__right__addCart__countCont__btn--unselected')
             }
@@ -198,9 +210,9 @@ const TelescopeProduct = () => {
                         <div className="telescopeProduct__top__right__addCart__countCont">
                             <button onClick={() => changeInputValue('less')} id="telescopeProduct__lessBtn" className="telescopeProduct__top__right__addCart__countCont__btn telescopeProduct__top__right__addCart__countCont__btn--unselected">-</button>
                             <input onChange={(e) => changeInputValue('change', e.target.value)} type="number" className="telescopeProduct__top__right__addCart__countCont__input" value={inputAddCart} min='1' max={telescopeData.stock} />
-                            <button onClick={() => changeInputValue('add')} id="telescopeProduct__addBtn" className={telescopeData.stock < 1 ? 'telescopeProduct__top__right__addCart__countCont__btn telescopeProduct__top__right__addCart__countCont__btn--unselected' : 'telescopeProduct__top__right__addCart__countCont__btn'}>+</button>
+                            <button onClick={() => changeInputValue('add')} id="telescopeProduct__addBtn" className={telescopeData.stock < 2 ? 'telescopeProduct__top__right__addCart__countCont__btn telescopeProduct__top__right__addCart__countCont__btn--unselected' : 'telescopeProduct__top__right__addCart__countCont__btn'}>+</button>
                         </div>
-                        <button className='telescopeProduct__top__right__addCart__addBtn'><FontAwesomeIcon className='telescopeProduct__top__right__addCart__addBtn__cart' icon={faShoppingCart} /> Ajouter au panier</button>
+                        <button onClick={() => addToCart(inputAddCart)} className='telescopeProduct__top__right__addCart__addBtn'><FontAwesomeIcon className='telescopeProduct__top__right__addCart__addBtn__cart' icon={faShoppingCart} /> Ajouter au panier</button>
                     </div>
                 </div>
             </div>
