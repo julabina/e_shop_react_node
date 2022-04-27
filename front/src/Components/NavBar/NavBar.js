@@ -8,11 +8,11 @@ const NavBar = () => {
                     return isActive ? 'navBar__link navBar__link--active' : 'navBar__link'
                     }
                 }>Télescopes</NavLink>
-                <NavLink to="/musique" className={({isActive}) => {
+                <NavLink to="/oculaire" className={({isActive}) => {
                     return isActive ? 'navBar__link navBar__link--active' : 'navBar__link'
                     }
-                }>Autres</NavLink>
-                <NavLink to="/chien" className={({isActive}) => {
+                }>Oculaires</NavLink>
+                <NavLink to="/home" className={({isActive}) => {
                     return isActive ? 'navBar__link navBar__link--active' : 'navBar__link'
                     }
                 }>Autres</NavLink>

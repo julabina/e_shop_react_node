@@ -19,6 +19,8 @@ sequelize.initDb();
 
 require('./src/routes/findAllTelescope')(app);
 require('./src/routes/findOneTelescope')(app);
+require('./src/routes/findAllOculaire')(app);
+require('./src/routes/findOneOculaire')(app);
 
 app.listen(port, () => {
     console.log(`Server start on : http://localhost:${port}`);

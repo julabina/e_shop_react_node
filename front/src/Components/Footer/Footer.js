@@ -21,7 +21,9 @@ const Footer = () => {
                         <NavLink to="/telescope">
                             <p>Télescopes</p>
                         </NavLink>
-                        <p>Autres</p>
+                        <NavLink to="/oculaire">
+                            <p>Oculaires</p>
+                        </NavLink>
                         <p>Autres</p>
                         <NavLink to="/promotion">
                             <p>Promotions</p>

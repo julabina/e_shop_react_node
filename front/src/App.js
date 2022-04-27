@@ -9,6 +9,8 @@ import Cart from "./Containers/Cart/Cart";
 import TelescopeProduct from "./Containers/TelescopeProduct/TelescopeProduct";
 import Footer from "./Components/Footer/Footer";
 import Search from "./Containers/Search/Search";
+import Oculaire from "./Containers/Oculaire/Oculaire";
+import OculaireProduct from "./Containers/OculaireProduct/OculaireProduct";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path="/telescope" element={<Telescope />} />
         <Route path="/telescope/ref_=:id" element={<TelescopeProduct />} />
+        <Route path="/oculaire" element={<Oculaire />} />
+        <Route path="/oculaire/ref_=:id" element={<OculaireProduct />} />
         <Route path="/promotion" element={<Promotion />} />
         <Route path="/cart" element={<Cart />} />
         <Route path='/contact' element={<Contact />} />
