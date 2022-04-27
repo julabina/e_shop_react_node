@@ -34,14 +34,8 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         pictures: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-            get() {
-                return this.getDataValue('pictures').split(',')
-            },
-            set(pictures) { 
-                return this.setDataValue('pictures', pictures.join())
-            }
+            type: DataTypes.STRING,
+            allowNull: true,
         },
         price: {
             type: DataTypes.FLOAT,
