@@ -4,14 +4,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { v4 as uuidv4 } from 'uuid';
 import ProductCarrousel from '../../Components/ProductCarrousel/ProductCarrousel';
+import { useDispatch } from 'react-redux';
 
 const TelescopeProduct = () => {
 
+    const dispatch = useDispatch();
     const params = useParams();
     const [telescopeData, setTelescopeData] = useState({});
     const [picturesData, setPicturesData] = useState([]);
     const [mainPicture, setMainPicture] = useState();
     const [toggleCarrousel, setToggleCarrousel] = useState(false);
+    const [commentData, setCommentData] = useState("");
+    const [inputAddCart, setInputAddCart] = useState();
     let back = '< retour'
 
     useEffect(() => {
@@ -51,11 +55,32 @@ const TelescopeProduct = () => {
                 }
                 newArr.push(pict);
             }
+            if (data.data.stock < 1) {
+                setInputAddCart(0);
+            } else {
+                setInputAddCart(1);
+            }
             setPicturesData(newArr);
             setTelescopeData(item);
             setMainPicture(process.env.PUBLIC_URL + data.data.pictures[0])
         })
     },[])
+
+    const addToCart = (value) => {
+        if(telescopeData.stock < 1) {
+            let item = {
+                id: telescopeData.id,
+                count: value,
+                price: telescopeData.price,
+                stock: telescopeData.stock
+            }
+
+            dispatch({
+                type: 'ADDTOCART',
+                payload: item
+            })
+        }
+    }
 
     const changeImg = (img, ind) => {
         const tinyImgs = document.querySelectorAll('.telescopeProduct__top__left__tinyImg__cont__cover');
@@ -94,6 +119,52 @@ const TelescopeProduct = () => {
         setToggleCarrousel(!toggleCarrousel);
     }
 
+    const changeCommentValue = (value) => {
+        setCommentData(value);
+    }
+
+    const changeInputValue = (action, value) => {
+        const lessBtn = document.getElementById('telescopeProduct__lessBtn');
+        const addBtn = document.getElementById('telescopeProduct__addBtn');
+        let val = inputAddCart, newVal; 
+
+        if (isNaN(val)) {
+            val = 1;
+        }
+
+        if(action === 'add') {
+            
+            (inputAddCart !== telescopeData.stock) ? (newVal = val + 1) : (newVal = val)
+
+        } else if(action === 'less') {
+
+            (val > 1) ? (newVal = val -1) : (newVal = val)
+
+        } else if(action === 'change') {
+            newVal = parseInt(value);
+            
+            (newVal >= telescopeData.stock) && (newVal = telescopeData.stock)
+        }
+
+        if(newVal > 1 && newVal !== telescopeData.stock) {
+            if(lessBtn.classList.contains('telescopeProduct__top__right__addCart__countCont__btn--unselected')) {
+                lessBtn.classList.remove('telescopeProduct__top__right__addCart__countCont__btn--unselected')
+            } 
+            if(addBtn.classList.contains('telescopeProduct__top__right__addCart__countCont__btn--unselected')) {
+                addBtn.classList.remove('telescopeProduct__top__right__addCart__countCont__btn--unselected')
+            }
+        } else if(newVal === 1) {
+            if(!lessBtn.classList.contains('telescopeProduct__top__right__addCart__countCont__btn--unselected')) {
+                lessBtn.classList.add('telescopeProduct__top__right__addCart__countCont__btn--unselected')
+            }
+        } else if(newVal === telescopeData.stock) {
+            if(!addBtn.classList.contains('telescopeProduct__top__right__addCart__countCont__btn--unselected')) {
+                addBtn.classList.add('telescopeProduct__top__right__addCart__countCont__btn--unselected')
+            }
+        }
+        setInputAddCart(newVal);
+    }
+
     return (
         <main>
         <section className='telescopeProduct'>
@@ -125,9 +196,9 @@ const TelescopeProduct = () => {
                     {(telescopeData.stock === 0) ? <p className="telescopeProduct__top__right__stock telescopeProduct__top__right__stock--out">Rupture</p> : <p className="telescopeProduct__top__right__stock">En Stock</p> }
                     <div className="telescopeProduct__top__right__addCart">
                         <div className="telescopeProduct__top__right__addCart__countCont">
-                            <button className="telescopeProduct__top__right__addCart__countCont__btn">-</button>
-                            <input type="number" className="telescopeProduct__top__right__addCart__countCont__input" />
-                            <button className="telescopeProduct__top__right__addCart__countCont__btn">+</button>
+                            <button onClick={() => changeInputValue('less')} id="telescopeProduct__lessBtn" className="telescopeProduct__top__right__addCart__countCont__btn telescopeProduct__top__right__addCart__countCont__btn--unselected">-</button>
+                            <input onChange={(e) => changeInputValue('change', e.target.value)} type="number" className="telescopeProduct__top__right__addCart__countCont__input" value={inputAddCart} min='1' max={telescopeData.stock} />
+                            <button onClick={() => changeInputValue('add')} id="telescopeProduct__addBtn" className={telescopeData.stock < 1 ? 'telescopeProduct__top__right__addCart__countCont__btn telescopeProduct__top__right__addCart__countCont__btn--unselected' : 'telescopeProduct__top__right__addCart__countCont__btn'}>+</button>
                         </div>
                         <button className='telescopeProduct__top__right__addCart__addBtn'><FontAwesomeIcon className='telescopeProduct__top__right__addCart__addBtn__cart' icon={faShoppingCart} /> Ajouter au panier</button>
                     </div>
@@ -177,6 +248,8 @@ const TelescopeProduct = () => {
             </div>
             <div className="telescopeInfos__infos">
                 <div className="telescopeInfos__infos__commentsCont">
+                    <textarea onInput={(e) => changeCommentValue(e.target.value)} value={commentData} className="telescopeInfos__infos__commentsCont__textArea"></textarea>
+                    <button className='telescopeInfos__infos__commentsCont__btn'>Envoyer</button>
                     <p className='telescopeInfos__infos__commentsCont__status'>PAS ENCORE DE COMMENTAIRES</p>
                 </div>
             </div>

@@ -81,7 +81,7 @@
             text-transform: uppercase;
             border-radius: 3px;   
             cursor: pointer;         
-            &__1 {
+            &__infos {
                 background: map-get($colors, primary);
                 transition: opacity 200ms ease-in-out;
                 &:hover {
@@ -89,7 +89,7 @@
                     transition: opacity 200ms ease-in-out;
                 }
             }
-            &__2 {
+            &__buy {
                 background: #000;
                 transition: all 200ms ease-in-out;
                 &:hover {

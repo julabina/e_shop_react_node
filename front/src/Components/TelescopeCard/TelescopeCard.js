@@ -93,14 +93,14 @@ const TelescopeCard = (props) => {
                 <p className='telescopeCard__price'>{props.promo && <span className='telescopeCard__price__span'>{'-' + props.promoValue + "%"}</span>}{price} €</p>
                 <div className="telescopeCard__addCount">
                     <button onClick={() => changeInputValue('less')} className='telescopeCard__addCount__btn telescopeCard__addCount__btn--unselected' id='telescopeCard__lessBtn'>-</button>
-                    <input onInput={(e) => changeInputValue('change', e.target.value)} className='telescopeCard__addCount__input' type="number" name="" min='1' max={props.stock} value={inputValue} />
+                    <input onInput={(e) => changeInputValue('change', e.target.value)} className='telescopeCard__addCount__input' type="number" min='1' max={props.stock} value={inputValue} />
                     <button onClick={() => changeInputValue('add')} className={props.stock === 0 ? 'telescopeCard__addCount__btn telescopeCard__addCount__btn--unselected' : 'telescopeCard__addCount__btn'} id='telescopeCard__addBtn'>+</button>
                 </div>
                 <div className="telescopeCard__buttons">
                     <NavLink to={'/telescope/ref_=' + props.id}>
-                        <button className='telescopeCard__buttons__btn telescopeCard__buttons__btn__1'>Infos</button>
+                        <button className='telescopeCard__buttons__btn telescopeCard__buttons__btn__infos'>Infos</button>
                     </NavLink>
-                    <button onClick={() => addToCart(inputValue)} className='telescopeCard__buttons__btn telescopeCard__buttons__btn__2'>Acheter</button>
+                    <button onClick={() => addToCart(inputValue)} className='telescopeCard__buttons__btn telescopeCard__buttons__btn__buy'>Acheter</button>
                 </div>
             </li>
     );
