@@ -40,7 +40,9 @@ const MontureProduct = () => {
                 description3: data.data.description3,
                 priceNoPromo: data.data.price,
                 promoValue: data.data.promoValue,
-                promo: data.data.promo
+                promo: data.data.promo,
+                capacity: data.data.capacity,
+                goTo: data.data.goTo
             }
             for(let i = 0; i < data.data.pictures.length; i++) {
                 let pict = {
@@ -232,24 +234,16 @@ const MontureProduct = () => {
                         <p className="montureInfos__infos__caractCont__caract__value">{montureData.name}</p>
                     </div>
                     <div className="montureInfos__infos__caractCont__caract">
-                        <p className="montureInfos__infos__caractCont__caract__type">Formule optique</p>
+                        <p className="montureInfos__infos__caractCont__caract__type">Type</p>
                         <p className="montureInfos__infos__caractCont__caract__value">{montureData.type}</p>
                     </div>
                     <div className="montureInfos__infos__caractCont__caract montureInfos__infos__caractCont__caract--even">
-                        <p className="montureInfos__infos__caractCont__caract__type">Diamètre</p>
-                        <p className="montureInfos__infos__caractCont__caract__value">{montureData.diameter}mm</p>
+                        <p className="montureInfos__infos__caractCont__caract__type">Capacité de charge</p>
+                        <p className="montureInfos__infos__caractCont__caract__value">{montureData.capacity}kg</p>
                     </div>
                     <div className="montureInfos__infos__caractCont__caract">
-                        <p className="montureInfos__infos__caractCont__caract__type">Longueur focale</p>
-                        <p className="montureInfos__infos__caractCont__caract__value">{montureData.focal}mm</p>
-                    </div>
-                    <div className="montureInfos__infos__caractCont__caract montureInfos__infos__caractCont__caract--even">
-                        <p className="montureInfos__infos__caractCont__caract__type">Rapport F/D</p>
-                        <p className="montureInfos__infos__caractCont__caract__value">{montureData.fd}</p>
-                    </div>
-                    <div className="montureInfos__infos__caractCont__caract">
-                        <p className="montureInfos__infos__caractCont__caract__type">Monture</p>
-                        <p className="montureInfos__infos__caractCont__caract__value">{montureData.mount === null ? 'aucune' : montureData.mount}</p>
+                        <p className="montureInfos__infos__caractCont__caract__type">GoTo</p>
+                        <p className="montureInfos__infos__caractCont__caract__value">{montureData.goTo ? "Oui" : "Non"}</p>
                     </div>
                 </div>
             </div>
