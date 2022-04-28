@@ -1,7 +1,7 @@
 const { Monture } = require('../db/sequelize');
 
 module.exports = (app) => {
-    app.get('/api/monture/:id', (req, res) => {
+    app.get('/api/montures/:id', (req, res) => {
         Monture.findByPk(req.params.id)
         .then(monture => {
             if(monture !== null) {

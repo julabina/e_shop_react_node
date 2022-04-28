@@ -32,7 +32,7 @@ const Oculaire = () => {
             <section className='oculaireList'>
                 <div className="oculaireList__top">
                     <div className="oculaireList__top__top">
-                        <h2>Télescopes et Lunettes astronomiques</h2>
+                        <h2>Oculaires</h2>
                         <div className="oculaireList__top__top__pages"></div>
                     </div>
                     <select name="" id="">

@@ -21,6 +21,8 @@ require('./src/routes/findAllTelescope')(app);
 require('./src/routes/findOneTelescope')(app);
 require('./src/routes/findAllOculaire')(app);
 require('./src/routes/findOneOculaire')(app);
+require('./src/routes/findAllMonture')(app);
+require('./src/routes/findOneMonture')(app);
 
 app.listen(port, () => {
     console.log(`Server start on : http://localhost:${port}`);
