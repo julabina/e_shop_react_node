@@ -12,8 +12,11 @@ function cartReducer(state= INITIAL_STATE, action) {
             }
         }
         case 'ADDTOCART': {
-            const newArr = [...state.cart];
+            const cartArr = [...state.cart];
             const actPay = action.payload
+            
+            let newArr = cartArr.filter(el => el.category === actPay.category)
+            let newArrFiltered = cartArr.filter(el => el.category !== actPay.category)
             
             if (newArr.length > 0) {
                 let exist = false;
@@ -33,10 +36,12 @@ function cartReducer(state= INITIAL_STATE, action) {
                 }
             } else {
                 newArr.push(actPay);
-            }
+            }            
+
+            const finalArr = [].concat(newArr, newArrFiltered);
 
             return {
-                cart : newArr
+                cart : finalArr
             }
         }
     }

@@ -5,7 +5,9 @@ const Footer = () => {
     return (
         <footer className='footer'>
             <section className='footer__section'>
-                <h2>REACT OPTIQUE SHOP</h2>
+                <NavLink to="/">
+                    <h2>REACT OPTIQUE SHOP</h2>
+                </NavLink>
                 <div className="footer__section__cont">
                     <div className="footer__section__cont__box">
                         <h3>Informations</h3>
@@ -13,7 +15,7 @@ const Footer = () => {
                             <p>À propos</p>
                         </NavLink>
                         <a href='https://github.com/julabina/e_shop_react_node'>
-                            <p>Repository</p>
+                            <p>Dépot distant du projet</p>
                         </a>
                         <a href='https://www.telescopes-et-accessoires.fr/' target="_blank" >
                             <p>Optique Unterlinden</p>

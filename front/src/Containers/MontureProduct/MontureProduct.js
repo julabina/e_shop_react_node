@@ -64,8 +64,9 @@ const MontureProduct = () => {
     },[])
 
     const addToCart = (value) => {
-        if(montureData.stock < 1) {
+        if(montureData.stock !== 1) {
             let item = {
+                category: "monture",
                 id: montureData.id,
                 count: value,
                 price: montureData.price,

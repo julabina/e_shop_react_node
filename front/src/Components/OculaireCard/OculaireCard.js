@@ -81,6 +81,7 @@ const OculaireCard = (props) => {
         if (props.stock !== 0) {
 
             let item = {
+                category: "oculaire",
                 id: props.id,
                 count: value,
                 price: props.price,

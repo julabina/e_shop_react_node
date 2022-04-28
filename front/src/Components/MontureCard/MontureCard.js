@@ -81,6 +81,7 @@ const MontureCard = (props) => {
         if (props.stock !== 0) {
 
             let item = {
+                category: "monture",
                 id: props.id,
                 count: value,
                 price: props.price,

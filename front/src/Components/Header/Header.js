@@ -4,6 +4,7 @@ import { faShoppingCart, faHomeLg, faPen, faUser, faSearch } from '@fortawesome/
 import NavBar from '../NavBar/NavBar';
 import { NavLink } from 'react-router-dom';
 
+
 const Header = () => {
 
     const [searchValue, setSearchValue] = useState();
