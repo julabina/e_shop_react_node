@@ -67,13 +67,15 @@ const TelescopeProduct = () => {
     },[])
 
     const addToCart = (value) => {
-        if(telescopeData.stock !== 1) {
+        if(telescopeData.stock !== 0) {
             let item = {
                 category: "telescope",
                 id: telescopeData.id,
                 count: value,
                 price: telescopeData.price,
-                stock: telescopeData.stock
+                stock: telescopeData.stock,
+                name: telescopeData.name,
+                image: process.env.PUBLIC_URL + picturesData[0].img
             }
             
             dispatch({

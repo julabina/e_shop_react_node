@@ -64,13 +64,15 @@ const MontureProduct = () => {
     },[])
 
     const addToCart = (value) => {
-        if(montureData.stock !== 1) {
+        if(montureData.stock !== 0) {
             let item = {
                 category: "monture",
                 id: montureData.id,
                 count: value,
                 price: montureData.price,
-                stock: montureData.stock
+                stock: montureData.stock,
+                name: montureData.name,
+                image: process.env.PUBLIC_URL + picturesData[0].img
             }
 
             dispatch({

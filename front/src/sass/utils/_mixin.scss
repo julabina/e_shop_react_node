@@ -419,4 +419,10 @@
     font-weight: 700;
     border-radius: 3px;
     font-size: 0.75em;
+    cursor: pointer;
+    transition: opacity 200ms ease-in-out;
+        &:hover {
+            opacity: 0.6;
+            transition: opacity 200ms ease-in-out;
+        }
 }

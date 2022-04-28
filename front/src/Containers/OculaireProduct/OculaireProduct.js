@@ -58,13 +58,15 @@ const OculaireProduct = () => {
     },[])
 
     const addToCart = (value) => {
-        if(oculaireData.stock !== 1) {
+        if(oculaireData.stock !== 0) {
             let item = {
                 category: "oculaire",
                 id: oculaireData.id,
                 count: value,
                 price: oculaireData.price,
-                stock: oculaireData.stock
+                stock: oculaireData.stock,
+                name: oculaireData.name,
+                image: mainPicture
             }
 
             dispatch({

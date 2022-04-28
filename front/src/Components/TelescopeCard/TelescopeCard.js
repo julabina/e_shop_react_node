@@ -86,7 +86,9 @@ const TelescopeCard = (props) => {
                 id: props.id,
                 count: value,
                 price: props.price,
-                stock: props.stock
+                stock: props.stock,
+                name: props.name,
+                image: process.env.PUBLIC_URL + props.image
             }
             
             dispatch({

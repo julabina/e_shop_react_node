@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 const Cart = () => {
 
@@ -7,9 +9,25 @@ const Cart = () => {
         ...state.cartReducer
     }))
 
+    const [cartData, setCartData] = useState([]);
+
     useEffect(() => {
-        console.log(cart);
-    },[cart])
+        let newArr = [];
+        for(let i = 0; i < cart.length; i++) {
+            let item = {
+                category: cart[i].category,
+                id: cart[i].id,
+                count: cart[i].count,
+                price: cart[i].price.toFixed(2),
+                name: cart[i].name,
+                image: cart[i].image,
+                stock: cart[i].stock,
+                key: uuidv4()
+            }
+            newArr.push(item);
+        }
+        setCartData(newArr);
+    },[])
 
     return (
         <main>
@@ -35,6 +53,9 @@ const Cart = () => {
                     <p>Confirmation</p>
                 </div>
             </section>
+
+            {cartData.length === 0 ? <p className='cartEmpty'>Votre panier est vide.</p>
+            :
             <section className='cart'>
                 <h2 className='cart__title'>Votre panier :</h2>
                 <div className="cart__btns">
@@ -54,26 +75,43 @@ const Cart = () => {
                     </div>
                     <div className="cart__articles__separator"></div>
                     <div className="cart__articles__cartContent">
-                        {cart.map(el => {
-                            <div className="">
-                                <img src="" alt="" />
-                                <h3>el.title</h3>
-                                <p>el.price</p>
-                                <div className="">
+                        {cartData.map(el => {
+                          return (
+                            <div key={el.key} className="cart__articles__cartContent__article">
+                                <NavLink to={"/" + el.category + "/ref_=" + el.id}>
+                                    <div className="cart__articles__cartContent__article__leftPart">
+                                        <div className="cart__articles__cartContent__article__leftPart__img">
+                                            <img src={el.image} alt={"photo de " + el.name} />
+                                        </div>    
+                                        <h3>{el.name}</h3>
+                                    </div>
+                                </NavLink>
+                                <div className="cart__articles__cartContent__article__priceCont">
+                                    <p className='cart__articles__cartContent__article__priceCont__price'>{el.price} €</p>
+                                </div>
+                                <div className="cart__articles__cartContent__article__modify">
                                     <button>-</button>
                                     <input type="number" value={el.count} />
                                     <button>+</button>
                                 </div>
+                                <div className="cart__articles__cartContent__article__totalCont">
+                                    <p className='cart__articles__cartContent__article__totalCont__result'>{(el.count * el.price).toFixed(2) + " €"}</p>
+                                </div>
                             </div>
+                            )
                         })}
                     </div>
                     <div className="cart__articles__separator"></div>
                     <div className="cart__articles__totalCont">
                         <h4>Montant Total TTC</h4>
-                        <p className="cart__articles__totalCont__total"></p>
+                        <p className="cart__articles__totalCont__total">0 €</p>
+                    </div>
+                    <div className="cart__articles__orderBtn">
+                        <button className='cart__btns__orderBtn'>Passer commande</button>
                     </div>
                 </div>
             </section>
+            }
         </main>
     );
 };
