@@ -3,7 +3,6 @@
 
 @import './base/reset';
 @import './base/typography';
-@import './base/main';
 
 @import './components/navBar';
 @import './components/telescopeCard';
@@ -11,6 +10,7 @@
 @import './components/oculaireCard';
 @import './components/montureCard';
 
+@import './layouts/main';
 @import './layouts/header';
 @import './layouts/footer';
 
@@ -20,3 +20,4 @@
 @import './pages/oculaireProduct';
 @import './pages/monture';
 @import './pages/montureProduct';
+@import './pages/cart';
