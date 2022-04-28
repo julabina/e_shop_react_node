@@ -9,12 +9,18 @@ const Footer = () => {
                 <div className="footer__section__cont">
                     <div className="footer__section__cont__box">
                         <h3>Informations</h3>
-                        <p>À propos</p>
-                        <p>AUTRES</p>
-                        <p>AUTRES</p>
+                        <NavLink to='/about'>
+                            <p>À propos</p>
+                        </NavLink>
+                        <a href='https://github.com/julabina/e_shop_react_node'>
+                            <p>Repository</p>
+                        </a>
                         <a href='https://www.telescopes-et-accessoires.fr/' target="_blank" >
                             <p>Optique Unterlinden</p>
                         </a>
+                        <NavLink to="/contact">
+                            <p>Contact</p>
+                        </NavLink>
                     </div>
                     <div className="footer__section__cont__box">
                         <h3>Nos produits</h3>

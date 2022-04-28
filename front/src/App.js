@@ -13,6 +13,7 @@ import Oculaire from "./Containers/Oculaire/Oculaire";
 import OculaireProduct from "./Containers/OculaireProduct/OculaireProduct";
 import Monture from './Containers/Monture/Monture';
 import MontureProduct from './Containers/MontureProduct/MontureProduct';
+import About from "./Containers/About/About";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/promotion" element={<Promotion />} />
         <Route path="/cart" element={<Cart />} />
         <Route path='/contact' element={<Contact />} />
+        <Route path="/about" element={<About />} />
         <Route path='/search/' element={<Search />} />
         <Route path='/search/query_=:query' element={<Search />} />
         <Route path='*' element={<NotFound />} />
