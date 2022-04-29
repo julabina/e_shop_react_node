@@ -69,7 +69,6 @@ const MontureProduct = () => {
                 category: "monture",
                 id: montureData.id,
                 count: value,
-                price: montureData.price,
                 stock: montureData.stock,
                 name: montureData.name,
                 image: process.env.PUBLIC_URL + picturesData[0].img

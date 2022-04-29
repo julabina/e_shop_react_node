@@ -84,7 +84,6 @@ const MontureCard = (props) => {
                 category: "monture",
                 id: props.id,
                 count: value,
-                price: props.price,
                 stock: props.stock,
                 name: props.name,
                 image: process.env.PUBLIC_URL + props.image[0]

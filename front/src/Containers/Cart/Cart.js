@@ -12,27 +12,46 @@ const Cart = () => {
     }))
 
     const [cartData, setCartData] = useState([]);
-    const [totalCart, setTotalCart] = useState();
+    const [totalCart, setTotalCart] = useState(0);
 
     useEffect(() => {
-        
-       let newArr = [], total = 0;
+
+        let promiseArr = []
+
         for(let i = 0; i < cart.length; i++) {
-            let item = {
-                category: cart[i].category,
-                id: cart[i].id,
-                count: cart[i].count,
-                price: cart[i].price.toFixed(2),
-                name: cart[i].name,
-                image: cart[i].image,
-                stock: cart[i].stock,
-                key: uuidv4()
-            }
-            total += cart[i].price * cart[i].count;
-            newArr.push(item);
+            let promise = fetch('http://localhost:3000/api/' + cart[i].category + 's/' + cart[i].id).then(res => res.json());
+            promiseArr.push(promise);
         }
-        setTotalCart(total.toFixed(2));
-        setCartData(newArr); 
+
+        Promise.all(promiseArr)
+        .then(data => {
+            console.log(data);
+            let newArr = [], total = 0;
+            for (let i = 0; i < data.length; i++) {
+                let image;
+                if (cart[i].category === "oculaire") {
+                    image = data[i].data.pictures 
+                } else {
+                    image = data[i].data.pictures[0] 
+                }
+                let item = {
+                    category: cart[i].category,
+                    id: data[i].data.id,
+                    count: cart[i].count,
+                    price: data[i].data.price,
+                    name: data[i].data.name,
+                    image: image,
+                    stock: data[i].data.stock,
+                    key: uuidv4() 
+                }
+                total += data[i].data.price * cart[i].count;
+                newArr.push(item);
+            }
+            setTotalCart(total.toFixed(2));
+            setCartData(newArr);
+        }) 
+        
+         
     },[])
 
     return (

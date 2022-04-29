@@ -63,7 +63,6 @@ const OculaireProduct = () => {
                 category: "oculaire",
                 id: oculaireData.id,
                 count: value,
-                price: oculaireData.price,
                 stock: oculaireData.stock,
                 name: oculaireData.name,
                 image: mainPicture
