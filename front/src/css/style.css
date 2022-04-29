@@ -596,6 +596,7 @@ main {
 }
 .header__section__box__menu__cartCount__count {
   font-size: 0.7em;
+  font-weight: 700;
   color: #f3f3f3;
 }
 .header__section__box__menu__title {

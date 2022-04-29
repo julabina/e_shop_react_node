@@ -49,8 +49,7 @@ const Cart = () => {
             }
             setTotalCart(total.toFixed(2));
             setCartData(newArr);
-        }) 
-        
+        })     
          
     },[])
 

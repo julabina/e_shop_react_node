@@ -72,6 +72,7 @@ const TelescopeProduct = () => {
                 category: "telescope",
                 id: telescopeData.id,
                 count: value,
+                price: telescopeData.price,
                 stock: telescopeData.stock,
                 name: telescopeData.name,
                 image: process.env.PUBLIC_URL + picturesData[0].img

@@ -1,11 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart, faHomeLg, faPen, faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
 import NavBar from '../NavBar/NavBar';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 
 const Header = () => {
+
+    const { cart } = useSelector(state => ({
+        ...state.cartReducer
+    }))
+
+    const [headerCart, setHeaderCart] = useState([]);
+
+    useEffect(() => {
+
+        let artCount = 0, totalCart = 0;
+        for(let i = 0; i < cart.length; i++) {
+            console.log(typeof cart[i].price);
+            console.log(typeof cart[i].count);
+            let val = cart[i].price * cart[i].count;
+            totalCart += val;
+            artCount += cart[i].count;
+        }
+
+        let item = {
+            totalCart: totalCart.toFixed(2),
+            artCount: artCount
+        }
+
+        setHeaderCart(item);
+
+    },[cart])
 
     const [searchValue, setSearchValue] = useState();
 
@@ -41,10 +68,10 @@ const Header = () => {
                     <NavLink to='/cart'>
                         <div className="header__section__box__menu">
                             <div className="header__section__box__menu__cartCount">
-                                <p className='header__section__box__menu__cartCount__count'>0</p>
+                                <p className='header__section__box__menu__cartCount__count'>{headerCart.artCount}</p>
                             </div>
                             <FontAwesomeIcon icon={faShoppingCart} />
-                            <p className='header__section__box__menu__title'>0,00€</p>
+                            <p className='header__section__box__menu__title'>{headerCart.totalCart} €</p>
                         </div>
                     </NavLink>
                 </div>
