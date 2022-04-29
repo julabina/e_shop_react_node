@@ -12,7 +12,8 @@ const Cart = () => {
     const [cartData, setCartData] = useState([]);
 
     useEffect(() => {
-        let newArr = [];
+        
+       let newArr = [];
         for(let i = 0; i < cart.length; i++) {
             let item = {
                 category: cart[i].category,
@@ -26,7 +27,7 @@ const Cart = () => {
             }
             newArr.push(item);
         }
-        setCartData(newArr);
+        setCartData(newArr); 
     },[])
 
     return (

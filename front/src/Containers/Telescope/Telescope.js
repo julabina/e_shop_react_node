@@ -1,20 +1,31 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import TelescopeCard from '../../Components/TelescopeCard/TelescopeCard';
-import { getTelescopes } from '../../redux/telescope/telescopeReducer';
 
 const Telescope = () => {
 
-    const { telescopes } = useSelector(state => ({
-        ...state.telescopeReducer
-    }))
-
-    const dispatch = useDispatch();
+    const [telescopeData, setTelescopeData] = useState([]);
 
     useEffect(() => {
-        if (telescopes.length === 0) {
-            dispatch(getTelescopes());
+        fetch('http://localhost:3000/api/telescopes')
+        .then(res => res.json())
+        .then(data => {
+        console.log(data.data);
+        let newArr = [];
+        for (let i = 0; i < data.data.length; i++) {
+            let item = {
+                name: data.data[i].name,
+                pictures: data.data[i].pictures,
+                price: data.data[i].price,
+                id: data.data[i].id,
+                promo: data.data[i].promo,
+                promoValue: data.data[i].promoValue,
+                stock: data.data[i].stock
+            }
+            newArr.push(item);
         }
+        setTelescopeData(newArr);
+        
+    })
     }, [])
 
     return (
@@ -33,7 +44,7 @@ const Telescope = () => {
                 </div>
                 <div className="telescopesList__main">
                     <ul>
-                        {telescopes.map(el => {
+                        {telescopeData.map(el => {
                             return <TelescopeCard id={el.id} name={el.name} price={el.price} key={el.id} image={el.pictures[0]} stock={el.stock} promo={el.promo} promoValue={el.promoValue} />
                         })} 
                     </ul>
