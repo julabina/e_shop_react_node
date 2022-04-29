@@ -1,0 +1,148 @@
+.cartStepLocation {
+    display: none;
+    width: 1480px;
+    &__title {
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 1.3em;
+    }
+    &__infosOblig {
+        font-size: 0.7em;
+        font-style: italic;
+    }
+    &__status {
+        margin: 15px 0;
+        label {
+            margin-right: 10px;
+        }
+        input {
+            margin-right: 5px;
+        }
+    }
+    &__individual {
+        span {
+            color: map-get($map: $colors, $key: tertiary);
+        }
+        input, select {
+            height: 40px;
+            border: lighten(map-get($map: $colors, $key: grayTrans), 30) 1px solid;
+        }
+        label {
+            font-weight: 700;
+            font-size: 0.9em;
+        }
+        &__names {
+            display: flex;
+            label {
+                margin-bottom: 5px;
+            }
+            &__civ {
+                display: flex;
+                flex-direction: column;
+                margin-right: 20px;
+                select {
+                    display: flex;
+                    justify-content: center;
+                    background: white;
+                    width: 90px;
+                }
+            }
+            &__name {
+                display: flex;
+                flex-direction: column;
+                margin-right: 20px;
+            }
+        }
+        &__contacts {
+            display: flex;
+            flex-direction: column;
+            margin: 15px 0 20px;
+            label {
+                margin-bottom: 5px;
+            }
+            &__mail {
+                display: flex;
+                flex-direction: column;
+            }
+            &__phones {
+                display: flex;
+                &__phone {
+                    display: flex;
+                    flex-direction: column;
+                    margin: 15px 20px 0 0;
+                }
+            }
+        }
+        &__newsletter {
+            margin-bottom: 60px;
+            &__checkBoxCont {
+                display: flex;
+                input {
+                    height: initial;
+                }
+                label {
+                    margin-top: 3px;
+                    font-style: italic;
+                }
+            }
+        }
+        &__billLocation {
+            margin-bottom: 60px;
+            &__row {
+                display: flex;
+                &__cont {
+                    display: flex;
+                    flex-direction: column;
+                    margin-right: 20px;
+                    margin-top: 15px;
+                    input {
+                        width: 300px;
+                    }
+                    label {
+                        margin-bottom: 5px;
+                    }
+                }
+            }
+        }
+        &__sameLocation {
+            margin: 15px 0 60px;
+            input {
+                height: initial;
+                margin-right: 5px;
+            }
+        }
+        &__notSameLocation {
+            margin: 15px 0 60px;
+            &__row {
+                display: flex;
+                &__cont {
+                    display: flex;
+                    flex-direction: column;
+                    margin-right: 20px;
+                    margin-top: 15px;
+                    input {
+                        width: 300px;
+                    }
+                    label {
+                        margin-bottom: 5px;
+                    }
+                }
+            }
+        }
+        &__divers {
+            display: flex;
+            flex-direction: column;
+            label {
+                margin: 15px 0 5px;
+            }
+            textarea {
+                resize: none;
+                width: 500px;
+                margin-bottom: 40px;
+            }
+        }
+    }
+    &--active {
+        display: block;
+    }
+}

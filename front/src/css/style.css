@@ -536,6 +536,153 @@ body {
   align-items: center;
 }
 
+.cartStepLocation {
+  display: none;
+  width: 1480px;
+}
+.cartStepLocation__title {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 1.3em;
+}
+.cartStepLocation__infosOblig {
+  font-size: 0.7em;
+  font-style: italic;
+}
+.cartStepLocation__status {
+  margin: 15px 0;
+}
+.cartStepLocation__status label {
+  margin-right: 10px;
+}
+.cartStepLocation__status input {
+  margin-right: 5px;
+}
+.cartStepLocation__individual span {
+  color: #FF0000;
+}
+.cartStepLocation__individual input, .cartStepLocation__individual select {
+  height: 40px;
+  border: rgba(205, 205, 205, 0.452) 1px solid;
+}
+.cartStepLocation__individual label {
+  font-weight: 700;
+  font-size: 0.9em;
+}
+.cartStepLocation__individual__names {
+  display: flex;
+}
+.cartStepLocation__individual__names label {
+  margin-bottom: 5px;
+}
+.cartStepLocation__individual__names__civ {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+.cartStepLocation__individual__names__civ select {
+  display: flex;
+  justify-content: center;
+  background: white;
+  width: 90px;
+}
+.cartStepLocation__individual__names__name {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+.cartStepLocation__individual__contacts {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0 20px;
+}
+.cartStepLocation__individual__contacts label {
+  margin-bottom: 5px;
+}
+.cartStepLocation__individual__contacts__mail {
+  display: flex;
+  flex-direction: column;
+}
+.cartStepLocation__individual__contacts__phones {
+  display: flex;
+}
+.cartStepLocation__individual__contacts__phones__phone {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 20px 0 0;
+}
+.cartStepLocation__individual__newsletter {
+  margin-bottom: 60px;
+}
+.cartStepLocation__individual__newsletter__checkBoxCont {
+  display: flex;
+}
+.cartStepLocation__individual__newsletter__checkBoxCont input {
+  height: initial;
+}
+.cartStepLocation__individual__newsletter__checkBoxCont label {
+  margin-top: 3px;
+  font-style: italic;
+}
+.cartStepLocation__individual__billLocation {
+  margin-bottom: 60px;
+}
+.cartStepLocation__individual__billLocation__row {
+  display: flex;
+}
+.cartStepLocation__individual__billLocation__row__cont {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  margin-top: 15px;
+}
+.cartStepLocation__individual__billLocation__row__cont input {
+  width: 300px;
+}
+.cartStepLocation__individual__billLocation__row__cont label {
+  margin-bottom: 5px;
+}
+.cartStepLocation__individual__sameLocation {
+  margin: 15px 0 60px;
+}
+.cartStepLocation__individual__sameLocation input {
+  height: initial;
+  margin-right: 5px;
+}
+.cartStepLocation__individual__notSameLocation {
+  margin: 15px 0 60px;
+}
+.cartStepLocation__individual__notSameLocation__row {
+  display: flex;
+}
+.cartStepLocation__individual__notSameLocation__row__cont {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  margin-top: 15px;
+}
+.cartStepLocation__individual__notSameLocation__row__cont input {
+  width: 300px;
+}
+.cartStepLocation__individual__notSameLocation__row__cont label {
+  margin-bottom: 5px;
+}
+.cartStepLocation__individual__divers {
+  display: flex;
+  flex-direction: column;
+}
+.cartStepLocation__individual__divers label {
+  margin: 15px 0 5px;
+}
+.cartStepLocation__individual__divers textarea {
+  resize: none;
+  width: 500px;
+  margin-bottom: 40px;
+}
+.cartStepLocation--active {
+  display: block;
+}
+
 html, body {
   height: 100vh;
 }
@@ -1739,6 +1886,37 @@ main {
 
 .cartEmpty {
   margin-top: 50px;
+}
+
+.cartStepCart {
+  display: none;
+}
+.cartStepCart--active {
+  display: block;
+}
+
+.cartStepDelivery {
+  display: none;
+  width: 1480px;
+}
+.cartStepDelivery--active {
+  display: block;
+}
+
+.cartStepPayment {
+  display: none;
+  width: 1480px;
+}
+.cartStepPayment--active {
+  display: block;
+}
+
+.cartStepConfirm {
+  display: none;
+  width: 1480px;
+}
+.cartStepConfirm--active {
+  display: block;
 }
 
 /*# sourceMappingURL=style.css.map */

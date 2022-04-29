@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import CartLocation from '../../Components/cartLocation/CartLocation';
 
 const Cart = () => {
 
@@ -78,9 +79,10 @@ const Cart = () => {
                 </div>
             </section>
 
+            {/* FIRST STEP : PANIER */}
             {cartData.length === 0 ? <p className='cartEmpty'>Votre panier est vide.</p>
             :
-            <section className='cart'>
+            <section className='cart cartStepCart'>
                 <h2 className='cart__title'>Votre panier :</h2>
                 <div className="cart__btns">
                     <div className="cart__btns__options">
@@ -137,6 +139,93 @@ const Cart = () => {
                 </div>
             </section>
             }
+
+            {/* 2ND STEP : INFORMATIONS */}
+            <section className='cartStepLocation cartStepLocation--active'>
+                <CartLocation />
+              {/*   <h2 className='cart__title'>Information client</h2>
+                <div className="cart__btns">
+                    <div className="cart__btns__options">
+                        <button id='backToCart' className='cart__btns__options__btn'>Retour au panier</button>
+                    </div>
+                    <button className='cart__btns__orderBtn'>Continuer</button>
+                </div>
+
+                <p className='cartStepLocation__infosOblig'>Les zones marquées par un astérisque sont obligatoires.</p>
+
+                <div className="cartStepLocation__status">
+                    <input onInput={changeToggleStatus} type="radio" name="status" id="individual" />
+                    <label htmlFor="individual">Je suis un particulier</label>
+                    <input onInput={changeToggleStatus} type="radio" name="status" id="business" />
+                    <label htmlFor="business">Je suis une entreprise</label>
+                </div>
+
+                {
+                    toggleStatus ? 
+                        <div className="cartStepLocation__induvidual">
+                            <div className="cartStepLocation__induvidual__names">
+                                <div className='cartStepLocation__induvidual__names__civ'>
+
+                                </div>
+                                <div className='cartStepLocation__induvidual__names__firstName'></div>
+                                <div className='cartStepLocation__induvidual__names__lastName'></div>
+                            </div>
+                        </div>
+                    : 
+                        <div className="cartStepLocation__business">
+
+                        </div>         
+                }
+
+
+                <div className="cart__articles__orderBtn">
+                    <button className='cart__btns__orderBtn'>continuer</button>
+                </div> */}
+            </section>
+            
+            {/* 3TH STEP : LIVRAISON */}
+            <section className='cartStepDelivery'>
+            <h2 className='cart__title'></h2>
+                <div className="cart__btns">
+                    <div className="cart__btns__options">
+                        <button id='' className='cart__btns__options__btn'></button>
+                    </div>
+                    <button className='cart__btns__orderBtn'>Continuer</button>
+                </div>
+
+
+                <div className="cart__articles__orderBtn">
+                    <button className='cart__btns__orderBtn'>continuer</button>
+                </div>
+            </section>
+            
+            {/* 4TH STEP : PAIEMENT */}
+            <section className='cartStepPayment'>
+            <div className="cart__btns">
+                    <div className="cart__btns__options">
+                        <button id='' className='cart__btns__options__btn'></button>
+                    </div>
+                    <button className='cart__btns__orderBtn'>Continuer</button>
+                </div>
+
+
+                <div className="cart__articles__orderBtn">
+                    <button className='cart__btns__orderBtn'>continuer</button>
+                </div>
+            </section>
+
+            {/* LAST STEP : CONFIRMATION */}
+            <section className='cartStepConfirm'>
+            <div className="cart__btns">
+                    <div className="cart__btns__options">
+                        <button id='' className='cart__btns__options__btn'></button>
+                    </div>
+                </div>
+
+
+                
+            </section>
+
         </main>
     );
 };

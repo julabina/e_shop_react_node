@@ -193,3 +193,34 @@
 .cartEmpty {
     margin-top: 50px;
 }
+
+.cartStepCart {
+    display: none;
+    &--active {
+        display: block;
+    }
+}
+
+.cartStepDelivery {
+    display: none;
+    width: 1480px;
+    &--active {
+        display: block;
+    }
+}
+
+.cartStepPayment {
+    display: none;
+    width: 1480px;
+    &--active {
+        display: block;
+    }
+}
+
+.cartStepConfirm {
+    display: none;
+    width: 1480px;
+    &--active {
+        display: block;
+    }
+}
