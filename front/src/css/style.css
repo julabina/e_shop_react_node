@@ -1692,6 +1692,15 @@ main {
   border-top: 1px solid rgba(179, 179, 179, 0.452);
   border-bottom: 1px solid rgba(179, 179, 179, 0.452);
 }
+.cart__articles__cartContent__article__modify__trash {
+  margin-left: 5px;
+  cursor: pointer;
+  transition: opacity 150ms ease-in-out;
+}
+.cart__articles__cartContent__article__modify__trash:hover {
+  opacity: 0.7;
+  transition: opacity 150ms ease-in-out;
+}
 .cart__articles__cartContent__article__totalCont {
   display: flex;
   align-items: center;

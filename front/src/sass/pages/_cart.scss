@@ -141,6 +141,15 @@
                         border-top: 1px solid lighten(map-get($map: $colors, $key:grayTrans ), 20);
                         border-bottom: 1px solid lighten(map-get($map: $colors, $key:grayTrans ), 20);
                     }
+                    &__trash {
+                        margin-left: 5px;
+                        cursor: pointer;
+                        transition: opacity 150ms ease-in-out ;
+                       &:hover {
+                           opacity: 0.7;
+                           transition: opacity 150ms ease-in-out ;
+                       }
+                    }
                 }
                 &__totalCont {
                     display: flex;

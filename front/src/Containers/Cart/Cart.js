@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 const Cart = () => {
 
@@ -10,10 +12,11 @@ const Cart = () => {
     }))
 
     const [cartData, setCartData] = useState([]);
+    const [totalCart, setTotalCart] = useState();
 
     useEffect(() => {
         
-       let newArr = [];
+       let newArr = [], total = 0;
         for(let i = 0; i < cart.length; i++) {
             let item = {
                 category: cart[i].category,
@@ -25,8 +28,10 @@ const Cart = () => {
                 stock: cart[i].stock,
                 key: uuidv4()
             }
+            total += cart[i].price * cart[i].count;
             newArr.push(item);
         }
+        setTotalCart(total.toFixed(2));
         setCartData(newArr); 
     },[])
 
@@ -94,6 +99,7 @@ const Cart = () => {
                                     <button>-</button>
                                     <input type="number" value={el.count} />
                                     <button>+</button>
+                                    <FontAwesomeIcon className='cart__articles__cartContent__article__modify__trash' icon={faTrashCan} />
                                 </div>
                                 <div className="cart__articles__cartContent__article__totalCont">
                                     <p className='cart__articles__cartContent__article__totalCont__result'>{(el.count * el.price).toFixed(2) + " €"}</p>
@@ -105,7 +111,7 @@ const Cart = () => {
                     <div className="cart__articles__separator"></div>
                     <div className="cart__articles__totalCont">
                         <h4>Montant Total TTC</h4>
-                        <p className="cart__articles__totalCont__total">0 €</p>
+                        <p className="cart__articles__totalCont__total">{totalCart} €</p>
                     </div>
                     <div className="cart__articles__orderBtn">
                         <button className='cart__btns__orderBtn'>Passer commande</button>
