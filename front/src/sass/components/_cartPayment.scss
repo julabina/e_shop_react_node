@@ -1,0 +1,41 @@
+.cartStepPayment {
+    h3 {
+        font-size: 1.3em;
+        margin-bottom: 15px;
+    }
+    &__paymentChoice {
+        margin-bottom: 40px;
+        &__choice {
+            padding-top: 20px;
+            display: flex;
+            height: 130px;
+            input {
+                width: 13px;
+                height: 13px;
+                margin-right: 25px;
+            }
+            &__textCont {
+                width: 1292px;
+                h4 {
+                    font-size: 1.2em;
+                    font-weight: 700;
+                    margin-bottom: 8px;
+                }
+                p {
+                    font-size: 0.9em;
+                    line-height: 1.2;
+                }
+            }
+            &__img {
+                display: flex;
+                justify-content: center;
+                width: 150px;
+                padding-bottom: 20px;
+                img {
+                    max-width: 140px;
+                    object-fit: contain;
+                }
+            }
+        }
+    }
+}

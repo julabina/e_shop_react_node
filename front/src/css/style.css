@@ -783,6 +783,46 @@ body {
   width: 200px;
 }
 
+.cartStepPayment h3 {
+  font-size: 1.3em;
+  margin-bottom: 15px;
+}
+.cartStepPayment__paymentChoice {
+  margin-bottom: 40px;
+}
+.cartStepPayment__paymentChoice__choice {
+  padding-top: 20px;
+  display: flex;
+  height: 130px;
+}
+.cartStepPayment__paymentChoice__choice input {
+  width: 13px;
+  height: 13px;
+  margin-right: 25px;
+}
+.cartStepPayment__paymentChoice__choice__textCont {
+  width: 1292px;
+}
+.cartStepPayment__paymentChoice__choice__textCont h4 {
+  font-size: 1.2em;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.cartStepPayment__paymentChoice__choice__textCont p {
+  font-size: 0.9em;
+  line-height: 1.2;
+}
+.cartStepPayment__paymentChoice__choice__img {
+  display: flex;
+  justify-content: center;
+  width: 150px;
+  padding-bottom: 20px;
+}
+.cartStepPayment__paymentChoice__choice__img img {
+  max-width: 140px;
+  object-fit: contain;
+}
+
 html, body {
   height: 100vh;
 }

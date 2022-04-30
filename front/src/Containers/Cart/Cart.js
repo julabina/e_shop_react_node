@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import CartLocation from '../../Components/CartLocation/CartLocation';
 import CartDelivery from '../../Components/CartDelivery/CartDelivery';
+import CartPayment from '../../Components/CartPayment/CartPayment';
 
 const Cart = () => {
 
@@ -147,23 +148,13 @@ const Cart = () => {
             </section>
             
             {/* 3TH STEP : LIVRAISON */}
-            <section className='cartStepDelivery cartStepDelivery--active'>
+            <section className='cartStepDelivery'>
                 <CartDelivery />
             </section>
             
             {/* 4TH STEP : PAIEMENT */}
-            <section className='cartStepPayment'>
-            <div className="cart__btns">
-                    <div className="cart__btns__options">
-                        <button id='' className='cart__btns__options__btn'></button>
-                    </div>
-                    <button className='cart__btns__orderBtn'>Continuer</button>
-                </div>
-
-
-                <div className="cart__articles__orderBtn">
-                    <button className='cart__btns__orderBtn'>continuer</button>
-                </div>
+            <section className='cartStepPayment cartStepPayment--active'>
+                <CartPayment />
             </section>
 
             {/* LAST STEP : CONFIRMATION */}
