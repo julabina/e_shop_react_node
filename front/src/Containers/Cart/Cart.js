@@ -4,7 +4,8 @@ import { NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import CartLocation from '../../Components/cartLocation/CartLocation';
+import CartLocation from '../../Components/CartLocation/CartLocation';
+import CartDelivery from '../../Components/CartDelivery/CartDelivery';
 
 const Cart = () => {
 
@@ -141,24 +142,13 @@ const Cart = () => {
             }
 
             {/* 2ND STEP : INFORMATIONS */}
-            <section className='cartStepLocation cartStepLocation--active'>
+            <section className='cartStepLocation'>
                 <CartLocation />
             </section>
             
             {/* 3TH STEP : LIVRAISON */}
-            <section className='cartStepDelivery'>
-            <h2 className='cart__title'></h2>
-                <div className="cart__btns">
-                    <div className="cart__btns__options">
-                        <button id='' className='cart__btns__options__btn'></button>
-                    </div>
-                    <button className='cart__btns__orderBtn'>Continuer</button>
-                </div>
-
-
-                <div className="cart__articles__orderBtn">
-                    <button className='cart__btns__orderBtn'>continuer</button>
-                </div>
+            <section className='cartStepDelivery cartStepDelivery--active'>
+                <CartDelivery />
             </section>
             
             {/* 4TH STEP : PAIEMENT */}

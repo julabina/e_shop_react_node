@@ -1,0 +1,82 @@
+.cartStepDelivery {
+    display: none;
+    width: 1480px;
+    &__title {
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 1.3em;
+    }
+    h3 {
+        font-size: 1.3em;
+        margin-bottom: 15px;
+    }
+    &__adress {
+        margin-bottom: 50px;
+        line-height: 1.2;
+    }
+    &__infosComp {
+        resize: none;
+        height: 130px;
+        width: 900px;
+    }
+    &__deliveySelect {
+        font-size: 1.3em;
+        border-bottom: 5px solid black;
+        width: 399px;
+        padding-bottom: 6px;
+        margin-top: 50px;
+    }
+    &__optionDelivery {
+        display: flex;
+        height: 150px;
+        border-top: 1px solid map-get($map: $colors, $key: grayTrans);
+        padding-top: 20px;
+        &:first-child  {
+            border-top: none;
+        }
+        input {
+            height: 13px;
+            width: 13px;
+            margin-right: 25px;
+        }
+        &__cont {
+            display: flex;
+            flex-direction: column;
+            &__mainInfos {
+                width: 1292px;
+                display: flex;
+                font-weight: 700;
+                margin-bottom: 20px;
+                &__price {
+                    color: map-get($map: $colors, $key: tertiary);
+                    margin-right: 20px;
+                }
+            }
+            &__infos {
+                display: flex;
+                flex-direction: column;
+                p {
+                    font-size: 0.9em;
+                    line-height: 1.2;
+                }
+            }
+        }
+        &__img {
+            display: flex;
+            justify-content: center;
+            width: 150px;
+            padding-bottom: 20px;
+            img {
+                max-width: 140px;
+                object-fit: contain;
+            }
+        }
+    }
+    &--active {
+        display: block;
+    }
+}
+
+#delivery__backBtn {
+    width: 200px; 
+}
