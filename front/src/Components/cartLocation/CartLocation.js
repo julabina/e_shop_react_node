@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const CartLocation = () => {
 
-    const [toggleStatus, setToggleStatus] = useState(true);
+    const [toggleStatus, setToggleStatus] = useState(false);
     const [togglelocation, setTogglelocation] = useState(false);
 
 
@@ -33,9 +33,7 @@ const CartLocation = () => {
                     <input onInput={changeToggleStatus} type="radio" name="status" id="business" />
                     <label htmlFor="business">Je suis une entreprise</label>
                 </div>
-
-                {
-                    toggleStatus ? 
+ 
                         <form className="cartStepLocation__individual">
                             <div className="cartStepLocation__individual__names">
                                 <div className='cartStepLocation__individual__names__civ'>
@@ -82,13 +80,38 @@ const CartLocation = () => {
                                 </div>
                             </div>
 
+                            {toggleStatus && 
+                                <div className="cartStepLocation__business">
+                                    <div className="cartStepLocation__business__row">
+                                        <div className="cartStepLocation__business__row__infos">
+                                            <label htmlFor="">Société<span> *</span></label>
+                                            <input type="text" name="" id="" />
+                                        </div>
+                                        <div className="cartStepLocation__business__row__infos">
+                                            <label htmlFor="">Télécopie</label>
+                                            <input type="tel" name="" id="" />
+                                        </div>
+                                    </div>
+                                    <div className="cartStepLocation__business__row">
+                                        <div className="cartStepLocation__business__row__infos">
+                                            <label htmlFor="">N° de TVA intra-communautaire<span> *</span></label>
+                                            <input type="text" name="" id="" />
+                                        </div>
+                                        <div className="cartStepLocation__business__row__infos">
+                                            <label htmlFor="">N° SIRET<span> *</span></label>
+                                            <input type="number" name="" id="" />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
                             <h2 className='cartStepLocation__title'>Adresse de facturation</h2>
 
                             <div className="cartStepLocation__individual__billLocation">
                                 <div className='cartStepLocation__individual__billLocation__row'>
                                     <div className="cartStepLocation__individual__billLocation__row__cont">
                                         <label htmlFor="">Adresse<span> *</span></label>
-                                        <input type="text" name="" id="" />
+                                        <input type="text" name="" id="" required />
                                     </div>
                                     <div className="cartStepLocation__individual__billLocation__row__cont">
                                         <label htmlFor="">Complément d'adresse</label>
@@ -98,11 +121,11 @@ const CartLocation = () => {
                                 <div className='cartStepLocation__individual__billLocation__row'>
                                     <div className="cartStepLocation__individual__billLocation__row__cont">
                                         <label htmlFor="">Code postal<span> *</span></label>
-                                        <input type="number" name="" id="" />
+                                        <input type="number" name="" id="" required />
                                     </div>
                                     <div className="cartStepLocation__individual__billLocation__row__cont">
                                         <label htmlFor="">Ville<span> *</span></label>
-                                        <input type="text" name="" id="" />
+                                        <input type="text" name="" id="" required />
                                     </div>
                                 </div>
                             </div>
@@ -119,7 +142,7 @@ const CartLocation = () => {
                                     <div className='cartStepLocation__individual__notSameLocation__row'>
                                         <div className="cartStepLocation__individual__notSameLocation__row__cont">
                                             <label htmlFor="">Adresse<span> *</span></label>
-                                            <input type="text" name="" id="" />
+                                            <input type="text" name="" id="" required />
                                         </div>
                                         <div className="cartStepLocation__individual__notSameLocation__row__cont">
                                             <label htmlFor="">Complément d'adresse</label>
@@ -129,11 +152,11 @@ const CartLocation = () => {
                                     <div className='cartStepLocation__individual__notSameLocation__row'>
                                         <div className="cartStepLocation__individual__notSameLocation__row__cont">
                                             <label htmlFor="">Code postal<span> *</span></label>
-                                            <input type="number" name="" id="" />
+                                            <input type="number" name="" id="" required />
                                         </div>
                                         <div className="cartStepLocation__individual__notSameLocation__row__cont">
                                             <label htmlFor="">Ville<span> *</span></label>
-                                            <input type="text" name="" id="" />
+                                            <input type="text" name="" id="" required />
                                         </div>
                                     </div>
                                 </div>
@@ -145,12 +168,7 @@ const CartLocation = () => {
                                 <label htmlFor="">Instructions spéciales</label>
                                 <textarea name="" id="" cols="30" rows="10"></textarea>
                             </div>
-                        </form>
-                    : 
-                        <div className="cartStepLocation__business">
-
-                        </div>         
-                }
+                        </form>        
 
 
                 <div className="cart__articles__orderBtn">

@@ -143,44 +143,6 @@ const Cart = () => {
             {/* 2ND STEP : INFORMATIONS */}
             <section className='cartStepLocation cartStepLocation--active'>
                 <CartLocation />
-              {/*   <h2 className='cart__title'>Information client</h2>
-                <div className="cart__btns">
-                    <div className="cart__btns__options">
-                        <button id='backToCart' className='cart__btns__options__btn'>Retour au panier</button>
-                    </div>
-                    <button className='cart__btns__orderBtn'>Continuer</button>
-                </div>
-
-                <p className='cartStepLocation__infosOblig'>Les zones marquées par un astérisque sont obligatoires.</p>
-
-                <div className="cartStepLocation__status">
-                    <input onInput={changeToggleStatus} type="radio" name="status" id="individual" />
-                    <label htmlFor="individual">Je suis un particulier</label>
-                    <input onInput={changeToggleStatus} type="radio" name="status" id="business" />
-                    <label htmlFor="business">Je suis une entreprise</label>
-                </div>
-
-                {
-                    toggleStatus ? 
-                        <div className="cartStepLocation__induvidual">
-                            <div className="cartStepLocation__induvidual__names">
-                                <div className='cartStepLocation__induvidual__names__civ'>
-
-                                </div>
-                                <div className='cartStepLocation__induvidual__names__firstName'></div>
-                                <div className='cartStepLocation__induvidual__names__lastName'></div>
-                            </div>
-                        </div>
-                    : 
-                        <div className="cartStepLocation__business">
-
-                        </div>         
-                }
-
-
-                <div className="cart__articles__orderBtn">
-                    <button className='cart__btns__orderBtn'>continuer</button>
-                </div> */}
             </section>
             
             {/* 3TH STEP : LIVRAISON */}

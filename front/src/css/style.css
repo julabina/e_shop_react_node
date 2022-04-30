@@ -679,6 +679,23 @@ body {
   width: 500px;
   margin-bottom: 40px;
 }
+.cartStepLocation__business {
+  margin-bottom: 50px;
+}
+.cartStepLocation__business__row {
+  display: flex;
+}
+.cartStepLocation__business__row__infos {
+  display: flex;
+  flex-direction: column;
+}
+.cartStepLocation__business__row__infos label {
+  margin: 15px 0 5px;
+}
+.cartStepLocation__business__row__infos input {
+  margin-right: 20px;
+  width: 250px;
+}
 .cartStepLocation--active {
   display: block;
 }
