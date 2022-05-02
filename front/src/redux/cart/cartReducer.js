@@ -44,6 +44,12 @@ function cartReducer(state= INITIAL_STATE, action) {
                 cart : finalArr
             }
         }
+        case 'UPDATECART' : {
+            const newArr = action.payload;
+            return {
+                cart : newArr
+            }
+        }
     }
 
     return state;

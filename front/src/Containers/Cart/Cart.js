@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faTrashCan, faCartShopping, faTruck, faCreditCard, faCheck, faPerson } from '@fortawesome/free-solid-svg-icons';
 import CartLocation from '../../Components/CartLocation/CartLocation';
 import CartDelivery from '../../Components/CartDelivery/CartDelivery';
 import CartPayment from '../../Components/CartPayment/CartPayment';
@@ -13,6 +13,8 @@ const Cart = () => {
     const { cart } = useSelector(state => ({
         ...state.cartReducer
     }))
+
+    const dispatch = useDispatch();
 
     const [cartData, setCartData] = useState([]);
     const [totalCart, setTotalCart] = useState(0);
@@ -28,7 +30,6 @@ const Cart = () => {
 
         Promise.all(promiseArr)
         .then(data => {
-            console.log(data);
             let newArr = [], total = 0;
             for (let i = 0; i < data.length; i++) {
                 let image;
@@ -56,27 +57,114 @@ const Cart = () => {
          
     },[])
 
+    const changeLocalStorage = () => {
+        let newArr = [];
+        for (let i = 0; i < cartData.length; i++) {
+            let item = {
+                category: cartData[i].category,
+                id: cartData[i].id,
+                count: cartData[i].count,
+                price: cartData[i].price,
+                stock: cartData[i].stock,
+                name: cartData[i].name,
+                image: process.env.PUBLIC_URL +  cartData[i].image
+            }
+            newArr.push(item);
+        }
+
+        dispatch ({
+            type: 'UPDATECART',
+            payload: newArr
+        }) 
+    }
+
+    const verifyCart = () => {
+        let promiseArr = []
+
+        for(let i = 0; i < cart.length; i++) {
+            let promise = fetch('http://localhost:3000/api/' + cart[i].category + 's/' + cart[i].id).then(res => res.json());
+            promiseArr.push(promise);
+        }
+
+        Promise.all(promiseArr)
+        .then(data => {
+            for (let i = 0; i < data.length; i++) {
+                
+                if (data[i].data.stock === 0) {
+                    const newArr = cartData;
+                    newArr[i].stock = data[i].data.stock;
+                    newArr[i].count = data[i].data.stock;
+                    setCartData(newArr);
+                    changeLocalStorage();
+                    return (alert('Le produit ' + cartData[i].name + ' n\'est plus disponible'))
+                } else if (data[i].data.stock < cartData[i].stock) {
+                    const newArr = cartData;
+                    newArr[i].stock = data[i].data.stock;
+                    newArr[i].count = data[i].data.stock;
+                    setCartData(newArr);
+                    changeLocalStorage();
+                    return alert('Le produit ' + cartData[i].name + ' a été mis à jour');
+                }
+            }
+            
+            /* produit en stock, valider, ici reserver temp stock */
+
+            toNextStep();
+
+        })  
+    }
+
+    const toNextStep = () => {
+        const steps = document.querySelectorAll(".cartSteps__step");
+        const stepsContent = document.querySelectorAll(".cartStepCart");
+
+        for(let i = 0; i < steps.length; i++) {
+            let a = i - 1;
+            if (!steps[i].classList.contains('cartSteps__step--active') && i !== (steps.length)) {
+                steps[i].classList.add('cartSteps__step--active');
+                stepsContent[i].classList.add('cartStepCart--active');
+                stepsContent[a].classList.remove('cartStepCart--active');
+                break;
+            }
+        }  
+    }
+    
+    const toPreviousStep = () => {
+        const steps = document.querySelectorAll(".cartSteps__step");
+        const stepsContent = document.querySelectorAll(".cartStepCart");
+
+        for(let i = (steps.length - 1); i >= 0; i--) {
+            let a = i - 1;
+            if (steps[i].classList.contains('cartSteps__step--active') ) {
+                steps[i].classList.remove('cartSteps__step--active');
+                stepsContent[i].classList.remove('cartStepCart--active');
+                stepsContent[a].classList.add('cartStepCart--active');
+                break;
+            }
+        }
+    }
+/* && i !== (steps.length) */
     return (
         <main>
             <section className="cartSteps">
-                <div className="cartSteps__step">
-
+                <div className="cartSteps__step cartSteps__step--active">
+                    <FontAwesomeIcon className='cartSteps__step__icon' icon={faCartShopping} />
                     <p>Panier</p>
                 </div>
                 <div className="cartSteps__step">
-
+                    <FontAwesomeIcon className='cartSteps__step__icon' icon={faPerson} />
                     <p>Coordonnées</p>
                 </div>
                 <div className="cartSteps__step">
-
+                    <FontAwesomeIcon className='cartSteps__step__icon' icon={faTruck} />
                     <p>Livraison</p>
                 </div>
                 <div className="cartSteps__step">
-
+                    <FontAwesomeIcon className='cartSteps__step__icon' icon={faCreditCard} />
                     <p>Paiement</p>
                 </div>
                 <div className="cartSteps__step">
-
+                    <FontAwesomeIcon className='cartSteps__step__icon' icon={faCheck} />
                     <p>Confirmation</p>
                 </div>
             </section>
@@ -84,14 +172,14 @@ const Cart = () => {
             {/* FIRST STEP : PANIER */}
             {cartData.length === 0 ? <p className='cartEmpty'>Votre panier est vide.</p>
             :
-            <section className='cart cartStepCart'>
+            <section className='cart cartStepCart cartStepCart--active'>
                 <h2 className='cart__title'>Votre panier :</h2>
                 <div className="cart__btns">
                     <div className="cart__btns__options">
                         <button className='cart__btns__options__btn'>Mettre à jour</button>
                         <button className='cart__btns__options__btn'>Vider le panier</button>
                     </div>
-                    <button className='cart__btns__orderBtn'>Passer commande</button>
+                    <button onClick={verifyCart} className='cart__btns__orderBtn'>Passer commande</button>
                 </div>
 
                 <div className="cart__articles">
@@ -136,32 +224,32 @@ const Cart = () => {
                         <p className="cart__articles__totalCont__total">{totalCart} €</p>
                     </div>
                     <div className="cart__articles__orderBtn">
-                        <button className='cart__btns__orderBtn'>Passer commande</button>
+                        <button onClick={verifyCart} className='cart__btns__orderBtn'>Passer commande</button>
                     </div>
                 </div>
             </section>
             }
 
             {/* 2ND STEP : INFORMATIONS */}
-            <section className='cartStepLocation'>
-                <CartLocation />
+            <section className='cartStepLocation cartStepCart'>
+                <CartLocation next={() => toNextStep()} previous={() => toPreviousStep()} />
             </section>
             
             {/* 3TH STEP : LIVRAISON */}
-            <section className='cartStepDelivery'>
-                <CartDelivery />
+            <section className='cartStepDelivery cartStepCart'>
+                <CartDelivery next={() => toNextStep()} previous={() => toPreviousStep()} />
             </section>
             
             {/* 4TH STEP : PAIEMENT */}
-            <section className='cartStepPayment cartStepPayment--active'>
-                <CartPayment />
+            <section className='cartStepPayment cartStepCart'>
+                <CartPayment next={() => toNextStep()} previous={() => toPreviousStep()} />
             </section>
 
             {/* LAST STEP : CONFIRMATION */}
-            <section className='cartStepConfirm'>
+            <section className='cartStepConfirm cartStepCart'>
             <div className="cart__btns">
                     <div className="cart__btns__options">
-                        <button id='' className='cart__btns__options__btn'></button>
+                        <button onClick={toPreviousStep} id='' className='cart__btns__options__btn'></button>
                     </div>
                 </div>
 

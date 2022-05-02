@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const CartLocation = () => {
+const CartLocation = (props) => {
 
     const [toggleStatus, setToggleStatus] = useState(false);
     const [togglelocation, setTogglelocation] = useState(false);
@@ -20,9 +20,9 @@ const CartLocation = () => {
                 <h2 className='cart__title'>Information client</h2>
                 <div className="cart__btns">
                     <div className="cart__btns__options">
-                        <button id='backToCart' className='cart__btns__options__btn'>Retour au panier</button>
+                        <button onClick={props.previous} id='backToCart' className='cart__btns__options__btn'>Retour au panier</button>
                     </div>
-                    <button className='cart__btns__orderBtn'>Continuer</button>
+                    <button onClick={props.next} className='cart__btns__orderBtn'>Continuer</button>
                 </div>
 
                 <p className='cartStepLocation__infosOblig'>Les zones marquées par un astérisque sont obligatoires.</p>
@@ -172,7 +172,7 @@ const CartLocation = () => {
 
 
                 <div className="cart__articles__orderBtn">
-                    <button className='cart__btns__orderBtn'>continuer</button>
+                    <button onClick={props.next} className='cart__btns__orderBtn'>continuer</button>
                 </div>
             </>
     );

@@ -10,8 +10,17 @@
         width: 200px;
         height: 30px;
         padding-bottom: 2px;
-        background: green;
         border-radius: 15px;
+        border: 1px solid map-get($map: $colors, $key: grayTrans);
+        color: map-get($map: $colors, $key: grayTrans);
+        &--active {
+            border: 1px solid black;
+            color: black;
+        }
+        &__icon {
+            height: 12px;
+            margin-right: 5px;
+        }
     } 
 }
 
@@ -196,30 +205,6 @@
 
 .cartStepCart {
     display: none;
-    &--active {
-        display: block;
-    }
-}
-
-.cartStepDelivery {
-    display: none;
-    width: 1480px;
-    &--active {
-        display: block;
-    }
-}
-
-.cartStepPayment {
-    display: none;
-    width: 1480px;
-    &--active {
-        display: block;
-    }
-}
-
-.cartStepConfirm {
-    display: none;
-    width: 1480px;
     &--active {
         display: block;
     }

@@ -4,15 +4,15 @@ import cheque from '../../assets/cheque.webp';
 import virement from '../../assets/virement.webp';
 import cb from '../../assets/cb.webp'
 
-const CartPayment = () => {
+const CartPayment = (props) => {
     return (
         <>
         <h2 className='cart__title'>Mode de paiement</h2>
         <div className="cart__btns">
             <div className="cart__btns__options">
-                <button id='' className='cart__btns__options__btn'>Retour livraison</button>
+                <button  onClick={props.previous} id='' className='cart__btns__options__btn'>Retour livraison</button>
             </div>
-            <button className='cart__btns__orderBtn'>Continuer</button>
+            <button onClick={props.next} className='cart__btns__orderBtn'>Continuer</button>
         </div>
 
         <div className="cartStepPayment__paymentChoice">
@@ -110,7 +110,7 @@ const CartPayment = () => {
 
 
         <div className="cart__articles__orderBtn">
-                <button className='cart__btns__orderBtn'>continuer</button>
+                <button onClick={props.next} className='cart__btns__orderBtn'>continuer</button>
         </div>
         </>
     );

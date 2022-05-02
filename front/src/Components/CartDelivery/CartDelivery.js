@@ -3,15 +3,15 @@ import colissimo from '../../assets/colissimo.webp';
 import relay from '../../assets/relay.webp';
 import chronopost from '../../assets/chronopost.webp';
 
-const CartDelivery = () => {
+const CartDelivery = (props) => {
     return (
         <>
             <h2 className='cart__title'>Livraison</h2>
             <div className="cart__btns">
                 <div className="cart__btns__options">
-                    <button id='delivery__backBtn' className='cart__btns__options__btn cartStepDelivery__backBtn'>Retour Coordonnées</button>
+                    <button onClick={props.previous} id='delivery__backBtn' className='cart__btns__options__btn cartStepDelivery__backBtn'>Retour Coordonnées</button>
                 </div>
-                <button className='cart__btns__orderBtn'>Continuer</button>
+                <button onClick={props.next} className='cart__btns__orderBtn'>Continuer</button>
             </div>
 
             <h3>Adresse de livraison</h3>
@@ -76,7 +76,7 @@ const CartDelivery = () => {
             </div>
 
             <div className="cart__articles__orderBtn">
-                <button className='cart__btns__orderBtn'>continuer</button>
+                <button onClick={props.next} className='cart__btns__orderBtn'>continuer</button>
             </div>
         </>
     );

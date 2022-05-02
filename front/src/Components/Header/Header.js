@@ -18,8 +18,6 @@ const Header = () => {
 
         let artCount = 0, totalCart = 0;
         for(let i = 0; i < cart.length; i++) {
-            console.log(typeof cart[i].price);
-            console.log(typeof cart[i].count);
             let val = cart[i].price * cart[i].count;
             totalCart += val;
             artCount += cart[i].count;

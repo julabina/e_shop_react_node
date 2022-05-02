@@ -1835,8 +1835,17 @@ main {
   width: 200px;
   height: 30px;
   padding-bottom: 2px;
-  background: green;
   border-radius: 15px;
+  border: 1px solid rgba(128, 128, 128, 0.452);
+  color: rgba(128, 128, 128, 0.452);
+}
+.cartSteps__step--active {
+  border: 1px solid black;
+  color: black;
+}
+.cartSteps__step__icon {
+  height: 12px;
+  margin-right: 5px;
 }
 
 .cart {
@@ -2032,30 +2041,6 @@ main {
   display: none;
 }
 .cartStepCart--active {
-  display: block;
-}
-
-.cartStepDelivery {
-  display: none;
-  width: 1480px;
-}
-.cartStepDelivery--active {
-  display: block;
-}
-
-.cartStepPayment {
-  display: none;
-  width: 1480px;
-}
-.cartStepPayment--active {
-  display: block;
-}
-
-.cartStepConfirm {
-  display: none;
-  width: 1480px;
-}
-.cartStepConfirm--active {
   display: block;
 }
 
