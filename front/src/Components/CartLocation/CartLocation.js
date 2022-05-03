@@ -194,10 +194,95 @@ const CartLocation = (props) => {
         // vérification prenom
         if(inputs[0].value === "") {
             errorDisplay("Le prénom ne doit pas être vide.","firstName", "cartStepLocation__individual__names__firstName")
+        } else if (inputs[0].value.length < 3 || inputs[0].value.length > 25) {
+            errorDisplay("Le prénom doit être compris entre 0 et 25 caratères.","firstName", "cartStepLocation__individual__names__firstName")
         } else if (!inputs[0].value.match(/^[a-zA-Zé èà]*$/)) {
             errorDisplay("Le prénom ne doit comporter que des lettres.","firstName", "cartStepLocation__individual__names__firstName")
         } else {
             errorDisplay("", "firstName", "cartStepLocation__individual__names__firstName", true)
+        }
+        
+        // vérification nom
+        if(inputs[1].value === "") {
+            errorDisplay("Le nom ne doit pas être vide.","lastName", "cartStepLocation__individual__names__lastName")
+        } else if (inputs[1].value.length < 3 || inputs[1].value.length > 25) {
+            errorDisplay("Le nom doit être compris entre 0 et 25 caratères.","lastName", "cartStepLocation__individual__names__lastName")
+        } else if (!inputs[1].value.match(/^[a-zA-Zé èà]*$/)) {
+            errorDisplay("Le nom ne doit comporter que des lettres.","lastName", "cartStepLocation__individual__names__lastName")
+        } else {
+            errorDisplay("", "lastName", "cartStepLocation__individual__names__lastName", true)
+        }
+
+        // vérification mail
+        if(inputs[2].value === "") {
+            errorDisplay("Le mail ne doit pas être vide.","mail", "cartStepLocation__individual__names__mail")
+        } else if (!inputs[2].value.match(/^[\w_-]+@[\w-]+\.[a-z]{2,4}$/i)) {
+            errorDisplay("Le mail n'a pas un format valide. ","mail", "cartStepLocation__individual__names__mail")
+        } else {
+            errorDisplay("", "mail", "cartStepLocation__individual__names__mail", true)
+        }
+
+        // vérification mobile
+        if(inputs[3].value === "") {
+            errorDisplay("Le mobile ne doit pas être vide.","mobile", "cartStepLocation__individual__names__mobile")
+        } else if (!inputs[3].value.match(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/)) {
+            errorDisplay("Le mobile n'a pas un format valide'. ","mobile", "cartStepLocation__individual__names__mobile")
+        } else {
+            errorDisplay("", "mobile", "cartStepLocation__individual__names__mobile", true)
+        }
+        
+        // vérification fixe si pas vide
+        if (inputs[4].value !== "") {
+            if (!inputs[4].value.match(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/)) {
+                errorDisplay("Le fixe n'a pas un format valide. ","fixe", "cartStepLocation__individual__names__fixe")
+            } else {
+                errorDisplay("", "fixe", "cartStepLocation__individual__names__fixe", true)
+            }
+        }       
+
+
+
+
+
+
+        // FAIRE IF PRO IS CHECKED
+
+        // vérification adresse
+        if(inputs[7].value === "") {
+            errorDisplay("L'adresse ne doit pas être vide.","billAddress", "cartStepLocation__individual__names__billAddress")
+        } else if (!inputs[7].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
+            errorDisplay("L'adresse n'a pas un format valide'. ","billAddress", "cartStepLocation__individual__names__billAddress")
+        } else {
+            errorDisplay("", "billAddress", "cartStepLocation__individual__names__billAddress", true)
+        }
+        
+        // vérification complement adresse
+        if(inputs[8].value === "") {
+            errorDisplay("Le compl ne doit pas être vide.","billCompAddress", "cartStepLocation__individual__names__billCompAddress")
+        } else if (!inputs[8].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
+            errorDisplay("Le complément d'adresse n'a pas un format valide'. ","billCompAddress", "cartStepLocation__individual__names__billCompAddress")
+        } else {
+            errorDisplay("", "billCompAddress", "cartStepLocation__individual__names__billCompAddress", true)
+        }
+        
+        // vérification code postal
+        if(inputs[9].value === "") {
+            errorDisplay("Le code postal ne doit pas être vide.","billZipCode", "cartStepLocation__individual__names__billZipCode")
+        } else if (!inputs[9].value.match(/^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$/)) {
+            errorDisplay("Le code postal n'a pas un format valide'. ","billZipCode", "cartStepLocation__individual__names__billZipCode")
+        } else {
+            errorDisplay("", "billZipCode", "cartStepLocation__individual__names__billZipCode", true)
+        }
+        
+        // vérification nom ville
+        if(inputs[10].value === "") {
+            errorDisplay("Le ville ne doit pas être vide.","billCity", "cartStepLocation__individual__names__billCity")
+        } else if (inputs[10].value.length < 3 || inputs[0].value.length > 30) {
+            errorDisplay("La ville doit avoir entre 0 et 30 caratères.","billCity", "cartStepLocation__individual__names__billCity")
+        } else if (!inputs[10].value.match(/^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/)) {
+            errorDisplay("La ville n'a pas un format valide'. ","billCity", "cartStepLocation__individual__names__billCity")
+        } else {
+            errorDisplay("", "billCity", "cartStepLocation__individual__names__billCity", true)
         }
 
 
@@ -244,21 +329,25 @@ const CartLocation = (props) => {
                                 <div className='cartStepLocation__individual__names__name cartStepLocation__individual__names__lastName'>
                                     <label htmlFor="lastName">Nom<span> *</span></label>
                                     <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('lastName', e.target.value)} value={inputs.lastName} type="text" name="" id="lastName" required/>
+                                    <span className='cartStepLocation__individual__names__lastName__span cartStepLocation__individual__errorSpan'></span>
                                 </div>
                             </div>
                             <div className="cartStepLocation__individual__contacts">
                                 <div className='cartStepLocation__individual__contacts__mail'>
                                     <label htmlFor="mail">Adress e-mail<span> *</span></label>
                                     <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('mail', e.target.value)} value={inputs.mail} type="mail" name="" id="mail" required/>
+                                    <span className='cartStepLocation__individual__names__mail__span cartStepLocation__individual__errorSpan'></span>
                                 </div>
                                 <div className="cartStepLocation__individual__contacts__phones">
                                     <div className='cartStepLocation__individual__contacts__phones__phone'>
                                         <label htmlFor="mobile">Téléphone portable<span> *</span></label>
                                         <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('mobile', e.target.value)} value={inputs.mobile} type="tel" name="" id="mobile" required />
+                                        <span className='cartStepLocation__individual__names__mobile__span cartStepLocation__individual__errorSpan'></span>
                                     </div>
                                     <div className='cartStepLocation__individual__contacts__phones__phone'>
                                         <label htmlFor="fixe">Téléphone fixe</label>
                                         <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('tel', e.target.value)}  value={inputs.tel} type="tel" name="" id="fixe" />
+                                        <span className='cartStepLocation__individual__names__fixe__span cartStepLocation__individual__errorSpan'></span>
                                     </div>
                                 </div>
                             </div>
@@ -304,21 +393,25 @@ const CartLocation = (props) => {
                                 <div className='cartStepLocation__individual__billLocation__row'>
                                     <div className="cartStepLocation__individual__billLocation__row__cont">
                                         <label htmlFor="">Adresse<span> *</span></label>
-                                        <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('address', e.target.value)} value={inputs.address} type="text" name="" id="" required />
+                                        <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('address', e.target.value)} value={inputs.address} type="text" name="" id="billAddress" required />
+                                        <span className='cartStepLocation__individual__names__billAddress__span cartStepLocation__individual__errorSpan'></span>
                                     </div>
                                     <div className="cartStepLocation__individual__billLocation__row__cont">
                                         <label htmlFor="">Complément d'adresse</label>
-                                        <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('addressComp', e.target.value)} value={inputs.addressComp} type="text" name="" id="" />
+                                        <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('addressComp', e.target.value)} value={inputs.addressComp} type="text" name="" id="billCompAddress" />
+                                        <span className='cartStepLocation__individual__names__billCompAddress__span cartStepLocation__individual__errorSpan'></span>
                                     </div>
                                 </div>
                                 <div className='cartStepLocation__individual__billLocation__row'>
                                     <div className="cartStepLocation__individual__billLocation__row__cont">
                                         <label htmlFor="">Code postal<span> *</span></label>
-                                        <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('zipCode', e.target.value)} value={inputs.zipCode} type="number" name="" id="" required />
+                                        <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('zipCode', e.target.value)} value={inputs.zipCode} type="number" name="" id="billZipCode" required />
+                                        <span className='cartStepLocation__individual__names__billZipCode__span cartStepLocation__individual__errorSpan'></span>
                                     </div>
                                     <div className="cartStepLocation__individual__billLocation__row__cont">
                                         <label htmlFor="">Ville<span> *</span></label>
-                                        <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('city', e.target.value)} value={inputs.city} type="text" name="" id="" required />
+                                        <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('city', e.target.value)} value={inputs.city} type="text" name="" id="billCity" required />
+                                        <span className='cartStepLocation__individual__names__billCity__span cartStepLocation__individual__errorSpan'></span>
                                     </div>
                                 </div>
                             </div>
