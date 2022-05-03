@@ -494,7 +494,6 @@ const CartLocation = (props) => {
         props.next();
     }
 
-
     return (
         <>
                 <h2 className='cart__title'>Information client</h2>

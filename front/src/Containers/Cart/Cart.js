@@ -153,6 +153,10 @@ const Cart = () => {
         setInfosData(infos);
     }
 
+    const deliveryOptionsReceived = (options) => {
+        setDeliveryOptions(options);
+    }
+
     return (
         <main>
             <section className="cartSteps">
@@ -246,7 +250,7 @@ const Cart = () => {
             
             {/* 3TH STEP : LIVRAISON */}
             <section className='cartStepDelivery cartStepCart'>
-                <CartDelivery next={() => toNextStep()} previous={() => toPreviousStep()} />
+                <CartDelivery next={() => toNextStep()} previous={() => toPreviousStep()} sendInfos={deliveryOptionsReceived} address={infosData.address} city={infosData.city} zip={infosData.zipCode} />
             </section>
             
             {/* 4TH STEP : PAIEMENT */}
