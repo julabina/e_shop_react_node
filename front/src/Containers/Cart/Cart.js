@@ -18,6 +18,9 @@ const Cart = () => {
 
     const [cartData, setCartData] = useState([]);
     const [totalCart, setTotalCart] = useState(0);
+    const [infosData, setInfosData] = useState({});
+    const [orderArticles, setOrderArticles] = useState([]);
+    const [deliveryOptions, setDeliveryOptions] = useState();
 
     useEffect(() => {
 
@@ -108,6 +111,8 @@ const Cart = () => {
             }
             
             /* produit en stock, valider, ici reserver temp stock */
+            const newArr = cartData;
+            setOrderArticles(newArr);
 
             toNextStep();
 
@@ -143,7 +148,11 @@ const Cart = () => {
             }
         }
     }
-/* && i !== (steps.length) */
+
+    const infosReceived = (infos) => {
+        setInfosData(infos);
+    }
+
     return (
         <main>
             <section className="cartSteps">
@@ -232,7 +241,7 @@ const Cart = () => {
 
             {/* 2ND STEP : INFORMATIONS */}
             <section className='cartStepLocation cartStepCart'>
-                <CartLocation next={() => toNextStep()} previous={() => toPreviousStep()} />
+                <CartLocation next={() => toNextStep()} previous={() => toPreviousStep()} sendInfos={infosReceived} />
             </section>
             
             {/* 3TH STEP : LIVRAISON */}

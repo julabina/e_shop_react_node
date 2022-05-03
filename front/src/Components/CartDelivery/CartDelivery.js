@@ -28,7 +28,7 @@ const CartDelivery = (props) => {
 
             <div>            
                 <div className="cartStepDelivery__optionDelivery">
-                    <input type="radio" name="delivery" id="" />
+                    <input defaultChecked type="radio" name="delivery" id="" />
                     <div className="cartStepDelivey__optionDelivery__cont">
                         <div className="cartStepDelivery__optionDelivery__cont__mainInfos">
                             <p className="cartStepDelivery__optionDelivery__cont__mainInfos__price">7.00 €</p>

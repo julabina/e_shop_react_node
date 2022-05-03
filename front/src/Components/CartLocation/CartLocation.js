@@ -5,7 +5,6 @@ const CartLocation = (props) => {
     const [toggleStatus, setToggleStatus] = useState(false);
     const [togglelocation, setTogglelocation] = useState(false);
     const [checkBox, setCheckBox] = useState([false, false])
-    const [check, setCheck] = useState(false);
     const [inputs, setInputs] = useState({
         civilite: 'M.',
         firstName: "",
@@ -249,8 +248,11 @@ const CartLocation = (props) => {
                 errorDisplay("Le fixe n'a pas un format valide. ","fixe", "cartStepLocation__individual__names__fixe")
             } else {
                 errorDisplay("", "fixe", "cartStepLocation__individual__names__fixe", true)
+                totalCheck += 1;
             }
-        }       
+        } else {
+            totalCheck += 1;
+        }      
 
         let indPro = 0;
 
@@ -273,8 +275,11 @@ const CartLocation = (props) => {
                     errorDisplay("L'adresse n'a pas un format valide. ","fax", "cartStepLocation__individual__names__fax")
                 } else {
                     errorDisplay("", "fax", "cartStepLocation__individual__names__fax", true)
+                    totalCheck += 1;
                 }
-            } 
+            } else {
+                totalCheck += 1;
+            }
             
             // verification tva
             if(inputs[9].value === "") {
@@ -317,8 +322,11 @@ const CartLocation = (props) => {
                 errorDisplay("Le complément d'adresse n'a pas un format valide'. ","billCompAddress", "cartStepLocation__individual__names__billCompAddress")
             } else {
                 errorDisplay("", "billCompAddress", "cartStepLocation__individual__names__billCompAddress", true)
+                totalCheck += 1;
             }
-        } 
+        } else {
+            totalCheck += 1;
+        }
         
         // vérification code postal
         if(inputs[9 + indPro].value === "") {
@@ -362,8 +370,11 @@ const CartLocation = (props) => {
                     errorDisplay("Le complément d'adresse n'a pas un format valide'. ","deliveryCompAddress", "cartStepLocation__individual__names__deliveryCompAddress")
                 } else {
                     errorDisplay("", "deliveryCompAddress", "cartStepLocation__individual__names__deliveryCompAddress", true)
+                    totalCheck += 1;
                 }
-            } 
+            } else {
+                totalCheck += 1;
+            }
             
             // vérification livraison code postal
             if(inputs[14 + indPro].value === "") {
@@ -394,27 +405,93 @@ const CartLocation = (props) => {
         if(textArea.value !== "") {
             if (textArea.value.length < 3 || textArea.value.length > 200) {
                 errorDisplay("Les instructions doivent avoir entre 2 et 200 caratères.","instruction", "cartStepLocation__individual__names__instruction")
-            } else if (!textArea.value.match(/^[a-zA-Z0-9]{4,10}$/)) {
+            } else if (!textArea.value.match(/^[a-zA-Z0-9 -/'",.!?€$%()éèçà]+$/)) {
                 errorDisplay("Les caractères spéciaux ne sont pas admis. ","instruction", "cartStepLocation__individual__names__instruction")
             } else {
                 errorDisplay("", "instruction", "cartStepLocation__individual__names__instruction", true)
+                totalCheck += 1;
             }
         } 
+        else {
+            totalCheck += 1;
+        }
 
+
+        // if checked
         if (toggleStatus && togglelocation) {
-            if (totalCheck === 13) {
-                props.next();
+            if (totalCheck === 18) {
+                console.log('1');
+                prepareInfos();
             }
         } else if (toggleStatus || togglelocation) {
-            if (totalCheck === 10) {
-                props.next();
+            if (totalCheck === 14) {
+                console.log('2');
+                prepareInfos();
             }
         } else {
-            if (totalCheck === 7) {
-                props.next();
+            if (totalCheck === 10) {
+                console.log('3');
+                prepareInfos();
             }
         }
 
+    }
+
+    // preparation avant d'envoyer les infos
+    const prepareInfos = () => {
+
+        let societe, fax, tva, siret, address, addressComp, zipCode, city
+
+        if (toggleStatus) {
+            societe = inputs.societe;
+            fax = inputs.fax;
+            tva = inputs.tva;
+            siret = inputs.siret;
+        } else {
+            societe = null;
+            fax = null;
+            tva = null;
+            siret = null;
+        }
+        if (togglelocation) {
+            address = inputs.deliveryAddress;
+            addressComp = inputs.deliveryAddressComp;
+            zipCode = inputs.deliveryZipCode;
+            city = inputs.deliveryCity;
+        } else {
+            address = null;
+            addressComp = null;
+            zipCode = null;
+            city = null;
+        }
+        
+        const infos = {
+            civilite: inputs.civilite ,
+            firstName: inputs.firstName,
+            lastName: inputs.lastName,
+            mail: inputs.mail,
+            mobile: inputs.mobile,
+            tel: inputs.tel,
+            societe: societe,
+            fax: fax,
+            tva: tva,
+            siret: siret,
+            address: inputs.address,
+            addressComp: inputs.addressComp,
+            zipCode: inputs.zipCode,
+            city: inputs.city,
+            deliveryAddress: address ,
+            deliveryAddressComp: addressComp,
+            deliveryZipCode: zipCode,
+            deliveryCity: city,
+            instruction: inputs.instruction,
+            newsLetter: checkBox[0],
+            ad: checkBox[1]
+        }
+
+        props.sendInfos(infos);
+        
+        props.next();
     }
 
 
