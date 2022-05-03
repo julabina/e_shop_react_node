@@ -5,6 +5,7 @@ const CartLocation = (props) => {
     const [toggleStatus, setToggleStatus] = useState(false);
     const [togglelocation, setTogglelocation] = useState(false);
     const [checkBox, setCheckBox] = useState([false, false])
+    const [check, setCheck] = useState(false);
     const [inputs, setInputs] = useState({
         civilite: 'M.',
         firstName: "",
@@ -27,15 +28,17 @@ const CartLocation = (props) => {
         instruction: ""
     })
 
-
+    // Ajoute des champs si le client est une société
     const changeToggleStatus = () => {
         setToggleStatus(!toggleStatus);
     }
 
+    // verifie si l' adresse et l'adresse de livraison sont les memes
     const changeSameLocation = () => {
         setTogglelocation(!togglelocation);
     }
 
+    // verifie si cocher ou non
     const toggleCheckBox = (checkbox) => {
         let newArr = checkBox;
         if (checkbox === "letter") {
@@ -46,6 +49,7 @@ const CartLocation = (props) => {
         setCheckBox(newArr);
     }
 
+    // controler les inputs
     const changeInput = (action, value) => {
         if (action === 'civiliteSelect') {
             const newObj = {
@@ -173,6 +177,7 @@ const CartLocation = (props) => {
         } 
     }
 
+    // Affiche les erreurs
     const errorDisplay = (message, input, span, valid) => {
         const spanError = document.querySelector('.' + span + '__span');
         const inputError = document.getElementById(input);
@@ -187,9 +192,12 @@ const CartLocation = (props) => {
         
     }
 
+
+    // Verifier les champs du formulaire
     const verifyInfosForm = () => {
         const inputs = document.querySelectorAll('.cartStepLocation__individual__inputs');
         const textArea = document.getElementById('instruction');
+        let totalCheck = 0;
 
         // vérification prenom
         if(inputs[0].value === "") {
@@ -200,6 +208,7 @@ const CartLocation = (props) => {
             errorDisplay("Le prénom ne doit comporter que des lettres.","firstName", "cartStepLocation__individual__names__firstName")
         } else {
             errorDisplay("", "firstName", "cartStepLocation__individual__names__firstName", true)
+            totalCheck += 1;
         }
         
         // vérification nom
@@ -211,6 +220,7 @@ const CartLocation = (props) => {
             errorDisplay("Le nom ne doit comporter que des lettres.","lastName", "cartStepLocation__individual__names__lastName")
         } else {
             errorDisplay("", "lastName", "cartStepLocation__individual__names__lastName", true)
+            totalCheck += 1;
         }
 
         // vérification mail
@@ -220,6 +230,7 @@ const CartLocation = (props) => {
             errorDisplay("Le mail n'a pas un format valide. ","mail", "cartStepLocation__individual__names__mail")
         } else {
             errorDisplay("", "mail", "cartStepLocation__individual__names__mail", true)
+            totalCheck += 1;
         }
 
         // vérification mobile
@@ -229,6 +240,7 @@ const CartLocation = (props) => {
             errorDisplay("Le mobile n'a pas un format valide'. ","mobile", "cartStepLocation__individual__names__mobile")
         } else {
             errorDisplay("", "mobile", "cartStepLocation__individual__names__mobile", true)
+            totalCheck += 1;
         }
         
         // vérification fixe si pas vide
@@ -242,6 +254,7 @@ const CartLocation = (props) => {
 
         let indPro = 0;
 
+        // SI LE CLIENT EST UNE SOCIETE
         if (toggleStatus) {
             
             // verification nom societé
@@ -251,6 +264,7 @@ const CartLocation = (props) => {
                 errorDisplay("La société n'a pas un format valide'. ","societe", "cartStepLocation__individual__names__societe")
             } else {
                 errorDisplay("", "societe", "cartStepLocation__individual__names__societe", true)
+                totalCheck += 1;
             }
             
             // verification fax
@@ -269,6 +283,7 @@ const CartLocation = (props) => {
                 errorDisplay("Le numéro de tva n'a pas un format valide, n'indiquer pas FR. ","tva", "cartStepLocation__individual__names__tva")
             } else {
                 errorDisplay("", "tva", "cartStepLocation__individual__names__tva", true)
+                totalCheck += 1;
             }
             
             // verification siret
@@ -278,6 +293,7 @@ const CartLocation = (props) => {
                 errorDisplay("Le siret n'a pas un format valide. ","siret", "cartStepLocation__individual__names__siret")
             } else {
                 errorDisplay("", "siret", "cartStepLocation__individual__names__siret", true)
+                totalCheck += 1;
             }
 
 
@@ -292,6 +308,7 @@ const CartLocation = (props) => {
             errorDisplay("L'adresse n'a pas un format valide'. ","billAddress", "cartStepLocation__individual__names__billAddress")
         } else {
             errorDisplay("", "billAddress", "cartStepLocation__individual__names__billAddress", true)
+            totalCheck += 1;
         }
         
         // vérification complement adresse
@@ -310,6 +327,7 @@ const CartLocation = (props) => {
             errorDisplay("Le code postal n'a pas un format valide'. ","billZipCode", "cartStepLocation__individual__names__billZipCode")
         } else {
             errorDisplay("", "billZipCode", "cartStepLocation__individual__names__billZipCode", true)
+            totalCheck += 1;
         }
         
         // vérification nom ville
@@ -321,24 +339,26 @@ const CartLocation = (props) => {
             errorDisplay("La ville n'a pas un format valide'. ","billCity", "cartStepLocation__individual__names__billCity")
         } else {
             errorDisplay("", "billCity", "cartStepLocation__individual__names__billCity", true)
+            totalCheck += 1;
         }
 
 
+        // SI L'ADRESSE DE LIVRAISON N'EST PAS LA MEME QUE LA FACTURATION
         if (togglelocation) {
 
-            
             // vérification livraison adresse
-            if(inputs[11 + indPro].value === "") {
+            if(inputs[12 + indPro].value === "") {
                 errorDisplay("L'adresse ne doit pas être vide.","deliveryAddress", "cartStepLocation__individual__names__deliveryAddress")
-            } else if (!inputs[11 + indPro].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
+            } else if (!inputs[12 + indPro].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
                 errorDisplay("L'adresse n'a pas un format valide'. ","deliveryAddress", "cartStepLocation__individual__names__deliveryAddress")
             } else {
                 errorDisplay("", "deliveryAddress", "cartStepLocation__individual__names__deliveryAddress", true)
+                totalCheck += 1;
             }
             
             // vérification livraison complement adresse
-            if(inputs[12 + indPro].value !== "") {
-                if (!inputs[12 + indPro].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
+            if(inputs[13 + indPro].value !== "") {
+                if (!inputs[13 + indPro].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
                     errorDisplay("Le complément d'adresse n'a pas un format valide'. ","deliveryCompAddress", "cartStepLocation__individual__names__deliveryCompAddress")
                 } else {
                     errorDisplay("", "deliveryCompAddress", "cartStepLocation__individual__names__deliveryCompAddress", true)
@@ -346,23 +366,25 @@ const CartLocation = (props) => {
             } 
             
             // vérification livraison code postal
-            if(inputs[13 + indPro].value === "") {
+            if(inputs[14 + indPro].value === "") {
                 errorDisplay("Le code postal ne doit pas être vide.","deliveryZipCode", "cartStepLocation__individual__names__deliveryZipCode")
-            } else if (!inputs[13 + indPro].value.match(/^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$/)) {
+            } else if (!inputs[14 + indPro].value.match(/^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$/)) {
                 errorDisplay("Le code postal n'a pas un format valide'. ","deliveryZipCode", "cartStepLocation__individual__names__deliveryZipCode")
             } else {
                 errorDisplay("", "deliveryZipCode", "cartStepLocation__individual__names__deliveryZipCode", true)
+                totalCheck += 1;
             }
             
             // vérification livraison nom ville
-            if(inputs[14 + indPro].value === "") {
+            if(inputs[15 + indPro].value === "") {
                 errorDisplay("Le ville ne doit pas être vide.","deliveryCity", "cartStepLocation__individual__names__deliveryCity")
-            } else if (inputs[14 + indPro].value.length < 3 || inputs[14 + indPro].value.length > 30) {
+            } else if (inputs[15 + indPro].value.length < 3 || inputs[15 + indPro].value.length > 30) {
                 errorDisplay("La ville doit avoir entre 2 et 30 caratères.","deliveryCity", "cartStepLocation__individual__names__deliveryCity")
-            } else if (!inputs[14 + indPro].value.match(/^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/)) {
+            } else if (!inputs[15 + indPro].value.match(/^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/)) {
                 errorDisplay("La ville n'a pas un format valide'. ","deliveryCity", "cartStepLocation__individual__names__deliveryCity")
             } else {
                 errorDisplay("", "deliveryCity", "cartStepLocation__individual__names__deliveryCity", true)
+                totalCheck += 1;
             }
             
         }
@@ -379,9 +401,20 @@ const CartLocation = (props) => {
             }
         } 
 
+        if (toggleStatus && togglelocation) {
+            if (totalCheck === 13) {
+                props.next();
+            }
+        } else if (toggleStatus || togglelocation) {
+            if (totalCheck === 10) {
+                props.next();
+            }
+        } else {
+            if (totalCheck === 7) {
+                props.next();
+            }
+        }
 
-
-        /* props.next(); */
     }
 
 
