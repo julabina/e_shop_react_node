@@ -189,13 +189,13 @@ const CartLocation = (props) => {
 
     const verifyInfosForm = () => {
         const inputs = document.querySelectorAll('.cartStepLocation__individual__inputs');
-        console.log(inputs);
+        const textArea = document.getElementById('instruction');
 
         // vérification prenom
         if(inputs[0].value === "") {
             errorDisplay("Le prénom ne doit pas être vide.","firstName", "cartStepLocation__individual__names__firstName")
         } else if (inputs[0].value.length < 3 || inputs[0].value.length > 25) {
-            errorDisplay("Le prénom doit être compris entre 0 et 25 caratères.","firstName", "cartStepLocation__individual__names__firstName")
+            errorDisplay("Le prénom doit être compris entre 2 et 25 caratères.","firstName", "cartStepLocation__individual__names__firstName")
         } else if (!inputs[0].value.match(/^[a-zA-Zé èà]*$/)) {
             errorDisplay("Le prénom ne doit comporter que des lettres.","firstName", "cartStepLocation__individual__names__firstName")
         } else {
@@ -206,7 +206,7 @@ const CartLocation = (props) => {
         if(inputs[1].value === "") {
             errorDisplay("Le nom ne doit pas être vide.","lastName", "cartStepLocation__individual__names__lastName")
         } else if (inputs[1].value.length < 3 || inputs[1].value.length > 25) {
-            errorDisplay("Le nom doit être compris entre 0 et 25 caratères.","lastName", "cartStepLocation__individual__names__lastName")
+            errorDisplay("Le nom doit être compris entre 2 et 25 caratères.","lastName", "cartStepLocation__individual__names__lastName")
         } else if (!inputs[1].value.match(/^[a-zA-Zé èà]*$/)) {
             errorDisplay("Le nom ne doit comporter que des lettres.","lastName", "cartStepLocation__individual__names__lastName")
         } else {
@@ -240,51 +240,144 @@ const CartLocation = (props) => {
             }
         }       
 
+        let indPro = 0;
+
+        if (toggleStatus) {
+            
+            // verification nom societé
+            if(inputs[7].value === "") {
+                errorDisplay("La société ne doit pas être vide.","societe", "cartStepLocation__individual__names__societe")
+            } else if (!inputs[7].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
+                errorDisplay("La société n'a pas un format valide'. ","societe", "cartStepLocation__individual__names__societe")
+            } else {
+                errorDisplay("", "societe", "cartStepLocation__individual__names__societe", true)
+            }
+            
+            // verification fax
+            if(inputs[8].value !== "") {
+                if (!inputs[8].value.match(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/)) {
+                    errorDisplay("L'adresse n'a pas un format valide. ","fax", "cartStepLocation__individual__names__fax")
+                } else {
+                    errorDisplay("", "fax", "cartStepLocation__individual__names__fax", true)
+                }
+            } 
+            
+            // verification tva
+            if(inputs[9].value === "") {
+                errorDisplay("Le numéro de tva ne doit pas être vide.","tva", "cartStepLocation__individual__names__tva")
+            } else if (!inputs[9].value.match(/^(FR){0,1}[0-9A-Z]{2}\ [0-9]{9}$/)) {
+                errorDisplay("Le numéro de tva n'a pas un format valide, n'indiquer pas FR. ","tva", "cartStepLocation__individual__names__tva")
+            } else {
+                errorDisplay("", "tva", "cartStepLocation__individual__names__tva", true)
+            }
+            
+            // verification siret
+            if(inputs[10].value === "") {
+                errorDisplay("Le siret ne doit pas être vide.","siret", "cartStepLocation__individual__names__siret")
+            } else if (!inputs[10].value.match(/^[0-9]{9}$/)) {
+                errorDisplay("Le siret n'a pas un format valide. ","siret", "cartStepLocation__individual__names__siret")
+            } else {
+                errorDisplay("", "siret", "cartStepLocation__individual__names__siret", true)
+            }
 
 
-
-
-
-        // FAIRE IF PRO IS CHECKED
-
+            indPro = 4;
+        } else {
+            indPro = 0;
+        }
         // vérification adresse
-        if(inputs[7].value === "") {
+        if(inputs[7 + indPro].value === "") {
             errorDisplay("L'adresse ne doit pas être vide.","billAddress", "cartStepLocation__individual__names__billAddress")
-        } else if (!inputs[7].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
+        } else if (!inputs[7 + indPro].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
             errorDisplay("L'adresse n'a pas un format valide'. ","billAddress", "cartStepLocation__individual__names__billAddress")
         } else {
             errorDisplay("", "billAddress", "cartStepLocation__individual__names__billAddress", true)
         }
         
         // vérification complement adresse
-        if(inputs[8].value === "") {
-            errorDisplay("Le compl ne doit pas être vide.","billCompAddress", "cartStepLocation__individual__names__billCompAddress")
-        } else if (!inputs[8].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
-            errorDisplay("Le complément d'adresse n'a pas un format valide'. ","billCompAddress", "cartStepLocation__individual__names__billCompAddress")
-        } else {
-            errorDisplay("", "billCompAddress", "cartStepLocation__individual__names__billCompAddress", true)
-        }
+        if(inputs[8 + indPro].value !== "") {
+            if (!inputs[8 + indPro].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
+                errorDisplay("Le complément d'adresse n'a pas un format valide'. ","billCompAddress", "cartStepLocation__individual__names__billCompAddress")
+            } else {
+                errorDisplay("", "billCompAddress", "cartStepLocation__individual__names__billCompAddress", true)
+            }
+        } 
         
         // vérification code postal
-        if(inputs[9].value === "") {
+        if(inputs[9 + indPro].value === "") {
             errorDisplay("Le code postal ne doit pas être vide.","billZipCode", "cartStepLocation__individual__names__billZipCode")
-        } else if (!inputs[9].value.match(/^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$/)) {
+        } else if (!inputs[9 + indPro].value.match(/^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$/)) {
             errorDisplay("Le code postal n'a pas un format valide'. ","billZipCode", "cartStepLocation__individual__names__billZipCode")
         } else {
             errorDisplay("", "billZipCode", "cartStepLocation__individual__names__billZipCode", true)
         }
         
         // vérification nom ville
-        if(inputs[10].value === "") {
+        if(inputs[10 + indPro].value === "") {
             errorDisplay("Le ville ne doit pas être vide.","billCity", "cartStepLocation__individual__names__billCity")
-        } else if (inputs[10].value.length < 3 || inputs[0].value.length > 30) {
-            errorDisplay("La ville doit avoir entre 0 et 30 caratères.","billCity", "cartStepLocation__individual__names__billCity")
-        } else if (!inputs[10].value.match(/^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/)) {
+        } else if (inputs[10 + indPro].value.length < 3 || inputs[10 + indPro].value.length > 30) {
+            errorDisplay("La ville doit avoir entre 2 et 30 caratères.","billCity", "cartStepLocation__individual__names__billCity")
+        } else if (!inputs[10 + indPro].value.match(/^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/)) {
             errorDisplay("La ville n'a pas un format valide'. ","billCity", "cartStepLocation__individual__names__billCity")
         } else {
             errorDisplay("", "billCity", "cartStepLocation__individual__names__billCity", true)
         }
 
+
+        if (togglelocation) {
+
+            
+            // vérification livraison adresse
+            if(inputs[11 + indPro].value === "") {
+                errorDisplay("L'adresse ne doit pas être vide.","deliveryAddress", "cartStepLocation__individual__names__deliveryAddress")
+            } else if (!inputs[11 + indPro].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
+                errorDisplay("L'adresse n'a pas un format valide'. ","deliveryAddress", "cartStepLocation__individual__names__deliveryAddress")
+            } else {
+                errorDisplay("", "deliveryAddress", "cartStepLocation__individual__names__deliveryAddress", true)
+            }
+            
+            // vérification livraison complement adresse
+            if(inputs[12 + indPro].value !== "") {
+                if (!inputs[12 + indPro].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
+                    errorDisplay("Le complément d'adresse n'a pas un format valide'. ","deliveryCompAddress", "cartStepLocation__individual__names__deliveryCompAddress")
+                } else {
+                    errorDisplay("", "deliveryCompAddress", "cartStepLocation__individual__names__deliveryCompAddress", true)
+                }
+            } 
+            
+            // vérification livraison code postal
+            if(inputs[13 + indPro].value === "") {
+                errorDisplay("Le code postal ne doit pas être vide.","deliveryZipCode", "cartStepLocation__individual__names__deliveryZipCode")
+            } else if (!inputs[13 + indPro].value.match(/^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$/)) {
+                errorDisplay("Le code postal n'a pas un format valide'. ","deliveryZipCode", "cartStepLocation__individual__names__deliveryZipCode")
+            } else {
+                errorDisplay("", "deliveryZipCode", "cartStepLocation__individual__names__deliveryZipCode", true)
+            }
+            
+            // vérification livraison nom ville
+            if(inputs[14 + indPro].value === "") {
+                errorDisplay("Le ville ne doit pas être vide.","deliveryCity", "cartStepLocation__individual__names__deliveryCity")
+            } else if (inputs[14 + indPro].value.length < 3 || inputs[14 + indPro].value.length > 30) {
+                errorDisplay("La ville doit avoir entre 2 et 30 caratères.","deliveryCity", "cartStepLocation__individual__names__deliveryCity")
+            } else if (!inputs[14 + indPro].value.match(/^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/)) {
+                errorDisplay("La ville n'a pas un format valide'. ","deliveryCity", "cartStepLocation__individual__names__deliveryCity")
+            } else {
+                errorDisplay("", "deliveryCity", "cartStepLocation__individual__names__deliveryCity", true)
+            }
+            
+        }
+        
+
+        // vérification instructions spéciales
+        if(textArea.value !== "") {
+            if (textArea.value.length < 3 || textArea.value.length > 200) {
+                errorDisplay("Les instructions doivent avoir entre 2 et 200 caratères.","instruction", "cartStepLocation__individual__names__instruction")
+            } else if (!textArea.value.match(/^[a-zA-Z0-9]{4,10}$/)) {
+                errorDisplay("Les caractères spéciaux ne sont pas admis. ","instruction", "cartStepLocation__individual__names__instruction")
+            } else {
+                errorDisplay("", "instruction", "cartStepLocation__individual__names__instruction", true)
+            }
+        } 
 
 
 
@@ -314,8 +407,8 @@ const CartLocation = (props) => {
                         <form className="cartStepLocation__individual">
                             <div className="cartStepLocation__individual__names">
                                 <div className='cartStepLocation__individual__names__civ'>
-                                    <label htmlFor="civ">Civilité<span> *</span></label>
-                                    <select onChange={(e) => changeInput('civiliteSelect', e.target.value)} defaultValue={"M."} value={inputs.civilite} required name="" id="civ">
+                                    <label htmlFor="civ">Civilité</label>
+                                    <select onChange={(e) => changeInput('civiliteSelect', e.target.value)} defaultValue={"M."} value={inputs.civilite} name="" id="civ">
                                         <option value="M.">M.</option>
                                         <option value="Mme">Mme</option>
                                         <option value="Mlle">Mlle</option>
@@ -367,21 +460,25 @@ const CartLocation = (props) => {
                                     <div className="cartStepLocation__business__row">
                                         <div className="cartStepLocation__business__row__infos">
                                             <label htmlFor="">Société<span> *</span></label>
-                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('societe', e.target.value)} value={inputs.societe} type="text" name="" id="" />
+                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('societe', e.target.value)} value={inputs.societe} type="text" name="" id="societe" />
+                                            <span className='cartStepLocation__individual__names__societe__span cartStepLocation__individual__errorSpan'></span>
                                         </div>
                                         <div className="cartStepLocation__business__row__infos">
                                             <label htmlFor="">Télécopie</label>
-                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('fax', e.target.value)} value={inputs.fax} type="tel" name="" id="" />
+                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('fax', e.target.value)} value={inputs.fax} type="tel" name="" id="fax" />
+                                            <span className='cartStepLocation__individual__names__fax__span cartStepLocation__individual__errorSpan'></span>
                                         </div>
                                     </div>
                                     <div className="cartStepLocation__business__row">
                                         <div className="cartStepLocation__business__row__infos">
                                             <label htmlFor="">N° de TVA intra-communautaire<span> *</span></label>
-                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('tva', e.target.value)} value={inputs.tva} type="text" name="" id="" />
+                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('tva', e.target.value)} value={inputs.tva} type="text" name="" id="tva" />
+                                            <span className='cartStepLocation__individual__names__tva__span cartStepLocation__individual__errorSpan'></span>
                                         </div>
                                         <div className="cartStepLocation__business__row__infos">
                                             <label htmlFor="">N° SIRET<span> *</span></label>
-                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('siret', e.target.value)} value={inputs.siret} type="number" name="" id="" />
+                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('siret', e.target.value)} value={inputs.siret} type="number" name="" id="siret" />
+                                            <span className='cartStepLocation__individual__names__siret__span cartStepLocation__individual__errorSpan'></span>
                                         </div>
                                     </div>
                                 </div>
@@ -428,21 +525,25 @@ const CartLocation = (props) => {
                                     <div className='cartStepLocation__individual__notSameLocation__row'>
                                         <div className="cartStepLocation__individual__notSameLocation__row__cont">
                                             <label htmlFor="">Adresse<span> *</span></label>
-                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('deliveryAddress', e.target.value)} value={inputs.deliveryAddress} type="text" name="" id="" required />
+                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('deliveryAddress', e.target.value)} value={inputs.deliveryAddress} type="text" name="" id="deliveryAddress" required />
+                                            <span className='cartStepLocation__individual__names__deliveryAddress__span cartStepLocation__individual__errorSpan'></span>
                                         </div>
                                         <div className="cartStepLocation__individual__notSameLocation__row__cont">
                                             <label htmlFor="">Complément d'adresse</label>
-                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('deliveryAddressComp', e.target.value)} value={inputs.deliveryAddressComp} type="text" name="" id="" />
+                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('deliveryAddressComp', e.target.value)} value={inputs.deliveryAddressComp} type="text" name="" id="deliveryCompAddress" />
+                                            <span className='cartStepLocation__individual__names__deliveryCompAddress__span cartStepLocation__individual__errorSpan'></span>
                                         </div>
                                     </div>
                                     <div className='cartStepLocation__individual__notSameLocation__row'>
                                         <div className="cartStepLocation__individual__notSameLocation__row__cont">
                                             <label htmlFor="">Code postal<span> *</span></label>
-                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('deliveryZipCode', e.target.value)} value={inputs.deliveryZipCode} type="number" name="" id="" required />
+                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('deliveryZipCode', e.target.value)} value={inputs.deliveryZipCode} type="number" name="" id="deliveryZipCode" required />
+                                            <span className='cartStepLocation__individual__names__deliveryZipCode__span cartStepLocation__individual__errorSpan'></span>
                                         </div>
                                         <div className="cartStepLocation__individual__notSameLocation__row__cont">
                                             <label htmlFor="">Ville<span> *</span></label>
-                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('deliveryCity', e.target.value)} value={inputs.deliveryCity} type="text" name="" id="" required />
+                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('deliveryCity', e.target.value)} value={inputs.deliveryCity} type="text" name="" id="deliveryCity" required />
+                                            <span className='cartStepLocation__individual__names__deliveryCity__span cartStepLocation__individual__errorSpan'></span>
                                         </div>
                                     </div>
                                 </div>
@@ -452,7 +553,8 @@ const CartLocation = (props) => {
                             
                             <div className='cartStepLocation__individual__divers'>
                                 <label htmlFor="">Instructions spéciales</label>
-                                <textarea onChange={(e) => changeInput('instruction', e.target.value)} value={inputs.instruction} name="" id="" cols="30" rows="10"></textarea>
+                                <textarea onChange={(e) => changeInput('instruction', e.target.value)} value={inputs.instruction} name="" id="instruction" cols="30" rows="10"></textarea>
+                                <span className='cartStepLocation__individual__names__instruction__span cartStepLocation__individual__errorSpan'></span>
                             </div>
                         </form>        
 
