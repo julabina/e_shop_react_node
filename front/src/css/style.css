@@ -561,10 +561,6 @@ body {
 .cartStepLocation__individual span {
   color: #FF0000;
 }
-.cartStepLocation__individual input, .cartStepLocation__individual select {
-  height: 40px;
-  border: rgba(205, 205, 205, 0.452) 1px solid;
-}
 .cartStepLocation__individual label {
   font-weight: 700;
   font-size: 0.9em;
@@ -678,6 +674,16 @@ body {
   resize: none;
   width: 500px;
   margin-bottom: 40px;
+}
+.cartStepLocation__individual__errorSpan {
+  font-size: 0.7em;
+}
+.cartStepLocation__individual__inputs, .cartStepLocation__individual select {
+  height: 40px;
+  border: rgba(205, 205, 205, 0.452) 1px solid;
+}
+.cartStepLocation__individual__inputs__errorInput, .cartStepLocation__individual select__errorInput {
+  border: 1px solid #FF0000;
 }
 .cartStepLocation__business {
   margin-bottom: 50px;

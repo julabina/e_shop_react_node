@@ -54,7 +54,6 @@ const CartLocation = (props) => {
             }
             setInputs(newObj)
         } else if (action === 'firstName') {
-            console.log(value);
             const newObj = {
                 ...inputs,
                 firstName: value
@@ -172,20 +171,39 @@ const CartLocation = (props) => {
             }
             setInputs(newObj)
         } 
+    }
 
+    const errorDisplay = (message, input, span, valid) => {
+        const spanError = document.querySelector('.' + span + '__span');
+        const inputError = document.getElementById(input);
 
+        spanError.textContent = message;
+
+        if (valid) {
+            inputError.classList.remove('cartStepLocation__individual__inputs__errorInput');
+        } else {
+            inputError.classList.add('cartStepLocation__individual__inputs__errorInput');
+        }
+        
     }
 
     const verifyInfosForm = () => {
+        const inputs = document.querySelectorAll('.cartStepLocation__individual__inputs');
+        console.log(inputs);
+
+        // vérification prenom
+        if(inputs[0].value === "") {
+            errorDisplay("Le prénom ne doit pas être vide.","firstName", "cartStepLocation__individual__names__firstName")
+        } else if (!inputs[0].value.match(/^[a-zA-Zé èà]*$/)) {
+            errorDisplay("Le prénom ne doit comporter que des lettres.","firstName", "cartStepLocation__individual__names__firstName")
+        } else {
+            errorDisplay("", "firstName", "cartStepLocation__individual__names__firstName", true)
+        }
 
 
 
 
-
-
-
-
-        props.next();
+        /* props.next(); */
     }
 
 
@@ -218,38 +236,39 @@ const CartLocation = (props) => {
                                         <option value="Mlle">Mlle</option>
                                     </select>
                                 </div>
-                                <div className='cartStepLocation__individual__names__name'>
+                                <div className='cartStepLocation__individual__names__name cartStepLocation__individual__names__firstName'>
                                     <label htmlFor="firstName">Prénom<span> *</span></label>
-                                    <input onInput={(e) => changeInput('firstName', e.target.value)} value={inputs.firstName} type="text" name="" id="firstName" required />
+                                    <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('firstName', e.target.value)} value={inputs.firstName} type="text" name="" id="firstName" required />
+                                    <span className='cartStepLocation__individual__names__firstName__span cartStepLocation__individual__errorSpan'></span>
                                 </div>
-                                <div className='cartStepLocation__individual__names__name'>
-                                <label htmlFor="lastName">Nom<span> *</span></label>
-                                    <input onInput={(e) => changeInput('lastName', e.target.value)} value={inputs.lastName} type="text" name="" id="lastName" required/>
+                                <div className='cartStepLocation__individual__names__name cartStepLocation__individual__names__lastName'>
+                                    <label htmlFor="lastName">Nom<span> *</span></label>
+                                    <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('lastName', e.target.value)} value={inputs.lastName} type="text" name="" id="lastName" required/>
                                 </div>
                             </div>
                             <div className="cartStepLocation__individual__contacts">
                                 <div className='cartStepLocation__individual__contacts__mail'>
                                     <label htmlFor="mail">Adress e-mail<span> *</span></label>
-                                    <input onInput={(e) => changeInput('mail', e.target.value)} value={inputs.mail} type="mail" name="" id="mail" required/>
+                                    <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('mail', e.target.value)} value={inputs.mail} type="mail" name="" id="mail" required/>
                                 </div>
                                 <div className="cartStepLocation__individual__contacts__phones">
                                     <div className='cartStepLocation__individual__contacts__phones__phone'>
                                         <label htmlFor="mobile">Téléphone portable<span> *</span></label>
-                                        <input onInput={(e) => changeInput('mobile', e.target.value)} value={inputs.mobile} type="tel" name="" id="mobile" required />
+                                        <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('mobile', e.target.value)} value={inputs.mobile} type="tel" name="" id="mobile" required />
                                     </div>
                                     <div className='cartStepLocation__individual__contacts__phones__phone'>
                                         <label htmlFor="fixe">Téléphone fixe</label>
-                                        <input onInput={(e) => changeInput('tel', e.target.value)}  value={inputs.tel} type="tel" name="" id="fixe" />
+                                        <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('tel', e.target.value)}  value={inputs.tel} type="tel" name="" id="fixe" />
                                     </div>
                                 </div>
                             </div>
                             <div className="cartStepLocation__individual__newsletter">
                                 <div className="cartStepLocation__individual__newsletter__checkBoxCont">
-                                    <input onChange={() => toggleCheckBox('letter')} on type="checkbox" name="" id="newsletter" />
+                                    <input className="cartStepLocation__individual__inputs" onChange={() => toggleCheckBox('letter')} on type="checkbox" name="" id="newsletter" />
                                     <label htmlFor="newsletter">Je souhaite recevoir votre lettre d'informations commerciales.</label>
                                 </div>
                                 <div className="cartStepLocation__individual__newsletter__checkBoxCont">
-                                    <input onChange={() => toggleCheckBox('advertisement')} type="checkbox" name="" id="advertisement" />
+                                    <input className="cartStepLocation__individual__inputs" onChange={() => toggleCheckBox('advertisement')} type="checkbox" name="" id="advertisement" />
                                     <label htmlFor="advertisement">Je souhaite recevoir vos campagnes SMS.</label>
                                 </div>
                             </div>
@@ -259,21 +278,21 @@ const CartLocation = (props) => {
                                     <div className="cartStepLocation__business__row">
                                         <div className="cartStepLocation__business__row__infos">
                                             <label htmlFor="">Société<span> *</span></label>
-                                            <input onInput={(e) => changeInput('societe', e.target.value)} value={inputs.societe} type="text" name="" id="" />
+                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('societe', e.target.value)} value={inputs.societe} type="text" name="" id="" />
                                         </div>
                                         <div className="cartStepLocation__business__row__infos">
                                             <label htmlFor="">Télécopie</label>
-                                            <input onInput={(e) => changeInput('fax', e.target.value)} value={inputs.fax} type="tel" name="" id="" />
+                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('fax', e.target.value)} value={inputs.fax} type="tel" name="" id="" />
                                         </div>
                                     </div>
                                     <div className="cartStepLocation__business__row">
                                         <div className="cartStepLocation__business__row__infos">
                                             <label htmlFor="">N° de TVA intra-communautaire<span> *</span></label>
-                                            <input onInput={(e) => changeInput('tva', e.target.value)} value={inputs.tva} type="text" name="" id="" />
+                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('tva', e.target.value)} value={inputs.tva} type="text" name="" id="" />
                                         </div>
                                         <div className="cartStepLocation__business__row__infos">
                                             <label htmlFor="">N° SIRET<span> *</span></label>
-                                            <input onInput={(e) => changeInput('siret', e.target.value)} value={inputs.siret} type="number" name="" id="" />
+                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('siret', e.target.value)} value={inputs.siret} type="number" name="" id="" />
                                         </div>
                                     </div>
                                 </div>
@@ -285,21 +304,21 @@ const CartLocation = (props) => {
                                 <div className='cartStepLocation__individual__billLocation__row'>
                                     <div className="cartStepLocation__individual__billLocation__row__cont">
                                         <label htmlFor="">Adresse<span> *</span></label>
-                                        <input onInput={(e) => changeInput('address', e.target.value)} value={inputs.address} type="text" name="" id="" required />
+                                        <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('address', e.target.value)} value={inputs.address} type="text" name="" id="" required />
                                     </div>
                                     <div className="cartStepLocation__individual__billLocation__row__cont">
                                         <label htmlFor="">Complément d'adresse</label>
-                                        <input onInput={(e) => changeInput('addressComp', e.target.value)} value={inputs.addressComp} type="text" name="" id="" />
+                                        <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('addressComp', e.target.value)} value={inputs.addressComp} type="text" name="" id="" />
                                     </div>
                                 </div>
                                 <div className='cartStepLocation__individual__billLocation__row'>
                                     <div className="cartStepLocation__individual__billLocation__row__cont">
                                         <label htmlFor="">Code postal<span> *</span></label>
-                                        <input onInput={(e) => changeInput('zipCode', e.target.value)} value={inputs.zipCode} type="number" name="" id="" required />
+                                        <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('zipCode', e.target.value)} value={inputs.zipCode} type="number" name="" id="" required />
                                     </div>
                                     <div className="cartStepLocation__individual__billLocation__row__cont">
                                         <label htmlFor="">Ville<span> *</span></label>
-                                        <input onInput={(e) => changeInput('city', e.target.value)} value={inputs.city} type="text" name="" id="" required />
+                                        <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('city', e.target.value)} value={inputs.city} type="text" name="" id="" required />
                                     </div>
                                 </div>
                             </div>
@@ -307,7 +326,7 @@ const CartLocation = (props) => {
                             <h2 className='cartStepLocation__title'>Adresse de livraison</h2>
 
                             <div className="cartStepLocation__individual__sameLocation">
-                                <input onInput={changeSameLocation} type="checkbox" name="" id="sameLocation" defaultChecked/>
+                                <input className="cartStepLocation__individual__inputs" onInput={changeSameLocation} type="checkbox" name="" id="sameLocation" defaultChecked/>
                                 <label htmlFor="sameLocation">Même adresse que la facturation.</label>
                             </div>
 
@@ -316,21 +335,21 @@ const CartLocation = (props) => {
                                     <div className='cartStepLocation__individual__notSameLocation__row'>
                                         <div className="cartStepLocation__individual__notSameLocation__row__cont">
                                             <label htmlFor="">Adresse<span> *</span></label>
-                                            <input onInput={(e) => changeInput('deliveryAddress', e.target.value)} value={inputs.deliveryAddress} type="text" name="" id="" required />
+                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('deliveryAddress', e.target.value)} value={inputs.deliveryAddress} type="text" name="" id="" required />
                                         </div>
                                         <div className="cartStepLocation__individual__notSameLocation__row__cont">
                                             <label htmlFor="">Complément d'adresse</label>
-                                            <input onInput={(e) => changeInput('deliveryAddressComp', e.target.value)} value={inputs.deliveryAddressComp} type="text" name="" id="" />
+                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('deliveryAddressComp', e.target.value)} value={inputs.deliveryAddressComp} type="text" name="" id="" />
                                         </div>
                                     </div>
                                     <div className='cartStepLocation__individual__notSameLocation__row'>
                                         <div className="cartStepLocation__individual__notSameLocation__row__cont">
                                             <label htmlFor="">Code postal<span> *</span></label>
-                                            <input onInput={(e) => changeInput('deliveryZipCode', e.target.value)} value={inputs.deliveryZipCode} type="number" name="" id="" required />
+                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('deliveryZipCode', e.target.value)} value={inputs.deliveryZipCode} type="number" name="" id="" required />
                                         </div>
                                         <div className="cartStepLocation__individual__notSameLocation__row__cont">
                                             <label htmlFor="">Ville<span> *</span></label>
-                                            <input onInput={(e) => changeInput('deliveryCity', e.target.value)} value={inputs.deliveryCity} type="text" name="" id="" required />
+                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('deliveryCity', e.target.value)} value={inputs.deliveryCity} type="text" name="" id="" required />
                                         </div>
                                     </div>
                                 </div>

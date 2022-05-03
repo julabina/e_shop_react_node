@@ -23,10 +23,6 @@
         span {
             color: map-get($map: $colors, $key: tertiary);
         }
-        input, select {
-            height: 40px;
-            border: lighten(map-get($map: $colors, $key: grayTrans), 30) 1px solid;
-        }
         label {
             font-weight: 700;
             font-size: 0.9em;
@@ -139,6 +135,16 @@
                 resize: none;
                 width: 500px;
                 margin-bottom: 40px;
+            }
+        }
+        &__errorSpan {
+            font-size: 0.7em;
+        }
+        &__inputs, select {
+            height: 40px;
+            border: lighten(map-get($map: $colors, $key: grayTrans), 30) 1px solid;
+            &__errorInput {
+                border: 1px solid map-get($map: $colors, $key: tertiary);
             }
         }
     }
