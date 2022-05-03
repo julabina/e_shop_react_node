@@ -1,10 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import paypal from '../../assets/paypal.webp';
 import cheque from '../../assets/cheque.webp';
 import virement from '../../assets/virement.webp';
 import cb from '../../assets/cb.webp'
+import { NavLink } from 'react-router-dom';
 
 const CartPayment = (props) => {
+
+    const [totalCart, setTotalCart] = useState();
+    const [method, setMethode] = useState("creditCard");
+
+    useEffect(() => {
+        let total = 0;
+
+        for(let i = 0; i < props.cart.length; i++) {
+            
+            total += props.cart[i].count * props.cart[i].price     
+        }
+
+        setTotalCart(total);
+
+    },[])
+
+    const changePaymentMethod = (value) => {
+        setMethode(value)
+    }
+
+    const sendInfos = () => {
+        props.sendInfos(method)
+    }
+
     return (
         <>
         <h2 className='cart__title'>Mode de paiement</h2>
@@ -18,7 +43,7 @@ const CartPayment = (props) => {
         <div className="cartStepPayment__paymentChoice">
             <h3>Sélectionnez un mode de paiement :</h3>
             <div className="cartStepPayment__paymentChoice__choice">
-                <input type="radio" name="paymentRadio" id="" />
+                <input onChange={(e) => changePaymentMethod(e.target.value)} type="radio" name="paymentRadio" value="creditCard" id="" defaultChecked />
                 <div className="cartStepPayment__paymentChoice__choice__textCont">
                     <h4>Payer par cartes bancaires</h4>
                     <p>Nous acceptons les règlements en ligne uniquement par CB, Visa et Mastercard, les autres cartes, type American Express, ne sont acceptés qu'au travers d'un règlement sur la plateforme PayPal. La transaction est cryptée. </p>
@@ -29,7 +54,7 @@ const CartPayment = (props) => {
                 </div>
             </div>
             <div className="cartStepPayment__paymentChoice__choice">
-                <input type="radio" name="paymentRadio" id="" />
+                <input onChange={(e) => changePaymentMethod(e.target.value)} type="radio" name="paymentRadio" value="paypal" id="" />
                 <div className="cartStepPayment__paymentChoice__choice__textCont">
                     <h4>Payer par compte PayPal</h4>
                     <p>Avec votre compte Paypal, vous pouvez effectuer vos transactions sur le web sans jamais communiquer vos données bancaires aux bénéficiaires (il vous suffit en effet de les avoir indiquées lors de la création de votre compte PayPal), votre adresse email et votre mot de passe suffisent.</p>
@@ -39,7 +64,7 @@ const CartPayment = (props) => {
                 </div>
             </div>
             <div className="cartStepPayment__paymentChoice__choice">
-                <input type="radio" name="paymentRadio" id="" />
+                <input onChange={(e) => changePaymentMethod(e.target.value)} type="radio" name="paymentRadio" value="cheque" id="" />
                 <div className="cartStepPayment__paymentChoice__choice__textCont">
                     <h4>Payer par chèque</h4>
                     <p>Nous acceptons le règlement par chèque bancaire ou postal exprimés en Euros et payable en France Métropolitaine. Le traitement de la commande sera plus long du fait du délai d'acheminement postal de votre chèque.</p>
@@ -51,7 +76,7 @@ const CartPayment = (props) => {
                 </div>
             </div>
             <div className="cartStepPayment__paymentChoice__choice">
-                <input type="radio" name="paymentRadio" id="" />
+                <input onChange={(e) => changePaymentMethod(e.target.value)} type="radio" name="paymentRadio" value="transfer" id="" />
                 <div className="cartStepPayment__paymentChoice__choice__textCont">
                     <h4>Payer par virement bancaire</h4>
                     <p>Nous acceptons le règlement par virement bancaire exprimé en Euros. Le traitement de la commande sera plus long du fait des délais de confirmation interbancaire. </p>
@@ -73,7 +98,7 @@ const CartPayment = (props) => {
                 </div>
                 <div className="cart__articles__separator"></div>
                 <div className="cart__articles__cartContent">
-                    {/* {cartData.map(el => {
+                    {props.cart.map(el => {
                         return (
                         <div key={el.key} className="cart__articles__cartContent__article">
                             <NavLink to={"/" + el.category + "/ref_=" + el.id}>
@@ -88,22 +113,19 @@ const CartPayment = (props) => {
                                 <p className='cart__articles__cartContent__article__priceCont__price'>{el.price} €</p>
                             </div>
                             <div className="cart__articles__cartContent__article__modify">
-                                <button>-</button>
-                                <input type="number" value={el.count} />
-                                <button>+</button>
-                                <FontAwesomeIcon className='cart__articles__cartContent__article__modify__trash' icon={faTrashCan} />
+                                <p>{el.count}</p>
                             </div>
                             <div className="cart__articles__cartContent__article__totalCont">
                                 <p className='cart__articles__cartContent__article__totalCont__result'>{(el.count * el.price).toFixed(2) + " €"}</p>
                             </div>
                         </div>
                         )
-                    })} */}
+                    })} 
                 </div>
                 <div className="cart__articles__separator"></div>
                 <div className="cart__articles__totalCont">
                     <h4>Montant Total TTC</h4>
-                    <p className="cart__articles__totalCont__total">0 €</p>
+                    <p className="cart__articles__totalCont__total">{totalCart} €</p>
                 </div>
             </div>
         </div>

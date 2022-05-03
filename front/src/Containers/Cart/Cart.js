@@ -21,6 +21,7 @@ const Cart = () => {
     const [infosData, setInfosData] = useState({});
     const [orderArticles, setOrderArticles] = useState([]);
     const [deliveryOptions, setDeliveryOptions] = useState();
+    const [paymentInfos, setPaymentInfos] = useState("");
 
     useEffect(() => {
 
@@ -157,6 +158,10 @@ const Cart = () => {
         setDeliveryOptions(options);
     }
 
+    const paymentInfosReceived = (method) => {
+        setPaymentInfos(method)
+    }
+
     return (
         <main>
             <section className="cartSteps">
@@ -255,18 +260,47 @@ const Cart = () => {
             
             {/* 4TH STEP : PAIEMENT */}
             <section className='cartStepPayment cartStepCart'>
-                <CartPayment next={() => toNextStep()} previous={() => toPreviousStep()} />
+                <CartPayment next={() => toNextStep()} previous={() => toPreviousStep()} cart={orderArticles} sendInfos={paymentInfosReceived} />
             </section>
 
             {/* LAST STEP : CONFIRMATION */}
             <section className='cartStepConfirm cartStepCart'>
-            <div className="cart__btns">
-                    <div className="cart__btns__options">
-                        <button onClick={toPreviousStep} id='' className='cart__btns__options__btn'></button>
+                
+                <h2>Commande validée</h2>
+
+                <h3>Merci de votre commande ! A bientôt</h3>
+
+                <div className="cart__articles__separator"></div>
+                <div className="cart__articles__cartContent">
+                        {cartData.map(el => {
+                          return (
+                            <div key={el.key} className="cart__articles__cartContent__article">
+                                <NavLink to={"/" + el.category + "/ref_=" + el.id}>
+                                    <div className="cart__articles__cartContent__article__leftPart">
+                                        <div className="cart__articles__cartContent__article__leftPart__img">
+                                            <img src={el.image} alt={"photo de " + el.name} />
+                                        </div>    
+                                        <h3>{el.name}</h3>
+                                    </div>
+                                </NavLink>
+                                <div className="cart__articles__cartContent__article__priceCont">
+                                    <p className='cart__articles__cartContent__article__priceCont__price'>{el.price} €</p>
+                                </div>
+                                <div className="cart__articles__cartContent__article__modify">
+                                    <p>{el.count}</p>
+                                </div>
+                                <div className="cart__articles__cartContent__article__totalCont">
+                                    <p className='cart__articles__cartContent__article__totalCont__result'>{(el.count * el.price).toFixed(2) + " €"}</p>
+                                </div>
+                            </div>
+                            )
+                        })}
                     </div>
-                </div>
-
-
+                    <div className="cart__articles__separator"></div>
+                    <div className="cart__articles__totalCont">
+                        <h4>Montant Total TTC</h4>
+                        <p className="cart__articles__totalCont__total">{totalCart} €</p>
+                    </div>
                 
             </section>
 

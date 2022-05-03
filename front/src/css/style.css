@@ -829,6 +829,19 @@ body {
   object-fit: contain;
 }
 
+.cartStepConfirm h2 {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 1.4em;
+  font-weight: 700;
+  margin-bottom: 60px;
+}
+.cartStepConfirm h3 {
+  text-align: center;
+  letter-spacing: 1.1px;
+  margin-bottom: 100px;
+}
+
 html, body {
   height: 100vh;
 }
