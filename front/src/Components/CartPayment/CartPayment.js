@@ -7,27 +7,30 @@ import { NavLink } from 'react-router-dom';
 
 const CartPayment = (props) => {
 
-    const [totalCart, setTotalCart] = useState();
+    const [totalCart, setTotalCart] = useState(45);
     const [method, setMethode] = useState("creditCard");
 
     useEffect(() => {
+        console.log('test');
         let total = 0;
+        let newArr = props.cart
 
-        for(let i = 0; i < props.cart.length; i++) {
-            
-            total += props.cart[i].count * props.cart[i].price     
+        for(let i = 0; i < newArr.length; i++) { 
+            total += newArr[i].count * newArr[i].price     
         }
 
         setTotalCart(total);
 
-    },[])
+    },[props.cart])
 
     const changePaymentMethod = (value) => {
         setMethode(value)
     }
 
     const sendInfos = () => {
-        props.sendInfos(method)
+        props.sendInfos(method);
+
+        props.next();
     }
 
     return (
@@ -37,7 +40,7 @@ const CartPayment = (props) => {
             <div className="cart__btns__options">
                 <button  onClick={props.previous} id='' className='cart__btns__options__btn'>Retour livraison</button>
             </div>
-            <button onClick={props.next} className='cart__btns__orderBtn'>Continuer</button>
+            <button onClick={sendInfos} className='cart__btns__orderBtn'>Continuer</button>
         </div>
 
         <div className="cartStepPayment__paymentChoice">
@@ -124,18 +127,27 @@ const CartPayment = (props) => {
                 </div>
                 <div className="cart__articles__separator"></div>
                 <div className="cart__articles__totalCont">
-                    <h4>Montant Total TTC</h4>
+                    <h4>Total Panier</h4>
                     <p className="cart__articles__totalCont__total">{totalCart} €</p>
+                </div>
+                <div className="cart__articles__totalCont">
+                    <h4>Livraison</h4>
+                    <p className="cart__articles__totalCont__total">{props.delivery} €</p>
+                </div>
+                <div className="cart__articles__totalCont">
+                    <h4>Montant Total TTC</h4>
+                    <p className="cart__articles__totalCont__total">{props.delivery + totalCart} €</p>
                 </div>
             </div>
         </div>
 
 
         <div className="cart__articles__orderBtn">
-                <button onClick={props.next} className='cart__btns__orderBtn'>continuer</button>
+                <button onClick={sendInfos} className='cart__btns__orderBtn'>continuer</button>
         </div>
         </>
     );
+
 };
 
 export default CartPayment;

@@ -20,9 +20,10 @@ const Cart = () => {
     const [totalCart, setTotalCart] = useState(0);
     const [infosData, setInfosData] = useState({});
     const [orderArticles, setOrderArticles] = useState([]);
-    const [deliveryOptions, setDeliveryOptions] = useState();
+    const [deliveryOptions, setDeliveryOptions] = useState({});
     const [paymentInfos, setPaymentInfos] = useState("");
-
+    const [orderDate, setOrderDate] = useState()
+    
     useEffect(() => {
 
         let promiseArr = []
@@ -155,11 +156,46 @@ const Cart = () => {
     }
 
     const deliveryOptionsReceived = (options) => {
-        setDeliveryOptions(options);
+        let deliveryPrice = 0;
+
+        if (options.method === "collisimo") {
+            deliveryPrice = 7;
+        } else if (options.method === 'relay') {
+            deliveryPrice = 7;
+        } else if (options.method === "chronopost") {
+            deliveryPrice = 20;
+        } 
+
+        let item = {
+            method: options.method,
+            informations: options.informations,
+            price: deliveryPrice
+        }
+
+        setDeliveryOptions(item);
     }
 
     const paymentInfosReceived = (method) => {
-        setPaymentInfos(method)
+        let paymentMethod;
+        console.log(method);
+
+        if (method === 'creditCard') {
+            paymentMethod = 'Carte de crédit';
+        } else if (method === 'paypal') {
+            paymentMethod = "PayPal";
+        } else if (method === 'cheque') {
+            paymentMethod = "Chèque";
+        } else if (method === 'transfer') {
+            paymentMethod = 'Virement bancaire'
+        }
+
+        setPaymentInfos(paymentMethod)
+
+        const DATE_OPTIONS = {year: 'numeric', month: 'long', day: 'numeric'};
+        const currentDate = new Date().toLocaleDateString('fr-FR', DATE_OPTIONS);
+        console.log(infosData);
+
+        setOrderDate(currentDate);
     }
 
     return (
@@ -255,12 +291,12 @@ const Cart = () => {
             
             {/* 3TH STEP : LIVRAISON */}
             <section className='cartStepDelivery cartStepCart'>
-                <CartDelivery next={() => toNextStep()} previous={() => toPreviousStep()} sendInfos={deliveryOptionsReceived} address={infosData.address} city={infosData.city} zip={infosData.zipCode} />
+                <CartDelivery next={() => toNextStep()} previous={() => toPreviousStep()} sendInfos={deliveryOptionsReceived} address={infosData.deliveryAddress === null ? infosData.address : infosData.deliveryAddress} addressComp={infosData.deliveryAddress === null ? infosData.addressComp : infosData.deliveryAddressComp} city={infosData.deliveryAddress === null ? infosData.city : infosData.deliveryCity} zip={infosData.deliveryAddress === null ? infosData.zipCode : infosData.deliveryZipCode}  />
             </section>
             
             {/* 4TH STEP : PAIEMENT */}
             <section className='cartStepPayment cartStepCart'>
-                <CartPayment next={() => toNextStep()} previous={() => toPreviousStep()} cart={orderArticles} sendInfos={paymentInfosReceived} />
+                <CartPayment next={() => toNextStep()} previous={() => toPreviousStep()} cart={orderArticles} sendInfos={paymentInfosReceived} delivery={deliveryOptions.price} />
             </section>
 
             {/* LAST STEP : CONFIRMATION */}
@@ -297,9 +333,73 @@ const Cart = () => {
                         })}
                     </div>
                     <div className="cart__articles__separator"></div>
-                    <div className="cart__articles__totalCont">
-                        <h4>Montant Total TTC</h4>
-                        <p className="cart__articles__totalCont__total">{totalCart} €</p>
+                    <div className="">
+                        <p>Récapitulatif:</p>
+                        <p>Commande N° </p>
+                        <p>le {orderDate}</p>
+                        <p>Montant Total de la commande: {(parseInt(totalCart) + deliveryOptions.price).toFixed(2)} €</p>
+                        <p>Paiement par: {paymentInfos}</p>
+                        <p>Livraison en: {deliveryOptions.method}</p> 
+                        <p>Adresse de livraison:</p>
+                        {
+                            infosData.societe !== null && <p>{infosData.societe}</p> 
+                        }
+                        <p>{infosData.civilite} {infosData.lastName} {infosData.firstName}</p>
+                        {
+                            infosData.deliveryAddress === null ? 
+                            <>
+                                { infosData.addressComp !== "" && <p>{infosData.addressComp}</p> }
+                                <p>{infosData.address}</p>
+                                <p>{infosData.zipCode} {infosData.city}</p>
+                            </>
+                            :
+                            <>
+                                { infosData.deliveryAddressComp !== "" && <p>{infosData.deliveryAddressComp}</p> }
+                                <p>{infosData.deliveryAddress}</p>
+                                <p>{infosData.deliveryZipCode} {infosData.deliveryCity}</p>
+                            </>
+                        }
+                        {
+                            deliveryOptions.informations !== "" && 
+                            <>
+                                <p>Instructions de livraison:</p>
+                                <p>{deliveryOptions.informations}</p>
+                            </>
+                        }
+                        {
+                            infosData.instruction !== "" && 
+                            <>
+                                <p>Autres instructions:</p>
+                                <p>{infosData.instruction}</p>
+                            </>
+                        }
+                        <p>Moyens de contact:</p>
+                        <p>{infosData.mail}</p>
+                        <p>{infosData.mobile}</p>
+                        {
+                            infosData.tel !== "" && 
+                            <>
+                                <p>{}</p>
+                            </>
+                        }
+                        {
+                            infosData.societe !== null &&
+                            <>
+                               {
+                                    infosData.fax !== "" && <p>Fax: {infosData.fax}</p>
+                                } 
+                            </>
+                        }
+                        {
+                            infosData.newsLetter ?
+                            <>
+                                <p>Votre inscription à la newsletters{infosData.ad && <span> et aux campagnes SMS</span>} a bien été pris en compte.</p>                            
+                            </>
+                            :
+                            <>
+                                { infosData.ad && <p>Votre inscription aux campagnes SMS a bien été pris en compte.</p> }
+                            </>
+                        }
                     </div>
                 
             </section>

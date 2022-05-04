@@ -706,6 +706,10 @@ body {
   display: block;
 }
 
+#mail {
+  width: 550px;
+}
+
 .cartStepDelivery {
   display: none;
   width: 1480px;
