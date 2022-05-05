@@ -19,6 +19,8 @@ const TelescopeProduct = () => {
     let back = '< retour'
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+        
         fetch('http://localhost:3000/api/telescopes/' + params.id)
         .then(res => res.json())
         .then(data => {

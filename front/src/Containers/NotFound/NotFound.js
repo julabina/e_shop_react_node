@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const NotFound = () => {
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    },[])
+
     return (
-        <div>
+        <main>
             <h1>404 not found</h1>
-        </div>
+        </main>
     );
 };
 

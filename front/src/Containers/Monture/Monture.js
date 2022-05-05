@@ -5,6 +5,8 @@ const Monture = () => {
     const [montureData, setMontureData] = useState([]);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+
         fetch('http://localhost:3000/api/montures')
         .then(res => res.json())
         .then(data => {

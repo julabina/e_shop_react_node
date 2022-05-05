@@ -6,6 +6,8 @@ const Oculaire = () => {
     const [oculaireData, setOculaireData] = useState([]);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+        
         fetch('http://localhost:3000/api/oculaires')
         .then(res => res.json())
         .then(data => {

@@ -201,7 +201,7 @@ const Cart = () => {
         const orderTime = [("0" + date.getUTCDate()).slice(-2), ("0" + (date.getUTCMonth() + 1)).slice(-2), date.getUTCFullYear().toString(), ("0" + date.getUTCHours()).slice(-2), ("0" + date.getUTCMinutes()).slice(-2), ("0" + date.getUTCSeconds()).slice(-2)].join("")
         // Remplacer 124 par le numero client
         const order = orderTime + "124"
-
+        
         setOrderDate(currentDate);
         setOrderHour(actualHour);
         setOrderNumber(order);
