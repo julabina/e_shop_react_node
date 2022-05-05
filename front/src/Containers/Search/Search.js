@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const Search = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
     },[])
-    
+
     return (
         <main>
             <h2>SEARCH</h2>
