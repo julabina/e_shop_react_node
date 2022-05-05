@@ -1,0 +1,46 @@
+.contact {
+    width: 1480px;
+    h2 {
+        margin-top: 80px;
+        font-size: 1.5em;
+        font-weight: 700;
+    }
+    &__separator {
+        border-bottom:4px solid black ;
+        margin: 10px 0 110px 0;
+    }
+    &__form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        &__row {
+            display: flex;
+            &__inputCont {
+                display: flex;
+                flex-direction: column;
+                width: 300px;
+                margin: 0 10px;
+                input {
+                    height: 35px;
+                    margin: 5px 0 12px 0;
+                }
+            }
+        }
+        &__message {
+            display: flex;
+            flex-direction: column;
+            width: 620px;
+            textarea {
+                margin-top: 5px;
+                min-height: 200px;
+                resize: vertical;
+            }
+        }
+        &__btnCont {
+            margin-top: 35px;
+            button {
+                @include cartOptionBtn;
+            }
+        }
+    }
+}

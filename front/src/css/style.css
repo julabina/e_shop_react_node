@@ -2067,4 +2067,65 @@ main {
   display: block;
 }
 
+.contact {
+  width: 1480px;
+}
+.contact h2 {
+  margin-top: 80px;
+  font-size: 1.5em;
+  font-weight: 700;
+}
+.contact__separator {
+  border-bottom: 4px solid black;
+  margin: 10px 0 110px 0;
+}
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.contact__form__row {
+  display: flex;
+}
+.contact__form__row__inputCont {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin: 0 10px;
+}
+.contact__form__row__inputCont input {
+  height: 35px;
+  margin: 5px 0 12px 0;
+}
+.contact__form__message {
+  display: flex;
+  flex-direction: column;
+  width: 620px;
+}
+.contact__form__message textarea {
+  margin-top: 5px;
+  min-height: 200px;
+  resize: vertical;
+}
+.contact__form__btnCont {
+  margin-top: 35px;
+}
+.contact__form__btnCont button {
+  width: 130px;
+  height: 30px;
+  background: #14416A;
+  border: none;
+  color: #f3f3f3;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-radius: 3px;
+  font-size: 0.75em;
+  cursor: pointer;
+  transition: opacity 200ms ease-in-out;
+}
+.contact__form__btnCont button:hover {
+  opacity: 0.6;
+  transition: opacity 200ms ease-in-out;
+}
+
 /*# sourceMappingURL=style.css.map */
