@@ -22,7 +22,9 @@ const Cart = () => {
     const [orderArticles, setOrderArticles] = useState([]);
     const [deliveryOptions, setDeliveryOptions] = useState({});
     const [paymentInfos, setPaymentInfos] = useState("");
-    const [orderDate, setOrderDate] = useState()
+    const [orderDate, setOrderDate] = useState();
+    const [orderHour, setOrderHour] = useState();
+    const [orderNumber, setOrderNumber] = useState("");
     
     useEffect(() => {
 
@@ -192,11 +194,19 @@ const Cart = () => {
         setPaymentInfos(paymentMethod)
 
         const DATE_OPTIONS = {year: 'numeric', month: 'long', day: 'numeric'};
+        const HOUR_OPTIONS = {hour: 'numeric', minute: 'numeric'}
         const currentDate = new Date().toLocaleDateString('fr-FR', DATE_OPTIONS);
-        console.log(infosData);
+        const actualHour = new Date().toLocaleTimeString('fr-FR', HOUR_OPTIONS)
+        const date = new Date();
+        const orderTime = [("0" + date.getUTCDate()).slice(-2), ("0" + (date.getUTCMonth() + 1)).slice(-2), date.getUTCFullYear().toString(), ("0" + date.getUTCHours()).slice(-2), ("0" + date.getUTCMinutes()).slice(-2), ("0" + date.getUTCSeconds()).slice(-2)].join("")
+        // Remplacer 124 par le numero client
+        const order = orderTime + "124"
 
         setOrderDate(currentDate);
+        setOrderHour(actualHour);
+        setOrderNumber(order);
     }
+    
 
     return (
         <main>
@@ -335,8 +345,8 @@ const Cart = () => {
                     <div className="cart__articles__separator"></div>
                     <div className="">
                         <p>Récapitulatif:</p>
-                        <p>Commande N° </p>
-                        <p>le {orderDate}</p>
+                        <p>Commande N° {orderNumber}</p>
+                        <p>le {orderDate} à {orderHour}</p>
                         <p>Montant Total de la commande: {(parseInt(totalCart) + deliveryOptions.price).toFixed(2)} €</p>
                         <p>Paiement par: {paymentInfos}</p>
                         <p>Livraison en: {deliveryOptions.method}</p> 
