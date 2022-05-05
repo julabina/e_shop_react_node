@@ -27,6 +27,7 @@ const Cart = () => {
     const [orderNumber, setOrderNumber] = useState("");
     
     useEffect(() => {
+        window.scrollTo(0, 0);
 
         let promiseArr = []
 
@@ -37,27 +38,31 @@ const Cart = () => {
 
         Promise.all(promiseArr)
         .then(data => {
+            console.log(data);
             let newArr = [], total = 0;
             for (let i = 0; i < data.length; i++) {
-                let image;
-                if (cart[i].category === "oculaire") {
-                    image = data[i].data.pictures 
-                } else {
-                    image = data[i].data.pictures[0] 
+                if(data[i].data !== undefined) {              
+                    let image;
+                    if (cart[i].category === "oculaire") {
+                        image = data[i].data.pictures 
+                    } else {
+                        image = data[i].data.pictures[0] 
+                    }
+                    let item = {
+                        category: cart[i].category,
+                        id: data[i].data.id,
+                        count: cart[i].count,
+                        price: data[i].data.price,
+                        name: data[i].data.name,
+                        image: image,
+                        stock: data[i].data.stock,
+                        key: uuidv4() 
+                    }
+                    total += data[i].data.price * cart[i].count;
+                    newArr.push(item);
                 }
-                let item = {
-                    category: cart[i].category,
-                    id: data[i].data.id,
-                    count: cart[i].count,
-                    price: data[i].data.price,
-                    name: data[i].data.name,
-                    image: image,
-                    stock: data[i].data.stock,
-                    key: uuidv4() 
-                }
-                total += data[i].data.price * cart[i].count;
-                newArr.push(item);
             }
+            console.log(newArr);
             setTotalCart(total.toFixed(2));
             setCartData(newArr);
         })     

@@ -23,39 +23,42 @@ const OculaireProduct = () => {
         .then(res => res.json())
         .then(data => {
             let price;
-            if (data.data.promo) {
-                let reduction = (data.data.price / 100) * data.data.promoValue;
-                price = data.data.price - reduction;
-            } else {
-                price = data.data.price;
-            }
-            let item = {
-                imgDesc: data.data.descriptionPicture,
-                name: data.data.name,
-                price: (price).toFixed(2),
-                stock: data.data.stock,
-                description1: data.data.description1,
-                description2: data.data.description2,
-                description3: data.data.description3,
-                focal: data.data.focal,
-                mount: data.data.mount,
-                priceNoPromo: data.data.price,
-                promoValue: data.data.promoValue,
-                promo: data.data.promo,
-                fov: data.data.fov,
-                eyeRelief: data.data.eyeRelief,
-                model: data.data.model,
-                brand: data.data.brand,
-                coulant: data.data.coulant
-            }
+            if (data.data !== undefined) {
+                if (data.data.promo) {
+                    let reduction = (data.data.price / 100) * data.data.promoValue;
+                    price = data.data.price - reduction;
+                } else {
+                    price = data.data.price;
+                }
+                let item = {
+                    id: data.data.id,
+                    imgDesc: data.data.descriptionPicture,
+                    name: data.data.name,
+                    price: (price).toFixed(2),
+                    stock: data.data.stock,
+                    description1: data.data.description1,
+                    description2: data.data.description2,
+                    description3: data.data.description3,
+                    focal: data.data.focal,
+                    mount: data.data.mount,
+                    priceNoPromo: data.data.price,
+                    promoValue: data.data.promoValue,
+                    promo: data.data.promo,
+                    fov: data.data.fov,
+                    eyeRelief: data.data.eyeRelief,
+                    model: data.data.model,
+                    brand: data.data.brand,
+                    coulant: data.data.coulant
+                }
 
-            if (data.data.stock < 1) {
-                setInputAddCart("0");
-            } else {
-                setInputAddCart("1");
+                if (data.data.stock < 1) {
+                    setInputAddCart("0");
+                } else {
+                    setInputAddCart("1");
+                }
+                setOculaireData(item);
+                setMainPicture(process.env.PUBLIC_URL + data.data.pictures)
             }
-            setOculaireData(item);
-            setMainPicture(process.env.PUBLIC_URL + data.data.pictures)
         })
     },[])
 

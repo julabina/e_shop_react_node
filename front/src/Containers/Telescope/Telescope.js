@@ -14,16 +14,18 @@ const Telescope = () => {
         console.log(data.data);
         let newArr = [];
         for (let i = 0; i < data.data.length; i++) {
-            let item = {
-                name: data.data[i].name,
-                pictures: data.data[i].pictures,
-                price: data.data[i].price,
-                id: data.data[i].id,
-                promo: data.data[i].promo,
-                promoValue: data.data[i].promoValue,
-                stock: data.data[i].stock
+            if(data.data[i] !== undefined) {
+                let item = {
+                    name: data.data[i].name,
+                    pictures: data.data[i].pictures,
+                    price: data.data[i].price,
+                    id: data.data[i].id,
+                    promo: data.data[i].promo,
+                    promoValue: data.data[i].promoValue,
+                    stock: data.data[i].stock
+                }
+                newArr.push(item);
             }
-            newArr.push(item);
         }
         setTelescopeData(newArr);
         

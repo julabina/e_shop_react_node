@@ -25,43 +25,46 @@ const MontureProduct = () => {
         .then(data => {
             let price;
             let newArr = [];
-            if (data.data.promo) {
-                let reduction = (data.data.price / 100) * data.data.promoValue;
-                price = data.data.price - reduction;
-            } else {
-                price = data.data.price;
-            }
-            let item = {
-                imgDesc: data.data.descriptionPicture,
-                name: data.data.name,
-                type: data.data.type,
-                price: (price).toFixed(2),
-                stock: data.data.stock,
-                description1: data.data.description1,
-                description2: data.data.description2,
-                description3: data.data.description3,
-                priceNoPromo: data.data.price,
-                promoValue: data.data.promoValue,
-                promo: data.data.promo,
-                capacity: data.data.capacity,
-                goTo: data.data.goTo
-            }
-            for(let i = 0; i < data.data.pictures.length; i++) {
-                let pict = {
-                    img: data.data.pictures[i],
-                    id: uuidv4(),
-                    ind: i
+            if (data.data !== undefined){
+                    if (data.data.promo) {
+                    let reduction = (data.data.price / 100) * data.data.promoValue;
+                    price = data.data.price - reduction;
+                } else {
+                    price = data.data.price;
                 }
-                newArr.push(pict);
+                let item = {
+                    id: data.data.id,
+                    imgDesc: data.data.descriptionPicture,
+                    name: data.data.name,
+                    type: data.data.type,
+                    price: (price).toFixed(2),
+                    stock: data.data.stock,
+                    description1: data.data.description1,
+                    description2: data.data.description2,
+                    description3: data.data.description3,
+                    priceNoPromo: data.data.price,
+                    promoValue: data.data.promoValue,
+                    promo: data.data.promo,
+                    capacity: data.data.capacity,
+                    goTo: data.data.goTo
+                }
+                for(let i = 0; i < data.data.pictures.length; i++) {
+                    let pict = {
+                        img: data.data.pictures[i],
+                        id: uuidv4(),
+                        ind: i
+                    }
+                    newArr.push(pict);
+                }
+                if (data.data.stock < 1) {
+                    setInputAddCart(0);
+                } else {
+                    setInputAddCart(1);
+                }
+                setPicturesData(newArr);
+                setMontureData(item);
+                setMainPicture(process.env.PUBLIC_URL + data.data.pictures[0])
             }
-            if (data.data.stock < 1) {
-                setInputAddCart(0);
-            } else {
-                setInputAddCart(1);
-            }
-            setPicturesData(newArr);
-            setMontureData(item);
-            setMainPicture(process.env.PUBLIC_URL + data.data.pictures[0])
         })
     },[])
 
