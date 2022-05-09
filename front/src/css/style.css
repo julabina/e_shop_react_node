@@ -2273,8 +2273,9 @@ main {
 }
 .legals h2 {
   font-weight: 600;
-  font-size: 1.3em;
-  margin-bottom: 30px;
+  font-size: 1.7em;
+  margin-bottom: 70px;
+  text-align: center;
 }
 .legals h3 {
   font-size: 1.2em;
@@ -2290,6 +2291,45 @@ main {
 }
 .legals__marginTop {
   margin-top: 15px;
+}
+
+.cgu {
+  width: 900px;
+  margin: 80px 0 80px;
+}
+.cgu h2 {
+  font-weight: 600;
+  font-size: 1.7em;
+  margin-bottom: 70px;
+  text-align: center;
+}
+.cgu h3 {
+  font-size: 1.2em;
+  font-weight: 700;
+  margin: 50px 0 25px;
+}
+.cgu p {
+  line-height: 1.4;
+  letter-spacing: 0.7px;
+}
+.cgu__link {
+  color: #0606c7;
+}
+.cgu__marginTop {
+  margin-top: 15px;
+}
+.cgu ul {
+  margin: 15px 0 25px;
+}
+.cgu li {
+  list-style: inside;
+  margin-bottom: 4px;
+}
+.cgu__list {
+  margin-left: 50px;
+}
+.cgu__list q {
+  font-weight: 600;
 }
 
 /*# sourceMappingURL=style.css.map */

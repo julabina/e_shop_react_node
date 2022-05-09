@@ -9,7 +9,7 @@ const Legals = () => {
     return (
         <main>
             <section className='legals'>
-                <h2>MENTIONS LEGALES :</h2>
+                <h2>MENTIONS LEGALES</h2>
 
                 <p>Conformément aux dispositions des articles 6-III et 19 de la Loi n° 2004-575 du 21 juin 2004 pour la Confiance dans l'économie numérique, dite L.C.E.N., nous portons à la connaissance des utilisateurs et visiteurs du site </p>
                 <p><a className='legals__link' href="http://react-optique-shop.dev" target="_blank">react-optique-shop.dev</a> les informations suivantes :</p>
@@ -18,6 +18,7 @@ const Legals = () => {
                 <p>Le créateur du site est : Lenfumé Julien.</p>
                 <p>L’hebergeur du site est : Hostinger International Ltd 61 Lordou Vironos str. 6023 Larnaca, Cyprus.</p>
                 <p>Crédit : Les mentions légales ont étés générées par <a className='legals__link' href="https://www.generer-mentions-legales.com/generateur-mentions-legales.html" target="_blank">générateur de mentions legales.</a></p>
+                <p>Crédit : Les conditions générales d'utilisation ont étés générées en partie par <a className='legals__link' href="https://editioneo.com" target="_blank">editioneo.</a></p>
 
                 <h3>2. Présentation et principe :</h3>
                 <p>A FAIRE A FAIRE A FAIRE A FAIRE A FAIRE A FAIRE A FAIRE A FAIRE A FAIRE A FAIRE A FAIRE A FAIRE A FAIRE A FAIRE A FAIRE A FAIRE A FAIRE A FAIRE A FAIRE A FAIRE</p>

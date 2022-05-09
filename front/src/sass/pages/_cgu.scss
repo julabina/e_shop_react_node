@@ -1,0 +1,16 @@
+.cgu {
+    @include legalsText;
+    ul {
+        margin: 15px 0 25px;
+    }
+    li {
+        list-style:inside;
+        margin-bottom: 4px;
+    }
+    &__list {
+        margin-left: 50px;
+        q {
+            font-weight: 600;
+        }
+    }
+}

@@ -15,6 +15,7 @@ import Monture from './Containers/Monture/Monture';
 import MontureProduct from './Containers/MontureProduct/MontureProduct';
 import About from "./Containers/About/About";
 import Legals from "./Containers/Legals/Legals";
+import Cgu from "./Containers/Cgu/Cgu";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path='/contact' element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/legals" element={<Legals />} />
+        <Route path="/cgu" element={<Cgu />} />
         <Route path='/search/' element={<Search />} />
         <Route path='/search/query_=:query' element={<Search />} />
         <Route path='*' element={<NotFound />} />

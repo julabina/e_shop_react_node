@@ -470,3 +470,29 @@
             transition: opacity 200ms ease-in-out;
         }
 }
+
+@mixin legalsText {
+    width: 900px;
+    margin: 80px 0 80px;
+    h2 {
+        font-weight: 600;
+        font-size: 1.7em;
+        margin-bottom: 70px;
+        text-align: center;
+    }
+    h3 {
+        font-size: 1.2em;
+        font-weight: 700;
+        margin: 50px 0 25px;
+    }
+    p {
+        line-height: 1.4;
+        letter-spacing: 0.7px;
+    }
+    &__link {
+        color: rgb(6, 6, 199);
+    }
+    &__marginTop {
+        margin-top: 15px;
+    }
+}
