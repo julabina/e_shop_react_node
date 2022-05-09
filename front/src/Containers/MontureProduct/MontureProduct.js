@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { v4 as uuidv4 } from 'uuid';
 import ProductCarrousel from '../../Components/ProductCarrousel/ProductCarrousel';
 import { useDispatch } from 'react-redux';
+import ConfirmationModal from '../../Components/ConfirmationModal/ConfirmationModal';
 
 const MontureProduct = () => {
     const dispatch = useDispatch();
@@ -217,7 +216,7 @@ const MontureProduct = () => {
                             <input onChange={(e) => changeInputValue('change', e.target.value)} type="number" className="montureProduct__top__right__addCart__countCont__input" value={inputAddCart} min='1' max={montureData.stock} />
                             <button onClick={() => changeInputValue('add')} id="montureProduct__addBtn" className={montureData.stock < 2 ? 'montureProduct__top__right__addCart__countCont__btn montureProduct__top__right__addCart__countCont__btn--unselected' : 'montureProduct__top__right__addCart__countCont__btn'}>+</button>
                         </div>
-                        <button onClick={() => addToCart(inputAddCart)} className='montureProduct__top__right__addCart__addBtn'><FontAwesomeIcon className='montureProduct__top__right__addCart__addBtn__cart' icon={faShoppingCart} /> Ajouter au panier</button>
+                        <ConfirmationModal isProductPage={true} func={addToCart} name={montureData.name} price={montureData.price} count={inputAddCart} stock={montureData.stock} />
                     </div>
                 </div>
             </div>

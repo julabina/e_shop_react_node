@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { v4 as uuidv4 } from 'uuid';
 import ProductCarrousel from '../../Components/ProductCarrousel/ProductCarrousel';
 import { useDispatch } from 'react-redux';
+import ConfirmationModal from '../../Components/ConfirmationModal/ConfirmationModal';
 
 const TelescopeProduct = () => {
 
@@ -220,7 +219,7 @@ const TelescopeProduct = () => {
                             <input onChange={(e) => changeInputValue('change', e.target.value)} type="number" className="telescopeProduct__top__right__addCart__countCont__input" value={inputAddCart} min='1' max={telescopeData.stock} />
                             <button onClick={() => changeInputValue('add')} id="telescopeProduct__addBtn" className={telescopeData.stock < 2 ? 'telescopeProduct__top__right__addCart__countCont__btn telescopeProduct__top__right__addCart__countCont__btn--unselected' : 'telescopeProduct__top__right__addCart__countCont__btn'}>+</button>
                         </div>
-                        <button onClick={() => addToCart(inputAddCart)} className='telescopeProduct__top__right__addCart__addBtn'><FontAwesomeIcon className='telescopeProduct__top__right__addCart__addBtn__cart' icon={faShoppingCart} /> Ajouter au panier</button>
+                        <ConfirmationModal isProductPage={true} func={addToCart} name={telescopeData.name} price={telescopeData.price} count={inputAddCart} stock={telescopeData.stock} />
                     </div>
                 </div>
             </div>

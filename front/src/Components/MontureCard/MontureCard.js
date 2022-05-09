@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 
 
 const MontureCard = (props) => {
@@ -114,7 +115,7 @@ const MontureCard = (props) => {
                     <NavLink to={'/monture/ref_=' + props.id}>
                         <button className='montureCard__buttons__btn montureCard__buttons__btn__infos'>Infos</button>
                     </NavLink>
-                    <button onClick={() => addToCart(inputValue)} className='montureCard__buttons__btn montureCard__buttons__btn__buy'>Acheter</button>
+                    <ConfirmationModal func={addToCart} name={props.name} price={price} count={inputValue} stock={props.stock} />
                 </div>
             </li>
     );

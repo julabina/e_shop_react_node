@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import OculaireZoom from '../../Components/OculaireZoom/OculaireZoom';
+import ConfirmationModal from '../../Components/ConfirmationModal/ConfirmationModal';
 
 const OculaireProduct = () => {
 
@@ -186,7 +185,7 @@ const OculaireProduct = () => {
                             <input onChange={(e) => changeInputValue('change',e.target.value)} type="number" className="oculaireProduct__top__right__addCart__countCont__input" value={inputAddCart} min='1' max={oculaireData.stock} />
                             <button onClick={() => changeInputValue('add')} id="oculaireProduct__addBtn" className={oculaireData.stock < 2 ? 'oculaireProduct__top__right__addCart__countCont__btn oculaireProduct__top__right__addCart__countCont__btn--unselected' : 'oculaireProduct__top__right__addCart__countCont__btn'}>+</button>
                         </div>
-                        <button onClick={() => addToCart(inputAddCart)} className='oculaireProduct__top__right__addCart__addBtn'><FontAwesomeIcon className='oculaireProduct__top__right__addCart__addBtn__cart' icon={faShoppingCart} /> Ajouter au panier</button>
+                        <ConfirmationModal isProductPage={true} func={addToCart} name={oculaireData.name} price={oculaireData.price} count={inputAddCart} stock={oculaireData.stock} />
                     </div>
                 </div>
             </div>
