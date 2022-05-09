@@ -2267,4 +2267,29 @@ main {
   transition: opacity 200ms ease-in-out;
 }
 
+.legals {
+  width: 900px;
+  margin: 80px 0 80px;
+}
+.legals h2 {
+  font-weight: 600;
+  font-size: 1.3em;
+  margin-bottom: 30px;
+}
+.legals h3 {
+  font-size: 1.2em;
+  font-weight: 700;
+  margin: 50px 0 25px;
+}
+.legals p {
+  line-height: 1.4;
+  letter-spacing: 0.7px;
+}
+.legals__link {
+  color: #0606c7;
+}
+.legals__marginTop {
+  margin-top: 15px;
+}
+
 /*# sourceMappingURL=style.css.map */

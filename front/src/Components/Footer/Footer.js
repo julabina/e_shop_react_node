@@ -41,7 +41,9 @@ const Footer = () => {
                     </div>
                     <div className="footer__section__cont__box">
                         <h3>Mentions légales</h3>
-                        <p>Mentions légales</p>
+                        <NavLink to="/legals" >
+                            <p>Mentions légales</p>
+                        </NavLink>
                         <p>Condition Générales de Vente</p>
                         <p>Gérer les cookies</p>
                     </div>
