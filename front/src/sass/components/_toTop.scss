@@ -1,0 +1,25 @@
+.toTop {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 60%;
+    right: 30px;
+    height: 40px;width: 40px;
+    background: black;
+    border-radius: 6px;
+    color: map-get($map: $colors, $key: whiteLight);
+    font-size: 1.2em;
+    cursor: pointer;
+    border: none;
+    transition: all 200ms ease-out;
+    opacity: 0;
+    &:hover {
+        opacity: 0.8;
+        transition: opacity 500ms ease-out;
+    }
+    &--visible {
+        opacity: 1;
+        transition: opacity 500ms ease-out;
+    }
+}

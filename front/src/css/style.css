@@ -926,6 +926,33 @@ body {
   background: #14416A;
 }
 
+.toTop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 60%;
+  right: 30px;
+  height: 40px;
+  width: 40px;
+  background: black;
+  border-radius: 6px;
+  color: #f3f3f3;
+  font-size: 1.2em;
+  cursor: pointer;
+  border: none;
+  transition: all 200ms ease-out;
+  opacity: 0;
+}
+.toTop:hover {
+  opacity: 0.8;
+  transition: opacity 500ms ease-out;
+}
+.toTop--visible {
+  opacity: 1;
+  transition: opacity 500ms ease-out;
+}
+
 html, body {
   height: 100vh;
 }

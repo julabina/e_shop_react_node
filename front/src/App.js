@@ -16,11 +16,13 @@ import MontureProduct from './Containers/MontureProduct/MontureProduct';
 import About from "./Containers/About/About";
 import Legals from "./Containers/Legals/Legals";
 import Cgu from "./Containers/Cgu/Cgu";
+import ToTop from "./Components/ToTop/ToTop";
 
 function App() {
   return (
     <>
       <Header />
+      <ToTop />
       <Routes  basename={process.env.PUBLIC_URL}>
         <Route path='/' element={<Home />} />
         <Route path="/telescope" element={<Telescope />} />
