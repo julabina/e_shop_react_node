@@ -4,6 +4,7 @@ import OculaireCard from '../../Components/OculaireCard/OculaireCard';
 const Oculaire = () => {
 
     const [oculaireData, setOculaireData] = useState([]);
+    const [sort, setSort] = useState("");
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -31,18 +32,68 @@ const Oculaire = () => {
         })
     },[])
 
+    const handleSort = (option) => {
+        if (option === "ascName") {
+
+        } else if (option === "descName") {
+
+        } else if (option === "ascPrice") {
+
+        } else if (option === "descPrice") {
+
+        }
+    }
+
     return (
-        <main>
+        <main className='mainList'>
+            <section className="oculaireFilter">
+                <h2>Marque</h2>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <div className="oculaireFilter__separator"></div>
+                <h2>Modèle</h2>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <div className="oculaireFilter__separator"></div>
+                <h2>Longueur focale</h2>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <div className="oculaireFilter__separator"></div>
+                <h2>Champs apparent</h2>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <div className="oculaireFilter__separator"></div>
+                <h2>Distance de l'oeil</h2>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <div className="oculaireFilter__separator"></div>
+                <h2>Coulant</h2>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <div className="oculaireFilter__separator"></div>
+                <h2>En stock</h2>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <div className="oculaireFilter__separator"></div>
+            </section>
             <section className='oculaireList'>
                 <div className="oculaireList__top">
                     <div className="oculaireList__top__top">
                         <h2>Oculaires</h2>
                         <div className="oculaireList__top__top__pages"></div>
                     </div>
-                    <select name="" id="">
-                        <option value=""></option>
-                        <option value=""></option>
-                        <option value=""></option>
+                    <select onChange={(e) => handleSort(e.target.value)}>
+                        <option defaultChecked value="ascName">Trier par ordre alphabétique croissant</option>
+                        <option value="descName">Trier par ordre alphabétique décroissant</option>
+                        <option value="ascPrice">Trier par prix croissant</option>
+                        <option value="descPrice">Trier par prix décroissant</option>
                     </select>
                 </div>
                 <div className="oculaireList__main">

@@ -1,3 +1,7 @@
 .telescopesList {
     @include list;
 }
+
+.telescopesFilter {
+    @include filter;
+}

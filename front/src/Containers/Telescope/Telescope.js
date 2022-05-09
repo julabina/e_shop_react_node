@@ -4,6 +4,7 @@ import TelescopeCard from '../../Components/TelescopeCard/TelescopeCard';
 const Telescope = () => {
 
     const [telescopeData, setTelescopeData] = useState([]);
+    const [sort, setSort] = useState("");
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -32,18 +33,63 @@ const Telescope = () => {
     })
     }, [])
 
+    const handleSort = (option) => {
+        if (option === "ascName") {
+
+        } else if (option === "descName") {
+
+        } else if (option === "ascPrice") {
+
+        } else if (option === "descPrice") {
+
+        }
+    }
+
     return (
-        <main>
+        <main className='mainList'>
+            <section className='telescopesFilter'>
+                <h2>Marque</h2>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <div className="telescopesFilter__separator"></div>
+                <h2>Diamètre</h2>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <div className="telescopesFilter__separator"></div>
+                <h2>Focale</h2>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <div className="telescopesFilter__separator"></div>
+                <h2>Type</h2>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <div className="telescopesFilter__separator"></div>
+                <h2>Avec monture</h2>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <div className="telescopesFilter__separator"></div>
+                <h2>En stock</h2>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <div className="telescopesFilter__separator"></div>
+            </section>
             <section className='telescopesList'>
                 <div className="telescopesList__top">
                     <div className="telescopesList__top__top">
                         <h2>Télescopes et Lunettes astronomiques</h2>
                         <div className="telescopesList__top__top__pages"></div>
                     </div>
-                    <select name="" id="">
-                        <option value=""></option>
-                        <option value=""></option>
-                        <option value=""></option>
+                    <select onChange={(e) => handleSort(e.target.value)}>
+                        <option defaultChecked value="ascName">Trier par ordre alphabétique croissant</option>
+                        <option value="descName">Trier par ordre alphabétique décroissant</option>
+                        <option value="ascPrice">Trier par prix croissant</option>
+                        <option value="descPrice">Trier par prix décroissant</option>
                     </select>
                 </div>
                 <div className="telescopesList__main">

@@ -8,3 +8,10 @@ main {
     align-items: center;
     min-height: 78vh;
 }
+
+.mainList {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    padding-bottom: 40px;
+}

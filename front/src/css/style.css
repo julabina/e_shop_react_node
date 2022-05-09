@@ -857,6 +857,13 @@ main {
   min-height: 78vh;
 }
 
+.mainList {
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  padding-bottom: 40px;
+}
+
 .header {
   display: flex;
   flex-direction: column;
@@ -985,7 +992,51 @@ main {
 }
 
 .telescopesList {
-  width: 1480px;
+  width: 1250px;
+}
+.telescopesList__top {
+  margin: 20px 0 50px;
+}
+.telescopesList__top h2 {
+  font-size: 1.7em;
+  letter-spacing: 0.9px;
+}
+.telescopesList__top select {
+  background: initial;
+  border: #000 1px solid;
+  height: 30px;
+  width: 400px;
+  padding-left: 10px;
+  margin-top: 20px;
+}
+.telescopesList__main {
+  display: flex;
+}
+.telescopesList__main ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px 12px;
+}
+
+.telescopesFilter {
+  width: 200px;
+  margin: 20px 30px 0 0;
+  padding: 20px 10px;
+}
+.telescopesFilter h2 {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1.2em;
+  letter-spacing: 0.9px;
+  color: #14416A;
+  margin: 10px 0 15px;
+}
+.telescopesFilter h2:first-child {
+  margin-top: 0;
+}
+.telescopesFilter__separator {
+  border-bottom: rgba(223, 223, 223, 0.5333333333) 1px solid;
+  margin: 10px 0;
 }
 
 .telescopeProduct {
@@ -1272,7 +1323,51 @@ main {
 }
 
 .oculaireList {
-  width: 1480px;
+  width: 1250px;
+}
+.oculaireList__top {
+  margin: 20px 0 50px;
+}
+.oculaireList__top h2 {
+  font-size: 1.7em;
+  letter-spacing: 0.9px;
+}
+.oculaireList__top select {
+  background: initial;
+  border: #000 1px solid;
+  height: 30px;
+  width: 400px;
+  padding-left: 10px;
+  margin-top: 20px;
+}
+.oculaireList__main {
+  display: flex;
+}
+.oculaireList__main ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px 12px;
+}
+
+.oculaireFilter {
+  width: 200px;
+  margin: 20px 30px 0 0;
+  padding: 20px 10px;
+}
+.oculaireFilter h2 {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1.2em;
+  letter-spacing: 0.9px;
+  color: #14416A;
+  margin: 10px 0 15px;
+}
+.oculaireFilter h2:first-child {
+  margin-top: 0;
+}
+.oculaireFilter__separator {
+  border-bottom: rgba(223, 223, 223, 0.5333333333) 1px solid;
+  margin: 10px 0;
 }
 
 .oculaireProduct {
@@ -1559,7 +1654,51 @@ main {
 }
 
 .montureList {
-  width: 1480px;
+  width: 1250px;
+}
+.montureList__top {
+  margin: 20px 0 50px;
+}
+.montureList__top h2 {
+  font-size: 1.7em;
+  letter-spacing: 0.9px;
+}
+.montureList__top select {
+  background: initial;
+  border: #000 1px solid;
+  height: 30px;
+  width: 400px;
+  padding-left: 10px;
+  margin-top: 20px;
+}
+.montureList__main {
+  display: flex;
+}
+.montureList__main ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px 12px;
+}
+
+.montureFilter {
+  width: 200px;
+  margin: 20px 30px 0 0;
+  padding: 20px 10px;
+}
+.montureFilter h2 {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1.2em;
+  letter-spacing: 0.9px;
+  color: #14416A;
+  margin: 10px 0 15px;
+}
+.montureFilter h2:first-child {
+  margin-top: 0;
+}
+.montureFilter__separator {
+  border-bottom: rgba(223, 223, 223, 0.5333333333) 1px solid;
+  margin: 10px 0;
 }
 
 .montureProduct {

@@ -3,6 +3,7 @@ import MontureCard from '../../Components/MontureCard/MontureCard';
 
 const Monture = () => {
     const [montureData, setMontureData] = useState([]);
+    const [sort, setSort] = useState("");
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -29,18 +30,58 @@ const Monture = () => {
         })
     },[])
 
+    const handleSort = (option) => {
+        if (option === "ascName") {
+
+        } else if (option === "descName") {
+
+        } else if (option === "ascPrice") {
+
+        } else if (option === "descPrice") {
+
+        }
+    }
+
     return (
-        <main>
+        <main className='mainList'>
+            <section className="montureFilter">
+                <h2>Marque</h2>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <div className="montureFilter__separator"></div>
+                <h2>Type</h2>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <div className="montureFilter__separator"></div>
+                <h2>Capacité de charge</h2>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <div className="montureFilter__separator"></div>
+                <h2>Goto</h2>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <div className="montureFilter__separator"></div>
+                <h2>En stock</h2>
+                <p>test</p>
+                <p>test</p>
+                <p>test</p>
+                <div className="montureFilter__separator"></div>
+            </section>
             <section className='montureList'>
                 <div className="montureList__top">
                     <div className="montureList__top__top">
                         <h2>Montures</h2>
                         <div className="montureList__top__top__pages"></div>
                     </div>
-                    <select name="" id="">
-                        <option value=""></option>
-                        <option value=""></option>
-                        <option value=""></option>
+                    <select onChange={(e) => handleSort(e.target.value)}>
+                        <option defaultChecked value="ascName">Trier par ordre alphabétique croissant</option>
+                        <option value="descName">Trier par ordre alphabétique décroissant</option>
+                        <option value="ascPrice">Trier par prix croissant</option>
+                        <option value="descPrice">Trier par prix décroissant</option>
                     </select>
                 </div>
                 <div className="montureList__main">

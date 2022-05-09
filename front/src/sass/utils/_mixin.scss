@@ -124,7 +124,51 @@
 } 
 
 @mixin list {
-    width: 1480px;
+    width: 1250px;
+    &__top {
+        margin: 20px 0 50px;
+        h2 {
+            font-size: 1.7em;
+            letter-spacing: 0.9px;
+        }
+        select {
+            background: initial;
+            border: #000 1px solid;
+            height: 30px;
+            width: 400px;
+            padding-left: 10px;
+            margin-top: 20px;
+        }
+    }
+    &__main {
+        display: flex;
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px 12px;
+        }
+    }
+}
+
+@mixin filter {
+    width: 200px;
+    margin:20px 30px 0 0;
+    padding: 20px 10px;
+    h2 {
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 1.2em;
+        letter-spacing: 0.9px;
+        color: map-get($map: $colors, $key: primary);
+        margin: 10px 0 15px;
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+    &__separator {
+        border-bottom: darken(map-get($map: $colors, $key: whiteTrans), 8) 1px solid;
+        margin: 10px 0;
+    }
 }
 
 @mixin product {
