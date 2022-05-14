@@ -3,9 +3,22 @@ const { v4 } = require('uuid');
 const jwt = require('jsonwebtoken');
 
 
-exports.findComment = (req, res, next) => {
-
+exports.findProductComment = (req, res, next) => {
+    Comment.findAndCountAll({ where: { productId: req.params.productId } })
+        .then(({count, rows}) => {
+            if (count === 0) {
+                const message = 'Aucun commentaire trouvé pour ce produit.';
+                return res.status(404).json({ message });
+            }
+            const message = `${count} commentaires ont bien été trouvée.`;
+            res.status(200).json({ message, data: rows })
+        })
+        .catch(error => res.status(500).json({ error }))
 };
+
+exports.findOneComment = (req, res, next) => {
+    
+}
 
 exports.addComment = (req, res, next) => {
     let Category;
