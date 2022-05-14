@@ -2,7 +2,7 @@ const { Comment, Telescope, Oculaire, Monture } = require('../db/sequelize');
 const { v4 } = require('uuid');
 const jwt = require('jsonwebtoken');
 
-
+// FIND ALL COMMENT FOR ONE PRODUCT 
 exports.findProductComment = (req, res, next) => {
     Comment.findAndCountAll({ where: { productId: req.params.productId } })
         .then(({count, rows}) => {
@@ -16,10 +16,7 @@ exports.findProductComment = (req, res, next) => {
         .catch(error => res.status(500).json({ error }))
 };
 
-exports.findOneComment = (req, res, next) => {
-    
-}
-
+// ADD COMMENT 
 exports.addComment = (req, res, next) => {
     let Category;
     if (req.body.category === 'telescope') {
@@ -54,10 +51,12 @@ exports.addComment = (req, res, next) => {
         .catch(error => res.status(500).json({ error }))
 };
 
+// MODIFY ONE COMMENT
 exports.modifyComment = (req, res, next) => {
 
 };
 
+// DELETE ONE COMMENT
 exports.deleteComment = (req, res, next) => {
 
 };
