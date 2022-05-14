@@ -1,29 +1,26 @@
 const express = require('express');
 const morgan = require('morgan');
-const bodyParser = require('body-parser');
-const sequelize = require('./src/db/sequelize');
+const telescopeRoute = require('./routes/telescope');
+const oculaireRoute = require('./routes/oculaire');
+const montureRoute = require('./routes/monture');
+const userRoute = require('./routes/user');
 
 const app = express();
-const port = 3000;
 
-app
-    .use(morgan('dev'))
-    .use(bodyParser.json())
-    .use(function(req, res, next) {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        next();
-    });
+app.use(express.json());
 
-sequelize.initDb();
-
-require('./src/routes/findAllTelescope')(app);
-require('./src/routes/findOneTelescope')(app);
-require('./src/routes/findAllOculaire')(app);
-require('./src/routes/findOneOculaire')(app);
-require('./src/routes/findAllMonture')(app);
-require('./src/routes/findOneMonture')(app);
-
-app.listen(port, () => {
-    console.log(`Server start on : http://localhost:${port}`);
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    next();
 });
+
+app.use(morgan('dev'));
+
+app.use('/api/telescopes', telescopeRoute);
+app.use('/api/oculaires', oculaireRoute);
+app.use('/api/montures', montureRoute);
+app.use('/api/users', userRoute);
+
+module.exports = app;
