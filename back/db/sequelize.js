@@ -4,6 +4,7 @@ const OculaireModel = require('../models/oculaire');
 const MontureModel = require('../models/monture');
 const CommentModel = require('../models/comment');
 const UserModel = require('../models/user');
+const data = require('../db/mock-products');
 
 const sequelize = new Sequelize(
     'react-Eshop',

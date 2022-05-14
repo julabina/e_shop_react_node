@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         productId: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false
         },
         commentId: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false
         },
         userId: {
