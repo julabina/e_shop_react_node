@@ -184,6 +184,10 @@ const TelescopeProduct = () => {
         setInputAddCart(newVal);
     }
 
+    const postComment = () => {
+        
+    }
+
     return (
         <main>
         <section className='telescopeProduct'>
@@ -267,7 +271,7 @@ const TelescopeProduct = () => {
             </div>
             <div className="telescopeInfos__infos">
                 <div className="telescopeInfos__infos__commentsCont">
-                    <form className='telescopeInfos__infos__commentsCont__form' action="" method="post">
+                    <form onSubmit={postComment} className='telescopeInfos__infos__commentsCont__form' method="post">
                         <textarea onInput={(e) => changeCommentValue(e.target.value)} value={commentData} className="telescopeInfos__infos__commentsCont__form__textArea"></textarea>
                         <button className='telescopeInfos__infos__commentsCont__form__btn'>Envoyer</button>
                     </form>

@@ -17,6 +17,8 @@ import About from "./Containers/About/About";
 import Legals from "./Containers/Legals/Legals";
 import Cgu from "./Containers/Cgu/Cgu";
 import ToTop from "./Components/ToTop/ToTop";
+import Login from "./Containers/Login/Login";
+import UserAccount from "./Containers/userAccount/UserAccount";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
       <ToTop />
       <Routes  basename={process.env.PUBLIC_URL}>
         <Route path='/' element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/userAccount" element={<UserAccount />} />
         <Route path="/telescope" element={<Telescope />} />
         <Route path="/telescope/ref_=:id" element={<TelescopeProduct />} />
         <Route path="/oculaire" element={<Oculaire />} />

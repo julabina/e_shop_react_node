@@ -51,7 +51,7 @@ const Header = () => {
                             <p className='header__section__box__menu__title'>Accueil</p>
                         </div>
                     </NavLink>
-                    <NavLink to='/'>
+                    <NavLink to='/login'>
                         <div className="header__section__box__menu">
                             <FontAwesomeIcon icon={faUser} />
                             <p className='header__section__box__menu__title'>Connexion</p>

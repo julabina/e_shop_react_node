@@ -7,12 +7,12 @@ const persistedState = localStorage.getItem('cart')
 : {}
 
 const rootReducer = combineReducers({   
-    cartReducer  
-})
+    cartReducer
+});
 
-const store = createStore(rootReducer, persistedState, applyMiddleware(thunk));
+const store = createStore(rootReducer,persistedState, applyMiddleware(thunk));
 
 store.subscribe(() => {
-    localStorage.setItem('cart', JSON.stringify(store.getState()))
+    localStorage.setItem('cart', JSON.stringify(store.getState()));
 })
 export default store;
