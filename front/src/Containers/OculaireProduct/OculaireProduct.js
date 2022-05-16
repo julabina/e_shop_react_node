@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { decodeToken, isExpired } from 'react-jwt';
 import OculaireZoom from '../../Components/OculaireZoom/OculaireZoom';
 import ConfirmationModal from '../../Components/ConfirmationModal/ConfirmationModal';
+import Comment from '../../Components/Comment/Comment';
 
 const OculaireProduct = () => {
 
@@ -12,7 +13,9 @@ const OculaireProduct = () => {
     const [oculaireData, setOculaireData] = useState({});
     const [mainPicture, setMainPicture] = useState();
     const [toggleCarrousel, setToggleCarrousel] = useState(false);
-    const [commentData, setCommentData] = useState("");
+    const [commentValue, setCommentValue] = useState("");
+    const [commentsData, setCommentsData] = useState([]);
+    const [errorComment, setErrorComment] = useState('');
     const [inputAddCart, setInputAddCart] = useState("");
     const [isLogged, setIsLogged] = useState(false);
     let back = '< retour'
@@ -24,6 +27,7 @@ const OculaireProduct = () => {
         .then(res => res.json())
         .then(data => {
             let price;
+            const productId = data.data.productId;
             if (data.data !== undefined) {
                 if (data.data.promo) {
                     let reduction = (data.data.price / 100) * data.data.promoValue;
@@ -49,14 +53,16 @@ const OculaireProduct = () => {
                     eyeRelief: data.data.eyeRelief,
                     model: data.data.model,
                     brand: data.data.brand,
-                    coulant: data.data.coulant
+                    coulant: data.data.coulant,
+                    productId: data.data.productId
                 }
-
+                
                 if (data.data.stock < 1) {
                     setInputAddCart("0");
                 } else {
                     setInputAddCart("1");
                 }
+                fetchComment(productId);
                 setOculaireData(item);
                 setMainPicture(process.env.PUBLIC_URL + data.data.pictures)
             }
@@ -92,7 +98,46 @@ const OculaireProduct = () => {
             setIsLogged(false);
         }; 
 
-    },[])
+    },[]);
+
+    const fetchComment = (productId) => {
+        fetch("http://localhost:3000/api/comments/" + productId)
+        .then(res => res.json())
+        .then(data => {
+            if(data.data !== undefined) {
+                const arr = data.data;
+                setCommentsData(arr);
+            } 
+        })
+        .catch(error => console.error(error));
+    };
+
+    const sendComment = (e) => {
+        e.preventDefault();
+
+        if (isLogged) {
+
+            let loggedUser = localStorage.getItem('token');
+
+            fetch("http://localhost:3000/api/comments", {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + JSON.parse(loggedUser).version
+            },
+            method: 'POST', 
+            body: JSON.stringify({category: "oculaire", productId: oculaireData.productId, userId: JSON.parse(loggedUser).content, comment: commentValue})})
+                .then(res => {
+                    if (res.status === 201) {
+                        fetchComment(oculaireData.productId);
+                        setCommentValue('');
+                    } else {
+                        setErrorComment("Un problème est survenu.");
+                    } 
+                })
+                .catch(error => console.error(error));
+        }
+    }
 
     const addToCart = (value) => {
         if(oculaireData.stock !== 0) {
@@ -137,7 +182,7 @@ const OculaireProduct = () => {
     }
 
     const changeCommentValue = (value) => {
-        setCommentData(value);
+        setCommentValue(value);
     }
 
     const changeInputValue = (action, value) => {
@@ -193,7 +238,7 @@ const OculaireProduct = () => {
         }
         let valueString = newVal.toString();
         setInputAddCart(valueString);
-    }
+    };
 
     return (
         <main>
@@ -270,11 +315,29 @@ const OculaireProduct = () => {
             </div>
             <div className="oculaireInfos__infos">
                 <div className="oculaireInfos__infos__commentsCont">
-                    <form className='oculaireInfos__infos__commentsCont__form' action="" method="post">
-                        <textarea onInput={(e) => changeCommentValue(e.target.value)} value={commentData} className="oculaireInfos__infos__commentsCont__form__textArea"></textarea>
-                        <button className='oculaireInfos__infos__commentsCont__form__btn'>Envoyer</button>
+                    <div className="oculaireInfos__infos__commentsCont__error">{errorComment}</div>
+                    <form onSubmit={sendComment} className='oculaireInfos__infos__commentsCont__form' action="" method="post">
+                        <textarea onInput={(e) => changeCommentValue(e.target.value)} value={commentValue} className="oculaireInfos__infos__commentsCont__form__textArea"></textarea>
+                        {
+                            isLogged ?
+                            <button className='montureInfos__infos__commentsCont__form__btn'>Envoyer</button>
+                            :
+                            <p className='montureInfos__infos__commentsCont__form__notLoggedMsg'>Vous devez etre connecté pour envoyer un commentaire.</p>
+                        }
                     </form>
-                    <p className='oculaireInfos__infos__commentsCont__status'>PAS ENCORE DE COMMENTAIRES</p>
+                    <div className="montureInfos__infos__commentsCont__separator"></div>
+                    {
+                        (commentsData.length === 0) ?
+                        <p className='oculaireInfos__infos__commentsCont__status'>PAS ENCORE DE COMMENTAIRES</p>
+                        :
+                        <>
+                            {
+                                commentsData.map(el => {
+                                    return <Comment comment={el.comment} key={el.id} productId={el.productId} commentId={el.commentId} userId={el.userId} productCat={el.productCat} />
+                                })
+                            }
+                        </>
+                    }
                 </div>
             </div>
         </section>

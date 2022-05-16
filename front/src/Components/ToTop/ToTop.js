@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 
@@ -8,8 +8,8 @@ const ToTop = () => {
 
     const toggleVisible = () => {
         const scrolled = document.documentElement.scrollTop;
+        const toTopBtn = document.querySelector(".toTop");
         if (scrolled > 150) {
-            const toTopBtn = document.querySelector(".toTop");
             scrolled > 140 ? setVisible(true) : setVisible(false);
             scrolled > 200 ? toTopBtn.classList.add('toTop--visible') : toTopBtn.classList.remove('toTop--visible');
         }

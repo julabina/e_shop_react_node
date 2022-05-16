@@ -953,6 +953,18 @@ body {
   transition: opacity 500ms ease-out;
 }
 
+.comment {
+  width: 600px;
+  padding: 20px;
+  margin-bottom: 30px;
+  background: #f3f3f3;
+  border: 1px solid rgba(128, 128, 128, 0.452);
+  border-radius: 6px;
+}
+.comment p {
+  line-height: 1.4;
+}
+
 html, body {
   height: 100vh;
 }
@@ -1428,6 +1440,14 @@ main {
   background: #FF0000;
   transition: all 150ms ease-in-out;
 }
+.telescopeInfos__infos__commentsCont__form__notLoggedMsg {
+  margin-bottom: 50px;
+}
+.telescopeInfos__infos__commentsCont__separator {
+  width: 600px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.452);
+  margin-bottom: 50px;
+}
 
 .oculaireList {
   width: 1250px;
@@ -1759,6 +1779,14 @@ main {
   background: #FF0000;
   transition: all 150ms ease-in-out;
 }
+.oculaireInfos__infos__commentsCont__form__notLoggedMsg {
+  margin-bottom: 50px;
+}
+.oculaireInfos__infos__commentsCont__separator {
+  width: 600px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.452);
+  margin-bottom: 50px;
+}
 
 .montureList {
   width: 1250px;
@@ -2089,6 +2117,14 @@ main {
 .montureInfos__infos__commentsCont__form__btn:hover {
   background: #FF0000;
   transition: all 150ms ease-in-out;
+}
+.montureInfos__infos__commentsCont__form__notLoggedMsg {
+  margin-bottom: 50px;
+}
+.montureInfos__infos__commentsCont__separator {
+  width: 600px;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.452);
+  margin-bottom: 50px;
 }
 
 .cartSteps {

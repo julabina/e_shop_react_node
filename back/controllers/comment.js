@@ -18,7 +18,6 @@ exports.findProductComment = (req, res, next) => {
 
 // ADD COMMENT 
 exports.addComment = (req, res, next) => {
-    console.log('test');
     let Category;
     if (req.body.category === 'telescope') {
         Category = Telescope;

@@ -5,25 +5,30 @@ import { decodeToken, isExpired } from 'react-jwt';
 import ProductCarrousel from '../../Components/ProductCarrousel/ProductCarrousel';
 import { useDispatch } from 'react-redux';
 import ConfirmationModal from '../../Components/ConfirmationModal/ConfirmationModal';
+import Comment from '../../Components/Comment/Comment';
 
 const MontureProduct = () => {
+
     const dispatch = useDispatch();
     const params = useParams();
     const [montureData, setMontureData] = useState({});
     const [picturesData, setPicturesData] = useState([]);
     const [mainPicture, setMainPicture] = useState();
     const [toggleCarrousel, setToggleCarrousel] = useState(false);
-    const [commentData, setCommentData] = useState("");
+    const [commentValue, setCommentValue] = useState("");
+    const [commentsData, setCommentsData] = useState([]);
+    const [errorComment, setErrorComment] = useState('');
     const [inputAddCart, setInputAddCart] = useState("");
     const [isLogged, setIsLogged] = useState(false);
     let back = '< retour'
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        
+
         fetch('http://localhost:3000/api/montures/' + params.id)
         .then(res => res.json())
         .then(data => {
+            const productId = data.data.productId;
             let price;
             let newArr = [];
             if (data.data !== undefined){
@@ -47,7 +52,8 @@ const MontureProduct = () => {
                     promoValue: data.data.promoValue,
                     promo: data.data.promo,
                     capacity: data.data.capacity,
-                    goTo: data.data.goTo
+                    goTo: data.data.goTo,
+                    productId: data.data.productId
                 }
                 for(let i = 0; i < data.data.pictures.length; i++) {
                     let pict = {
@@ -62,9 +68,10 @@ const MontureProduct = () => {
                 } else {
                     setInputAddCart(1);
                 }
+                fetchComment(productId);
                 setPicturesData(newArr);
                 setMontureData(item);
-                setMainPicture(process.env.PUBLIC_URL + data.data.pictures[0])
+                setMainPicture(process.env.PUBLIC_URL + data.data.pictures[0]);
             }
         })
 
@@ -97,8 +104,47 @@ const MontureProduct = () => {
             })
             setIsLogged(false);
         }; 
-        
-    },[])
+
+    },[]);
+    
+    const fetchComment = (productId) => {
+        fetch("http://localhost:3000/api/comments/" + productId)
+        .then(res => res.json())
+        .then(data => {
+            if(data.data !== undefined) {
+                const arr = data.data;
+                setCommentsData(arr);
+            } 
+        })
+        .catch(error => console.error(error));
+    };
+
+    const sendComment = (e) => {
+        e.preventDefault();
+
+        if (isLogged) {
+
+            let loggedUser = localStorage.getItem('token');
+
+            fetch("http://localhost:3000/api/comments", {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + JSON.parse(loggedUser).version
+            },
+            method: 'POST', 
+            body: JSON.stringify({category: "monture", productId: montureData.productId, userId: JSON.parse(loggedUser).content, comment: commentValue})})
+                .then(res => {
+                    if (res.status === 201) {
+                        fetchComment(montureData.productId);
+                        setCommentValue('');
+                    } else {
+                        setErrorComment("Un problème est survenu.");
+                    } 
+                })
+                .catch(error => console.error(error));
+        }
+    }
 
     const addToCart = (value) => {
         if(montureData.stock !== 0) {
@@ -157,7 +203,7 @@ const MontureProduct = () => {
     }
 
     const changeCommentValue = (value) => {
-        setCommentData(value);
+        setCommentValue(value);
     }
 
     const changeInputValue = (action, value) => {
@@ -289,11 +335,29 @@ const MontureProduct = () => {
             </div>
             <div className="montureInfos__infos">
                 <div className="montureInfos__infos__commentsCont">
-                    <form className='montureInfos__infos__commentsCont__form' action="" method="post">
-                        <textarea onInput={(e) => changeCommentValue(e.target.value)} value={commentData} className="montureInfos__infos__commentsCont__form__textArea"></textarea>
-                        <button className='montureInfos__infos__commentsCont__form__btn'>Envoyer</button>
+                    <div className="montureInfos__infos__commentsCont__error">{errorComment}</div>
+                    <form onSubmit={sendComment} className='montureInfos__infos__commentsCont__form' action="" method="post">
+                        <textarea onInput={(e) => changeCommentValue(e.target.value)} value={commentValue} className="montureInfos__infos__commentsCont__form__textArea"></textarea>
+                        {
+                            isLogged ?
+                            <button className='montureInfos__infos__commentsCont__form__btn'>Envoyer</button>
+                            :
+                            <p className='montureInfos__infos__commentsCont__form__notLoggedMsg'>Vous devez etre connecté pour envoyer un commentaire.</p>
+                        }
                     </form>
-                    <p className='montureInfos__infos__commentsCont__status'>PAS ENCORE DE COMMENTAIRES</p>
+                    <div className="montureInfos__infos__commentsCont__separator"></div>
+                    {
+                        (commentsData.length === 0) ?
+                        <p className='montureInfos__infos__commentsCont__status'>PAS ENCORE DE COMMENTAIRES</p>
+                        :
+                        <>
+                            {
+                                commentsData.map(el => {
+                                    return <Comment comment={el.comment} key={el.id} productId={el.productId} commentId={el.commentId} userId={el.userId} productCat={el.productCat} />
+                                })
+                            }
+                        </>
+                    }
                 </div>
             </div>
         </section>

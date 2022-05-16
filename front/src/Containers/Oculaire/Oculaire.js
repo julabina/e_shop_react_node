@@ -7,7 +7,6 @@ const Oculaire = () => {
 
     const dispatch = useDispatch();
 
-    const [isLogged, setIsLogged] = useState(false);
     const [oculaireData, setOculaireData] = useState([]);
     const [sort, setSort] = useState("");
 
@@ -47,23 +46,19 @@ const Oculaire = () => {
                         type: 'DISCONNECT'
                     })
                     localStorage.removeItem('token');
-                    return setIsLogged(false);
                 };
                 dispatch ({
                     type: 'LOG'
                 })
-                setIsLogged(true);
             } else {
                 dispatch ({
                     type: 'DISCONNECT'
                 })
-                setIsLogged(false);
             };
         } else {
             dispatch ({
                 type: 'DISCONNECT'
             })
-            setIsLogged(false);
         }; 
 
     },[])

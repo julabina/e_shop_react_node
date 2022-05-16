@@ -1,0 +1,11 @@
+.comment {
+    width: 600px;
+    padding: 20px;
+    margin-bottom: 30px;
+    background: map-get($map: $colors, $key: whiteLight);
+    border: 1px solid map-get($map: $colors, $key: grayTrans);
+    border-radius: 6px;
+    p {
+        line-height: 1.4;
+    }
+}

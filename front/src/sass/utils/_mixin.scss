@@ -448,6 +448,14 @@
                         transition: all 150ms ease-in-out;
                     }
                 }
+                &__notLoggedMsg {
+                    margin-bottom: 50px;
+                }
+            }
+            &__separator {
+                width: 600px;
+                border-bottom: 1px solid map-get($map: $colors, $key: grayTrans);
+                margin-bottom: 50px;
             }
         }
     }

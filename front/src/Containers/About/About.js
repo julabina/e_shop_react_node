@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { decodeToken, isExpired } from 'react-jwt';
 
 const About = () => {
 
     const dispatch = useDispatch();
-
-    const [isLogged, setIsLogged] = useState(false);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -22,23 +20,19 @@ const About = () => {
                         type: 'DISCONNECT'
                     })
                     localStorage.removeItem('token');
-                    return setIsLogged(false);
                 };
                 dispatch ({
                     type: 'LOG'
                 })
-                setIsLogged(true);
             } else {
                 dispatch ({
                     type: 'DISCONNECT'
                 })
-                setIsLogged(false);
             };
         } else {
             dispatch ({
                 type: 'DISCONNECT'
             })
-            setIsLogged(false);
         }; 
 
     },[])

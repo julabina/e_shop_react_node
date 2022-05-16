@@ -7,7 +7,6 @@ const Telescope = () => {
 
     const dispatch = useDispatch();
 
-    const [isLogged, setIsLogged] = useState(false);
     const [telescopeData, setTelescopeData] = useState([]);
     const [sort, setSort] = useState("");
 
@@ -48,23 +47,19 @@ const Telescope = () => {
                         type: 'DISCONNECT'
                     })
                     localStorage.removeItem('token');
-                    return setIsLogged(false);
                 };
                 dispatch ({
                     type: 'LOG'
                 })
-                setIsLogged(true);
             } else {
                 dispatch ({
                     type: 'DISCONNECT'
                 })
-                setIsLogged(false);
             };
         } else {
             dispatch ({
                 type: 'DISCONNECT'
             })
-            setIsLogged(false);
         }; 
 
     }, [])

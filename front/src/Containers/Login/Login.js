@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { decodeToken, isExpired } from 'react-jwt';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { set } from 'mongoose';
 
 const Login = () => {
 
@@ -50,7 +51,10 @@ const Login = () => {
     },[]);
 
     const tryToLog = (e) => {
-        e.preventDefault();
+        if (e !== undefined) {
+            e.preventDefault();
+        }
+
         fetch("http://localhost:3000/api/users/login", {
             headers: {
                 'Accept': 'application/json',
@@ -77,6 +81,25 @@ const Login = () => {
 
     const tryToSign = (e) => {
         e.preventDefault();
+        fetch("http://localhost:3000/api/users/signup", {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'POST', 
+            body: JSON.stringify({email: signInputs.email, password: signInputs.password})})
+                .then(res => {
+                    if (res.status === 201) {
+                        const newObj = {
+                            ...signInputs
+                        }
+                        setLoginInputs(newObj);
+                        tryToLog();
+                    } else {
+                        setErrorMsg("Un problème est survenu.");
+                    }
+                })
+                .catch(error => console.error(error));
     }
 
     const handleLoginInputs = (action, value) => {

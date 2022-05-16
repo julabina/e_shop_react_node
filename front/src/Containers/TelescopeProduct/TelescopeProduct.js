@@ -5,6 +5,7 @@ import { decodeToken, isExpired } from 'react-jwt';
 import ProductCarrousel from '../../Components/ProductCarrousel/ProductCarrousel';
 import { useDispatch } from 'react-redux';
 import ConfirmationModal from '../../Components/ConfirmationModal/ConfirmationModal';
+import Comment from '../../Components/Comment/Comment';
 
 const TelescopeProduct = () => {
 
@@ -14,7 +15,9 @@ const TelescopeProduct = () => {
     const [picturesData, setPicturesData] = useState([]);
     const [mainPicture, setMainPicture] = useState();
     const [toggleCarrousel, setToggleCarrousel] = useState(false);
-    const [commentData, setCommentData] = useState("");
+    const [commentValue, setCommentValue] = useState("");
+    const [commentsData, setCommentsData] = useState([]);
+    const [errorComment, setErrorComment] = useState('');
     const [inputAddCart, setInputAddCart] = useState("");
     const [isLogged, setIsLogged] = useState(false);
     let back = '< retour'
@@ -26,6 +29,7 @@ const TelescopeProduct = () => {
         .then(res => res.json())
         .then(data => {
             let price;
+            const productId = data.data.productId;
             let newArr = [];
             if (data.data !== undefined){
                 if (data.data.promo) {
@@ -50,7 +54,8 @@ const TelescopeProduct = () => {
                     type: data.data.type,
                     priceNoPromo: data.data.price,
                     promoValue: data.data.promoValue,
-                    promo: data.data.promo
+                    promo: data.data.promo,
+                    productId: data.data.productId
                 }
                 for(let i = 0; i < data.data.pictures.length; i++) {
                     let pict = {
@@ -65,6 +70,7 @@ const TelescopeProduct = () => {
                 } else {
                     setInputAddCart(1);
                 }
+                fetchComment(productId);
                 setPicturesData(newArr);
                 setTelescopeData(item);
                 setMainPicture(process.env.PUBLIC_URL + data.data.pictures[0])
@@ -101,7 +107,46 @@ const TelescopeProduct = () => {
             setIsLogged(false);
         }; 
         
-    },[])
+    },[]);
+
+    const fetchComment = (productId) => {
+        fetch("http://localhost:3000/api/comments/" + productId)
+        .then(res => res.json())
+        .then(data => {
+            if(data.data !== undefined) {
+                const arr = data.data;
+                setCommentsData(arr);
+            } 
+        })
+        .catch(error => console.error(error));
+    };
+
+    const sendComment = (e) => {
+        e.preventDefault();
+
+        if (isLogged) {
+
+            let loggedUser = localStorage.getItem('token');
+
+            fetch("http://localhost:3000/api/comments", {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + JSON.parse(loggedUser).version
+            },
+            method: 'POST', 
+            body: JSON.stringify({category: "telescope", productId: telescopeData.productId, userId: JSON.parse(loggedUser).content, comment: commentValue})})
+                .then(res => {
+                    if (res.status === 201) {
+                        fetchComment(telescopeData.productId);
+                        setCommentValue('');
+                    } else {
+                        setErrorComment("Un problème est survenu.");
+                    } 
+                })
+                .catch(error => console.error(error));
+        }
+    }
 
     const addToCart = (value) => {
         if(telescopeData.stock !== 0) {
@@ -160,7 +205,7 @@ const TelescopeProduct = () => {
     }
 
     const changeCommentValue = (value) => {
-        setCommentData(value);
+        setCommentValue(value);
     }
 
     const changeInputValue = (action, value) => {
@@ -215,10 +260,6 @@ const TelescopeProduct = () => {
             }
         }
         setInputAddCart(newVal);
-    }
-
-    const postComment = () => {
-        
     }
 
     return (
@@ -304,11 +345,29 @@ const TelescopeProduct = () => {
             </div>
             <div className="telescopeInfos__infos">
                 <div className="telescopeInfos__infos__commentsCont">
-                    <form onSubmit={postComment} className='telescopeInfos__infos__commentsCont__form' method="post">
-                        <textarea onInput={(e) => changeCommentValue(e.target.value)} value={commentData} className="telescopeInfos__infos__commentsCont__form__textArea"></textarea>
-                        <button className='telescopeInfos__infos__commentsCont__form__btn'>Envoyer</button>
+                <div className="oculaireInfos__infos__commentsCont__error">{errorComment}</div>
+                    <form onSubmit={sendComment} className='telescopeInfos__infos__commentsCont__form' method="post">
+                        <textarea onInput={(e) => changeCommentValue(e.target.value)} value={commentValue} className="telescopeInfos__infos__commentsCont__form__textArea"></textarea>
+                        {
+                            isLogged ?
+                            <button className='telescopeInfos__infos__commentsCont__form__btn'>Envoyer</button>
+                            :
+                            <p className='telescopeInfos__infos__commentsCont__form__notLoggedMsg'>Vous devez etre connecté pour envoyer un commentaire.</p>
+                        }
                     </form>
-                    <p className='telescopeInfos__infos__commentsCont__status'>PAS ENCORE DE COMMENTAIRES</p>
+                    <div className="telescopeInfos__infos__commentsCont__separator"></div>
+                    {
+                        (commentsData.length === 0) ?
+                        <p className='telescopeInfos__infos__commentsCont__status'>PAS ENCORE DE COMMENTAIRES</p>
+                        :
+                        <>
+                            {
+                                commentsData.map(el => {
+                                    return <Comment comment={el.comment} key={el.id} productId={el.productId} commentId={el.commentId} userId={el.userId} productCat={el.productCat} />
+                                })
+                            }
+                        </>
+                    }
                 </div>
             </div>
         </section>
