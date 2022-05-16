@@ -8,9 +8,11 @@ const ToTop = () => {
 
     const toggleVisible = () => {
         const scrolled = document.documentElement.scrollTop;
-        const test = document.querySelector(".toTop");
-        scrolled > 150 ? setVisible(true) : setVisible(false);
-        scrolled > 200 ? test.classList.add('toTop--visible') : test.classList.remove('toTop--visible');
+        if (scrolled > 150) {
+            const toTopBtn = document.querySelector(".toTop");
+            scrolled > 140 ? setVisible(true) : setVisible(false);
+            scrolled > 200 ? toTopBtn.classList.add('toTop--visible') : toTopBtn.classList.remove('toTop--visible');
+        }
     }
 
     const toTop = () => {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { decodeToken, isExpired } from 'react-jwt';
 import OculaireZoom from '../../Components/OculaireZoom/OculaireZoom';
 import ConfirmationModal from '../../Components/ConfirmationModal/ConfirmationModal';
 
@@ -13,6 +14,7 @@ const OculaireProduct = () => {
     const [toggleCarrousel, setToggleCarrousel] = useState(false);
     const [commentData, setCommentData] = useState("");
     const [inputAddCart, setInputAddCart] = useState("");
+    const [isLogged, setIsLogged] = useState(false);
     let back = '< retour'
 
     useEffect(() => {
@@ -58,7 +60,38 @@ const OculaireProduct = () => {
                 setOculaireData(item);
                 setMainPicture(process.env.PUBLIC_URL + data.data.pictures)
             }
-        })
+        });
+
+        if (localStorage.getItem('token') !== null) {
+            let getToken = localStorage.getItem('token');
+            let token = JSON.parse(getToken);
+            if (token !== null) {
+                let decodedToken = decodeToken(token.version);
+                let isTokenExpired = isExpired(token.version);
+                if (decodedToken.userId !== token.content || isTokenExpired === true) {
+                    dispatch ({
+                        type: 'DISCONNECT'
+                    })
+                    localStorage.removeItem('token');
+                    return setIsLogged(false);
+                };
+                dispatch ({
+                    type: 'LOG'
+                })
+                setIsLogged(true);
+            } else {
+                dispatch ({
+                    type: 'DISCONNECT'
+                })
+                setIsLogged(false);
+            };
+        } else {
+            dispatch ({
+                type: 'DISCONNECT'
+            })
+            setIsLogged(false);
+        }; 
+
     },[])
 
     const addToCart = (value) => {

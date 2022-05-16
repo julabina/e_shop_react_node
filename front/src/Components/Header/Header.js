@@ -10,9 +10,14 @@ const Header = () => {
 
     const { cart } = useSelector(state => ({
         ...state.cartReducer
-    }))
+    }));
+
+    const { logged } = useSelector(state => ({
+        ...state.loggedReducer
+    }));
 
     const [headerCart, setHeaderCart] = useState([]);
+    const [isLogged, setIsLogged] = useState(false);
 
     useEffect(() => {
 
@@ -28,9 +33,15 @@ const Header = () => {
             artCount: artCount
         }
 
+        if(logged) {
+            setIsLogged(true);
+        } else {
+            setIsLogged(false);
+        }
+
         setHeaderCart(item);
 
-    },[cart])
+    },[cart, logged])
 
     const [searchValue, setSearchValue] = useState();
 
@@ -51,12 +62,22 @@ const Header = () => {
                             <p className='header__section__box__menu__title'>Accueil</p>
                         </div>
                     </NavLink>
-                    <NavLink to='/login'>
-                        <div className="header__section__box__menu">
-                            <FontAwesomeIcon icon={faUser} />
-                            <p className='header__section__box__menu__title'>Connexion</p>
-                        </div>
-                    </NavLink>
+                    {
+                        isLogged ?
+                        <NavLink to='/userAccount'>
+                            <div className="header__section__box__menu">
+                                <FontAwesomeIcon icon={faUser} />
+                                <p className='header__section__box__menu__title'>Profil</p>
+                            </div>
+                        </NavLink>
+                        :
+                        <NavLink to='/login'>
+                            <div className="header__section__box__menu">
+                                <FontAwesomeIcon icon={faUser} />
+                                <p className='header__section__box__menu__title'>Connexion</p>
+                            </div>
+                        </NavLink>
+                    }
                     <NavLink to='/contact'>
                         <div className="header__section__box__menu">
                             <FontAwesomeIcon icon={faPen} />

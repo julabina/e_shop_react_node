@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { decodeToken, isExpired } from 'react-jwt';
 import ProductCarrousel from '../../Components/ProductCarrousel/ProductCarrousel';
 import { useDispatch } from 'react-redux';
 import ConfirmationModal from '../../Components/ConfirmationModal/ConfirmationModal';
@@ -15,6 +16,7 @@ const TelescopeProduct = () => {
     const [toggleCarrousel, setToggleCarrousel] = useState(false);
     const [commentData, setCommentData] = useState("");
     const [inputAddCart, setInputAddCart] = useState("");
+    const [isLogged, setIsLogged] = useState(false);
     let back = '< retour'
 
     useEffect(() => {
@@ -67,7 +69,38 @@ const TelescopeProduct = () => {
                 setTelescopeData(item);
                 setMainPicture(process.env.PUBLIC_URL + data.data.pictures[0])
             }
-        })
+        });
+
+        if (localStorage.getItem('token') !== null) {
+            let getToken = localStorage.getItem('token');
+            let token = JSON.parse(getToken);
+            if (token !== null) {
+                let decodedToken = decodeToken(token.version);
+                let isTokenExpired = isExpired(token.version);
+                if (decodedToken.userId !== token.content || isTokenExpired === true) {
+                    dispatch ({
+                        type: 'DISCONNECT'
+                    })
+                    localStorage.removeItem('token');
+                    return setIsLogged(false);
+                };
+                dispatch ({
+                    type: 'LOG'
+                })
+                setIsLogged(true);
+            } else {
+                dispatch ({
+                    type: 'DISCONNECT'
+                })
+                setIsLogged(false);
+            };
+        } else {
+            dispatch ({
+                type: 'DISCONNECT'
+            })
+            setIsLogged(false);
+        }; 
+        
     },[])
 
     const addToCart = (value) => {

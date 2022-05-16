@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { decodeToken, isExpired } from 'react-jwt';
 import MontureCard from '../../Components/MontureCard/MontureCard';
 
 const Monture = () => {
+
+    const dispatch = useDispatch();
+
+    const [isLogged, setIsLogged] = useState(false);
     const [montureData, setMontureData] = useState([]);
     const [sort, setSort] = useState("");
 
@@ -27,7 +33,38 @@ const Monture = () => {
                 }
             }
             setMontureData(newArr);
-        })
+        });
+
+        if (localStorage.getItem('token') !== null) {
+            let getToken = localStorage.getItem('token');
+            let token = JSON.parse(getToken);
+            if (token !== null) {
+                let decodedToken = decodeToken(token.version);
+                let isTokenExpired = isExpired(token.version);
+                if (decodedToken.userId !== token.content || isTokenExpired === true) {
+                    dispatch ({
+                        type: 'DISCONNECT'
+                    })
+                    localStorage.removeItem('token');
+                    return setIsLogged(false);
+                };
+                dispatch ({
+                    type: 'LOG'
+                })
+                setIsLogged(true);
+            } else {
+                dispatch ({
+                    type: 'DISCONNECT'
+                })
+                setIsLogged(false);
+            };
+        } else {
+            dispatch ({
+                type: 'DISCONNECT'
+            })
+            setIsLogged(false);
+        }; 
+
     },[])
 
     const handleSort = (option) => {
