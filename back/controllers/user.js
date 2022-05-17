@@ -48,6 +48,20 @@ exports.login = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
 };
 
+exports.findOneUser = (req, res, next) => {
+    User.findOne({ where: { userId : req.body.userId }})
+    .then(user => {
+            if(user !== null) {
+                const message = 'Un utilisateur a bien été trouvé.';
+                res.status(200).json({ message, data: user })
+            } else {
+                const message = 'Aucun utilisateur trouvé.';
+                res.status(404).json({ error });
+            }
+        })
+        .catch(error => res.status(500).json({ error }));
+};
+
 exports.modify = (req, res, next) => {
 
 };

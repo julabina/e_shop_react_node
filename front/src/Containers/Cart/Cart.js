@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { decodeToken, isExpired } from 'react-jwt';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan, faCartShopping, faTruck, faCreditCard, faCheck, faPerson } from '@fortawesome/free-solid-svg-icons';
 import CartLocation from '../../Components/CartLocation/CartLocation';
@@ -15,6 +16,7 @@ const Cart = () => {
     }))
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [cartData, setCartData] = useState([]);
     const [totalCart, setTotalCart] = useState(0);
@@ -25,6 +27,7 @@ const Cart = () => {
     const [orderDate, setOrderDate] = useState();
     const [orderHour, setOrderHour] = useState();
     const [orderNumber, setOrderNumber] = useState("");
+    const [isLogged, setIsLogged] = useState(false);
     
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -65,7 +68,37 @@ const Cart = () => {
             console.log(newArr);
             setTotalCart(total.toFixed(2));
             setCartData(newArr);
-        })     
+        });
+        
+        if (localStorage.getItem('token') !== null) {
+            let getToken = localStorage.getItem('token');
+            let token = JSON.parse(getToken);
+            if (token !== null) {
+                let decodedToken = decodeToken(token.version);
+                let isTokenExpired = isExpired(token.version);
+                if (decodedToken.userId !== token.content || isTokenExpired === true) {
+                    dispatch ({
+                        type: 'DISCONNECT'
+                    })
+                    localStorage.removeItem('token');
+                    return setIsLogged(false);
+                };
+                dispatch ({
+                    type: 'LOG'
+                })
+                setIsLogged(true);
+            } else {
+                dispatch ({
+                    type: 'DISCONNECT'
+                })
+                setIsLogged(false);
+            };
+        } else {
+            dispatch ({
+                type: 'DISCONNECT'
+            })
+            setIsLogged(false);
+        }; 
          
     },[])
 
@@ -211,6 +244,10 @@ const Cart = () => {
         setOrderHour(actualHour);
         setOrderNumber(order);
     }
+
+    const toLoginPage = () => {
+        navigate('/login', { replace: true });
+    }
     
 
     return (
@@ -248,7 +285,13 @@ const Cart = () => {
                         <button className='cart__btns__options__btn'>Mettre à jour</button>
                         <button className='cart__btns__options__btn'>Vider le panier</button>
                     </div>
-                    <button onClick={verifyCart} className='cart__btns__orderBtn'>Passer commande</button>
+                    {
+                        isLogged
+                        ?
+                            <button onClick={verifyCart} className='cart__btns__orderBtn'>Passer commande</button>
+                        :
+                            <button onClick={toLoginPage} className='cart__btns__orderBtn'>Se connecter</button>
+                    }
                 </div>
 
                 <div className="cart__articles">
@@ -292,133 +335,145 @@ const Cart = () => {
                         <h4>Montant Total TTC</h4>
                         <p className="cart__articles__totalCont__total">{totalCart} €</p>
                     </div>
-                    <div className="cart__articles__orderBtn">
-                        <button onClick={verifyCart} className='cart__btns__orderBtn'>Passer commande</button>
-                    </div>
+                    {
+                        isLogged
+                        ?
+                        <div className="cart__articles__orderBtn">
+                            <button onClick={verifyCart} className='cart__btns__orderBtn'>Passer commande</button>
+                        </div>
+                        :
+                        <div className="cart__articles__orderBtn">
+                            <button onClick={toLoginPage} className='cart__btns__orderBtn'>Se connecter</button>
+                        </div>
+                    }
                 </div>
             </section>
             }
 
-            {/* 2ND STEP : INFORMATIONS */}
-            <section className='cartStepLocation cartStepCart'>
-                <CartLocation next={() => toNextStep()} previous={() => toPreviousStep()} sendInfos={infosReceived} />
-            </section>
-            
-            {/* 3TH STEP : LIVRAISON */}
-            <section className='cartStepDelivery cartStepCart'>
-                <CartDelivery next={() => toNextStep()} previous={() => toPreviousStep()} sendInfos={deliveryOptionsReceived} address={infosData.deliveryAddress === null ? infosData.address : infosData.deliveryAddress} addressComp={infosData.deliveryAddress === null ? infosData.addressComp : infosData.deliveryAddressComp} city={infosData.deliveryAddress === null ? infosData.city : infosData.deliveryCity} zip={infosData.deliveryAddress === null ? infosData.zipCode : infosData.deliveryZipCode}  />
-            </section>
-            
-            {/* 4TH STEP : PAIEMENT */}
-            <section className='cartStepPayment cartStepCart'>
-                <CartPayment next={() => toNextStep()} previous={() => toPreviousStep()} cart={orderArticles} sendInfos={paymentInfosReceived} delivery={deliveryOptions.price} />
-            </section>
-
-            {/* LAST STEP : CONFIRMATION */}
-            <section className='cartStepConfirm cartStepCart'>
+            {
+                isLogged
+                &&
+                <>
+                {/* 2ND STEP : INFORMATIONS */}
+                <section className='cartStepLocation cartStepCart'>
+                    <CartLocation next={() => toNextStep()} previous={() => toPreviousStep()} sendInfos={infosReceived} />
+                </section>
                 
-                <h2>Commande validée</h2>
+                {/* 3TH STEP : LIVRAISON */}
+                <section className='cartStepDelivery cartStepCart'>
+                    <CartDelivery next={() => toNextStep()} previous={() => toPreviousStep()} sendInfos={deliveryOptionsReceived} address={infosData.deliveryAddress === null ? infosData.address : infosData.deliveryAddress} addressComp={infosData.deliveryAddress === null ? infosData.addressComp : infosData.deliveryAddressComp} city={infosData.deliveryAddress === null ? infosData.city : infosData.deliveryCity} zip={infosData.deliveryAddress === null ? infosData.zipCode : infosData.deliveryZipCode}  />
+                </section>
+                
+                {/* 4TH STEP : PAIEMENT */}
+                <section className='cartStepPayment cartStepCart'>
+                    <CartPayment next={() => toNextStep()} previous={() => toPreviousStep()} cart={orderArticles} sendInfos={paymentInfosReceived} delivery={deliveryOptions.price} />
+                </section>
 
-                <h3>Merci de votre commande ! A bientôt</h3>
+                {/* LAST STEP : CONFIRMATION */}
+                <section className='cartStepConfirm cartStepCart'>
+                    
+                    <h2>Commande validée</h2>
 
-                <div className="cart__articles__separator"></div>
-                <div className="cart__articles__cartContent">
-                        {cartData.map(el => {
-                          return (
-                            <div key={el.key} className="cart__articles__cartContent__article">
-                                <NavLink to={"/" + el.category + "/ref_=" + el.id}>
-                                    <div className="cart__articles__cartContent__article__leftPart">
-                                        <div className="cart__articles__cartContent__article__leftPart__img">
-                                            <img src={el.image} alt={"photo de " + el.name} />
-                                        </div>    
-                                        <h3>{el.name}</h3>
-                                    </div>
-                                </NavLink>
-                                <div className="cart__articles__cartContent__article__priceCont">
-                                    <p className='cart__articles__cartContent__article__priceCont__price'>{el.price} €</p>
-                                </div>
-                                <div className="cart__articles__cartContent__article__modify">
-                                    <p>{el.count}</p>
-                                </div>
-                                <div className="cart__articles__cartContent__article__totalCont">
-                                    <p className='cart__articles__cartContent__article__totalCont__result'>{(el.count * el.price).toFixed(2) + " €"}</p>
-                                </div>
-                            </div>
-                            )
-                        })}
-                    </div>
+                    <h3>Merci de votre commande ! A bientôt</h3>
+
                     <div className="cart__articles__separator"></div>
-                    <div className="">
-                        <p>Récapitulatif:</p>
-                        <p>Commande N° {orderNumber}</p>
-                        <p>le {orderDate} à {orderHour}</p>
-                        <p>Montant Total de la commande: {(parseInt(totalCart) + deliveryOptions.price).toFixed(2)} €</p>
-                        <p>Paiement par: {paymentInfos}</p>
-                        <p>Livraison en: {deliveryOptions.method}</p> 
-                        <p>Adresse de livraison:</p>
-                        {
-                            infosData.societe !== null && <p>{infosData.societe}</p> 
-                        }
-                        <p>{infosData.civilite} {infosData.lastName} {infosData.firstName}</p>
-                        {
-                            infosData.deliveryAddress === null ? 
-                            <>
-                                { infosData.addressComp !== "" && <p>{infosData.addressComp}</p> }
-                                <p>{infosData.address}</p>
-                                <p>{infosData.zipCode} {infosData.city}</p>
-                            </>
-                            :
-                            <>
-                                { infosData.deliveryAddressComp !== "" && <p>{infosData.deliveryAddressComp}</p> }
-                                <p>{infosData.deliveryAddress}</p>
-                                <p>{infosData.deliveryZipCode} {infosData.deliveryCity}</p>
-                            </>
-                        }
-                        {
-                            deliveryOptions.informations !== "" && 
-                            <>
-                                <p>Instructions de livraison:</p>
-                                <p>{deliveryOptions.informations}</p>
-                            </>
-                        }
-                        {
-                            infosData.instruction !== "" && 
-                            <>
-                                <p>Autres instructions:</p>
-                                <p>{infosData.instruction}</p>
-                            </>
-                        }
-                        <p>Moyens de contact:</p>
-                        <p>{infosData.mail}</p>
-                        <p>{infosData.mobile}</p>
-                        {
-                            infosData.tel !== "" && 
-                            <>
-                                <p>{}</p>
-                            </>
-                        }
-                        {
-                            infosData.societe !== null &&
-                            <>
-                               {
-                                    infosData.fax !== "" && <p>Fax: {infosData.fax}</p>
-                                } 
-                            </>
-                        }
-                        {
-                            infosData.newsLetter ?
-                            <>
-                                <p>Votre inscription à la newsletters{infosData.ad && <span> et aux campagnes SMS</span>} a bien été pris en compte.</p>                            
-                            </>
-                            :
-                            <>
-                                { infosData.ad && <p>Votre inscription aux campagnes SMS a bien été pris en compte.</p> }
-                            </>
-                        }
-                    </div>
-                
-            </section>
-
+                    <div className="cart__articles__cartContent">
+                            {cartData.map(el => {
+                            return (
+                                <div key={el.key} className="cart__articles__cartContent__article">
+                                    <NavLink to={"/" + el.category + "/ref_=" + el.id}>
+                                        <div className="cart__articles__cartContent__article__leftPart">
+                                            <div className="cart__articles__cartContent__article__leftPart__img">
+                                                <img src={el.image} alt={"photo de " + el.name} />
+                                            </div>    
+                                            <h3>{el.name}</h3>
+                                        </div>
+                                    </NavLink>
+                                    <div className="cart__articles__cartContent__article__priceCont">
+                                        <p className='cart__articles__cartContent__article__priceCont__price'>{el.price} €</p>
+                                    </div>
+                                    <div className="cart__articles__cartContent__article__modify">
+                                        <p>{el.count}</p>
+                                    </div>
+                                    <div className="cart__articles__cartContent__article__totalCont">
+                                        <p className='cart__articles__cartContent__article__totalCont__result'>{(el.count * el.price).toFixed(2) + " €"}</p>
+                                    </div>
+                                </div>
+                                )
+                            })}
+                        </div>
+                        <div className="cart__articles__separator"></div>
+                        <div className="">
+                            <p>Récapitulatif:</p>
+                            <p>Commande N° {orderNumber}</p>
+                            <p>le {orderDate} à {orderHour}</p>
+                            <p>Montant Total de la commande: {(parseInt(totalCart) + deliveryOptions.price).toFixed(2)} €</p>
+                            <p>Paiement par: {paymentInfos}</p>
+                            <p>Livraison en: {deliveryOptions.method}</p> 
+                            <p>Adresse de livraison:</p>
+                            {
+                                infosData.societe !== null && <p>{infosData.societe}</p> 
+                            }
+                            <p>{infosData.civilite} {infosData.lastName} {infosData.firstName}</p>
+                            {
+                                infosData.deliveryAddress === null ? 
+                                <>
+                                    { infosData.addressComp !== "" && <p>{infosData.addressComp}</p> }
+                                    <p>{infosData.address}</p>
+                                    <p>{infosData.zipCode} {infosData.city}</p>
+                                </>
+                                :
+                                <>
+                                    { infosData.deliveryAddressComp !== "" && <p>{infosData.deliveryAddressComp}</p> }
+                                    <p>{infosData.deliveryAddress}</p>
+                                    <p>{infosData.deliveryZipCode} {infosData.deliveryCity}</p>
+                                </>
+                            }
+                            {
+                                deliveryOptions.informations !== "" && 
+                                <>
+                                    <p>Instructions de livraison:</p>
+                                    <p>{deliveryOptions.informations}</p>
+                                </>
+                            }
+                            {
+                                infosData.instruction !== "" && 
+                                <>
+                                    <p>Autres instructions:</p>
+                                    <p>{infosData.instruction}</p>
+                                </>
+                            }
+                            <p>Moyens de contact:</p>
+                            <p>{infosData.mail}</p>
+                            <p>{infosData.mobile}</p>
+                            {
+                                infosData.tel !== "" && 
+                                <>
+                                    <p>{}</p>
+                                </>
+                            }
+                            {
+                                infosData.societe !== null &&
+                                <>
+                                {
+                                        infosData.fax !== "" && <p>Fax: {infosData.fax}</p>
+                                    } 
+                                </>
+                            }
+                            {
+                                infosData.newsLetter ?
+                                <>
+                                    <p>Votre inscription à la newsletters{infosData.ad && <span> et aux campagnes SMS</span>} a bien été pris en compte.</p>                            
+                                </>
+                                :
+                                <>
+                                    { infosData.ad && <p>Votre inscription aux campagnes SMS a bien été pris en compte.</p> }
+                                </>
+                            }
+                        </div>
+                </section>
+                </>
+            }
         </main>
     );
 };

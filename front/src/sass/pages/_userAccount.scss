@@ -1,0 +1,59 @@
+.profil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 900px;
+    h2 {
+        font-size: 1.4em;
+        font-weight: 700;
+        margin-top: 35px;
+    }
+    button {
+        height: 45px;
+        width: auto;
+        padding: 0 15px;
+        margin: 40px 0 60px;
+        text-transform: uppercase;
+        font-size: 1.3em;
+        font-weight: 700;
+        letter-spacing: 1.7px;
+        background: map-get($colors,primary );
+        border:none;
+        border-radius: 3px;
+        color: map-get($map: $colors, $key:whiteLight );
+        cursor: pointer;
+        transition: all 250ms ease-in-out;
+        &:hover {
+            background: map-get($colors, tertiary);
+            transition: all 250ms ease-in-out;
+        }
+    }
+    &__options {
+        &__row {
+            display: flex;
+            &__link {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                border: 1px solid map-get($map: $colors, $key: grayTrans);
+                border-radius: 5px;
+                width: 400px;
+                padding: 30px 0;
+                margin: 15px;
+                &__icon {
+                    font-size: 1.6em;
+                }
+                h3 {
+                    font-size: 1.2em;
+                    margin-top: 15px;
+                }
+            }
+        }
+    }
+}
+
+.profilUpdate {
+    &__userProfil {
+        width: 900px;
+    }
+}

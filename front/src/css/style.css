@@ -2475,4 +2475,60 @@ main {
   font-weight: 600;
 }
 
+.profil {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 900px;
+}
+.profil h2 {
+  font-size: 1.4em;
+  font-weight: 700;
+  margin-top: 35px;
+}
+.profil button {
+  height: 45px;
+  width: auto;
+  padding: 0 15px;
+  margin: 40px 0 60px;
+  text-transform: uppercase;
+  font-size: 1.3em;
+  font-weight: 700;
+  letter-spacing: 1.7px;
+  background: #14416A;
+  border: none;
+  border-radius: 3px;
+  color: #f3f3f3;
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+}
+.profil button:hover {
+  background: #FF0000;
+  transition: all 250ms ease-in-out;
+}
+.profil__options__row {
+  display: flex;
+}
+.profil__options__row__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid rgba(128, 128, 128, 0.452);
+  border-radius: 5px;
+  width: 400px;
+  padding: 30px 0;
+  margin: 15px;
+}
+.profil__options__row__link__icon {
+  font-size: 1.6em;
+}
+.profil__options__row__link h3 {
+  font-size: 1.2em;
+  margin-top: 15px;
+}
+
+.profilUpdate__userProfil {
+  width: 900px;
+}
+
 /*# sourceMappingURL=style.css.map */
