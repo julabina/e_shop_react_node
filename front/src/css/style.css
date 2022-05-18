@@ -2549,6 +2549,7 @@ main {
 .profilUpdate__userProfil h3 {
   margin-bottom: 20px;
   font-weight: 600;
+  width: 100%;
 }
 .profilUpdate__userProfil h2 {
   margin-bottom: 80px;
@@ -2567,6 +2568,7 @@ main {
   margin-top: 25px;
 }
 .profilUpdate__userProfil__companyCheck {
+  width: 100%;
   margin-top: 50px;
 }
 .profilUpdate__userProfil__basicsInfos {
@@ -2593,6 +2595,7 @@ main {
 }
 .profilUpdate__userProfil__options {
   margin-top: 50px;
+  width: 100%;
 }
 .profilUpdate__userProfil__options__check {
   margin-top: 20px;
@@ -2633,7 +2636,25 @@ main {
   display: none;
 }
 .profilUpdate__part--visible {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profilUpdate__password__errorCont {
+  width: 100%;
+  margin: 0 0 30px;
+  color: #b10202;
+  line-height: 1.4;
+}
+.profilUpdate__email__errorCont {
+  width: 100%;
+  margin: 0 0 30px;
+  color: #b10202;
+  line-height: 1.4;
+}
+
+#profilUpdate__email__lastChildFix {
+  margin-left: 0;
 }
 
 /*# sourceMappingURL=style.css.map */

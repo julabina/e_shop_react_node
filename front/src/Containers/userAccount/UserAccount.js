@@ -16,6 +16,8 @@ const UserAccount = () => {
     const [userData, setUserData] = useState({});
     const [toggleBusiness, setToggleBusiness] = useState(false);
     const [profilUpdateInputs, setProfilUpdateInputs] = useState({firstName: "", lastName: "", address: "", addressComp: "", zip: "", city: "", mobile: "", fixe: "", companyName: "", fax: "", siret: "", tva: "", deliveryAddress: "", deliveryAddressComp: "", deliveryZip: "", deliveryCity: "", newsletter: false, pub: false})
+    const [passwordUpdateInputs, setPasswordUpdateInputs] = useState({password : "", newPassword: "", confirmNewPassword: ""})
+    const [emailUpdateInputs, setEmailUpdateInputs] = useState({email: "", new: ""});
     const [successMsg, setSuccessMsg] = useState("");
 
     useEffect(() => {
@@ -217,6 +219,44 @@ const UserAccount = () => {
         } 
     };
 
+    const ctrlPasswordInputs = (action, value) => {
+        if (action === "actual") {
+            const newObj = {
+                ...passwordUpdateInputs,
+                password : value
+            };
+            setPasswordUpdateInputs(newObj);
+        } else if (action === "new") {
+            const newObj = {
+                ...passwordUpdateInputs,
+                newPassword : value
+            };
+            setPasswordUpdateInputs(newObj);
+        } else if (action === "confirm") {
+            const newObj = {
+                ...passwordUpdateInputs,
+                confirmNewPassword : value
+            };
+            setPasswordUpdateInputs(newObj);
+        }
+    };
+
+    const ctrlEmailInputs = (action, value) => {
+        if (action === "actual") {
+            const newObj = {
+                ...emailUpdateInputs,
+                email : value
+            };
+            setEmailUpdateInputs(newObj);
+        } else if (action === "new") {
+            const newObj = {
+                ...emailUpdateInputs,
+                newEmail : value
+            };
+            setEmailUpdateInputs(newObj);
+        }
+    };
+
     const sendProfilUpdated = (e) => {
         e.preventDefault();
         console.log('ze');
@@ -346,6 +386,8 @@ const UserAccount = () => {
     const closeSectionToModify = () => {
         const modifySections = document.querySelectorAll('.profilUpdate__part');
         const btns = document.querySelectorAll('.profil__options__row__link');
+        console.log(modifySections);
+        console.log();
     
         for (let i = 0; i < modifySections.length; i++) {
             modifySections[i].classList.remove('profilUpdate__part--visible');
@@ -374,6 +416,53 @@ const UserAccount = () => {
         }
 
         setSuccessMsg('');
+    };
+
+    const updatePassword = (e) => {
+        e.preventDefault();
+        const errorCont = document.querySelector('.profilUpdate__password__errorCont');
+
+        if(passwordUpdateInputs.newPassword === "" || passwordUpdateInputs.password === "" || passwordUpdateInputs.confirmNewPassword === "") {
+            return errorCont.innerHTML = `<p>- Tous les champs sont requis.</p>`
+        }
+        
+        if (!passwordUpdateInputs.newPassword.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)) {
+            return errorCont.innerHTML = `<p>- Le nouveau mot de passe doit contenir minimun 1 lettre 1 chiffre 1 lettre majuscule et 8 caractères.</p>`
+        }
+        if(passwordUpdateInputs.newPassword !== passwordUpdateInputs.confirmNewPassword) {
+            return errorCont.innerHTML = `<p>- Le nouveau mot de passe doit etre identique au mot de passe de confirmation.</p>`
+        }
+        if(passwordUpdateInputs.password === passwordUpdateInputs.newPassword) {
+            return errorCont.innerHTML = `<p>- Le nouveau mot de passe ne doit pas être identique à l'ancien.</p>`
+        }
+
+        setSuccessMsg("Mot de passe modifié !")
+
+        closeSectionToModify();
+        
+        window.scrollTo(0,0);
+            
+    };
+        
+    const updateMail = (e) => {
+        e.preventDefault();
+        const errorCont = document.querySelector('.profilUpdate__email__errorCont')
+        
+        if (emailUpdateInputs.email === "" || emailUpdateInputs.newEmail === "") {
+            return errorCont.innerHTML = `<p>- Tous les champs sont requis.</p>`
+        }
+        if (!emailUpdateInputs.email.match(/^[\w_-]+@[\w-]+\.[a-z]{2,4}$/i) || !emailUpdateInputs.newEmail.match(/^[\w_-]+@[\w-]+\.[a-z]{2,4}$/i)) {
+            return errorCont.innerHTML = `<p>- Mauvais format d'email.</p>`            
+        }
+        if (emailUpdateInputs.email === emailUpdateInputs.newEmail) {
+            return errorCont.innerHTML = `<p>- L'ancien email ne doit pas être identique au nouveau.</p>`
+        }
+
+        setSuccessMsg("Email modifié !")
+    
+        closeSectionToModify();
+        
+        window.scrollTo(0,0);
     };
 
     return (
@@ -541,15 +630,45 @@ const UserAccount = () => {
 
 
                 {/* Modifier password */}
-                <div className="profilUpdate__password profilUpdate__part">
+                <form className="profilUpdate__part profilUpdate__password">
+                    <h2>Modifier votre mot de passe</h2>
+                    <div className="profilUpdate__password__errorCont"></div>
+                    <div className="profilUpdate__userProfil__basicsInfos__row__inputCont">
+                        <label htmlFor="actualPassword">Votre mot de passe actuel</label>
+                        <input onInput={(e) => ctrlPasswordInputs("actual", e.target.value)} type="password" value={passwordUpdateInputs.password} id="actualPassword" />
+                    </div>
+                    <div className="profilUpdate__userProfil__basicsInfos__row__inputCont">
+                        <label htmlFor="newPassword">Votre nouveau mot de passe</label>
+                        <input onInput={(e) => ctrlPasswordInputs("new", e.target.value)} type="password" value={passwordUpdateInputs.newPassword} id="newPassword" />
+                    </div>
+                    <div className="profilUpdate__userProfil__basicsInfos__row__inputCont">
+                        <label htmlFor="confirmNewPassword">Confirmer votre nouveau mot de passe</label>
+                        <input onInput={(e) => ctrlPasswordInputs("confirm", e.target.value)} type="password" value={passwordUpdateInputs.confirmNewPassword} id="confirmNewPassword" />
+                    </div>
 
-                </div>
+                    <div className="profilUpdate__userProfil__btnCont">
+                        <button onClick={updatePassword}>Modifier</button>
+                    </div>
+                </form>
 
 
                 {/* Modifier adresse email */}
-                <div className="profilUpdate__email profilUpdate__part">
-                    
-                </div>
+                <form className="profilUpdate__email profilUpdate__part">
+                    <h2>Modifier votre adresse email</h2>
+                    <div className="profilUpdate__email__errorCont"></div>
+                    <div className="profilUpdate__userProfil__basicsInfos__row__inputCont">
+                        <label htmlFor="actualEmail">Votre adresse email actuel</label>
+                        <input onInput={(e) => ctrlEmailInputs("actual", e.target.value)} type="email" value={emailUpdateInputs.email} id="actualEmail" />
+                    </div>
+                    <div className="profilUpdate__userProfil__basicsInfos__row__inputCont" id='profilUpdate__email__lastChildFix'>
+                        <label htmlFor="newEmail">Votre nouvelle adresse email</label>
+                        <input onInput={(e) => ctrlEmailInputs("new", e.target.value)} type="email" value={emailUpdateInputs.newEmail} id="newEmail" />
+                    </div>
+
+                    <div className="profilUpdate__userProfil__btnCont">
+                        <button onClick={updateMail}>Modifier</button>
+                    </div>
+                </form>
             </section>
         </main>
     );
