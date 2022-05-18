@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAddressBook, faLock, faTruckRampBox, faAt } from '@fortawesome/free-solid-svg-icons';
+import res from 'express/lib/response';
 
 const UserAccount = () => {
 
@@ -79,11 +80,11 @@ const UserAccount = () => {
                         deliveryAddressComp: data.data.deliveryAddressComp === null ? "" : data.data.deliveryAddressComp,
                         deliveryCity: data.data.deliveryCity === null ? "" : data.data.city,
                         deliveryZip: data.data.deliveryZip === null ? "" : (data.data.deliveryZip).toString(),
-                        fax: data.data.fax === null ? "" : (data.data.fax).toString(),
+                        fax: data.data.fax === null ? "" : ('0' + data.data.fax).toString(),
                         firstName: data.data.firstName === null ? "" : data.data.firstName,
-                        fixe: data.data.fixe === null ? "" : (data.data.fixe).toString(),
+                        fixe: data.data.fixe === null ? "" : ('0' + data.data.fixe).toString(),
                         lastName: data.data.lastName === null ? "" : data.data.lastName,
-                        mobile: data.data.mobile === null ? "" : (data.data.mobile).toString(),
+                        mobile: data.data.mobile === null ? "" : ('0' + data.data.mobile).toString(),
                         newsletter: data.data.newsletter === null ? false : data.data.newsletter,
                         pub: data.data.pub === null ? false : data.data.pub,
                         siret: data.data.siret === null ? "" : (data.data.siret).toString(),
@@ -375,12 +376,53 @@ const UserAccount = () => {
             window.scrollTo(0,0);
             return errorCont.innerHTML = error;
         }
-        
-        setSuccessMsg("Infos personnelles bien modifiées !")
 
-        closeSectionToModify();
+        let newObj = {
+            address: profilUpdateInputs.address === "" ? null : profilUpdateInputs.address,
+            addressComp: profilUpdateInputs.addressComp === "" ? null : profilUpdateInputs.addressComp,
+            city: profilUpdateInputs.city === "" ? null : profilUpdateInputs.city,
+            companyName: profilUpdateInputs.companyName === "" ? null : profilUpdateInputs.companyName,
+            deliveryAddress: profilUpdateInputs.deliveryAddress === "" ? null : profilUpdateInputs.deliveryAddress,
+            deliveryAddressComp: profilUpdateInputs.deliveryAddressComp === "" ? null : profilUpdateInputs.deliveryAddressComp,
+            deliveryCity: profilUpdateInputs.deliveryCity === "" ? null : profilUpdateInputs.city,
+            deliveryZip: profilUpdateInputs.deliveryZip === "" ? null : profilUpdateInputs.deliveryZip,
+            fax: profilUpdateInputs.fax === "" ? null : profilUpdateInputs.fax,
+            firstName: profilUpdateInputs.firstName === "" ? null : profilUpdateInputs.firstName,
+            fixe: profilUpdateInputs.fixe === "" ? null : profilUpdateInputs.fixe,
+            lastName: profilUpdateInputs.lastName === "" ? null : profilUpdateInputs.lastName,
+            mobile: profilUpdateInputs.mobile === "" ? null : profilUpdateInputs.mobile,
+            newsletter: profilUpdateInputs.newsletter === "" ? false : profilUpdateInputs.newsletter,
+            pub: profilUpdateInputs.pub === "" ? false : profilUpdateInputs.pub,
+            siret: profilUpdateInputs.siret === "" ? null : profilUpdateInputs.siret,
+            tva: profilUpdateInputs.tva === "" ? null : profilUpdateInputs.tva,
+            zip: profilUpdateInputs.zip === "" ? null : profilUpdateInputs.zip
+        };
+
+        /*let userIdToSend = "", tokenToSend = "";
+
+        fetch('http://localhost:3000/api/users/' + userIdToSend, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + tokenToSend.version
+            },
+            method : 'PUT',
+            body: JSON.stringify( newObj )
+        })
+              .then(res => {
+                console.log(res);
+               if (res === 45) {
+                    setSuccessMsg("Infos personnelles bien modifiées !")
+            
+                    closeSectionToModify();
+                    
+                    window.scrollTo(0,0);
+                } 
+            })
+            .catch(error => {
+                return errorCont.innerHTML = error
+            }) */
         
-        window.scrollTo(0,0);
     };  
 
     const closeSectionToModify = () => {
@@ -422,6 +464,8 @@ const UserAccount = () => {
         e.preventDefault();
         const errorCont = document.querySelector('.profilUpdate__password__errorCont');
 
+        errorCont.innerHTML = '';
+
         if(passwordUpdateInputs.newPassword === "" || passwordUpdateInputs.password === "" || passwordUpdateInputs.confirmNewPassword === "") {
             return errorCont.innerHTML = `<p>- Tous les champs sont requis.</p>`
         }
@@ -436,17 +480,40 @@ const UserAccount = () => {
             return errorCont.innerHTML = `<p>- Le nouveau mot de passe ne doit pas être identique à l'ancien.</p>`
         }
 
-        setSuccessMsg("Mot de passe modifié !")
+       /* let userIdToSend = "", tokenToSend = "";
 
-        closeSectionToModify();
-        
-        window.scrollTo(0,0);
+
+        fetch('http://localhost:3000/api/users/' + userIdToSend, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + tokenToSend.version
+            },
+            method : 'PUT',
+            body: JSON.stringify( passwordUpdateInputs.newPassword )
+        })
+            .then(res => {
+                console.log(res);
+                 if (res === 45) {
+                    setSuccessMsg("Mot de passe modifié !")
+            
+                    closeSectionToModify();
+                    
+                    window.scrollTo(0,0);
+                } 
+            })
+            .catch(error => {
+                return errorCont.innerHTML = '';
+            }) */
+
             
     };
         
     const updateMail = (e) => {
         e.preventDefault();
         const errorCont = document.querySelector('.profilUpdate__email__errorCont')
+
+        errorCont.innerHTML = ''
         
         if (emailUpdateInputs.email === "" || emailUpdateInputs.newEmail === "") {
             return errorCont.innerHTML = `<p>- Tous les champs sont requis.</p>`
@@ -495,6 +562,7 @@ const UserAccount = () => {
             </section>
             <section className="profilUpdate">
                 <p className='profilUpdate__success'>{successMsg}</p>
+                
                 {/* Modifier données perso */}
                 <form className="profilUpdate__userProfil profilUpdate__part">
                     <h2>Modifier vos infos personnelles</h2>

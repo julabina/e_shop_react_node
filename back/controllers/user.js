@@ -24,6 +24,7 @@ exports.signup = (req, res, next) => {
 exports.login = (req, res, next) => {
     User.findOne({ where : { email: req.body.email } })
         .then(user => {
+            console.log('test');
             if (user === null) {
                 const message = 'Aucun utilisateur trouvé.';
                 return res.status(404).json({ message });
@@ -62,6 +63,44 @@ exports.findOneUser = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
 };
 
-exports.modify = (req, res, next) => {
-
-};
+exports.modifyProfilInfos = (req, res, next) => {
+    User.update(req.body, { where: { userId : req.params.id }})
+        .then(() => {
+            return User.findOne({ where: { userId : req.params.id }})
+                .then(user => {
+                if(user !== null) {
+                    const message = 'Utilisateur bien modifié';
+                    res.status(200).json({ message })
+                } else {
+                    const message = 'Aucun utilisateur trouvé.';
+                    res.status(404).json({ error });
+                }
+            })
+        })
+        .catch(error => res.status(500).json({ error }));
+    };
+    
+    exports.modifyPassword = (req, res, next) => {
+        let password = undefined;
+        bcrypt.hash(req.body.password, 10)
+            .then(hash => {
+                password = {password :hash};
+                console.log(password);
+                
+                User.update(password, { where: { userId : req.params.id }})
+                    .then(() => {
+                        return User.findOne({ where: { userId : req.params.id }})
+                        .then(user => {
+                                if(user !== null) {
+                                    const message = 'Mot de passe bien modifié';
+                                    res.status(200).json({ message })
+                                } else {
+                                    const message = 'Aucun utilisateur trouvé.';
+                                    res.status(404).json({ error });
+                                }
+                            })
+                        })
+                        .catch(error => res.status(500).json({ error }));
+            })
+            .catch(error => res.status(500).json({ error }));      
+    }

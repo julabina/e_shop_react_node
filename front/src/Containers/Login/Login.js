@@ -64,6 +64,7 @@ const Login = () => {
             body: JSON.stringify({email: loginInputs.email, password: loginInputs.password})})
                 .then(res => res.json())
                 .then(data => {
+                    console.log(data);
                     if (data.token) {
                         setErrorMsg('');
                         let newObg = {
@@ -94,12 +95,15 @@ const Login = () => {
                             ...signInputs
                         }
                         setLoginInputs(newObj);
+                        setToggleUserAction(!toggleActionUser);
                         tryToLog();
                     } else {
-                        setErrorMsg("Un problème est survenu.");
+                        return setErrorMsg("Un problème est survenu.");
                     }
                 })
-                .catch(error => console.error(error));
+                .catch(error => {
+                    return console.error(error)
+                });
     }
 
     const handleLoginInputs = (action, value) => {
