@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { decodeToken, isExpired } from 'react-jwt';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAddressBook, faLock, faTruckRampBox, faAt } from '@fortawesome/free-solid-svg-icons';
-import res from 'express/lib/response';
 
 const UserAccount = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { logged } = useSelector(state => ({
-        ...state.loggedReducer
-    }));
 
-    const [userData, setUserData] = useState({});
     const [toggleBusiness, setToggleBusiness] = useState(false);
     const [profilUpdateInputs, setProfilUpdateInputs] = useState({firstName: "", lastName: "", address: "", addressComp: "", zip: "", city: "", mobile: "", fixe: "", companyName: "", fax: "", siret: "", tva: "", deliveryAddress: "", deliveryAddressComp: "", deliveryZip: "", deliveryCity: "", newsletter: false, pub: false})
     const [passwordUpdateInputs, setPasswordUpdateInputs] = useState({password : "", newPassword: "", confirmNewPassword: ""})
@@ -67,10 +62,6 @@ const UserAccount = () => {
                     if (data.data.company) {
                         setToggleBusiness(true);
                     }
-                    let obj = {
-                        userId: data.data.userId,
-                        email: data.data.email,
-                    };
                     let newObj = {
                         address: data.data.address === null ? "" : data.data.address,
                         addressComp: data.data.addressComp === null ? "" : data.data.addressComp,
@@ -398,7 +389,7 @@ const UserAccount = () => {
             zip: profilUpdateInputs.zip === "" ? null : profilUpdateInputs.zip
         };
 
-        /*let userIdToSend = "", tokenToSend = "";
+        let userIdToSend = "", tokenToSend = "";
 
         fetch('http://localhost:3000/api/users/' + userIdToSend, {
             headers: {
@@ -421,7 +412,7 @@ const UserAccount = () => {
             })
             .catch(error => {
                 return errorCont.innerHTML = error
-            }) */
+            }) 
         
     };  
 
@@ -480,7 +471,7 @@ const UserAccount = () => {
             return errorCont.innerHTML = `<p>- Le nouveau mot de passe ne doit pas être identique à l'ancien.</p>`
         }
 
-       /* let userIdToSend = "", tokenToSend = "";
+       let userIdToSend = "", tokenToSend = "";
 
 
         fetch('http://localhost:3000/api/users/' + userIdToSend, {
@@ -504,7 +495,7 @@ const UserAccount = () => {
             })
             .catch(error => {
                 return errorCont.innerHTML = '';
-            }) */
+            }) 
 
             
     };

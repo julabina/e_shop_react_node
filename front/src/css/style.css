@@ -2306,7 +2306,7 @@ main {
 .cart__articles__cartContent__article__totalCont {
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
   width: 180px;
 }
 .cart__articles__cartContent__article__totalCont__result {
@@ -2319,7 +2319,7 @@ main {
 }
 .cart__articles__totalCont {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   margin-top: 10px;
 }
 .cart__articles__totalCont h4 {
@@ -2334,7 +2334,7 @@ main {
 .cart__articles__orderBtn {
   width: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   margin: 70px 0 130px;
 }
 

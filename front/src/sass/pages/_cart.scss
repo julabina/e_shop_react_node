@@ -163,7 +163,7 @@
                 &__totalCont {
                     display: flex;
                     align-items: center;
-                    justify-content: end;
+                    justify-content: flex-end;
                     width: 180px;
                     &__result {
                         font-size: 1.2em;
@@ -178,7 +178,7 @@
         }
         &__totalCont {
             display: flex;
-            justify-content: end;
+            justify-content: flex-end;
             margin-top: 10px;
             h4 {
                 padding-top: 4px;
@@ -193,7 +193,7 @@
         &__orderBtn {
             width: 100%;
             display: flex;
-            justify-content: end;
+            justify-content: flex-end;
             margin: 70px 0 130px;
         }
     }
