@@ -1,0 +1,53 @@
+.login {
+    &__section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        h2 {
+            font-size: 1.7em;
+            font-weight: 700;
+            margin: 50px 0 40px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        &__or {
+            font-size: 2em;
+            font-weight: 700;
+        }
+        &__logError, &__signError {
+            margin: 0 0 20px;
+            color: rgb(177, 2, 2);
+            line-height: 1.4;
+            width: 100%;
+        }
+    }
+    button {
+        height: 45px;
+        width: auto;
+        padding: 0 15px;
+        margin: 40px 0 60px;
+        text-transform: uppercase;
+        font-size: 1.3em;
+        font-weight: 700;
+        letter-spacing: 1.7px;
+        background: map-get($colors,primary );
+        border:none;
+        border-radius: 3px;
+        color: map-get($map: $colors, $key:whiteLight );
+        cursor: pointer;
+        transition: opacity 250ms ease-in-out;
+        &:hover {
+            opacity: 0.7;
+            transition: opacity 250ms ease-in-out;
+        }
+    }
+    input {
+        height: 35px;
+        width: 300px;
+    }
+    label {
+        margin: 15px 0 5px;
+    }
+}

@@ -391,6 +391,32 @@ const UserAccount = () => {
 
         let userIdToSend = "", tokenToSend = "";
 
+        if (localStorage.getItem('token') !== null) {
+            let getToken = localStorage.getItem('token');
+            let token = JSON.parse(getToken);
+            tokenToSend = token;
+            if (token !== null) {
+                let decodedToken = decodeToken(token.version);
+                let isTokenExpired = isExpired(token.version);
+                if (decodedToken.userId !== token.content || isTokenExpired === true) {
+                    dispatch ({
+                        type: 'DISCONNECT'
+                    })
+                    localStorage.removeItem('token');
+                    return navigate('/login', { replace: true });
+                };
+                userIdToSend = decodedToken.userId;
+                dispatch ({
+                    type: 'LOG'
+                })
+            };
+        } else {
+            dispatch ({
+                type: 'DISCONNECT'
+            })
+            return navigate('/login', { replace: true });
+        }; 
+
         fetch('http://localhost:3000/api/users/' + userIdToSend, {
             headers: {
                 'Accept': 'application/json',
@@ -473,15 +499,41 @@ const UserAccount = () => {
 
        let userIdToSend = "", tokenToSend = "";
 
+       if (localStorage.getItem('token') !== null) {
+        let getToken = localStorage.getItem('token');
+        let token = JSON.parse(getToken);
+        tokenToSend = token;
+        if (token !== null) {
+            let decodedToken = decodeToken(token.version);
+            let isTokenExpired = isExpired(token.version);
+            if (decodedToken.userId !== token.content || isTokenExpired === true) {
+                dispatch ({
+                    type: 'DISCONNECT'
+                })
+                localStorage.removeItem('token');
+                return navigate('/login', { replace: true });
+            };
+            userIdToSend = decodedToken.userId;
+            dispatch ({
+                type: 'LOG'
+            })
+        };
+    } else {
+        dispatch ({
+            type: 'DISCONNECT'
+        })
+        return navigate('/login', { replace: true });
+    }; 
 
-        fetch('http://localhost:3000/api/users/' + userIdToSend, {
+
+        fetch('http://localhost:3000/api/users/password/' + userIdToSend, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 "Authorization": "Bearer " + tokenToSend.version
             },
             method : 'PUT',
-            body: JSON.stringify( passwordUpdateInputs.newPassword )
+            body: JSON.stringify( {password : passwordUpdateInputs.newPassword} )
         })
             .then(res => {
                 console.log(res);
@@ -516,11 +568,57 @@ const UserAccount = () => {
             return errorCont.innerHTML = `<p>- L'ancien email ne doit pas être identique au nouveau.</p>`
         }
 
-        setSuccessMsg("Email modifié !")
-    
-        closeSectionToModify();
-        
-        window.scrollTo(0,0);
+        let userIdToSend = "", tokenToSend = "";
+
+       if (localStorage.getItem('token') !== null) {
+        let getToken = localStorage.getItem('token');
+        let token = JSON.parse(getToken);
+        tokenToSend = token;
+        if (token !== null) {
+            let decodedToken = decodeToken(token.version);
+            let isTokenExpired = isExpired(token.version);
+            if (decodedToken.userId !== token.content || isTokenExpired === true) {
+                dispatch ({
+                    type: 'DISCONNECT'
+                })
+                localStorage.removeItem('token');
+                return navigate('/login', { replace: true });
+            };
+            userIdToSend = decodedToken.userId;
+            dispatch ({
+                type: 'LOG'
+            })
+        };
+    } else {
+        dispatch ({
+            type: 'DISCONNECT'
+        })
+        return navigate('/login', { replace: true });
+    }; 
+
+
+        fetch('http://localhost:3000/api/users/email/' + userIdToSend, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + tokenToSend.version
+            },
+            method : 'PUT',
+            body: JSON.stringify( {email: emailUpdateInputs.newEmail} )
+        })
+            .then(res => {
+                console.log(res);
+                 if (res === 45) {
+                    setSuccessMsg("Adresse email modifié !")
+            
+                    closeSectionToModify();
+                    
+                    window.scrollTo(0,0);
+                } 
+            })
+            .catch(error => {
+                return errorCont.innerHTML = '';
+            }) 
     };
 
     return (

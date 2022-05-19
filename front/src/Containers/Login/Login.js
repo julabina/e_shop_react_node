@@ -12,7 +12,8 @@ const Login = () => {
     const [loginInputs, setLoginInputs] = useState({email: "", password: ""});
     const [signInputs, setSignInputs] = useState({email: "", password: ""});
     const [isLogged, setIsLogged] = useState(false);
-    const [errorMsg, setErrorMsg] = useState("");
+    const [logErrorMsg, setLogErrorMsg] = useState("");
+    const [signErrorMsg, setSignErrorMsg] = useState("");
     const [toggleUserAction, setToggleUserAction] = useState(true);
 
     useEffect(() => {
@@ -50,10 +51,25 @@ const Login = () => {
 
     },[]);
 
-    const tryToLog = (e) => {
+    const verifyToLog = (e) => {
         if (e !== undefined) {
             e.preventDefault();
         }
+
+        if (loginInputs.email === "" || loginInputs.password === "") {
+            return setLogErrorMsg("- Tous les champs sont requis.");
+        } 
+        if (!loginInputs.email.match(/^[\w_-]+@[\w-]+\.[a-z]{2,4}$/i)) {
+            return setLogErrorMsg("- Le format de l'email n'est pas valide.");
+        }
+        if (!loginInputs.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)) {
+            return setLogErrorMsg("- Le mot de passe doit contenir minimun 1 lettre 1 chiffre 1 lettre majuscule et 8 caractères.");
+        }
+
+        tryToLog(loginInputs.email, loginInputs.password);
+    };
+
+    const tryToLog = (email, password) => {
 
         fetch("http://localhost:3000/api/users/login", {
             headers: {
@@ -61,12 +77,11 @@ const Login = () => {
                 'Content-Type': 'application/json'
             },
             method: 'POST', 
-            body: JSON.stringify({email: loginInputs.email, password: loginInputs.password})})
+            body: JSON.stringify({email: email, password: password})})
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
                     if (data.token) {
-                        setErrorMsg('');
+                        setLogErrorMsg('');
                         let newObg = {
                             version: data.token,
                             content: data.userId
@@ -74,31 +89,50 @@ const Login = () => {
                         localStorage.setItem('token', JSON.stringify(newObg)); 
                         navigate('/userAccount', { replace: true })
                     } else if (data.message) {
-                        setErrorMsg(data.message || data.error);
+                        setLogErrorMsg(data.message || data.error);
                     }
                 })
-                .catch(error => console.error(error));
-    }
+                .catch(error => setLogErrorMsg(error));
+    };
 
-    const tryToSign = (e) => {
-        e.preventDefault();
+    const verifyToSign = (e) => {
+        if (e !== undefined) {
+            e.preventDefault();
+        }
+
+        if (signInputs.email === "" || signInputs.password === "") {
+            return setSignErrorMsg("- Tous les champs sont requis.");
+        } 
+        if (!signInputs.email.match(/^[\w_-]+@[\w-]+\.[a-z]{2,4}$/i)) {
+            return setSignErrorMsg("- Le format de l'email n'est pas valide.");
+        }
+        if (!signInputs.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)) {
+            return setSignErrorMsg("- Le mot de passe doit contenir minimun 1 lettre 1 chiffre 1 lettre majuscule et 8 caractères.");
+        }
+
+        tryToSign(signInputs.email, signInputs.password);
+    };
+
+    const tryToSign = (email, password) => {
+
         fetch("http://localhost:3000/api/users/signup", {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             method: 'POST', 
-            body: JSON.stringify({email: signInputs.email, password: signInputs.password})})
+            body: JSON.stringify({email: email, password: password})})
                 .then(res => {
+                    setSignErrorMsg('');
                     if (res.status === 201) {
                         const newObj = {
                             ...signInputs
                         }
                         setLoginInputs(newObj);
                         setToggleUserAction(!toggleActionUser);
-                        tryToLog();
+                        tryToLog(email, password);
                     } else {
-                        return setErrorMsg("Un problème est survenu.");
+                        return setSignErrorMsg("Un problème est survenu.");
                     }
                 })
                 .catch(error => {
@@ -151,10 +185,10 @@ const Login = () => {
     }
 
     return (
-        <main>
+        <main className='login'>
             {
                 isLogged ?
-                <section>
+                <section className='login__section'>
                     <h2>Vous ete deja connecté</h2>
                     <div className="">
                         <NavLink to="/">
@@ -164,37 +198,37 @@ const Login = () => {
                     </div>
                 </section>
                 :
-                <section className='login__section'>
-                    <div className="login__section__errorCont"><p className="login__section__errorCont__error">{errorMsg}</p></div>
-                    
+                <section className='login__section'>                    
                     {
                         toggleUserAction
                         ?
                         <>
-                            <h2>Se Connecter</h2>
-                            <form onSubmit={tryToLog}>
-                                <label htmlFor="">Email</label>
-                                <input onInput={(e) => handleLoginInputs("email", e.target.value)} type="email" name="" value={loginInputs.email} id="" />
-                                <label htmlFor="">password</label>
-                                <input onInput={(e) => handleLoginInputs("password", e.target.value)} type="password" name="" value={loginInputs.password} id="" />
+                            <h2>Se connecter</h2>
+                            <div className="login__section__logError">{logErrorMsg}</div>
+                            <form onSubmit={verifyToLog}>
+                                <label htmlFor="logEmail">Email</label>
+                                <input onInput={(e) => handleLoginInputs("email", e.target.value)} type="email" value={loginInputs.email} id="logEmail" />
+                                <label htmlFor="logPassword">Password</label>
+                                <input onInput={(e) => handleLoginInputs("password", e.target.value)} type="password" value={loginInputs.password} id="logPassword" />
                                 <button>Se connecter</button>
                             </form>
 
-                            <p>ou</p>
-                            <button onClick={toggleActionUser}>S'enregistrer</button>
+                            <p className='login__section__or'>ou</p>
+                            <button onClick={toggleActionUser}>S'Enregistrer</button>
                         </>
                         :
                         <>
                             <h2>S' enregister</h2>
-                            <form onSubmit={tryToSign}>
-                                <label htmlFor="">Email</label>
-                                <input onInput={(e) => handleSignInputs("email", e.target.value)} type="email" name="" value={signInputs.email} id="" />
-                                <label htmlFor="">password</label>
-                                <input onInput={(e) => handleSignInputs("password", e.target.value)} type="password" name="" value={signInputs.password} id="" />
-                                <button>Se connecter</button>
+                            <div className="login__section__signError">{signErrorMsg}</div>
+                            <form onSubmit={verifyToSign}>
+                                <label htmlFor="signEmail">Email</label>
+                                <input onInput={(e) => handleSignInputs("email", e.target.value)} type="email" value={signInputs.email} id="signEmail" />
+                                <label htmlFor="signPassword">Password</label>
+                                <input onInput={(e) => handleSignInputs("password", e.target.value)} type="password" value={signInputs.password} id="signPassword" />
+                                <button>S'enregistrer</button>
                             </form>
 
-                            <p>ou</p>
+                            <p className='login__section__or'>ou</p>
                             <button onClick={toggleActionUser}>Se connecter</button>
                         </>
                     }

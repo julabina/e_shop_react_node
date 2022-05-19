@@ -2475,6 +2475,58 @@ main {
   font-weight: 600;
 }
 
+.login__section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login__section h2 {
+  font-size: 1.7em;
+  font-weight: 700;
+  margin: 50px 0 40px;
+}
+.login__section form {
+  display: flex;
+  flex-direction: column;
+}
+.login__section__or {
+  font-size: 2em;
+  font-weight: 700;
+}
+.login__section__logError, .login__section__signError {
+  margin: 0 0 20px;
+  color: #b10202;
+  line-height: 1.4;
+  width: 100%;
+}
+.login button {
+  height: 45px;
+  width: auto;
+  padding: 0 15px;
+  margin: 40px 0 60px;
+  text-transform: uppercase;
+  font-size: 1.3em;
+  font-weight: 700;
+  letter-spacing: 1.7px;
+  background: #14416A;
+  border: none;
+  border-radius: 3px;
+  color: #f3f3f3;
+  cursor: pointer;
+  transition: opacity 250ms ease-in-out;
+}
+.login button:hover {
+  opacity: 0.7;
+  transition: opacity 250ms ease-in-out;
+}
+.login input {
+  height: 35px;
+  width: 300px;
+}
+.login label {
+  margin: 15px 0 5px;
+}
+
 .profil {
   display: flex;
   flex-direction: column;
