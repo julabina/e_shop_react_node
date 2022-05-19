@@ -130,10 +130,14 @@ const Login = () => {
                         }
                         setLoginInputs(newObj);
                         setToggleUserAction(!toggleActionUser);
-                        tryToLog(email, password);
-                    } else {
-                        return setSignErrorMsg("Un problème est survenu.");
-                    }
+                        return tryToLog(email, password);
+                    } 
+                    
+                    return res.json()
+                    
+                })
+                .then(data => {
+                    return setSignErrorMsg(data.message);    
                 })
                 .catch(error => {
                     return console.error(error)

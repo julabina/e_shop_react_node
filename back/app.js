@@ -5,6 +5,7 @@ const oculaireRoute = require('./routes/oculaire');
 const montureRoute = require('./routes/monture');
 const userRoute = require('./routes/user');
 const commentRoute = require('./routes/comment');
+const { initDb } = require('./db/sequelize');
 
 const app = express();
 
@@ -18,6 +19,8 @@ app.use((req, res, next) => {
 });
 
 app.use(morgan('dev'));
+
+initDb();
 
 app.use('/api/telescopes', telescopeRoute);
 app.use('/api/oculaires', oculaireRoute);
