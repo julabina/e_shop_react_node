@@ -69,7 +69,7 @@ exports.modifyProfilInfos = (req, res, next) => {
             return User.findOne({ where: { userId : req.params.id }})
                 .then(user => {
                 if(user !== null) {
-                    const message = 'Utilisateur bien modifié';
+                    const message = 'Utilisateur bien modifié.';
                     res.status(200).json({ message })
                 } else {
                     const message = 'Aucun utilisateur trouvé.';
@@ -92,7 +92,7 @@ exports.modifyProfilInfos = (req, res, next) => {
                         return User.findOne({ where: { userId : req.params.id }})
                         .then(user => {
                                 if(user !== null) {
-                                    const message = 'Mot de passe bien modifié';
+                                    const message = 'Mot de passe bien modifié.';
                                     res.status(200).json({ message })
                                 } else {
                                     const message = 'Aucun utilisateur trouvé.';
@@ -103,4 +103,21 @@ exports.modifyProfilInfos = (req, res, next) => {
                         .catch(error => res.status(500).json({ error }));
             })
             .catch(error => res.status(500).json({ error }));      
-    }
+        };
+        
+        exports.modifyEmail = (req, res, next) => {
+            User.update(req.body, { where: { userId : req.params.id }})
+                .then(() => {
+                    return User.findOne({ where: { userId : req.params.id }})
+                    .then(user => {
+                            if(user !== null) {
+                                const message = 'Adresse email bien modifié.';
+                                res.status(200).json({ message })
+                            } else {
+                                const message = 'Aucun utilisateur trouvé.';
+                                res.status(404).json({ error });
+                            }
+                        })
+                    })
+                    .catch(error => res.status(500).json({ error }));      
+    };

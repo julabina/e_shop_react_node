@@ -8,6 +8,7 @@ router.post('/signup', userController.signup);
 router.post('/login', userController.login);
 router.put('/:id',auth, userController.modifyProfilInfos);
 router.put('/password/:id', auth, userController.modifyPassword);
+router.put('/email/:id', auth, userController.modifyEmail);
 router.post('/:id', auth, userController.findOneUser);
 
 
