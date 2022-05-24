@@ -23,9 +23,9 @@ const Header = () => {
 
         let artCount = 0, totalCart = 0;
         for(let i = 0; i < cart.length; i++) {
-            let val = cart[i].price * cart[i].count;
+            let val = parseFloat(cart[i].price) * parseInt(cart[i].count);
             totalCart += val;
-            artCount += cart[i].count;
+            artCount += parseInt(cart[i].count);
         }
 
         let item = {

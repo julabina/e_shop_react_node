@@ -91,7 +91,7 @@ const ConfirmationModal = (props) => {
                     <h2>{props.name}</h2>
                     <p>Prix unitaire: <span>{props.price} €</span></p>
                     <div className="confirmModal__modal__separator"></div>
-                    <p className="confirmModal__modal__result">Prix total: <span>{(parseInt(props.price) * parseInt(props.count)).toFixed(2)} €</span></p>
+                    <p className="confirmModal__modal__result">Prix total: <span>{(parseFloat(props.price) * parseInt(props.count)).toFixed(2)} €</span></p>
                     <div className="confirmModal__modal__btnCont">
                         <button className='confirmModal__modal__btnCont__continueBtn' onClick={modalToggle}>Continuer les achats</button>
                         <NavLink to="/cart">

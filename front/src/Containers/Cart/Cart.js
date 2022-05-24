@@ -45,23 +45,30 @@ const Cart = () => {
             let newArr = [], total = 0;
             for (let i = 0; i < data.length; i++) {
                 if(data[i].data !== undefined) {              
-                    let image;
+                    let image, price = 0;
                     if (cart[i].category === "oculaire") {
                         image = data[i].data.pictures 
                     } else {
                         image = data[i].data.pictures[0] 
                     }
+                    if(data[i].data.promo) {
+                        price = (parseFloat(data[i].data.price) - (parseFloat(data[i].data.price / 100) * data[i].data.promoValue))
+                    } else {
+                        price = data[i].data.price;
+                    }
                     let item = {
                         category: cart[i].category,
                         id: data[i].data.id,
                         count: cart[i].count,
-                        price: data[i].data.price,
+                        price: (price).toFixed(2),
                         name: data[i].data.name,
                         image: image,
                         stock: data[i].data.stock,
-                        key: uuidv4() 
+                        key: uuidv4()
                     }
-                    total += data[i].data.price * cart[i].count;
+
+                        total += price * parseInt(cart[i].count);
+
                     newArr.push(item);
                 }
             }
