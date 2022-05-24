@@ -148,25 +148,6 @@ const TelescopeProduct = () => {
         }
     }
 
-    const addToCart = (value) => {
-        if(telescopeData.stock !== 0) {
-            let item = {
-                category: "telescope",
-                id: telescopeData.id,
-                count: value,
-                price: telescopeData.price,
-                stock: telescopeData.stock,
-                name: telescopeData.name,
-                image: process.env.PUBLIC_URL + picturesData[0].img
-            }
-            
-            dispatch({
-                type: 'ADDTOCART',
-                payload: item
-            })
-        }
-    }
-
     const changeImg = (img, ind) => {
         const tinyImgs = document.querySelectorAll('.telescopeProduct__top__left__tinyImg__cont__cover');
         for (let i = 0; i < tinyImgs.length; i++) {
@@ -297,7 +278,7 @@ const TelescopeProduct = () => {
                             <input onChange={(e) => changeInputValue('change', e.target.value)} type="number" className="telescopeProduct__top__right__addCart__countCont__input" value={inputAddCart} min='1' max={telescopeData.stock} />
                             <button onClick={() => changeInputValue('add')} id="telescopeProduct__addBtn" className={telescopeData.stock < 2 ? 'telescopeProduct__top__right__addCart__countCont__btn telescopeProduct__top__right__addCart__countCont__btn--unselected' : 'telescopeProduct__top__right__addCart__countCont__btn'}>+</button>
                         </div>
-                        <ConfirmationModal isProductPage={true} func={addToCart} name={telescopeData.name} price={telescopeData.price} count={inputAddCart} stock={telescopeData.stock} />
+                        <ConfirmationModal isProductPage={true} name={telescopeData.name} price={telescopeData.price} count={inputAddCart} stock={telescopeData.stock} img={picturesData} id={telescopeData.id} category={"telescope"} />
                     </div>
                 </div>
             </div>

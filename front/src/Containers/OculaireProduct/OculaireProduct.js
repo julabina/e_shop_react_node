@@ -139,25 +139,6 @@ const OculaireProduct = () => {
         }
     }
 
-    const addToCart = (value) => {
-        if(oculaireData.stock !== 0) {
-            let item = {
-                category: "oculaire",
-                id: oculaireData.id,
-                count: value,
-                price: oculaireData.price,
-                stock: oculaireData.stock,
-                name: oculaireData.name,
-                image: mainPicture
-            }
-
-            dispatch({
-                type: 'ADDTOCART',
-                payload: item
-            })
-        }
-    }
-
     const changeTab = (valArr) => {
         const tabs = document.querySelectorAll('.oculaireInfos__tabsCont__tab');
         const infos = document.querySelectorAll('.oculaireInfos__infos');
@@ -263,7 +244,7 @@ const OculaireProduct = () => {
                             <input onChange={(e) => changeInputValue('change',e.target.value)} type="number" className="oculaireProduct__top__right__addCart__countCont__input" value={inputAddCart} min='1' max={oculaireData.stock} />
                             <button onClick={() => changeInputValue('add')} id="oculaireProduct__addBtn" className={oculaireData.stock < 2 ? 'oculaireProduct__top__right__addCart__countCont__btn oculaireProduct__top__right__addCart__countCont__btn--unselected' : 'oculaireProduct__top__right__addCart__countCont__btn'}>+</button>
                         </div>
-                        <ConfirmationModal isProductPage={true} func={addToCart} name={oculaireData.name} price={oculaireData.price} count={inputAddCart} stock={oculaireData.stock} />
+                        <ConfirmationModal isProductPage={true} name={oculaireData.name} price={oculaireData.price} count={inputAddCart} stock={oculaireData.stock} img={mainPicture} id={oculaireData.id} category={"oculaire"} />
                     </div>
                 </div>
             </div>

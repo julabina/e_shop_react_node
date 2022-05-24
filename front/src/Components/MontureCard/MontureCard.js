@@ -115,7 +115,7 @@ const MontureCard = (props) => {
                     <NavLink to={'/monture/ref_=' + props.id}>
                         <button className='montureCard__buttons__btn montureCard__buttons__btn__infos'>Infos</button>
                     </NavLink>
-                    <ConfirmationModal func={addToCart} name={props.name} price={price} count={inputValue} stock={props.stock} />
+                    <ConfirmationModal name={props.name} price={price} count={inputValue} stock={props.stock} img={props.image} id={props.id} category={"monture"} />
                 </div>
             </li>
     );

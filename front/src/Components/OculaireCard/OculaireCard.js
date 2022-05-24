@@ -77,27 +77,6 @@ const OculaireCard = (props) => {
         }
         setInputValue(newVal);
     }
-    
-    const addToCart = (value) => {
-        if (props.stock !== 0) {
-
-            let item = {
-                category: "oculaire",
-                id: props.id,
-                count: value,
-                price: props.price,
-                stock: props.stock,
-                name: props.name,
-                image: process.env.PUBLIC_URL + props.image
-            }
-            
-            dispatch({
-                type: 'ADDTOCART',
-                payload : item
-            })
-        
-        } 
-    }
 
     return (
         <li className='oculaireCard' >
@@ -115,7 +94,7 @@ const OculaireCard = (props) => {
                     <NavLink to={'/oculaire/ref_=' + props.id}>
                         <button className='oculaireCard__buttons__btn oculaireCard__buttons__btn__infos'>Infos</button>
                     </NavLink>
-                    <ConfirmationModal func={addToCart} name={props.name} price={price} count={inputValue} stock={props.stock} />
+                    <ConfirmationModal name={props.name} price={price} count={inputValue} stock={props.stock} img={props.image} id={props.id} category={"oculaire"} />
                 </div>
             </li>
     );

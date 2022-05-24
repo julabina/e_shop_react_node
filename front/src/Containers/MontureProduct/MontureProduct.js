@@ -63,6 +63,7 @@ const MontureProduct = () => {
                     }
                     newArr.push(pict);
                 }
+                console.log(newArr);
                 if (data.data.stock < 1) {
                     setInputAddCart(0);
                 } else {
@@ -143,25 +144,6 @@ const MontureProduct = () => {
                     } 
                 })
                 .catch(error => console.error(error));
-        }
-    }
-
-    const addToCart = (value) => {
-        if(montureData.stock !== 0) {
-            let item = {
-                category: "monture",
-                id: montureData.id,
-                count: value,
-                price: montureData.price,
-                stock: montureData.stock,
-                name: montureData.name,
-                image: process.env.PUBLIC_URL + picturesData[0].img
-            }
-
-            dispatch({
-                type: 'ADDTOCART',
-                payload: item
-            })
         }
     }
 
@@ -295,7 +277,7 @@ const MontureProduct = () => {
                             <input onChange={(e) => changeInputValue('change', e.target.value)} type="number" className="montureProduct__top__right__addCart__countCont__input" value={inputAddCart} min='1' max={montureData.stock} />
                             <button onClick={() => changeInputValue('add')} id="montureProduct__addBtn" className={montureData.stock < 2 ? 'montureProduct__top__right__addCart__countCont__btn montureProduct__top__right__addCart__countCont__btn--unselected' : 'montureProduct__top__right__addCart__countCont__btn'}>+</button>
                         </div>
-                        <ConfirmationModal isProductPage={true} func={addToCart} name={montureData.name} price={montureData.price} count={inputAddCart} stock={montureData.stock} />
+                        <ConfirmationModal isProductPage={true} name={montureData.name} price={montureData.price} count={inputAddCart} stock={montureData.stock} img={picturesData} id={montureData.id} category={"monture"} />
                     </div>
                 </div>
             </div>
