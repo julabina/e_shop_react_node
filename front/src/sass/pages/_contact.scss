@@ -9,10 +9,22 @@
         border-bottom:4px solid black ;
         margin: 10px 0 110px 0;
     }
+    &__errorCont {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 40px;
+        p {
+            width: 620px;
+            line-height: 1.4;
+            color: rgb(177, 2, 2);
+        }
+    }
     &__form {
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin-bottom: 50px;
         &__row {
             display: flex;
             &__inputCont {

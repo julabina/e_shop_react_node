@@ -2361,10 +2361,22 @@ main {
   border-bottom: 4px solid black;
   margin: 10px 0 110px 0;
 }
+.contact__errorCont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.contact__errorCont p {
+  width: 620px;
+  line-height: 1.4;
+  color: #b10202;
+}
 .contact__form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 50px;
 }
 .contact__form__row {
   display: flex;
