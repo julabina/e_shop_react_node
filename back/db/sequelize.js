@@ -4,6 +4,13 @@ const OculaireModel = require('../models/oculaire');
 const MontureModel = require('../models/monture');
 const CommentModel = require('../models/comment');
 const UserModel = require('../models/user');
+const ProductModel = require('../models/product');
+const ProductAttributeModel = require('../models/products_attribute');
+const CategoryModel = require('../models/category');
+const BrandModel = require('../models/brand');
+const OculaireModelModel = require('../models/oculaireModel');
+const TelescopeTypeModel = require('../models/telescopeType');
+const MountTypeModel = require('../models/mountType');
 const data = require('../db/mock-products');
 
 const sequelize = new Sequelize(
@@ -22,6 +29,7 @@ const sequelize = new Sequelize(
 
 const initDb = () => {
     return sequelize.sync({force: true}).then(() => {
+
         data.telescopes.map(el => {
             Telescope.create({
                 name: el.name,
@@ -85,6 +93,73 @@ const initDb = () => {
                 promoValue: el.promoValue
             })
         })
+
+        data.categories.map(el => {
+            Category.create({
+                name: el.name
+            })
+        })
+
+        data.brands.map(el => {
+            Brand.create({
+                name: el.name
+            })
+        })
+
+        data.oculaireModel.map(el => {
+            OculaireCollection.create({
+                name: el.name
+            })
+        })
+
+        data.telescopeType.map(el => {
+            TelescopeType.create({
+                name: el.name
+            })
+        })
+
+        data.mountType.map(el => {
+            MountType.create({
+                name: el.name
+            })
+        })
+
+        data.products.map(el => {
+            Product.create({
+                category_id: el.category_id,
+                name: el.name,
+                productId: el.productId,
+                pictures: el.pictures,
+                price: el.price,
+                stock: el.stock,
+                description1: el.description1,
+                description2: el.description2,
+                description3: el.description3,
+                descriptionPicture: el.descriptionPicture,
+                promo: el.promo,
+                promoValue: el.promoValue
+            })
+        })
+
+        data.productsAttributes.map(el => {
+            ProductAttribute.create({
+                productId : el.product_id,
+                typeTelescope: el.typeTelescope,
+                brand: el.brand,
+                typeMount: el.typeMount,
+                capacity: el.capacity,
+                goTo: el.goTo,
+                model : el.model,
+                coulant: el.coulant,
+                fov: el.fov,
+                eyeRelief: el.eyeRelief,
+                diameter: el.diameter,
+                focal: el.focal,
+                fd: el. fd,
+                mount: el.mount
+            })
+        })
+        
     })
 }
 
@@ -93,7 +168,14 @@ const Oculaire = OculaireModel(sequelize, DataTypes);
 const Monture = MontureModel(sequelize, DataTypes);
 const Comment = CommentModel(sequelize, DataTypes);
 const User = UserModel(sequelize, DataTypes);
+const Product = ProductModel(sequelize, DataTypes);
+const ProductAttribute = ProductAttributeModel(sequelize, DataTypes);
+const Category = CategoryModel(sequelize, DataTypes);
+const Brand = BrandModel(sequelize, DataTypes);
+const OculaireCollection = OculaireModelModel(sequelize, DataTypes);
+const TelescopeType = TelescopeTypeModel(sequelize, DataTypes);
+const MountType = MountTypeModel(sequelize, DataTypes);
 
 module.exports= {
-    Telescope, Oculaire, Monture, Comment, User, initDb
+    Telescope, Oculaire, Monture, Comment, User, Product, ProductAttribute, Category, Brand, OculaireCollection, TelescopeType, MountType, initDb
 }
