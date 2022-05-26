@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('Brand', {
-        brand_id : {
+        brandId : {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
