@@ -96,39 +96,44 @@ const initDb = () => {
 
         data.categories.map(el => {
             Category.create({
+                id: el.id,
                 name: el.name
             })
         })
 
         data.brands.map(el => {
             Brand.create({
+                id: el.id,
                 name: el.name
             })
         })
 
         data.oculaireModel.map(el => {
             OculaireCollection.create({
+                id: el.id,
                 name: el.name
             })
         })
 
         data.telescopeType.map(el => {
             TelescopeType.create({
+                id: el.id,
                 name: el.name
             })
         })
 
         data.mountType.map(el => {
             MountType.create({
+                id: el.id,
                 name: el.name
             })
         })
 
         data.products.map(el => {
             Product.create({
-                category_id: el.category_id,
+                id: el.id,
+                categoryId: el.categoryId,
                 name: el.name,
-                productId: el.productId,
                 pictures: el.pictures,
                 price: el.price,
                 stock: el.stock,
@@ -143,13 +148,13 @@ const initDb = () => {
 
         data.productsAttributes.map(el => {
             ProductAttribute.create({
-                productId : el.product_id,
-                typeTelescope: el.typeTelescope,
-                brand: el.brand,
-                typeMount: el.typeMount,
+                productId : el.productId,
+                telescopeTypeId: el.telescopeTypeId,
+                brandId: el.brandId,
+                mountTypeId: el.mountTypeId,
                 capacity: el.capacity,
                 goTo: el.goTo,
-                model : el.model,
+                oculaireModelId : el.oculaireModelId,
                 coulant: el.coulant,
                 fov: el.fov,
                 eyeRelief: el.eyeRelief,

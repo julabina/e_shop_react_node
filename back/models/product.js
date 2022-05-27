@@ -1,24 +1,19 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('Product', {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             primaryKey: true,
-            autoIncrement: true
+            unique: {
+                msg: "Le productId est deja utilisé."
+            }
         },
-        category_id: {
-            type: DataTypes.INTEGER,
+        categoryId: {
+            type: DataTypes.STRING,
             allowNull: false
         },
         name: {
             type: DataTypes.STRING,
             allowNull: false
-        },
-        productId: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: {
-                msg: "Le productId est deja utilisé."
-            }
         },
         price: {
             type: DataTypes.INTEGER,

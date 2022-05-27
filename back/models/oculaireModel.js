@@ -1,9 +1,11 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('OculaireModel', {
-        ocualireModel_id : {
-            type: DataTypes.INTEGER,
+        id: {
+            type: DataTypes.STRING,
             primaryKey: true,
-            autoIncrement: true
+            unique: {
+                msg: "Le productId est deja utilisé."
+            }
         },
         name: {
             type: DataTypes.STRING,

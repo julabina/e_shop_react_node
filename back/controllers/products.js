@@ -4,11 +4,18 @@ exports.findAllTelescope = (req, res, next) => {
     
     Product.hasMany(ProductAttribute, {foreignKey: 'productId'});
     ProductAttribute.belongsTo(Product);
-    ProductAttribute.hasMany(Brand, {foreignKey: 'brandId'})
+    Brand.hasMany(ProductAttribute, {foreignKey: 'brandId'})
+    ProductAttribute.belongsTo(Brand);
     
 
-    Product.findAll({include : [
-        {model: ProductAttribute},  
+    Product.findAll({
+        include : [
+        {
+            model: ProductAttribute,
+            include: {
+                model: Brand
+            }
+        },  
     ]
 
     })

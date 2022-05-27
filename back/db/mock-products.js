@@ -4,21 +4,168 @@ const { v4 } = require('uuid');
 
 const categories = [
     {
+        id: v4(),
         name: "telescope"  
     },
     {
+        id: v4(),
         name: "oculaire"
     },
     {
+        id: v4(),
         name: "monture"
     }
 ]
 
+const brands = [
+    {
+        id : v4(),
+        name: "Sky-Watcher"
+    },
+    {
+        id : v4(),
+        name: "Takahashi"
+    },
+    {
+        id : v4(),
+        name: "Celestron"
+    },
+    {
+        id : v4(),
+        name: "Unistellar"
+    },
+    {
+        id : v4(),
+        name: "Televue"
+    },
+    {
+        id : v4(),
+        name: "Orion"
+    },
+    {
+        id : v4(),
+        name: "Pentax"
+    },
+    {
+        id : v4(),
+        name: "Explore Scientific"
+    },
+    {
+        id : v4(),
+        name: "Baader"
+    },
+    {
+        id : v4(),
+        name: "10Micron"
+    },
+]
+
+const oculaireModel = [
+    {
+        id: v4(),
+        name: "X-cel"
+    },
+    {
+        id: v4(),
+        name: "Plössl"
+    },
+    {
+        id: v4(),
+        name: "edge-On"
+    },
+    {
+        id: v4(),
+        name: "Super Plössl"
+    },
+    {
+        id: v4(),
+        name: "DeLite"
+    },
+    {
+        id: v4(),
+        name: "Ethos"
+    },
+    {
+        id: v4(),
+        name: "Nagler"
+    },
+    {
+        id: v4(),
+        name: "Delos"
+    },
+    {
+        id: v4(),
+        name: "XW"
+    },
+    {
+        id: v4(),
+        name: "100°"
+    },
+    {
+        id: v4(),
+        name: "82°"
+    },
+    {
+        id: v4(),
+        name: "68°"
+    },
+    {
+        id: v4(),
+        name: "Luminos"
+    },
+    {
+        id: v4(),
+        name: "Lanthanum"
+    },
+    {
+        id: v4(),
+        name: "Hyperion"
+    },
+]
+
+const telescopeType = [
+    {
+        id: v4(),
+        name : 'lunette achromatique'
+    },
+    {
+        id: v4(),
+        name : 'lunette apochromatique'
+    },
+    {
+        id: v4(),
+        name : 'telescope Newton'
+    },
+    {
+        id: v4(),
+        name : 'telescope Maksutov'
+    },
+    {
+        id: v4(),
+        name : 'telescope Schmidt-Cassegrain'
+    },
+    {
+        id: v4(),
+        name : 'telescope  edge HD'
+    },
+]
+
+const mountType = [
+    {
+        id: v4(),
+        name: "azimutale"
+    },
+    {
+        id: v4(),
+        name: "equatoriale"
+    },
+]
+
 const products = [
     {
-        category_id : 1,
+        id : v4(),
+        categoryId : categories[0].id,
         name: "Lunette 70/700 Sky-Watcher sur monture azimutale AZ2",
-        productId: v4(),
         pictures : ["/assets/telescope/sw70-700.webp"],
         price: 137,
         stock: 8,
@@ -30,9 +177,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 1,
+        id : v4(),
+        categoryId : categories[0].id,
         name: "Lunette 80/400 Sky-Watcher sur monture azimutale AZ3",
-        productId: v4(),
         pictures : ["/assets/telescope/sw80-400.webp"],
         price: 296,
         stock: 0,
@@ -44,9 +191,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 1,
+        id : v4(),
+        categoryId : categories[0].id,
         name: "Lunette 120/600 Sky-Watcher sur monture azimutale AZ3",
-        productId: v4(),
         pictures : ["/assets/telescope/sw120-600.webp"],
         price: 465,
         stock: 2,
@@ -58,9 +205,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 1,
+        id : v4(),
+        categoryId : categories[0].id,
         name: "Lunette Sky-Watcher 80ED Black Diamond sur NEQ5",
-        productId: v4(),
         pictures : ["/assets/telescope/80ED-sw.webp"],
         price: 1113,
         stock: 4,
@@ -72,9 +219,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 1,
+        id : v4(),
+        categoryId : categories[0].id,
         name: "Lunette Takahashi FSQ-85EDX (tube seul)",
-        productId: v4(),
         pictures : ["/assets/telescope/fsq-85edx-1.webp", "/assets/telescope/fsq-85edx-2.webp", "/assets/telescope/fsq-85edx-3.webp"],
         price: 3527,
         stock: 3,
@@ -86,9 +233,9 @@ const products = [
         promoValue : 5
     },
     {
-        category_id : 1,
+        id : v4(),
+        categoryId : categories[0].id,
         name: "Lunette Takahashi FSQ-106EDX4 avec accessoires",
-        productId: v4(),
         pictures : ["/assets/telescope/FSQ-106EDX4-1.webp", "/assets/telescope/FSQ-106EDX4-2.webp", "/assets/telescope/FSQ-106EDX4-3.webp"],
         price: 7652,
         stock: 2,
@@ -100,9 +247,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 1,
+        id : v4(),
+        categoryId : categories[0].id,
         name: "Télescope Sky-Watcher 130/900 sur équatoriale EQ2",
-        productId: v4(),
         pictures : ["/assets/telescope/130-900-sw.webp"],
         price: 276,
         stock: 23,
@@ -114,9 +261,9 @@ const products = [
         promoValue : 20
     },
     {
-        category_id : 1,
+        id : v4(),
+        categoryId : categories[0].id,
         name: "Télescope Sky-Watcher Mak127 sur EQ3-2 Go-To",
-        productId: v4(),
         pictures : ["/assets/telescope/mak127-sw.webp"],
         price: 1078,
         stock: 6,
@@ -128,9 +275,9 @@ const products = [
         promoValue : 5
     },
     {
-        category_id : 1,
+        id : v4(),
+        categoryId : categories[0].id,
         name: "Télescope Sky-Watcher 200mm f/5 sur NEQ5",
-        productId: v4(),
         pictures : ["/assets/telescope/200-1000-sw-1.webp", "/assets/telescope/200-1000-sw-2.webp", "/assets/telescope/200-1000-sw-3.webp"],
         price: 1132,
         stock: 8,
@@ -142,9 +289,9 @@ const products = [
         promoValue : 10
     },
     {
-        category_id : 1,
+        id : v4(),
+        categoryId : categories[0].id,
         name: "Télescope Schmidt-Cassegrain Celestron NexStar 8SE",
-        productId: v4(),
         pictures : ["/assets/telescope/Schitmt-cass-8se-1.webp", "/assets/telescope/Schitmt-cass-8se-2.webp", "/assets/telescope/Schitmt-cass-8se-3.webp"],
         price: 2076,
         stock: 1,
@@ -156,9 +303,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 1,
+        id : v4(),
+        categoryId : categories[0].id,
         name: "Télescope Sky-Watcher Mak180 Black Diamond sur NEQ6",
-        productId: v4(),
         pictures : ["/assets/telescope/mak180-sw-1.webp", "/assets/telescope/mak180-sw-2.webp"],
         price: 2657,
         stock: 2,
@@ -170,9 +317,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 1,
+        id : v4(),
+        categoryId : categories[0].id,
         name: "Télescope Sky-Watcher 250mm f/5 Dual Speed sur AZEQ6",
-        productId: v4(),
         pictures : ["/assets/telescope/254-sw-azeq6-1.webp", "/assets/telescope/254-sw-azeq6-2.webp"],
         price: 2705,
         stock: 4,
@@ -184,9 +331,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 1,
+        id : v4(),
+        categoryId : categories[0].id,
         name: "Télescope eVscope eQuinox Unistellar",
-        productId: v4(),
         pictures : ["/assets/telescope/evscope-1.webp", "/assets/telescope/evscope-2.webp", "/assets/telescope/evscope-3.webp"],
         price: 2799,
         stock: 9,
@@ -198,9 +345,9 @@ const products = [
         promoValue : 15
     },
     {
-        category_id : 1,
+        id : v4(),
+        categoryId : categories[0].id,
         name: "Télescope Celestron Nexstar Evolution 8",
-        productId: v4(),
         pictures : ["/assets/telescope/C8-nextstar-1.webp", "/assets/telescope/C8-nextstar-2.webp", "/assets/telescope/C8-nextstar-3.webp"],
         price: 2745,
         stock: 5,
@@ -212,9 +359,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 1,
+        id : v4(),
+        categoryId : categories[0].id,
         name: "Télescope Celestron CGX C8 Fastar",
-        productId: v4(),
         pictures : ["/assets/telescope/c8-faststar-1.webp", "/assets/telescope/c8-faststar-2.webp"],
         price: 3880,
         stock: 2,
@@ -226,9 +373,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 1,
+        id : v4(),
+        categoryId : categories[0].id,
         name: "Télescope eVscope 2 Unistellar",
-        productId: v4(),
         pictures : ["/assets/telescope/eVscope2-1.webp", "/assets/telescope/eVscope2-2.webp"],
         price: 4599,
         stock: 7,
@@ -240,9 +387,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 1,
+        id : v4(),
+        categoryId : categories[0].id,
         name: "Télescope Celestron CGX-L C14 EdgeHD",
-        productId: v4(),
         pictures : ["/assets/telescope/c14-edge-1.webp", "/assets/telescope/c14-edge-2.webp"],
         price: 13020,
         stock: 1,
@@ -254,9 +401,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 1,
+        id : v4(),
+        categoryId : categories[0].id,
         name: "Télescope Dobson Sky-Watcher 200mm",
-        productId: v4(),
         pictures : ["/assets/telescope/dobson-200.webp"],
         price: 450,
         stock: 0,
@@ -268,9 +415,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 1,
+        id : v4(),
+        categoryId : categories[0].id,
         name: "Télescope Dobson Sky-Watcher 300mm",
-        productId: v4(),
         pictures : ["/assets/telescope/dob-300-sw.webp"],
         price: 1132,
         stock: 3,
@@ -282,9 +429,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 1,
+        id : v4(),
+        categoryId : categories[0].id,
         name: "Télescope Dobson Sky-Watcher 300mm FlexTube",
-        productId: v4(),
         pictures : ["/assets/telescope/dob-flextube-300-1.webp", "/assets/telescope/dob-flextube-300-2.webp", "/assets/telescope/dob-flextube-300-3.webp"],
         price: 2289,
         stock: 4,
@@ -296,9 +443,9 @@ const products = [
         promoValue : 5
     },
     {
-        category_id : 1,
+        id : v4(),
+        categoryId : categories[0].id,
         name: "Télescope Dobson Sky-Watcher StarGate 500mm",
-        productId: v4(),
         pictures : ["/assets/telescope/sw-stargate-500-1.webp", "/assets/telescope/sw-stargate-500-2.webp"],
         price: 7257,
         stock: 1,
@@ -310,9 +457,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 1,
+        id : v4(),
+        categoryId : categories[0].id,
         name: "Télescope Takahashi Epsilon 130D",
-        productId: v4(),
         pictures : ["/assets/telescope/epsilon-130d-1.webp", "/assets/telescope/epsilon-130d-2.webp"],
         price: 2653,
         stock: 3,
@@ -324,9 +471,9 @@ const products = [
         promoValue : 5
     },
     {
-        category_id : 1,
+        id : v4(),
+        categoryId : categories[0].id,
         name: "Télescope Takahashi Epsilon 180ED",
-        productId: v4(),
         pictures : ["/assets/telescope/epsilon-180ed-1.webp", "/assets/telescope/epsilon-180ed-2.webp"],
         price: 4950,
         stock: 2,
@@ -338,9 +485,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire Celestron X-Cel LX 25mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/x-cel-25.webp"],
         price: 125,
         stock: 0,
@@ -352,9 +499,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire Celestron X-Cel LX 18mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/x-cel-18.webp"],
         price: 125,
         stock: 7,
@@ -366,9 +513,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire Celestron X-Cel LX 7mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/x-cel-7.webp"],
         price: 125,
         stock: 4,
@@ -380,9 +527,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire Plössl TeleVue 25mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/Plössl-TeleVue-25.webp"],
         price: 144,
         stock: 8,
@@ -394,9 +541,9 @@ const products = [
         promoValue : 5
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire Plössl TeleVue 15mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/Plössl-TeleVue-15.webp"],
         price: 112,
         stock: 2,
@@ -408,9 +555,9 @@ const products = [
         promoValue : 5
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire Plössl TeleVue 8mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/Plössl-TeleVue-8.webp"],
         price: 112,
         stock: 1,
@@ -422,9 +569,9 @@ const products = [
         promoValue : 5    
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire Orion Edge-On 12,5mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/orion-edge-12.webp"],
         price: 99,
         stock: 0,
@@ -436,9 +583,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire Orion Edge-On 3mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/orion-edge-3.webp"],
         price: 99,
         stock: 15,
@@ -450,9 +597,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire Sky-Watcher WA Super Plössl 15mm 58°",
-        productId: v4(),
         pictures : ["/assets/oculaire/sw-super-Plössl-15.webp"],
         price: 74,
         stock: 5,
@@ -464,9 +611,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire Sky-Watcher WA Super Plössl 25mm 58°",
-        productId: v4(),
         pictures : ["/assets/oculaire/sw-super-Plössl-25.webp"],
         price: 74,
         stock: 7,
@@ -478,9 +625,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire Sky-Watcher WA Super Plössl 9mm 58°",
-        productId: v4(),
         pictures : ["/assets/oculaire/sw-super-Plössl-9.webp"],
         price: 72,
         stock: 0,
@@ -492,9 +639,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire TeleVue DeLite 18,2mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/televue-delite-18.webp"],
         price: 320,
         stock: 4,
@@ -506,9 +653,9 @@ const products = [
         promoValue : 15
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire TeleVue DeLite 7mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/televue-delite-7.webp"],
         price: 320,
         stock: 7,
@@ -520,9 +667,9 @@ const products = [
         promoValue : 15
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire TeleVue Ethos 21mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/ethos-21.webp"],
         price: 1034,
         stock: 2,
@@ -534,9 +681,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire TeleVue Ethos 8mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/ethos-8.webp"],
         price: 758,
         stock: 3,
@@ -548,9 +695,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire TeleVue Nagler 7mm Type 6",
-        productId: v4(),
         pictures : ["/assets/oculaire/nagler-7.webp"],
         price: 387,
         stock: 4,
@@ -562,9 +709,9 @@ const products = [
         promoValue : 5
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire TeleVue Nagler 13mm Type 6",
-        productId: v4(),
         pictures : ["/assets/oculaire/nagler-13.webp"],
         price: 387,
         stock: 1,
@@ -576,9 +723,9 @@ const products = [
         promoValue : 5
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire TeleVue Nagler 31mm Type 5",
-        productId: v4(),
         pictures : ["/assets/oculaire/nagler-31.webp"],
         price: 804,
         stock: 0,
@@ -590,9 +737,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire TeleVue Nagler 22mm Type 4",
-        productId: v4(),
         pictures : ["/assets/oculaire/nagler-22.webp"],
         price: 566,
         stock: 4,
@@ -604,9 +751,9 @@ const products = [
         promoValue : 5
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire TeleVue Delos 4,5mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/delos-4.webp"],
         price: 450,
         stock: 4,
@@ -618,9 +765,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire TeleVue Delos 14mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/delos-14.webp"],
         price: 450,
         stock: 4,
@@ -632,9 +779,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire Pentax XW-14mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/pentax-xw-14.webp"],
         price: 370,
         stock: 0,
@@ -646,9 +793,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire Pentax XW-7mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/pentax-xw-7.webp"],
         price: 370,
         stock: 5,
@@ -660,9 +807,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire 100° Explore Scientific 5,5mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/es-100-5.webp"],
         price: 342,
         stock: 1,
@@ -674,9 +821,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire 82° Explore Scientific 24mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/es-82-24.webp"],
         price: 299,
         stock: 5,
@@ -688,9 +835,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire 82° Explore Scientific 6.7mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/es-82-6.webp"],
         price: 172,
         stock: 5,
@@ -702,9 +849,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire 82° Explore Scientific 30mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/es-82-30.webp"],
         price: 355,
         stock: 2,
@@ -716,9 +863,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire 82° Explore Scientific 18mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/es-82-18.webp"],
         price: 201,
         stock: 5,
@@ -730,9 +877,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire 68° Explore Scientific 24mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/es-68-24.webp"],
         price: 186,
         stock: 0,
@@ -744,9 +891,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire 68° Explore Scientific 20mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/es-68-20.webp"],
         price: 152,
         stock: 4,
@@ -758,9 +905,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire Celestron Luminos 31mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/luminos-31.webp"],
         price: 357,
         stock: 4,
@@ -772,9 +919,9 @@ const products = [
         promoValue : 15
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire Celestron Luminos 7mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/luminos-7.webp"],
         price: 179,
         stock: 7,
@@ -786,9 +933,9 @@ const products = [
         promoValue : 10
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire Celestron Luminos 15mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/luminos-15.webp"],
         price: 179,
         stock: 3,
@@ -800,9 +947,9 @@ const products = [
         promoValue : 10
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire Orion Lanthanum 6mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/lanthanum-6.webp"],
         price: 299,
         stock: 4,
@@ -814,9 +961,9 @@ const products = [
         promoValue : 25
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire Orion Lanthanum 14mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/lanthanum-14.webp"],
         price: 299,
         stock: 0,
@@ -828,9 +975,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire Orion Lanthanum 20mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/lanthanum-20.webp"],
         price: 299,
         stock: 0,
@@ -842,9 +989,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire Baader Hyperion 24mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/baader-24.webp"],
         price: 154,
         stock: 0,
@@ -856,9 +1003,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire Baader Hyperion 17mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/baader-17.webp"],
         price: 154,
         stock: 7,
@@ -870,9 +1017,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 2,
+        id : v4(),
+        categoryId : categories[1].id,
         name: "Oculaire Baader Hyperion 8mm",
-        productId: v4(),
         pictures : ["/assets/oculaire/baader-8.webp"],
         price: 154,
         stock: 1,
@@ -884,9 +1031,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 3,
+        id : v4(),
+        categoryId : categories[2].id,
         name: "Monture Sky-Watcher Allview Go-To",
-        productId: v4(),
         pictures : ["/assets/monture/sw-allView-1.webp", "/assets/monture/sw-allView-2.webp", "/assets/monture/sw-allView-3.webp"],
         price: 532,
         stock: 0,
@@ -898,9 +1045,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 3,
+        id : v4(),
+        categoryId : categories[2].id,
         name: "Monture azimutale AZ4 Sky-Watcher",
-        productId: v4(),
         pictures : ["/assets/monture/az4.webp"],
         price: 200,
         stock: 7,
@@ -912,9 +1059,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 3,
+        id : v4(),
+        categoryId : categories[2].id,
         name: "Monture azimutale Sky-Watcher Star Discovery WiFi",
-        productId: v4(),
         pictures : ["/assets/monture/starDiscovery-1.webp", "/assets/monture/starDiscovery-2.webp", "/assets/monture/starDiscovery-3.webp"],
         price: 429,
         stock: 2,
@@ -926,9 +1073,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 3,
+        id : v4(),
+        categoryId : categories[2].id,
         name: "Monture azimutale AZ3 Sky-Watcher",
-        productId: v4(),
         pictures : ["/assets/monture/az3.webp"],
         price: 129,
         stock: 9,
@@ -940,9 +1087,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 3,
+        id : v4(),
+        categoryId : categories[2].id,
         name: "Monture équatoriale 10Micron GM1000 HPS",
-        productId: v4(),
         pictures : ["/assets/monture/gm1000-1.webp", "/assets/monture/gm1000-2.webp", "/assets/monture/gm1000-3.webp"],
         price: 10840,
         stock: 0,
@@ -954,9 +1101,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 3,
+        id : v4(),
+        categoryId : categories[2].id,
         name: "Monture équatoriale 10Micron GM4000 HPS",
-        productId: v4(),
         pictures : ["/assets/monture/gm4000.webp"],
         price: 27000,
         stock: 0,
@@ -968,9 +1115,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 3,
+        id : v4(),
+        categoryId : categories[2].id,
         name: "Monture équatoriale Sky-Watcher EQ8-RH",
-        productId: v4(),
         pictures : ["/assets/monture/eq8-rh-1.webp", "/assets/monture/eq8-rh-2.webp", "/assets/monture/eq8-rh-3.webp"],
         price: 7999,
         stock: 4,
@@ -982,9 +1129,9 @@ const products = [
         promoValue : 5
     },
     {
-        category_id : 3,
+        id : v4(),
+        categoryId : categories[2].id,
         name: "Monture équatoriale Celestron CGX-L",
-        productId: v4(),
         pictures : ["/assets/monture/cgx-l-1.webp", "/assets/monture/cgx-l-2.webp", "/assets/monture/cgx-l-3.webp"],
         price: 4299,
         stock: 1,
@@ -996,9 +1143,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 3,
+        id : v4(),
+        categoryId : categories[2].id,
         name: "Monture équatoriale Celestron CGX",
-        productId: v4(),
         pictures : ["/assets/monture/cgx-1.webp", "/assets/monture/cgx-2.webp", "/assets/monture/cgx-3.webp"],
         price: 3199,
         stock: 2,
@@ -1010,9 +1157,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 3,
+        id : v4(),
+        categoryId : categories[2].id,
         name: "Monture équatoriale Celestron CGEM II",
-        productId: v4(),
         pictures : ["/assets/monture/cgem-1.webp", "/assets/monture/cgem-2.webp", "/assets/monture/cgem-3.webp"],
         price: 2120,
         stock: 2,
@@ -1024,9 +1171,9 @@ const products = [
         promoValue : 5
     },
     {
-        category_id : 3,
+        id : v4(),
+        categoryId : categories[2].id,
         name: "Monture équatoriale Sky-Watcher AZEQ6 Pro Go-To",
-        productId: v4(),
         pictures : ["/assets/monture/azeq6-pro.webp"],
         price: 2179,
         stock: 1,
@@ -1038,9 +1185,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 3,
+        id : v4(),
+        categoryId : categories[2].id,
         name: "Monture équatoriale Sky-Watcher NEQ6 Pro Go-To",
-        productId: v4(),
         pictures : ["/assets/monture/neq6-pro.webp"],
         price: 1555,
         stock: 2,
@@ -1052,9 +1199,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 3,
+        id : v4(),
+        categoryId : categories[2].id,
         name: "Monture équatoriale Celestron Advanced VX",
-        productId: v4(),
         pictures : ["/assets/monture/vx-1.webp", "/assets/monture/vx-2.webp", "/assets/monture/vx-3.webp"],
         price: 1299,
         stock: 4,
@@ -1066,9 +1213,9 @@ const products = [
         promoValue : 10
     },
     {
-        category_id : 3,
+        id : v4(),
+        categoryId : categories[2].id,
         name: "Monture équatoriale Orion SkyView Pro Goto",
-        productId: v4(),
         pictures : ["/assets/monture/skyView.webp"],
         price: 830,
         stock: 0,
@@ -1080,9 +1227,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 3,
+        id : v4(),
+        categoryId : categories[2].id,
         name: "Monture équatoriale Sky-Watcher HEQ5 Pro Go-To",
-        productId: v4(),
         pictures : ["/assets/monture/heq5-1.webp", "/assets/monture/heq5-2.webp", "/assets/monture/heq5-3.webp"],
         price: 1200,
         stock: 0,
@@ -1094,9 +1241,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 3,
+        id : v4(),
+        categoryId : categories[2].id,
         name: "Monture équatoriale Sky-Watcher NEQ3-2 Pro Go-To",
-        productId: v4(),
         pictures : ["/assets/monture/neq3-2-pro-1.webp", "/assets/monture/neq3-2-pro-2.webp", "/assets/monture/neq3-2-pro-3.webp"],
         price: 730,
         stock: 8,
@@ -1108,9 +1255,9 @@ const products = [
         promoValue : 15
     },
     {
-        category_id : 3,
+        id : v4(),
+        categoryId : categories[2].id,
         name: "Monture équatoriale Sky-Watcher NEQ5",
-        productId: v4(),
         pictures : ["/assets/monture/neq5-1.webp", "/assets/monture/neq5-2.webp", "/assets/monture/neq5-3.webp"],
         price: 405,
         stock: 7,
@@ -1122,9 +1269,9 @@ const products = [
         promoValue : 0
     },
     {
-        category_id : 3,
+        id : v4(),
+        categoryId : categories[2].id,
         name: "Monture équatoriale Sky-Watcher NEQ3-2",
-        productId: v4(),
         pictures : ["/assets/monture/neq3-2-1.webp", "/assets/monture/neq3-2-2.webp", "/assets/monture/neq3-2-3.webp"],
         price: 325,
         stock: 4,
@@ -1139,13 +1286,13 @@ const products = [
 
 const productsAttributes = [
     {
-        product_id: 1,
-        typeTelescope: 1,
-        brand: 1,
-        typeMount: null,
+        productId: products[0].id,
+        telescopeTypeId: telescopeType[0].id,
+        brandId: brands[0].id,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
-        model: null,
+        oculaireModelId: null,
         coulant: null,
         fov: null,
         eyeRelief: null,
@@ -1155,13 +1302,13 @@ const productsAttributes = [
         mount: 'azimutale AZ2',
     },
     {
-        product_id: 2,
-        typeTelescope: 1,
-        brand: 1,
-        typeMount: null,
+        productId: products[1].id,
+        telescopeTypeId: telescopeType[0].id,
+        brandId: brands[0].id,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
-        model: null,
+        oculaireModelId: null,
         coulant: null,
         fov: null,
         eyeRelief: null,
@@ -1171,13 +1318,13 @@ const productsAttributes = [
         mount: 'azimutale AZ3',
     },
     {
-        product_id: 3,
-        typeTelescope: 1,
-        brand: 1,
-        typeMount: null,
+        productId: products[2].id,
+        telescopeTypeId: telescopeType[0].id,
+        brandId: brands[0].id,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
-        model: null,
+        oculaireModelId: null,
         coulant: null,
         fov: null,
         eyeRelief: null,
@@ -1187,13 +1334,13 @@ const productsAttributes = [
         mount: 'azimutale AZ3',
     },
     {
-        product_id: 4,
-        typeTelescope: 2,
-        brand: 1,
-        typeMount: null,
+        productId: products[3].id,
+        telescopeTypeId: telescopeType[1].id,
+        brandId: brands[0].id,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
-        model: null,
+        oculaireModelId: null,
         coulant: null,
         fov: null,
         eyeRelief: null,
@@ -1203,13 +1350,13 @@ const productsAttributes = [
         mount: 'équatoriale NEQ5',
     },
     {
-        product_id: 5,
-        typeTelescope: 2,
-        brand: 2,
-        typeMount: null,
+        productId: products[4].id,
+        telescopeTypeId: telescopeType[1].id,
+        brandId: brands[1].id,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
-        model: null,
+        oculaireModelId: null,
         coulant: null,
         fov: null,
         eyeRelief: null,
@@ -1219,13 +1366,13 @@ const productsAttributes = [
         mount: null,
     },
     {
-        product_id: 6,
-        typeTelescope: 2,
-        brand: 2,
-        typeMount: null,
+        productId: products[5].id,
+        telescopeTypeId: telescopeType[1].id,
+        brandId: brands[1].id,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
-        model: null,
+        oculaireModelId: null,
         coulant: null,
         fov: null,
         eyeRelief: null,
@@ -1235,13 +1382,13 @@ const productsAttributes = [
         mount: null,
     },
     {
-        product_id: 7,
-        typeTelescope: 3,
-        brand: 1,
-        typeMount: null,
+        productId: products[6].id,
+        telescopeTypeId: telescopeType[2].id,
+        brandId: brands[0].id,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
-        model: null,
+        oculaireModelId: null,
         coulant: null,
         fov: null,
         eyeRelief: null,
@@ -1251,13 +1398,13 @@ const productsAttributes = [
         mount: 'équatoriale EQ2',
     },
     {
-        product_id: 8,
-        typeTelescope: 4,
-        brand: 1,
-        typeMount: null,
+        productId: products[7].id,
+        telescopeTypeId: telescopeType[3].id,
+        brandId: brands[0].id,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
-        model: null,
+        oculaireModelId: null,
         coulant: null,
         fov: null,
         eyeRelief: null,
@@ -1267,13 +1414,13 @@ const productsAttributes = [
         mount: 'équatoriale EQ3-2',
     },
     {
-        product_id: 9,
-        typeTelescope: 3,
-        brand: 1,
-        typeMount: null,
+        productId: products[8].id,
+        telescopeTypeId: telescopeType[2].id,
+        brandId: brands[0].id,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
-        model: null,
+        oculaireModelId: null,
         coulant: null,
         fov: null,
         eyeRelief: null,
@@ -1283,13 +1430,13 @@ const productsAttributes = [
         mount: 'équatoriale NEQ5',
     },
     {
-        product_id: 10,
-        typeTelescope: 5,
-        brand: 3,
-        typeMount: null,
+        productId: products[9].id,
+        telescopeTypeId: telescopeType[4].id,
+        brandId: brands[2].id,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
-        model: null,
+        oculaireModelId: null,
         coulant: null,
         fov: null,
         eyeRelief: null,
@@ -1299,13 +1446,13 @@ const productsAttributes = [
         mount: 'altazimutale monobras',
     },
     {
-        product_id: 11,
-        typeTelescope: 4,
-        brand: 1,
-        typeMount: null,
+        productId: products[10].id,
+        telescopeTypeId: telescopeType[3].id,
+        brandId: brands[0].id,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
-        model: null,
+        oculaireModelId: null,
         coulant: null,
         fov: null,
         eyeRelief: null,
@@ -1315,13 +1462,13 @@ const productsAttributes = [
         mount: 'équatoriale NEQ6',
     },
     {
-        product_id: 12,
-        typeTelescope: 3,
-        brand: 1,
-        typeMount: null,
+        productId: products[11].id,
+        telescopeTypeId: telescopeType[2].id,
+        brandId: brands[0].id,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
-        model: null,
+        oculaireModelId: null,
         coulant: null,
         fov: null,
         eyeRelief: null,
@@ -1331,13 +1478,13 @@ const productsAttributes = [
         mount: 'équatoriale AZ-EQ6',
     },
     {
-        product_id: 13,
-        typeTelescope: 3,
-        brand: 4,
-        typeMount: null,
+        productId: products[12].id,
+        telescopeTypeId: telescopeType[2].id,
+        brandId: brands[3].id,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
-        model: null,
+        oculaireModelId: null,
         coulant: null,
         fov: null,
         eyeRelief: null,
@@ -1347,13 +1494,13 @@ const productsAttributes = [
         mount: 'altazimutale monobras',
     },
     {
-        product_id: 14,
-        typeTelescope: 5,
-        brand: 3,
-        typeMount: null,
+        productId: products[13].id,
+        telescopeTypeId: telescopeType[4].id,
+        brandId: brands[2].id,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
-        model: null,
+        oculaireModelId: null,
         coulant: null,
         fov: null,
         eyeRelief: null,
@@ -1363,13 +1510,13 @@ const productsAttributes = [
         mount: 'altazimutale monobras',
     },
     {
-        product_id: 15,
-        typeTelescope: 5,
-        brand: 3,
-        typeMount: null,
+        productId: products[14].id,
+        telescopeTypeId: telescopeType[4].id,
+        brandId: brands[2].id,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
-        model: null,
+        oculaireModelId: null,
         coulant: null,
         fov: null,
         eyeRelief: null,
@@ -1379,13 +1526,13 @@ const productsAttributes = [
         mount: 'équatoriale CGX',
     },
     {
-        product_id: 16,
-        typeTelescope: 3,
-        brand: 4,
-        typeMount: null,
+        productId: products[15].id,
+        telescopeTypeId: telescopeType[2].id,
+        brandId: brands[3].id,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
-        model: null,
+        oculaireModelId: null,
         coulant: null,
         fov: null,
         eyeRelief: null,
@@ -1395,13 +1542,13 @@ const productsAttributes = [
         mount: 'altazimutale monobras',
     },
     {
-        product_id: 17,
-        typeTelescope: 6,
-        brand: 3,
-        typeMount: null,
+        productId: products[16].id,
+        telescopeTypeId: telescopeType[5].id,
+        brandId: brands[2].id,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
-        model: null,
+        oculaireModelId: null,
         coulant: null,
         fov: null,
         eyeRelief: null,
@@ -1411,13 +1558,13 @@ const productsAttributes = [
         mount: 'équatoriale CGX-L',
     },
     {
-        product_id: 18,
-        typeTelescope: 3,
-        brand: 1,
-        typeMount: null,
+        productId: products[17].id,
+        telescopeTypeId: telescopeType[2].id,
+        brandId: brands[0].id,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
-        model: null,
+        oculaireModelId: null,
         coulant: null,
         fov: null,
         eyeRelief: null,
@@ -1427,13 +1574,13 @@ const productsAttributes = [
         mount: 'azimutale Dobson',
     },
     {
-        product_id: 19,
-        typeTelescope: 3,
-        brand: 1,
-        typeMount: null,
+        productId: products[18].id,
+        telescopeTypeId: telescopeType[2].id,
+        brandId: brands[0].id,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
-        model: null,
+        oculaireModelId: null,
         coulant: null,
         fov: null,
         eyeRelief: null,
@@ -1443,13 +1590,13 @@ const productsAttributes = [
         mount: 'altazimutale Dobson',
     },
     {
-        product_id: 20,
-        typeTelescope: 3,
-        brand: 1,
-        typeMount: null,
+        productId: products[19].id,
+        telescopeTypeId: telescopeType[2].id,
+        brandId: brands[0].id,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
-        model: null,
+        oculaireModelId: null,
         coulant: null,
         fov: null,
         eyeRelief: null,
@@ -1459,13 +1606,13 @@ const productsAttributes = [
         mount: 'altazimutale Dobson',
     },
     {
-        product_id: 21,
-        typeTelescope: 3,
-        brand: 1,
-        typeMount: null,
+        productId: products[20].id,
+        telescopeTypeId: telescopeType[2].id,
+        brandId: brands[0].id,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
-        model: null,
+        oculaireModelId: null,
         coulant: null,
         fov: null,
         eyeRelief: null,
@@ -1475,13 +1622,13 @@ const productsAttributes = [
         mount: 'altazimutale Dobson',
     },
     {
-        product_id: 22,
-        typeTelescope: 3,
-        brand: 2,
-        typeMount: null,
+        productId: products[21].id,
+        telescopeTypeId: telescopeType[2].id,
+        brandId: brands[1].id,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
-        model: null,
+        oculaireModelId: null,
         coulant: null,
         fov: null,
         eyeRelief: null,
@@ -1491,13 +1638,13 @@ const productsAttributes = [
         mount: null,
     },
     {
-        product_id: 23,
-        typeTelescope: 3,
-        brand: 2,
-        typeMount: null,
+        productId: products[22].id,
+        telescopeTypeId: telescopeType[2].id,
+        brandId: brands[1].id,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
-        model: null,
+        oculaireModelId: null,
         coulant: null,
         fov: null,
         eyeRelief: null,
@@ -1507,11 +1654,11 @@ const productsAttributes = [
         mount: null,
     },
     {
-        product_id: 24,
-        brand: 3,
-        model: 1,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[23].id,
+        brandId: brands[2].id,
+        oculaireModelId: oculaireModel[0].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1523,11 +1670,11 @@ const productsAttributes = [
         eyeRelief: 16,
     },
     {
-        product_id: 25,
-        brand: 3,
-        model: 1,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[24].id,
+        brandId: brands[2].id,
+        oculaireModelId: oculaireModel[0].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1539,11 +1686,11 @@ const productsAttributes = [
         eyeRelief: 16,
     },
     {
-        product_id: 26,
-        brand: 3,
-        model: 1,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[25].id,
+        brandId: brands[2].id,
+        oculaireModelId: oculaireModel[0].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1555,11 +1702,11 @@ const productsAttributes = [
         eyeRelief: 16,
     },
     {
-        product_id: 27,
-        brand: 5,
-        model: 2,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[26].id,
+        brandId: brands[4].id,
+        oculaireModelId: oculaireModel[1].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1571,11 +1718,11 @@ const productsAttributes = [
         eyeRelief: 17,
     },
     {
-        product_id: 28,
-        brand: 5,
-        model: 2,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[27].id,
+        brandId: brands[4].id,
+        oculaireModelId: oculaireModel[1].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1587,11 +1734,11 @@ const productsAttributes = [
         eyeRelief: 10,
     },
     {
-        product_id: 29,
-        brand: 5,
-        model: 2,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[28].id,
+        brandId: brands[4].id,
+        oculaireModelId: oculaireModel[1].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1603,11 +1750,11 @@ const productsAttributes = [
         eyeRelief: 6,
     },
     {
-        product_id: 30,
-        brand: 6,
-        model: 3,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[29].id,
+        brandId: brands[5].id,
+        oculaireModelId: oculaireModel[2].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1619,11 +1766,11 @@ const productsAttributes = [
         eyeRelief: 20,
     },
     {
-        product_id: 31,
-        brand: 6,
-        model: 3,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[30].id,
+        brandId: brands[5].id,
+        oculaireModelId: oculaireModel[2].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1635,11 +1782,11 @@ const productsAttributes = [
         eyeRelief: 20,
     },
     {
-        product_id: 32,
-        brand: 1,
-        model: 4,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[31].id,
+        brandId: brands[0].id,
+        oculaireModelId: oculaireModel[3].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1651,11 +1798,11 @@ const productsAttributes = [
         eyeRelief: 16,
     },
     {
-        product_id: 33,
-        brand: 1,
-        model: 4,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[32].id,
+        brandId: brands[0].id,
+        oculaireModelId: oculaireModel[3].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1667,11 +1814,11 @@ const productsAttributes = [
         eyeRelief: 16,
     },
     {
-        product_id: 34,
-        brand: 1,
-        model: 4,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[33].id,
+        brandId: brands[0].id,
+        oculaireModelId: oculaireModel[3].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1683,11 +1830,11 @@ const productsAttributes = [
         eyeRelief: 16,
     },
     {
-        product_id: 35,
-        brand: 5,
-        model: 5,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[34].id,
+        brandId: brands[4].id,
+        oculaireModelId: oculaireModel[4].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1699,11 +1846,11 @@ const productsAttributes = [
         eyeRelief: 20,
     },
     {
-        product_id: 36,
-        brand: 5,
-        model: 5,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[35].id,
+        brandId: brands[4].id,
+        oculaireModelId: oculaireModel[4].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1715,11 +1862,11 @@ const productsAttributes = [
         eyeRelief: 20,
     },
     {
-        product_id: 37,
-        brand: 5,
-        model: 6,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[36].id,
+        brandId: brands[4].id,
+        oculaireModelId: oculaireModel[5].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1731,11 +1878,11 @@ const productsAttributes = [
         eyeRelief: 15,
     },
     {
-        product_id: 38,
-        brand: 5,
-        model: 6,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[37].id,
+        brandId: brands[4].id,
+        oculaireModelId: oculaireModel[5].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1747,11 +1894,11 @@ const productsAttributes = [
         eyeRelief: 15,
     },
     {
-        product_id: 39,
-        brand: 5,
-        model: 7,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[38].id,
+        brandId: brands[4].id,
+        oculaireModelId: oculaireModel[6].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1763,11 +1910,11 @@ const productsAttributes = [
         eyeRelief: 12,
     },
     {
-        product_id: 40,
-        brand: 5,
-        model: 7,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[39].id,
+        brandId: brands[4].id,
+        oculaireModelId: oculaireModel[6].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1779,11 +1926,11 @@ const productsAttributes = [
         eyeRelief: 12,
     },
     {
-        product_id: 41,
-        brand: 5,
-        model: 7,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[40].id,
+        brandId: brands[4].id,
+        oculaireModelId: oculaireModel[6].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1795,11 +1942,11 @@ const productsAttributes = [
         eyeRelief: 19,
     },
     {
-        product_id: 42,
-        brand: 5,
-        model: 7,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[41].id,
+        brandId: brands[4].id,
+        oculaireModelId: oculaireModel[6].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1811,11 +1958,11 @@ const productsAttributes = [
         eyeRelief: 19,
     },
     {
-        product_id: 43,
-        brand: 5,
-        model: 8,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[42].id,
+        brandId: brands[4].id,
+        oculaireModelId: oculaireModel[7].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1827,11 +1974,11 @@ const productsAttributes = [
         eyeRelief: 20,
     },
     {
-        product_id: 44,
-        brand: 5,
-        model: 8,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[43].id,
+        brandId: brands[4].id,
+        oculaireModelId: oculaireModel[7].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1843,11 +1990,11 @@ const productsAttributes = [
         eyeRelief: 20,
     },
     {
-        product_id: 45,
-        brand: 7,
-        model: 9,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[44].id,
+        brandId: brands[6].id,
+        oculaireModelId: oculaireModel[8].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1859,11 +2006,11 @@ const productsAttributes = [
         eyeRelief: 20,
     },
     {
-        product_id: 46,
-        brand: 7,
-        model: 9,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[45].id,
+        brandId: brands[6].id,
+        oculaireModelId: oculaireModel[8].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1875,11 +2022,11 @@ const productsAttributes = [
         eyeRelief: 20,
     },
     {
-        product_id: 47,
-        brand: 8,
-        model: 10,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[46].id,
+        brandId: brands[7].id,
+        oculaireModelId: oculaireModel[9].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1891,11 +2038,11 @@ const productsAttributes = [
         eyeRelief: 11.6,
     },
     {
-        product_id: 48,
-        brand: 8,
-        model: 11,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[47].id,
+        brandId: brands[7].id,
+        oculaireModelId: oculaireModel[10].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1907,11 +2054,11 @@ const productsAttributes = [
         eyeRelief: 17.5,
     },
     {
-        product_id: 49,
-        brand: 8,
-        model: 11,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[48].id,
+        brandId: brands[7].id,
+        oculaireModelId: oculaireModel[10].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1923,11 +2070,11 @@ const productsAttributes = [
         eyeRelief: 15.7,
     },
     {
-        product_id: 50,
-        brand: 8,
-        model: 11,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[49].id,
+        brandId: brands[7].id,
+        oculaireModelId: oculaireModel[10].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1939,11 +2086,11 @@ const productsAttributes = [
         eyeRelief: 22,
     },
     {
-        product_id: 51,
-        brand: 8,
-        model: 11,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[50].id,
+        brandId: brands[7].id,
+        oculaireModelId: oculaireModel[10].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1955,11 +2102,11 @@ const productsAttributes = [
         eyeRelief: 13,
     },
     {
-        product_id: 52,
-        brand: 8,
-        model: 12,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[51].id,
+        brandId: brands[7].id,
+        oculaireModelId: oculaireModel[11].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1971,11 +2118,11 @@ const productsAttributes = [
         eyeRelief: 18.4,
     },
     {
-        product_id: 53,
-        brand: 8,
-        model: 12,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[52].id,
+        brandId: brands[7].id,
+        oculaireModelId: oculaireModel[11].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -1987,11 +2134,11 @@ const productsAttributes = [
         eyeRelief: 15.3,
     },
     {
-        product_id: 54,
-        brand: 3,
-        model: 13,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[53].id,
+        brandId: brands[2].id,
+        oculaireModelId: oculaireModel[12].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -2003,11 +2150,11 @@ const productsAttributes = [
         eyeRelief: 27,
     },
     {
-        product_id: 55,
-        brand: 3,
-        model: 13,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[54].id,
+        brandId: brands[2].id,
+        oculaireModelId: oculaireModel[12].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -2019,11 +2166,11 @@ const productsAttributes = [
         eyeRelief: 12,
     },
     {
-        product_id: 56,
-        brand: 3,
-        model: 13,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[55].id,
+        brandId: brands[2].id,
+        oculaireModelId: oculaireModel[12].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -2035,11 +2182,11 @@ const productsAttributes = [
         eyeRelief: 17,
     },
     {
-        product_id: 57,
-        brand: 6,
-        model: 14,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[56].id,
+        brandId: brands[5].id,
+        oculaireModelId: oculaireModel[13].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -2051,11 +2198,11 @@ const productsAttributes = [
         eyeRelief: 20,
     },
     {
-        product_id: 58,
-        brand: 6,
-        model: 14,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[57].id,
+        brandId: brands[5].id,
+        oculaireModelId: oculaireModel[13].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -2067,11 +2214,11 @@ const productsAttributes = [
         eyeRelief: 20,
     },
     {
-        product_id: 59,
-        brand: 6,
-        model: 14,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[58].id,
+        brandId: brands[5].id,
+        oculaireModelId: oculaireModel[13].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -2083,11 +2230,11 @@ const productsAttributes = [
         eyeRelief: 20,
     },
     {
-        product_id: 60,
-        brand: 9,
-        model: 15,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[59].id,
+        brandId: brands[8].id,
+        oculaireModelId: oculaireModel[14].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -2099,11 +2246,11 @@ const productsAttributes = [
         eyeRelief: 20,
     },
     {
-        product_id: 61,
-        brand: 9,
-        model: 15,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[60].id,
+        brandId: brands[8].id,
+        oculaireModelId: oculaireModel[14].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -2115,11 +2262,11 @@ const productsAttributes = [
         eyeRelief: 20,
     },
     {
-        product_id: 62,
-        brand: 9,
-        model: 15,
-        typeTelescope: null,
-        typeMount: null,
+        productId: products[61].id,
+        brandId: brands[8].id,
+        oculaireModelId: oculaireModel[14].id,
+        telescopeTypeId: null,
+        mountTypeId: null,
         capacity: null,
         goTo: null,
         diameter: null,
@@ -2131,11 +2278,11 @@ const productsAttributes = [
         eyeRelief: 20,
     },
     {
-        product_id: 63,
-        brand: 1,
-        typeMount: 1,
-        model: null,
-        typeTelescope: null,
+        productId: products[62].id,
+        brandId: brands[0].id,
+        mountTypeId: mountType[0].id,
+        oculaireModelId: null,
+        telescopeTypeId: null,
         diameter: null,
         fd: null,
         mount: null,
@@ -2147,11 +2294,11 @@ const productsAttributes = [
         goTo: true,
     },
     {
-        product_id: 64,
-        brand: 1,
-        typeMount: 1,
-        model: null,
-        typeTelescope: null,
+        productId: products[63].id,
+        brandId: brands[0].id,
+        mountTypeId: mountType[0].id,
+        oculaireModelId: null,
+        telescopeTypeId: null,
         diameter: null,
         fd: null,
         mount: null,
@@ -2163,11 +2310,11 @@ const productsAttributes = [
         goTo: false,
     },
     {
-        product_id: 65,
-        brand: 1,
-        typeMount: 1,
-        model: null,
-        typeTelescope: null,
+        productId: products[64].id,
+        brandId: brands[0].id,
+        mountTypeId: mountType[0].id,
+        oculaireModelId: null,
+        telescopeTypeId: null,
         diameter: null,
         fd: null,
         mount: null,
@@ -2179,11 +2326,11 @@ const productsAttributes = [
         goTo: true,
     },
     {
-        product_id: 66,
-        brand: 1,
-        typeMount: 1,
-        model: null,
-        typeTelescope: null,
+        productId: products[65].id,
+        brandId: brands[0].id,
+        mountTypeId: mountType[0].id,
+        oculaireModelId: null,
+        telescopeTypeId: null,
         diameter: null,
         fd: null,
         mount: null,
@@ -2195,11 +2342,11 @@ const productsAttributes = [
         goTo: false,
     },
     {
-        product_id: 67,
-        brand: 10,
-        typeMount: 2,
-        model: null,
-        typeTelescope: null,
+        productId: products[66].id,
+        brandId: brands[9].id,
+        mountTypeId: mountType[1].id,
+        oculaireModelId: null,
+        telescopeTypeId: null,
         diameter: null,
         fd: null,
         mount: null,
@@ -2211,11 +2358,11 @@ const productsAttributes = [
         goTo: true,
     },
     {
-        product_id: 68,
-        brand: 10,
-        typeMount: 2,
-        model: null,
-        typeTelescope: null,
+        productId: products[67].id,
+        brandId: brands[9].id,
+        mountTypeId: mountType[1].id,
+        oculaireModelId: null,
+        telescopeTypeId: null,
         diameter: null,
         fd: null,
         mount: null,
@@ -2227,11 +2374,11 @@ const productsAttributes = [
         goTo: true,
     },
     {
-        product_id: 69,
-        brand: 1,
-        typeMount: 2,
-        model: null,
-        typeTelescope: null,
+        productId: products[68].id,
+        brandId: brands[0].id,
+        mountTypeId: mountType[1].id,
+        oculaireModelId: null,
+        telescopeTypeId: null,
         diameter: null,
         fd: null,
         mount: null,
@@ -2243,11 +2390,11 @@ const productsAttributes = [
         goTo: true,
     },
     {
-        product_id: 70,
-        brand: 3,
-        typeMount: 2,
-        model: null,
-        typeTelescope: null,
+        productId: products[69].id,
+        brandId: brands[2].id,
+        mountTypeId: mountType[1].id,
+        oculaireModelId: null,
+        telescopeTypeId: null,
         diameter: null,
         fd: null,
         mount: null,
@@ -2259,11 +2406,11 @@ const productsAttributes = [
         goTo: true,
     },
     {
-        product_id: 71,
-        brand: 3,
-        typeMount: 2,
-        model: null,
-        typeTelescope: null,
+        productId: products[70].id,
+        brandId: brands[2].id,
+        mountTypeId: mountType[1].id,
+        oculaireModelId: null,
+        telescopeTypeId: null,
         diameter: null,
         fd: null,
         mount: null,
@@ -2275,11 +2422,11 @@ const productsAttributes = [
         goTo: true,
     },
     {
-        product_id: 72,
-        brand: 3,
-        typeMount: 2,
-        model: null,
-        typeTelescope: null,
+        productId: products[71].id,
+        brandId: brands[2].id,
+        mountTypeId: mountType[1].id,
+        oculaireModelId: null,
+        telescopeTypeId: null,
         diameter: null,
         fd: null,
         mount: null,
@@ -2291,11 +2438,11 @@ const productsAttributes = [
         goTo: true,
     },
     {
-        product_id: 73,
-        brand: 1,
-        typeMount: 2,
-        model: null,
-        typeTelescope: null,
+        productId: products[72].id,
+        brandId: brands[0].id,
+        mountTypeId: mountType[1].id,
+        oculaireModelId: null,
+        telescopeTypeId: null,
         diameter: null,
         fd: null,
         mount: null,
@@ -2307,11 +2454,11 @@ const productsAttributes = [
         goTo: true,
     },
     {
-        product_id: 74,
-        brand: 1,
-        typeMount: 2,
-        model: null,
-        typeTelescope: null,
+        productId: products[73].id,
+        brandId: brands[0].id,
+        mountTypeId: mountType[1].id,
+        oculaireModelId: null,
+        telescopeTypeId: null,
         diameter: null,
         fd: null,
         mount: null,
@@ -2323,11 +2470,11 @@ const productsAttributes = [
         goTo: true,
     },
     {
-        product_id: 75,
-        brand: 3,
-        typeMount: 2,
-        model: null,
-        typeTelescope: null,
+        productId: products[74].id,
+        brandId: brands[2].id,
+        mountTypeId: mountType[1].id,
+        oculaireModelId: null,
+        telescopeTypeId: null,
         diameter: null,
         fd: null,
         mount: null,
@@ -2339,11 +2486,11 @@ const productsAttributes = [
         goTo: true,
     },
     {
-        product_id: 76,
-        brand: 6,
-        typeMount: 2,
-        model: null,
-        typeTelescope: null,
+        productId: products[75].id,
+        brandId: brands[5].id,
+        mountTypeId: mountType[1].id,
+        oculaireModelId: null,
+        telescopeTypeId: null,
         diameter: null,
         fd: null,
         mount: null,
@@ -2355,11 +2502,11 @@ const productsAttributes = [
         goTo: true,
     },
     {
-        product_id: 77,
-        brand: 1,
-        typeMount: 2,
-        model: null,
-        typeTelescope: null,
+        productId: products[76].id,
+        brandId: brands[0].id,
+        mountTypeId: mountType[1].id,
+        oculaireModelId: null,
+        telescopeTypeId: null,
         diameter: null,
         fd: null,
         mount: null,
@@ -2371,11 +2518,11 @@ const productsAttributes = [
         goTo: true,
     },
     {
-        product_id: 78,
-        brand: 1,
-        typeMount: 2,
-        model: null,
-        typeTelescope: null,
+        productId: products[77].id,
+        brandId: brands[0].id,
+        mountTypeId: mountType[1].id,
+        oculaireModelId: null,
+        telescopeTypeId: null,
         diameter: null,
         fd: null,
         mount: null,
@@ -2387,11 +2534,11 @@ const productsAttributes = [
         goTo: true,
     },
     {
-        product_id: 79,
-        brand: 1,
-        typeMount: 2,
-        model: null,
-        typeTelescope: null,
+        productId: products[78].id,
+        brandId: brands[0].id,
+        mountTypeId: mountType[1].id,
+        oculaireModelId: null,
+        telescopeTypeId: null,
         diameter: null,
         fd: null,
         mount: null,
@@ -2403,11 +2550,11 @@ const productsAttributes = [
         goTo: false,
     },
     {
-        product_id: 80,
-        brand: 1,
-        typeMount: 2,
-        model: null,
-        typeTelescope: null,
+        productId: products[79].id,
+        brandId: brands[0].id,
+        mountTypeId: mountType[1].id,
+        oculaireModelId: null,
+        telescopeTypeId: null,
         diameter: null,
         fd: null,
         mount: null,
@@ -2420,116 +2567,7 @@ const productsAttributes = [
     },
 ]
 
-const brands = [
-    {
-        name: "Sky-Watcher"
-    },
-    {
-        name: "Takahashi"
-    },
-    {
-        name: "Celestron"
-    },
-    {
-        name: "Unistellar"
-    },
-    {
-        name: "Televue"
-    },
-    {
-        name: "Orion"
-    },
-    {
-        name: "Pentax"
-    },
-    {
-        name: "Explore Scientific"
-    },
-    {
-        name: "Baader"
-    },
-    {
-        name: "10Micron"
-    },
-]
 
-const oculaireModel = [
-    {
-        name: "X-cel"
-    },
-    {
-        name: "Plössl"
-    },
-    {
-        name: "edge-On"
-    },
-    {
-        name: "Super Plössl"
-    },
-    {
-        name: "DeLite"
-    },
-    {
-        name: "Ethos"
-    },
-    {
-        name: "Nagler"
-    },
-    {
-        name: "Delos"
-    },
-    {
-        name: "XW"
-    },
-    {
-        name: "100°"
-    },
-    {
-        name: "82°"
-    },
-    {
-        name: "68°"
-    },
-    {
-        name: "Luminos"
-    },
-    {
-        name: "Lanthanum"
-    },
-    {
-        name: "Hyperion"
-    },
-]
-
-const telescopeType = [
-    {
-        name : 'lunette achromatique'
-    },
-    {
-        name : 'lunette apochromatique'
-    },
-    {
-        name : 'telescope Newton'
-    },
-    {
-        name : 'telescope Maksutov'
-    },
-    {
-        name : 'telescope Schmidt-Cassegrain'
-    },
-    {
-        name : 'telescope  edge HD'
-    },
-]
-
-const mountType = [
-    {
-        name: "azimutale"
-    },
-    {
-        name: "equatoriale"
-    },
-]
 
 
 

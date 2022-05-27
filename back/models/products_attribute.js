@@ -1,24 +1,24 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('Product_attribute', {
-        attribute_id: {
+        id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
         productId: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false
         },
-        typeMount: {
-            type: DataTypes.INTEGER,
+        mountTypeId: {
+            type: DataTypes.STRING,
             allowNull: true
         },
-        typeTelescope: {
-            type: DataTypes.INTEGER,
+        telescopeTypeId: {
+            type: DataTypes.STRING,
             allowNull: true
         },
-        brand: {
-            type: DataTypes.INTEGER,
+        brandId: {
+            type: DataTypes.STRING,
             allowNull: true
         },
         capacity: {
@@ -30,8 +30,8 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
             defaultValue: false
         },
-        model: {
-            type: DataTypes.INTEGER,
+        oculaireModelId: {
+            type: DataTypes.STRING,
             allowNull: true
         },
         focal: {
