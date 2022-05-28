@@ -256,6 +256,35 @@ const Cart = () => {
         setOrderDate(currentDate);
         setOrderHour(actualHour);
         setOrderNumber(order);
+
+        sendOrder(order);
+    }
+
+    const sendOrder = (orderNumb) => {
+        const idArr = cartData.map(el => {
+            return el.id;
+        })
+        const products = idArr.join()
+        
+        const newOrder = {
+            userId:  user.id,
+            order: orderNumb,
+            products: products
+        }
+
+        fetch("http://localhost:3000/api/orders/", {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + user.token
+            },
+            method: 'POST', 
+            body: JSON.stringify( newOrder )})
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => console.error(error));
     }
 
     const toLoginPage = () => {

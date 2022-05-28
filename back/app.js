@@ -6,6 +6,7 @@ const montureRoute = require('./routes/monture');
 const userRoute = require('./routes/user');
 const commentRoute = require('./routes/comment');
 const productsRoute = require('./routes/products');
+const orderRoute = require('./routes/order');
 const { initDb } = require('./db/sequelize');
 
 const app = express();
@@ -29,6 +30,7 @@ app.use('/api/montures', montureRoute);
 app.use('/api/users', userRoute);
 app.use('/api/comments', commentRoute);
 app.use('/api/products', productsRoute);
+app.use('/api/orders', orderRoute);
 
 
 module.exports = app;

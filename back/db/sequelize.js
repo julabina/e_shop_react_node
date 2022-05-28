@@ -11,6 +11,7 @@ const BrandModel = require('../models/brand');
 const OculaireModelModel = require('../models/oculaireModel');
 const TelescopeTypeModel = require('../models/telescopeType');
 const MountTypeModel = require('../models/mountType');
+const OrderTypeModel = require('../models/order');
 const data = require('../db/mock-products');
 
 const sequelize = new Sequelize(
@@ -180,7 +181,8 @@ const Brand = BrandModel(sequelize, DataTypes);
 const OculaireCollection = OculaireModelModel(sequelize, DataTypes);
 const TelescopeType = TelescopeTypeModel(sequelize, DataTypes);
 const MountType = MountTypeModel(sequelize, DataTypes);
+const Order = OrderTypeModel(sequelize, DataTypes);
 
 module.exports= {
-    Telescope, Oculaire, Monture, Comment, User, Product, ProductAttribute, Category, Brand, OculaireCollection, TelescopeType, MountType, initDb
+    Telescope, Oculaire, Monture, Comment, User, Product, Order, ProductAttribute, Category, Brand, OculaireCollection, TelescopeType, MountType, initDb
 }
