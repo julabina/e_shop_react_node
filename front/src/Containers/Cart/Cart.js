@@ -35,7 +35,7 @@ const Cart = () => {
         let promiseArr = []
 
         for(let i = 0; i < cart.length; i++) {
-            let promise = fetch('http://localhost:3000/api/' + cart[i].category + 's/' + cart[i].id).then(res => res.json());
+            let promise = fetch('http://localhost:3000/api/products/' + cart[i].category + 's/' + cart[i].id).then(res => res.json());
             promiseArr.push(promise);
         }
 
@@ -255,7 +255,27 @@ const Cart = () => {
     const toLoginPage = () => {
         navigate('/login', { replace: true });
     }
-    
+
+    const emptyCart = () => {
+        let newArr = [];
+        dispatch ({
+            type: 'UPDATECART',
+            payload: newArr
+        }) 
+
+        setCartData([]);
+    }
+
+    const reloadPage = () => {
+        window.location.reload();
+    }
+
+    const deleteItem = (productId) => {
+        const newArr = cartData.filter(el => {
+            return el.id !== productId;
+        });
+        setCartData(newArr);
+    }
 
     return (
         <main>
@@ -289,8 +309,8 @@ const Cart = () => {
                 <h2 className='cart__title'>Votre panier :</h2>
                 <div className="cart__btns">
                     <div className="cart__btns__options">
-                        <button className='cart__btns__options__btn'>Mettre à jour</button>
-                        <button className='cart__btns__options__btn'>Vider le panier</button>
+                        <button onClick={reloadPage} className='cart__btns__options__btn'>Mettre à jour</button>
+                        <button onClick={emptyCart} className='cart__btns__options__btn'>Vider le panier</button>
                     </div>
                     {
                         isLogged
@@ -328,7 +348,7 @@ const Cart = () => {
                                     <button>-</button>
                                     <input type="number" value={el.count} />
                                     <button>+</button>
-                                    <FontAwesomeIcon className='cart__articles__cartContent__article__modify__trash' icon={faTrashCan} />
+                                    <FontAwesomeIcon onClick={() => deleteItem(el.id)} className='cart__articles__cartContent__article__modify__trash' icon={faTrashCan} />
                                 </div>
                                 <div className="cart__articles__cartContent__article__totalCont">
                                     <p className='cart__articles__cartContent__article__totalCont__result'>{(el.count * el.price).toFixed(2) + " €"}</p>
