@@ -2721,4 +2721,52 @@ main {
   margin-left: 0;
 }
 
+.promotionList {
+  width: 1250px;
+}
+.promotionList__top {
+  margin: 20px 0 50px;
+}
+.promotionList__top h2 {
+  font-size: 1.7em;
+  letter-spacing: 0.9px;
+}
+.promotionList__top select {
+  background: initial;
+  border: #000 1px solid;
+  height: 30px;
+  width: 400px;
+  padding-left: 10px;
+  margin-top: 20px;
+}
+.promotionList__main {
+  display: flex;
+}
+.promotionList__main ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px 12px;
+}
+
+.promotionFilter {
+  width: 200px;
+  margin: 20px 30px 0 0;
+  padding: 20px 10px;
+}
+.promotionFilter h2 {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1.2em;
+  letter-spacing: 0.9px;
+  color: #14416A;
+  margin: 10px 0 15px;
+}
+.promotionFilter h2:first-child {
+  margin-top: 0;
+}
+.promotionFilter__separator {
+  border-bottom: rgba(223, 223, 223, 0.5333333333) 1px solid;
+  margin: 10px 0;
+}
+
 /*# sourceMappingURL=style.css.map */

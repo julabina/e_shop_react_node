@@ -1,0 +1,7 @@
+.promotionList {
+    @include list;
+}
+
+.promotionFilter {
+    @include filter;
+}

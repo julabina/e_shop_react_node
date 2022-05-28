@@ -255,3 +255,22 @@ exports.findOneMonture = (req, res, next) => {
         res.status(500).json({error})
     })
 };
+
+exports.findPromo = (req, res, next) => {
+    Category.hasMany(Product, {foreignKey: 'categoryId'})
+    Product.belongsTo(Category);
+
+    Product.findAll({
+        include : {
+            model: Category
+        },
+        where: {
+            promo: true
+        }
+    })
+    .then(promo => {
+        const message = "La liste des promotions a bien été trouvé."
+        res.status(200).json({ message, data: promo })
+    })
+    .catch(error => res.status(500).json({ error }))
+};
