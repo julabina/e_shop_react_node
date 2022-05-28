@@ -1,31 +1,74 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { decodeToken, isExpired } from 'react-jwt';
+import { useNavigate } from 'react-router-dom';
 
 const CartLocation = (props) => {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [toggleStatus, setToggleStatus] = useState(false);
     const [togglelocation, setTogglelocation] = useState(false);
     const [checkBox, setCheckBox] = useState([false, false])
     const [inputs, setInputs] = useState({
-        civilite: 'M.',
         firstName: "",
         lastName: "",
-        mail: "",
         mobile: "",
-        tel: "",
-        societe: "",
+        fixe: "",
+        companyName: "",
         fax: "",
         tva: "",
         siret: "",
         address: "",
         addressComp: "",
-        zipCode: "",
+        zip: "",
         city: "",
         deliveryAddress: "",
         deliveryAddressComp: "",
-        deliveryZipCode: "",
+        deliveryZip: "",
         deliveryCity: "",
         instruction: ""
     })
+    
+    useEffect(() => {
+        
+        fetch("http://localhost:3000/api/users" , {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + props.token
+            },
+            method : 'POST',
+            body: JSON.stringify({ userId : props.user })
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+                let newObj = {
+                    address: data.data.address === null ? "" : data.data.address,
+                    addressComp: data.data.addressComp === null ? "" : data.data.addressComp,
+                    city: data.data.city === null ? "" : data.data.city,
+                    companyName: data.data.companyName === null ? "" : data.data.companyName,
+                    deliveryAddress: data.data.deliveryAddress === null ? "" : data.data.deliveryAddress,
+                    deliveryAddressComp: data.data.deliveryAddressComp === null ? "" : data.data.deliveryAddressComp,
+                    deliveryCity: data.data.deliveryCity === null ? "" : data.data.city,
+                    deliveryZip: data.data.deliveryZip === null ? "" : (data.data.deliveryZip).toString(),
+                    fax: data.data.fax === null ? "" : ('0' + data.data.fax).toString(),
+                    firstName: data.data.firstName === null ? "" : data.data.firstName,
+                    fixe: data.data.fixe === null ? "" : ('0' + data.data.fixe).toString(),
+                    lastName: data.data.lastName === null ? "" : data.data.lastName,
+                    mobile: data.data.mobile === null ? "" : ('0' + data.data.mobile).toString(),
+                    siret: data.data.siret === null ? "" : (data.data.siret).toString(),
+                    tva: data.data.tva === null ? "" : (data.data.tva).toString(),
+                    zip: data.data.zip === null ? "" : (data.data.zip).toString(),
+                    instruction: ""
+                };
+                console.log(newObj);
+                setInputs(newObj);
+            }) 
+
+    },[])
 
     // Ajoute des champs si le client est une société
     const changeToggleStatus = () => {
@@ -50,13 +93,7 @@ const CartLocation = (props) => {
 
     // controler les inputs
     const changeInput = (action, value) => {
-        if (action === 'civiliteSelect') {
-            const newObj = {
-                ...inputs,
-                civilite: value
-            }
-            setInputs(newObj)
-        } else if (action === 'firstName') {
+        if (action === 'firstName') {
             const newObj = {
                 ...inputs,
                 firstName: value
@@ -68,12 +105,6 @@ const CartLocation = (props) => {
                 lastName: value
             }            
             setInputs(newObj)
-        } else if (action === 'mail') {
-            const newObj = {
-                ...inputs,
-                mail : value
-            }           
-            setInputs(newObj)
         } else if (action === 'mobile') {   
             const newObj = {
                 ...inputs,
@@ -83,16 +114,15 @@ const CartLocation = (props) => {
         } else if (action === 'tel') {
             const newObj = {
                 ...inputs,
-                tel : value
+                fixe : value
             }
             setInputs(newObj)
             
         } else if (action === 'societe') {
             const newObj = {
                 ...inputs,
-                societe : value
-            }
-            
+                companyName : value
+            }         
             setInputs(newObj)
         } else if (action === 'fax') {
             const newObj = {
@@ -132,7 +162,7 @@ const CartLocation = (props) => {
         } else if (action === 'zipCode') {
             const newObj = {
                 ...inputs,
-                zipCode : value
+                zip : value
             }
             
             setInputs(newObj)
@@ -158,7 +188,7 @@ const CartLocation = (props) => {
         } else if (action === 'deliveryZipCode') {
             const newObj = {
                 ...inputs,
-                deliveryZipCode : value
+                deliveryZip : value
             }
             setInputs(newObj)
         } else if (action === 'deliveryCity') {
@@ -197,7 +227,7 @@ const CartLocation = (props) => {
         const inputs = document.querySelectorAll('.cartStepLocation__individual__inputs');
         const textArea = document.getElementById('instruction');
         let totalCheck = 0;
-
+        
         // vérification prenom
         if(inputs[0].value === "") {
             errorDisplay("Le prénom ne doit pas être vide.","firstName", "cartStepLocation__individual__names__firstName")
@@ -222,20 +252,10 @@ const CartLocation = (props) => {
             totalCheck += 1;
         }
 
-        // vérification mail
-        if(inputs[2].value === "") {
-            errorDisplay("Le mail ne doit pas être vide.","mail", "cartStepLocation__individual__names__mail")
-        } else if (!inputs[2].value.match(/^[\w_-]+@[\w-]+\.[a-z]{2,4}$/i)) {
-            errorDisplay("Le mail n'a pas un format valide. ","mail", "cartStepLocation__individual__names__mail")
-        } else {
-            errorDisplay("", "mail", "cartStepLocation__individual__names__mail", true)
-            totalCheck += 1;
-        }
-
         // vérification mobile
-        if(inputs[3].value === "") {
+        if(inputs[2].value === "") {
             errorDisplay("Le mobile ne doit pas être vide.","mobile", "cartStepLocation__individual__names__mobile")
-        } else if (!inputs[3].value.match(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/)) {
+        } else if (!inputs[2].value.match(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/)) {
             errorDisplay("Le mobile n'a pas un format valide'. ","mobile", "cartStepLocation__individual__names__mobile")
         } else {
             errorDisplay("", "mobile", "cartStepLocation__individual__names__mobile", true)
@@ -243,8 +263,8 @@ const CartLocation = (props) => {
         }
         
         // vérification fixe si pas vide
-        if (inputs[4].value !== "") {
-            if (!inputs[4].value.match(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/)) {
+        if (inputs[3].value !== "") {
+            if (!inputs[3].value.match(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/)) {
                 errorDisplay("Le fixe n'a pas un format valide. ","fixe", "cartStepLocation__individual__names__fixe")
             } else {
                 errorDisplay("", "fixe", "cartStepLocation__individual__names__fixe", true)
@@ -260,9 +280,9 @@ const CartLocation = (props) => {
         if (toggleStatus) {
             
             // verification nom societé
-            if(inputs[7].value === "") {
+            if(inputs[6].value === "") {
                 errorDisplay("La société ne doit pas être vide.","societe", "cartStepLocation__individual__names__societe")
-            } else if (!inputs[7].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
+            } else if (!inputs[6].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
                 errorDisplay("La société n'a pas un format valide'. ","societe", "cartStepLocation__individual__names__societe")
             } else {
                 errorDisplay("", "societe", "cartStepLocation__individual__names__societe", true)
@@ -270,8 +290,8 @@ const CartLocation = (props) => {
             }
             
             // verification fax
-            if(inputs[8].value !== "") {
-                if (!inputs[8].value.match(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/)) {
+            if(inputs[7].value !== "") {
+                if (!inputs[7].value.match(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/)) {
                     errorDisplay("L'adresse n'a pas un format valide. ","fax", "cartStepLocation__individual__names__fax")
                 } else {
                     errorDisplay("", "fax", "cartStepLocation__individual__names__fax", true)
@@ -282,9 +302,9 @@ const CartLocation = (props) => {
             }
             
             // verification tva
-            if(inputs[9].value === "") {
+            if(inputs[8].value === "") {
                 errorDisplay("Le numéro de tva ne doit pas être vide.","tva", "cartStepLocation__individual__names__tva")
-            } else if (!inputs[9].value.match(/^(FR){0,1}[0-9A-Z]{2}\ [0-9]{9}$/)) {
+            } else if (!inputs[8].value.match(/^(FR){0,1}[0-9A-Z]{2}\ [0-9]{9}$/)) {
                 errorDisplay("Le numéro de tva n'a pas un format valide, n'indiquer pas FR. ","tva", "cartStepLocation__individual__names__tva")
             } else {
                 errorDisplay("", "tva", "cartStepLocation__individual__names__tva", true)
@@ -292,9 +312,9 @@ const CartLocation = (props) => {
             }
             
             // verification siret
-            if(inputs[10].value === "") {
+            if(inputs[9].value === "") {
                 errorDisplay("Le siret ne doit pas être vide.","siret", "cartStepLocation__individual__names__siret")
-            } else if (!inputs[10].value.match(/^[0-9]{9}$/)) {
+            } else if (!inputs[9].value.match(/^[0-9]{9}$/)) {
                 errorDisplay("Le siret n'a pas un format valide. ","siret", "cartStepLocation__individual__names__siret")
             } else {
                 errorDisplay("", "siret", "cartStepLocation__individual__names__siret", true)
@@ -307,9 +327,9 @@ const CartLocation = (props) => {
             indPro = 0;
         }
         // vérification adresse
-        if(inputs[7 + indPro].value === "") {
+        if(inputs[6 + indPro].value === "") {
             errorDisplay("L'adresse ne doit pas être vide.","billAddress", "cartStepLocation__individual__names__billAddress")
-        } else if (!inputs[7 + indPro].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
+        } else if (!inputs[6 + indPro].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
             errorDisplay("L'adresse n'a pas un format valide'. ","billAddress", "cartStepLocation__individual__names__billAddress")
         } else {
             errorDisplay("", "billAddress", "cartStepLocation__individual__names__billAddress", true)
@@ -317,8 +337,8 @@ const CartLocation = (props) => {
         }
         
         // vérification complement adresse
-        if(inputs[8 + indPro].value !== "") {
-            if (!inputs[8 + indPro].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
+        if(inputs[7 + indPro].value !== "") {
+            if (!inputs[7 + indPro].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
                 errorDisplay("Le complément d'adresse n'a pas un format valide'. ","billCompAddress", "cartStepLocation__individual__names__billCompAddress")
             } else {
                 errorDisplay("", "billCompAddress", "cartStepLocation__individual__names__billCompAddress", true)
@@ -329,9 +349,9 @@ const CartLocation = (props) => {
         }
         
         // vérification code postal
-        if(inputs[9 + indPro].value === "") {
+        if(inputs[8 + indPro].value === "") {
             errorDisplay("Le code postal ne doit pas être vide.","billZipCode", "cartStepLocation__individual__names__billZipCode")
-        } else if (!inputs[9 + indPro].value.match(/^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$/)) {
+        } else if (!inputs[8 + indPro].value.match(/^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$/)) {
             errorDisplay("Le code postal n'a pas un format valide'. ","billZipCode", "cartStepLocation__individual__names__billZipCode")
         } else {
             errorDisplay("", "billZipCode", "cartStepLocation__individual__names__billZipCode", true)
@@ -339,11 +359,11 @@ const CartLocation = (props) => {
         }
         
         // vérification nom ville
-        if(inputs[10 + indPro].value === "") {
+        if(inputs[9 + indPro].value === "") {
             errorDisplay("Le ville ne doit pas être vide.","billCity", "cartStepLocation__individual__names__billCity")
-        } else if (inputs[10 + indPro].value.length < 3 || inputs[10 + indPro].value.length > 30) {
+        } else if (inputs[9 + indPro].value.length < 3 || inputs[9 + indPro].value.length > 30) {
             errorDisplay("La ville doit avoir entre 2 et 30 caratères.","billCity", "cartStepLocation__individual__names__billCity")
-        } else if (!inputs[10 + indPro].value.match(/^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/)) {
+        } else if (!inputs[9 + indPro].value.match(/^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/)) {
             errorDisplay("La ville n'a pas un format valide'. ","billCity", "cartStepLocation__individual__names__billCity")
         } else {
             errorDisplay("", "billCity", "cartStepLocation__individual__names__billCity", true)
@@ -355,9 +375,9 @@ const CartLocation = (props) => {
         if (togglelocation) {
 
             // vérification livraison adresse
-            if(inputs[12 + indPro].value === "") {
+            if(inputs[11 + indPro].value === "") {
                 errorDisplay("L'adresse ne doit pas être vide.","deliveryAddress", "cartStepLocation__individual__names__deliveryAddress")
-            } else if (!inputs[12 + indPro].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
+            } else if (!inputs[11 + indPro].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
                 errorDisplay("L'adresse n'a pas un format valide'. ","deliveryAddress", "cartStepLocation__individual__names__deliveryAddress")
             } else {
                 errorDisplay("", "deliveryAddress", "cartStepLocation__individual__names__deliveryAddress", true)
@@ -365,8 +385,8 @@ const CartLocation = (props) => {
             }
             
             // vérification livraison complement adresse
-            if(inputs[13 + indPro].value !== "") {
-                if (!inputs[13 + indPro].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
+            if(inputs[12 + indPro].value !== "") {
+                if (!inputs[12 + indPro].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
                     errorDisplay("Le complément d'adresse n'a pas un format valide'. ","deliveryCompAddress", "cartStepLocation__individual__names__deliveryCompAddress")
                 } else {
                     errorDisplay("", "deliveryCompAddress", "cartStepLocation__individual__names__deliveryCompAddress", true)
@@ -377,9 +397,9 @@ const CartLocation = (props) => {
             }
             
             // vérification livraison code postal
-            if(inputs[14 + indPro].value === "") {
+            if(inputs[13 + indPro].value === "") {
                 errorDisplay("Le code postal ne doit pas être vide.","deliveryZipCode", "cartStepLocation__individual__names__deliveryZipCode")
-            } else if (!inputs[14 + indPro].value.match(/^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$/)) {
+            } else if (!inputs[13 + indPro].value.match(/^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$/)) {
                 errorDisplay("Le code postal n'a pas un format valide'. ","deliveryZipCode", "cartStepLocation__individual__names__deliveryZipCode")
             } else {
                 errorDisplay("", "deliveryZipCode", "cartStepLocation__individual__names__deliveryZipCode", true)
@@ -387,11 +407,11 @@ const CartLocation = (props) => {
             }
             
             // vérification livraison nom ville
-            if(inputs[15 + indPro].value === "") {
+            if(inputs[14 + indPro].value === "") {
                 errorDisplay("Le ville ne doit pas être vide.","deliveryCity", "cartStepLocation__individual__names__deliveryCity")
-            } else if (inputs[15 + indPro].value.length < 3 || inputs[15 + indPro].value.length > 30) {
+            } else if (inputs[14 + indPro].value.length < 3 || inputs[14 + indPro].value.length > 30) {
                 errorDisplay("La ville doit avoir entre 2 et 30 caratères.","deliveryCity", "cartStepLocation__individual__names__deliveryCity")
-            } else if (!inputs[15 + indPro].value.match(/^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/)) {
+            } else if (!inputs[14 + indPro].value.match(/^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/)) {
                 errorDisplay("La ville n'a pas un format valide'. ","deliveryCity", "cartStepLocation__individual__names__deliveryCity")
             } else {
                 errorDisplay("", "deliveryCity", "cartStepLocation__individual__names__deliveryCity", true)
@@ -415,21 +435,23 @@ const CartLocation = (props) => {
         else {
             totalCheck += 1;
         }
-
-
+        
         // if checked
         if (toggleStatus && togglelocation) {
-            if (totalCheck === 18) {
+            console.log("test1");
+            if (totalCheck === 17) {
                 console.log('1');
                 prepareInfos();
             }
         } else if (toggleStatus || togglelocation) {
-            if (totalCheck === 14) {
+            console.log("test2");
+            if (totalCheck === 13) {
                 console.log('2');
                 prepareInfos();
             }
         } else {
-            if (totalCheck === 10) {
+            console.log("test3");
+            if (totalCheck === 9) {
                 console.log('3');
                 prepareInfos();
             }
@@ -439,16 +461,16 @@ const CartLocation = (props) => {
 
     // preparation avant d'envoyer les infos
     const prepareInfos = () => {
-
-        let societe, fax, tva, siret, address, addressComp, zipCode, city
+        
+        let companyName, fax, tva, siret, address, addressComp, zip, city
 
         if (toggleStatus) {
-            societe = inputs.societe;
+            companyName = inputs.companyName;
             fax = inputs.fax;
             tva = inputs.tva;
             siret = inputs.siret;
         } else {
-            societe = null;
+            companyName = null;
             fax = null;
             tva = null;
             siret = null;
@@ -456,12 +478,12 @@ const CartLocation = (props) => {
         if (togglelocation) {
             address = inputs.deliveryAddress;
             addressComp = inputs.deliveryAddressComp;
-            zipCode = inputs.deliveryZipCode;
+            zip = inputs.deliveryZipCode;
             city = inputs.deliveryCity;
         } else {
             address = null;
             addressComp = null;
-            zipCode = null;
+            zip = null;
             city = null;
         }
         
@@ -469,20 +491,19 @@ const CartLocation = (props) => {
             civilite: inputs.civilite ,
             firstName: inputs.firstName,
             lastName: inputs.lastName,
-            mail: inputs.mail,
             mobile: inputs.mobile,
-            tel: inputs.tel,
-            societe: societe,
+            fixe: inputs.fixe,
+            companyName: companyName,
             fax: fax,
             tva: tva,
             siret: siret,
             address: inputs.address,
             addressComp: inputs.addressComp,
-            zipCode: inputs.zipCode,
+            zip: inputs.zip,
             city: inputs.city,
             deliveryAddress: address ,
             deliveryAddressComp: addressComp,
-            deliveryZipCode: zipCode,
+            deliveryZip: zip,
             deliveryCity: city,
             instruction: inputs.instruction,
             newsLetter: checkBox[0],
@@ -490,8 +511,78 @@ const CartLocation = (props) => {
         }
 
         props.sendInfos(infos);
+
+        updateProfil()  
+
+    }
+
+    const updateProfil = () => {
         
+        let newObj = {
+            address: inputs.address === "" ? null : inputs.address,
+            addressComp: inputs.addressComp === "" ? null : inputs.addressComp,
+            city: inputs.city === "" ? null : inputs.city,
+            companyName: inputs.companyName === "" ? null : inputs.companyName,
+            deliveryAddress: inputs.deliveryAddress === "" ? null : inputs.deliveryAddress,
+            deliveryAddressComp: inputs.deliveryAddressComp === "" ? null : inputs.deliveryAddressComp,
+            deliveryCity: inputs.deliveryCity === "" ? null : inputs.city,
+            deliveryZip: inputs.deliveryZip === "" ? null : inputs.deliveryZip,
+            fax: inputs.fax === "" ? null : inputs.fax,
+            firstName: inputs.firstName === "" ? null : inputs.firstName,
+            fixe: inputs.fixe === "" ? null : inputs.fixe,
+            lastName: inputs.lastName === "" ? null : inputs.lastName,
+            mobile: inputs.mobile === "" ? null : inputs.mobile,
+            newsletter: checkBox[0],
+            pub: checkBox[0],
+            siret: inputs.siret === "" ? null : inputs.siret,
+            tva: inputs.tva === "" ? null : inputs.tva,
+            zip: inputs.zip === "" ? null : inputs.zip
+        };
+
+        let userIdToSend = "", tokenToSend = "";
+
+        if (localStorage.getItem('token') !== null) {
+            let getToken = localStorage.getItem('token');
+            let token = JSON.parse(getToken);
+            tokenToSend = token;
+            if (token !== null) {
+                let decodedToken = decodeToken(token.version);
+                let isTokenExpired = isExpired(token.version);
+                if (decodedToken.userId !== token.content || isTokenExpired === true) {
+                    dispatch ({
+                        type: 'DISCONNECT'
+                    })
+                    localStorage.removeItem('token');
+                    return navigate('/login', { replace: true });
+                };
+                userIdToSend = decodedToken.userId;
+                dispatch ({
+                    type: 'LOG'
+                })
+            };
+        } else {
+            dispatch ({
+                type: 'DISCONNECT'
+            })
+            return navigate('/login', { replace: true });
+        }; 
+
+        fetch('http://localhost:3000/api/users/' + userIdToSend, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + tokenToSend.version
+            },
+            method : 'PUT',
+            body: JSON.stringify( newObj )
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+        })
         props.next();
+              
+
     }
 
     return (
@@ -517,7 +608,7 @@ const CartLocation = (props) => {
                             <div className="cartStepLocation__individual__names">
                                 <div className='cartStepLocation__individual__names__civ'>
                                     <label htmlFor="civ">Civilité</label>
-                                    <select onChange={(e) => changeInput('civiliteSelect', e.target.value)} defaultValue={"M."} value={inputs.civilite} name="" id="civ">
+                                    <select defaultValue={"M."} name="" id="civ">
                                         <option value="M.">M.</option>
                                         <option value="Mme">Mme</option>
                                         <option value="Mlle">Mlle</option>
@@ -535,11 +626,6 @@ const CartLocation = (props) => {
                                 </div>
                             </div>
                             <div className="cartStepLocation__individual__contacts">
-                                <div className='cartStepLocation__individual__contacts__mail'>
-                                    <label htmlFor="mail">Adress e-mail<span> *</span></label>
-                                    <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('mail', e.target.value)} value={inputs.mail} type="mail" name="" id="mail" required/>
-                                    <span className='cartStepLocation__individual__names__mail__span cartStepLocation__individual__errorSpan'></span>
-                                </div>
                                 <div className="cartStepLocation__individual__contacts__phones">
                                     <div className='cartStepLocation__individual__contacts__phones__phone'>
                                         <label htmlFor="mobile">Téléphone portable<span> *</span></label>
@@ -548,7 +634,7 @@ const CartLocation = (props) => {
                                     </div>
                                     <div className='cartStepLocation__individual__contacts__phones__phone'>
                                         <label htmlFor="fixe">Téléphone fixe</label>
-                                        <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('tel', e.target.value)}  value={inputs.tel} type="tel" name="" id="fixe" />
+                                        <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('tel', e.target.value)}  value={inputs.fixe} type="tel" name="" id="fixe" />
                                         <span className='cartStepLocation__individual__names__fixe__span cartStepLocation__individual__errorSpan'></span>
                                     </div>
                                 </div>
@@ -569,7 +655,7 @@ const CartLocation = (props) => {
                                     <div className="cartStepLocation__business__row">
                                         <div className="cartStepLocation__business__row__infos">
                                             <label htmlFor="">Société<span> *</span></label>
-                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('societe', e.target.value)} value={inputs.societe} type="text" name="" id="societe" />
+                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('societe', e.target.value)} value={inputs.companyName} type="text" name="" id="societe" />
                                             <span className='cartStepLocation__individual__names__societe__span cartStepLocation__individual__errorSpan'></span>
                                         </div>
                                         <div className="cartStepLocation__business__row__infos">
@@ -611,7 +697,7 @@ const CartLocation = (props) => {
                                 <div className='cartStepLocation__individual__billLocation__row'>
                                     <div className="cartStepLocation__individual__billLocation__row__cont">
                                         <label htmlFor="">Code postal<span> *</span></label>
-                                        <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('zipCode', e.target.value)} value={inputs.zipCode} type="number" name="" id="billZipCode" required />
+                                        <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('zipCode', e.target.value)} value={inputs.zip} type="number" name="" id="billZipCode" required />
                                         <span className='cartStepLocation__individual__names__billZipCode__span cartStepLocation__individual__errorSpan'></span>
                                     </div>
                                     <div className="cartStepLocation__individual__billLocation__row__cont">
@@ -646,7 +732,7 @@ const CartLocation = (props) => {
                                     <div className='cartStepLocation__individual__notSameLocation__row'>
                                         <div className="cartStepLocation__individual__notSameLocation__row__cont">
                                             <label htmlFor="">Code postal<span> *</span></label>
-                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('deliveryZipCode', e.target.value)} value={inputs.deliveryZipCode} type="number" name="" id="deliveryZipCode" required />
+                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('deliveryZipCode', e.target.value)} value={inputs.deliveryZip} type="number" name="" id="deliveryZipCode" required />
                                             <span className='cartStepLocation__individual__names__deliveryZipCode__span cartStepLocation__individual__errorSpan'></span>
                                         </div>
                                         <div className="cartStepLocation__individual__notSameLocation__row__cont">

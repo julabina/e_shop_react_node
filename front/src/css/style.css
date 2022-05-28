@@ -595,10 +595,6 @@ body {
 .cartStepLocation__individual__contacts label {
   margin-bottom: 5px;
 }
-.cartStepLocation__individual__contacts__mail {
-  display: flex;
-  flex-direction: column;
-}
 .cartStepLocation__individual__contacts__phones {
   display: flex;
 }

@@ -28,6 +28,7 @@ const Cart = () => {
     const [orderHour, setOrderHour] = useState();
     const [orderNumber, setOrderNumber] = useState("");
     const [isLogged, setIsLogged] = useState(false);
+    const [user, setUser] = useState({id: "", token: ""})
     
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -66,9 +67,9 @@ const Cart = () => {
                         stock: data[i].data.stock,
                         key: uuidv4()
                     }
-
-                        total += price * parseInt(cart[i].count);
-
+                    
+                    total += price * parseInt(cart[i].count);
+                    
                     newArr.push(item);
                 }
             }
@@ -90,6 +91,11 @@ const Cart = () => {
                     localStorage.removeItem('token');
                     return setIsLogged(false);
                 };
+                const newUserObj = {
+                    id: decodedToken.userId,
+                    token: token.version
+                }
+                setUser(newUserObj);
                 dispatch ({
                     type: 'LOG'
                 })
@@ -134,7 +140,7 @@ const Cart = () => {
         let promiseArr = []
 
         for(let i = 0; i < cart.length; i++) {
-            let promise = fetch('http://localhost:3000/api/' + cart[i].category + 's/' + cart[i].id).then(res => res.json());
+            let promise = fetch('http://localhost:3000/api/products/' + cart[i].category + 's/' + cart[i].id).then(res => res.json());
             promiseArr.push(promise);
         }
 
@@ -164,7 +170,7 @@ const Cart = () => {
             setOrderArticles(newArr);
 
             toNextStep();
-
+            
         })  
     }
 
@@ -262,11 +268,18 @@ const Cart = () => {
             type: 'UPDATECART',
             payload: newArr
         }) 
-
+        
         setCartData([]);
     }
-
+    
     const reloadPage = () => {
+        let newArr = cartData;
+
+        dispatch ({
+            type: 'UPDATECART',
+            payload: newArr
+        }) 
+
         window.location.reload();
     }
 
@@ -275,6 +288,32 @@ const Cart = () => {
             return el.id !== productId;
         });
         setCartData(newArr);
+    }
+
+    const ctrlInput = (productId, btn, value) => {
+
+        const newArr = cartData.map(el => {
+            if(el.id === productId) {
+                if(btn === "plus") {
+                    value = el.count + 1;
+                } else if (btn === "minus") {
+                    if (el.count > 1) {
+                        value = el.count - 1;
+                    } else {
+                        value = el.count
+                    }
+                }
+                const newObj = {
+                    ...el,
+                    count: value
+                }
+                return newObj;
+            } else {
+                return el
+            }
+        })
+        
+        setCartData(newArr); 
     }
 
     return (
@@ -345,9 +384,9 @@ const Cart = () => {
                                     <p className='cart__articles__cartContent__article__priceCont__price'>{el.price} €</p>
                                 </div>
                                 <div className="cart__articles__cartContent__article__modify">
-                                    <button>-</button>
-                                    <input type="number" value={el.count} />
-                                    <button>+</button>
+                                    <button onClick={() => ctrlInput(el.id,"minus")}>-</button>
+                                    <input onChange={(e) => ctrlInput(el.id, null, e.target.value)} type="number" value={el.count} />
+                                    <button onClick={() => ctrlInput(el.id, "plus")}>+</button>
                                     <FontAwesomeIcon onClick={() => deleteItem(el.id)} className='cart__articles__cartContent__article__modify__trash' icon={faTrashCan} />
                                 </div>
                                 <div className="cart__articles__cartContent__article__totalCont">
@@ -383,7 +422,7 @@ const Cart = () => {
                 <>
                 {/* 2ND STEP : INFORMATIONS */}
                 <section className='cartStepLocation cartStepCart'>
-                    <CartLocation next={() => toNextStep()} previous={() => toPreviousStep()} sendInfos={infosReceived} />
+                    <CartLocation next={() => toNextStep()} previous={() => toPreviousStep()} sendInfos={infosReceived} user={user.id} token={user.token} />
                 </section>
                 
                 {/* 3TH STEP : LIVRAISON */}

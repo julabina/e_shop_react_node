@@ -96,15 +96,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
             validate: {
                 notEmpty: { msg: "Le code postal ne doit pas etre vide." },
-                isInt: { msg: "Le code postal doit uniquement contenir que des chiffres." },
-                isLengthIsFive(value) {
-                    if(value !== null && value !== undefined) {
-                        console.log(value);
-                        if (parseInt(value).length !== 5) {
-                            throw new Error('Le code postal doit avoir une longueur de 5.')
-                        }
-                    }
-                }
+                isInt: { msg: "Le code postal doit uniquement contenir que des chiffres." }
             }
         },
         city: {

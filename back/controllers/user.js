@@ -133,7 +133,7 @@ exports.modifyProfilInfos = (req, res, next) => {
         });
     };
     
-    exports.modifyPassword = (req, res, next) => {
+exports.modifyPassword = (req, res, next) => {
         if(req.body.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)) {
             let password = undefined;
             bcrypt.hash(req.body.password, 10)

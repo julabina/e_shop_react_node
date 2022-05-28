@@ -45,8 +45,9 @@ const UserAccount = () => {
             })
             return navigate('/login', { replace: true });
         }; 
+        console.log(userIdToSend);
 
-        fetch('http://localhost:3000/api/users/' + userIdToSend, {
+        fetch('http://localhost:3000/api/users', {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -251,7 +252,6 @@ const UserAccount = () => {
 
     const sendProfilUpdated = (e) => {
         e.preventDefault();
-        console.log('ze');
         const errorCont = document.querySelector(".profilUpdate__userProfil__errorCont");
         let error = "";
 
@@ -537,7 +537,7 @@ const UserAccount = () => {
         })
             .then(res => {
                 console.log(res);
-                 if (res === 45) {
+                 if (res === 200) {
                     setSuccessMsg("Mot de passe modifié !")
             
                     closeSectionToModify();
