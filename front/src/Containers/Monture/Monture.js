@@ -13,7 +13,7 @@ const Monture = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
 
-        fetch('http://localhost:3000/api/montures')
+        fetch('http://localhost:3000/api/products/montures')
         .then(res => res.json())
         .then(data => {
             let newArr = [];

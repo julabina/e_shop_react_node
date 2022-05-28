@@ -204,9 +204,9 @@ exports.findOneOculaire = (req, res, next) => {
             } 
         ]        
     })
-    .then(telescope => {
+    .then(oculaire => {
         const message = "Un oculaire a bien été trouvé."
-        res.status(200).json({message, data: telescope})
+        res.status(200).json({message, data: oculaire})
     })
     .catch(error => {
         res.status(500).json({error})
@@ -247,9 +247,9 @@ exports.findOneMonture = (req, res, next) => {
             } 
         ]        
     })
-    .then(telescope => {
+    .then(monture => {
         const message = "Une monture a bien été trouvé."
-        res.status(200).json({message, data: telescope})
+        res.status(200).json({message, data: monture})
     })
     .catch(error => {
         res.status(500).json({error})

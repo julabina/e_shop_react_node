@@ -25,7 +25,7 @@ const MontureProduct = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
 
-        fetch('http://localhost:3000/api/montures/' + params.id)
+        fetch('http://localhost:3000/api/products/montures/' + params.id)
         .then(res => res.json())
         .then(data => {
             const productId = data.data.productId;
@@ -42,7 +42,7 @@ const MontureProduct = () => {
                     id: data.data.id,
                     imgDesc: data.data.descriptionPicture,
                     name: data.data.name,
-                    type: data.data.type,
+                    type: data.data.Product_attributes[0].MountType.name,
                     price: (price).toFixed(2),
                     stock: data.data.stock,
                     description1: data.data.description1,
@@ -51,9 +51,9 @@ const MontureProduct = () => {
                     priceNoPromo: data.data.price,
                     promoValue: data.data.promoValue,
                     promo: data.data.promo,
-                    capacity: data.data.capacity,
-                    goTo: data.data.goTo,
-                    productId: data.data.productId
+                    capacity: data.data.Product_attributes[0].capacity,
+                    goTo: data.data.Product_attributes[0].goTo,
+                    productId: data.data.id
                 }
                 for(let i = 0; i < data.data.pictures.length; i++) {
                     let pict = {

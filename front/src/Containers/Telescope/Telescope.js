@@ -13,7 +13,7 @@ const Telescope = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
         
-        fetch('http://localhost:3000/api/telescopes')
+        fetch('http://localhost:3000/api/products/telescopes')
         .then(res => res.json())
         .then(data => {
         console.log(data.data);

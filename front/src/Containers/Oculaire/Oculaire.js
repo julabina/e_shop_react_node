@@ -13,7 +13,7 @@ const Oculaire = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
         
-        fetch('http://localhost:3000/api/oculaires')
+        fetch('http://localhost:3000/api/products/oculaires')
         .then(res => res.json())
         .then(data => {
             console.log(data);

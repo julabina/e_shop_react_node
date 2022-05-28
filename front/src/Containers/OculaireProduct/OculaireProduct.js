@@ -23,9 +23,10 @@ const OculaireProduct = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
         
-        fetch('http://localhost:3000/api/oculaires/' + params.id)
+        fetch('http://localhost:3000/api/products/oculaires/' + params.id)
         .then(res => res.json())
         .then(data => {
+            console.log(data.data);
             let price;
             const productId = data.data.productId;
             if (data.data !== undefined) {
@@ -44,19 +45,18 @@ const OculaireProduct = () => {
                     description1: data.data.description1,
                     description2: data.data.description2,
                     description3: data.data.description3,
-                    focal: data.data.focal,
-                    mount: data.data.mount,
+                    focal: data.data.Product_attributes[0].focal,
                     priceNoPromo: data.data.price,
                     promoValue: data.data.promoValue,
                     promo: data.data.promo,
-                    fov: data.data.fov,
-                    eyeRelief: data.data.eyeRelief,
-                    model: data.data.model,
-                    brand: data.data.brand,
-                    coulant: data.data.coulant,
-                    productId: data.data.productId
+                    fov: data.data.Product_attributes[0].fov,
+                    eyeRelief: data.data.Product_attributes[0].eyeRelief,
+                    model: data.data.Product_attributes[0].OculaireModel.name,
+                    brand: data.data.Product_attributes[0].Brand.name,
+                    coulant: data.data.Product_attributes[0].coulant,
+                    productId: data.data.id
                 }
-                
+                  console.log(item);  
                 if (data.data.stock < 1) {
                     setInputAddCart("0");
                 } else {

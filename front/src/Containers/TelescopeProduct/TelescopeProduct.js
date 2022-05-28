@@ -25,9 +25,10 @@ const TelescopeProduct = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
         
-        fetch('http://localhost:3000/api/telescopes/' + params.id)
+        fetch('http://localhost:3000/api/products/telescopes/' + params.id)
         .then(res => res.json())
         .then(data => {
+            console.log(data);
             let price;
             const productId = data.data.productId;
             let newArr = [];
@@ -47,15 +48,15 @@ const TelescopeProduct = () => {
                     description1: data.data.description1,
                     description2: data.data.description2,
                     description3: data.data.description3,
-                    diameter: data.data.diameter,
-                    focal: data.data.focal,
-                    fd: data.data.fd,
-                    mount: data.data.mount,
-                    type: data.data.type,
+                    diameter: data.data.Product_attributes[0].diameter,
+                    focal: data.data.Product_attributes[0].focal,
+                    fd: data.data.Product_attributes[0].fd,
+                    mount: data.data.Product_attributes[0].mount,
+                    type: data.data.Product_attributes[0].TelescopeType.name,
                     priceNoPromo: data.data.price,
                     promoValue: data.data.promoValue,
                     promo: data.data.promo,
-                    productId: data.data.productId
+                    productId: data.data.id
                 }
                 for(let i = 0; i < data.data.pictures.length; i++) {
                     let pict = {
