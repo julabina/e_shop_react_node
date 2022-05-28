@@ -28,7 +28,7 @@ const MontureProduct = () => {
         fetch('http://localhost:3000/api/products/montures/' + params.id)
         .then(res => res.json())
         .then(data => {
-            const productId = data.data.productId;
+            const productId = data.data.id;
             let price;
             let newArr = [];
             if (data.data !== undefined){
@@ -122,7 +122,6 @@ const MontureProduct = () => {
 
     const sendComment = (e) => {
         e.preventDefault();
-
         if (isLogged) {
 
             let loggedUser = localStorage.getItem('token');

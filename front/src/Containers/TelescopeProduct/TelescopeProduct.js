@@ -30,7 +30,7 @@ const TelescopeProduct = () => {
         .then(data => {
             console.log(data);
             let price;
-            const productId = data.data.productId;
+            const productId = data.data.id;
             let newArr = [];
             if (data.data !== undefined){
                 if (data.data.promo) {

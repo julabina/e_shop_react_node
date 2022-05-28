@@ -1,10 +1,10 @@
-const { Comment, Telescope, Oculaire, Monture } = require('../db/sequelize');
+const { Comment, Product } = require('../db/sequelize');
 const { v4 } = require('uuid');
 const jwt = require('jsonwebtoken');
 
 // FIND ALL COMMENT FOR ONE PRODUCT 
 exports.findProductComment = (req, res, next) => {
-    Comment.findAndCountAll({ where: { productId: req.params.productId } })
+    Comment.findAndCountAll({ where: { productId: req.params.id } })
         .then(({count, rows}) => {
             if (count === 0) {
                 const message = 'Aucun commentaire trouvé pour ce produit.';
@@ -18,16 +18,9 @@ exports.findProductComment = (req, res, next) => {
 
 // ADD COMMENT 
 exports.addComment = (req, res, next) => {
-    let Category;
-    if (req.body.category === 'telescope') {
-        Category = Telescope;
-    } else if (req.body.category === 'oculaire') {
-        Category = Oculaire;      
-    } else if (req.body.category === 'monture') {
-        Category = Monture;
-    };
     
-    Category.findOne({ where: {productId : req.body.productId} })
+    
+    Product.findOne({ where: {id : req.body.productId} })
     .then(product => {
         if (product === null) {
             const message = 'Aucun produit ne correspond à l\'id.';
@@ -36,7 +29,7 @@ exports.addComment = (req, res, next) => {
                 const comment = new Comment({
                     productCat: req.body.category,
                     productId: req.body.productId,
-                    commentId: v4(),
+                    id: v4(),
                     userId: req.body.userId,
                     comment: req.body.comment
                 });

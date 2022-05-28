@@ -1,19 +1,17 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('Comment', {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             primaryKey: true,
-            autoIncrement: true
+            unique: {
+                msg: "Le productId est deja utilisé."
+            }
         },        
         productCat: {
             type: DataTypes.STRING,
             allowNull: false
         },
         productId: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        commentId: {
             type: DataTypes.STRING,
             allowNull: false
         },

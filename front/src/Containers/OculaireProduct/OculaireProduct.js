@@ -28,7 +28,7 @@ const OculaireProduct = () => {
         .then(data => {
             console.log(data.data);
             let price;
-            const productId = data.data.productId;
+            const productId = data.data.id;
             if (data.data !== undefined) {
                 if (data.data.promo) {
                     let reduction = (data.data.price / 100) * data.data.promoValue;

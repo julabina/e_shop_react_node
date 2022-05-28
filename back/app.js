@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 
 app.use(morgan('dev'));
 
-initDb();
+/* initDb(); */
 
 app.use('/api/telescopes', telescopeRoute);
 app.use('/api/oculaires', oculaireRoute);
