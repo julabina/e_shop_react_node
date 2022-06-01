@@ -100,11 +100,11 @@ const Telescope = () => {
                 <h2>Type</h2>
                     <div className="">
                         <input type="radio" name="telescopeType" id="" />
-                        <label htmlFor="">achromatique</label>
+                        <label htmlFor="">Achromatique</label>
                     </div>
                     <div className="">
                         <input type="radio" name="telescopeType" id="" />
-                        <label htmlFor="">apochromatique</label>
+                        <label htmlFor="">Apochromatique</label>
                     </div>
                     <div className="">
                         <input type="radio" name="telescopeType" id="" />
@@ -116,7 +116,7 @@ const Telescope = () => {
                     </div>
                     <div className="">
                         <input type="radio" name="telescopeType" id="" />
-                        <label htmlFor="">edge HD</label>
+                        <label htmlFor="">Edge HD</label>
                     </div>
                     <div className="">
                         <input type="radio" name="telescopeType" id="" />

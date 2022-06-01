@@ -77,30 +77,49 @@ const Monture = () => {
     return (
         <main className='mainList'>
             <section className="montureFilter">
-                <h2>Marque</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
+            <h2>Marque</h2>
+                    <div className="">
+                        <input type="radio" name="mountBrand" id="" />
+                        <label htmlFor="">Sky-Watcher</label>
+                    </div>
+                    <div className="">
+                        <input type="radio" name="mountBrand" id="" />
+                        <label htmlFor="">10Micron</label>
+                    </div>
+                    <div className="">
+                        <input type="radio" name="mountBrand" id="" />
+                        <label htmlFor="">Celestron</label>
+                    </div>
+                    <div className="">
+                        <input type="radio" name="mountBrand" id="" />
+                        <label htmlFor="">Orion</label>
+                    </div>
                 <div className="montureFilter__separator"></div>
                 <h2>Type</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
-                <div className="montureFilter__separator"></div>
-                <h2>Capacité de charge</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
+                    <div className="">
+                        <input type="radio" name="mountType" id="" />
+                        <label htmlFor="">Azimutale</label>
+                    </div>
+                    <div className="">
+                        <input type="radio" name="mountType" id="" />
+                        <label htmlFor="">Equatorial</label>
+                    </div>
                 <div className="montureFilter__separator"></div>
                 <h2>Goto</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
+                <div className="">
+                        <input type="radio" name="mountGoto" id="" />
+                        <label htmlFor="">Avec</label>
+                    </div>
+                    <div className="">
+                        <input type="radio" name="mountGoto" id="" />
+                        <label htmlFor="">Sans</label>
+                    </div>
                 <div className="montureFilter__separator"></div>
                 <h2>En stock</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
+                    <div className="">
+                        <input type="checkbox" id="" />
+                        <label htmlFor="">Produits en stock</label>
+                    </div>
                 <div className="montureFilter__separator"></div>
             </section>
             <section className='montureList'>

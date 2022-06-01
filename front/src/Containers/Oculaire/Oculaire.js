@@ -79,39 +79,52 @@ const Oculaire = () => {
         <main className='mainList'>
             <section className="oculaireFilter">
                 <h2>Marque</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
+                    <div className="">
+                        <input type="radio" name="oculaireBrand" id="" />
+                        <label htmlFor="">Sky-Watcher</label>
+                    </div>
+                    <div className="">
+                        <input type="radio" name="oculaireBrand" id="" />
+                        <label htmlFor="">TeleVue</label>
+                    </div>
+                    <div className="">
+                        <input type="radio" name="oculaireBrand" id="" />
+                        <label htmlFor="">Celestron</label>
+                    </div>
+                    <div className="">
+                        <input type="radio" name="oculaireBrand" id="" />
+                        <label htmlFor="">Orion</label>
+                    </div>
+                    <div className="">
+                        <input type="radio" name="oculaireBrand" id="" />
+                        <label htmlFor="">Pentax</label>
+                    </div>
+                    <div className="">
+                        <input type="radio" name="oculaireBrand" id="" />
+                        <label htmlFor="">Explore Scientific</label>
+                    </div>
+                    <div className="">
+                        <input type="radio" name="oculaireBrand" id="" />
+                        <label htmlFor="">Baader</label>
+                    </div>
                 <div className="oculaireFilter__separator"></div>
                 <h2>Modèle</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
-                <div className="oculaireFilter__separator"></div>
-                <h2>Longueur focale</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
-                <div className="oculaireFilter__separator"></div>
-                <h2>Champs apparent</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
-                <div className="oculaireFilter__separator"></div>
-                <h2>Distance de l'oeil</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
-                <div className="oculaireFilter__separator"></div>
-                <h2>Coulant</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
+                    {
+                        <>
+                        <select name="" id="">
+                        <option value="">Tous les modèles</option>
+                        if() {
+                            
+                        }
+                        </select>
+                        </>
+                    }
                 <div className="oculaireFilter__separator"></div>
                 <h2>En stock</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
+                    <div className="">
+                        <input type="checkbox" id="" />
+                        <label htmlFor="">Produits en stock</label>
+                    </div>
                 <div className="oculaireFilter__separator"></div>
             </section>
             <section className='oculaireList'>

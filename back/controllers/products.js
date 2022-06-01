@@ -266,7 +266,7 @@ exports.findPromo = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }));
 };
 
-exports.findFilteredTelescope = (req, res, next) => {
+exports.findFilteredTelescopes = (req, res, next) => {
   Product.hasMany(ProductAttribute, { foreignKey: "productId" });
   ProductAttribute.belongsTo(Product);
   Category.hasMany(Product, { foreignKey: "categoryId" });
@@ -276,10 +276,10 @@ exports.findFilteredTelescope = (req, res, next) => {
   TelescopeType.hasMany(ProductAttribute, { foreignKey: "telescopeTypeId" });
   ProductAttribute.belongsTo(TelescopeType);
 
-  if (req.body.brand === undefined) {
+  if (req.body.brand !== "Sky-Watcher" && req.body.brand !== "Takahashi" && req.body.brand !== "Celestron" && req.body.brand !== "Unistellar") {
         req.body.brand = ["Sky-Watcher", "Takahashi", "Celestron", "Unistellar"];
   }
-  if (req.body.type === undefined) {
+  if (req.body.type !== "lunette achromatique" && req.body.type !== "lunette apochromatique" && req.body.type !== "telescope Schmidt-Cassegrain" && req.body.type !== "telescope Newton" && req.body.type !== "telescope Maksutov" && req.body.type !== "telescope  edge HD") {
         req.body.type = [
         "lunette achromatique",
         "lunette apochromatique",
@@ -358,6 +358,260 @@ exports.findFilteredTelescope = (req, res, next) => {
                                 })
                                     .then(({ count, rows }) => {                                       
                                         res.status(200).json({ message: `${count} telescopes trouvées.`, data: rows });
+                                    });
+                        });
+                });
+        });
+  });
+};
+
+exports.findFilteredOculaires = (req, res, next) => {
+  Product.hasMany(ProductAttribute, { foreignKey: "productId"});
+  ProductAttribute.belongsTo(Product);
+  Category.hasMany(Product, { foreignKey: "categoryId" });
+  Product.belongsTo(Category);
+  Brand.hasMany(ProductAttribute, { foreignKey: "brandId" });
+  ProductAttribute.belongsTo(Brand);
+  TelescopeType.hasMany(ProductAttribute, { foreignKey: "telescopeTypeId" });
+  ProductAttribute.belongsTo(TelescopeType);
+
+  let oculaireModel = undefined;
+
+    if (req.body.brand === "Sky-Watcher" || req.body.brand === "TeleVue" || req.body.brand === "Celestron" || req.body.brand === "Orion" || req.body.brand === "Pentax" || req.body.brand === "Explore Scientific" || req.body.brand === "Baader") { 
+        if (req.body.brand === "Sky-Watcher") {
+            if (req.body.model === "Super Plössl") {
+                oculaireModel = req.body.model;
+            }
+        } else if (req.body.brand === "TeleVue") {
+            if (req.body.model === "Plössl") {
+                oculaireModel = req.body.model;
+            } else if (req.body.model === "DeLite") {
+                oculaireModel = req.body.model;
+            } else if (req.body.model === "Ethos") {
+                oculaireModel = req.body.model;
+            } else if (req.body.model === "Nagler") {
+                oculaireModel = req.body.model;
+            } else if (req.body.model === "Delos") {
+                oculaireModel = req.body.model;
+            }
+        } else if (req.body.brand === "Celestron") {
+            if (req.body.model === "X-cel") {
+                oculaireModel = req.body.model;
+            } else if (req.body.model === "Luminos") {
+                oculaireModel = req.body.model;
+            }
+        } else if (req.body.brand === "Orion") {
+            if (req.body.model === "edge-On") {
+                oculaireModel = req.body.model;
+            } else if (req.body.model === "Lanthanum") {
+                oculaireModel = req.body.model;
+            }          
+        } else if (req.body.brand === "Pentax") {
+            if (req.body.model === "XW") {
+                oculaireModel = req.body.model;
+            }        
+        } else if (req.body.brand === "Explore Scientific") {
+            if (req.body.model === "68°") {
+                oculaireModel = req.body.model;
+            } else if (req.body.model === "82°") {
+                oculaireModel = req.body.model;
+            } else if (req.body.model === "100°") {
+                oculaireModel = req.body.model;
+            }          
+        } else if (req.body.brand === "Baader") {
+            if (req.body.model === "Hyperion") {
+                oculaireModel = req.body.model;
+            }      
+        }
+    } else {
+        req.body.brand = ["Sky-Watcher", "TeleVue", "Celestron", "Orion", "Pentax", "Explore Scientific", "Baader"];
+    }
+
+  Brand.findAll({
+    where: {
+        name: req.body.brand,
+    },
+  })
+    .then((brand) => {
+        let selectedBrandId = brand.map((el) => {
+            return el.dataValues.id;
+        });
+        
+        return ProductAttribute.findAll({
+            where: {
+                    brandId: selectedBrandId,
+            },
+        })
+            .then((brandId) => {
+                let brandIdArray = brandId.map((el) => {
+                    return el.dataValues.productId;
+                });
+
+                let modelOption;
+                if(oculaireModel !== undefined) {
+                    modelOption = {
+                        name : oculaireModel
+                    }
+                } else {
+                    modelOption = {}
+                }
+                console.log(modelOption);
+
+                return OculaireCollection.findAll({
+                    where: modelOption,
+                })
+                    .then((modelFilteredId) => {
+                        selectedModelId = modelFilteredId.map((el) => {
+                            return el.dataValues.id;
+                        });
+
+                        return ProductAttribute.findAll({
+                        where: {
+                                oculaireModelId: selectedModelId,
+                        },
+                        })
+                            .then((modelId) => {
+                                let modelIdArray = modelId.map((el) => {
+                                    return el.dataValues.productId;
+                                });
+                                
+                                let productIdFiltered = brandIdArray.filter(el => modelIdArray.includes(el));
+
+                                let options;
+
+                                if (req.body.onStock === true) {
+                                        options = {
+                                            id: productIdFiltered,
+                                            stock: {
+                                                [Op.ne]: 0
+                                            }
+                                        }
+                                    } else {
+                                    options = {
+                                        id: productIdFiltered
+                                    }   
+                                } 
+
+                                return Product.findAndCountAll({
+                                    where: options,
+                                    include: {
+                                        model: Category,
+                                        where: {
+                                            name: "oculaire",
+                                        },
+                                    },
+                                })
+                                    .then(({ count, rows }) => {                                       
+                                        res.status(200).json({ message: `${count} oculaires trouvées.`, data: rows });
+                                    });
+                        });
+                });
+        });
+  });
+};
+
+exports.findFilteredMontures = (req, res, next) => {
+  Product.hasMany(ProductAttribute, { foreignKey: "productId" });
+  ProductAttribute.belongsTo(Product);
+  Category.hasMany(Product, { foreignKey: "categoryId" });
+  Product.belongsTo(Category);
+  Brand.hasMany(ProductAttribute, { foreignKey: "brandId" });
+  ProductAttribute.belongsTo(Brand);
+  MountType.hasMany(ProductAttribute, { foreignKey: "mountTypeId" });
+  ProductAttribute.belongsTo(MountType);
+    console.log(req.body.brand);
+    if (req.body.brand !== "Sky-Watcher" && req.body.brand !== "10Micron" && req.body.brand !== "Celestron" && req.body.brand !== "Orion") {
+        req.body.brand = ["Sky-Watcher", "10Micron", "Celestron", "Orion"];
+    }
+    if (req.body.type !== "azimutale" && req.body.type !== "equatoriale") {
+        req.body.type = ["azimutale", "equatoriale"];
+    }
+    console.log(req.body.brand);
+
+  Brand.findAll({
+    where: {
+        name: req.body.brand,
+    },
+  })
+    .then((brand) => {
+        let selectedBrandId = brand.map((el) => {
+            return el.dataValues.id;
+        });
+
+        let goToOption;
+        if (req.body.goTo === true) {
+            goToOption = {
+                brandId: selectedBrandId,
+                goTo : true
+            }
+        } else if (req.body.goTo === false) {
+            goToOption = {
+                brandId: selectedBrandId,
+                goTo : false
+            }
+        } else {
+            goToOption = {
+                brandId: selectedBrandId,
+            }
+        }
+        
+        
+        return ProductAttribute.findAll({
+            where: goToOption,
+        })
+            .then((brandId) => {
+                let brandIdArray = brandId.map((el) => {
+                    return el.dataValues.productId;
+                });
+
+                return MountType.findAll({
+                    where: {
+                        name: req.body.type,
+                    },
+                })
+                    .then((typeFilteredId) => {
+                        selectedTypeId = typeFilteredId.map((el) => {
+                            return el.dataValues.id;
+                        });
+
+                        return ProductAttribute.findAll({
+                        where: {
+                                mountTypeId: selectedTypeId,
+                        },
+                        })
+                            .then((typeId) => {
+                                let typeIdArray = typeId.map((el) => {
+                                    return el.dataValues.productId;
+                                });
+                                
+                                let productIdFiltered = brandIdArray.filter(el => typeIdArray.includes(el));
+
+                                let options;
+
+                                if (req.body.onStock === true) {
+                                        options = {
+                                            id: productIdFiltered,
+                                            stock: {
+                                                [Op.ne]: 0
+                                            }
+                                        }
+                                    } else {
+                                    options = {
+                                        id: productIdFiltered
+                                    }   
+                                } 
+
+                                return Product.findAndCountAll({
+                                    where: options,
+                                    include: {
+                                        model: Category,
+                                        where: {
+                                            name: "monture",
+                                        },
+                                    },
+                                })
+                                    .then(({ count, rows }) => {                                       
+                                        res.status(200).json({ message: `${count} montures trouvées.`, data: rows });
                                     });
                         });
                 });
