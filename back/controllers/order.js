@@ -18,3 +18,20 @@ exports.createOrder = (req, res, next) => {
         .catch(error => res.status(401).json({ error }));
 
 };
+
+exports.getOrders = (req, res, next) => {
+    Order.findAll({
+        where: {
+            userId : req.params.id
+        }
+    })
+        .then(orders => {
+            if(orders !== null) {
+                const message = "La liste des commandes a bien été récupérée.";
+                return res.status(200).json({ message, data: orders })
+            }
+            const message = "Aucune commande trouvée.";
+            return res.status(404).json({ message })
+        })
+        .catch(error => res.status(500).json({ error }))
+};

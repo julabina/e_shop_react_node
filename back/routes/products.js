@@ -9,5 +9,6 @@ router.get('/oculaires/:id', productsController.findOneOculaire)
 router.get('/montures', productsController.findAllMonture)
 router.get('/montures/:id', productsController.findOneMonture)
 router.get('/promotion', productsController.findPromo)
+router.post('/telescopes', productsController.findFilteredTelescope)
 
 module.exports = router;

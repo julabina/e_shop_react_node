@@ -80,34 +80,54 @@ const Telescope = () => {
         <main className='mainList'>
             <section className='telescopesFilter'>
                 <h2>Marque</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
-                <div className="telescopesFilter__separator"></div>
-                <h2>Diamètre</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
-                <div className="telescopesFilter__separator"></div>
-                <h2>Focale</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
+                    <div className="">
+                        <input type="radio" name="telescopeBrand" id="" />
+                        <label htmlFor="">Sky-Watcher</label>
+                    </div>
+                    <div className="">
+                        <input type="radio" name="telescopeBrand" id="" />
+                        <label htmlFor="">Takahashi</label>
+                    </div>
+                    <div className="">
+                        <input type="radio" name="telescopeBrand" id="" />
+                        <label htmlFor="">Celestron</label>
+                    </div>
+                    <div className="">
+                        <input type="radio" name="telescopeBrand" id="" />
+                        <label htmlFor="">Unistellar</label>
+                    </div>
                 <div className="telescopesFilter__separator"></div>
                 <h2>Type</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
-                <div className="telescopesFilter__separator"></div>
-                <h2>Avec monture</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
-                <div className="telescopesFilter__separator"></div>
+                    <div className="">
+                        <input type="radio" name="telescopeType" id="" />
+                        <label htmlFor="">achromatique</label>
+                    </div>
+                    <div className="">
+                        <input type="radio" name="telescopeType" id="" />
+                        <label htmlFor="">apochromatique</label>
+                    </div>
+                    <div className="">
+                        <input type="radio" name="telescopeType" id="" />
+                        <label htmlFor="">Newton</label>
+                    </div>
+                    <div className="">
+                        <input type="radio" name="telescopeType" id="" />
+                        <label htmlFor="">Maksutov</label>
+                    </div>
+                    <div className="">
+                        <input type="radio" name="telescopeType" id="" />
+                        <label htmlFor="">edge HD</label>
+                    </div>
+                    <div className="">
+                        <input type="radio" name="telescopeType" id="" />
+                        <label htmlFor="">Schmidt-Cassegrain</label>
+                    </div>
+                    <div className="telescopesFilter__separator"></div>
                 <h2>En stock</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
+                    <div className="">
+                        <input type="checkbox" id="" />
+                        <label htmlFor="">Produits en stock</label>
+                    </div>
                 <div className="telescopesFilter__separator"></div>
             </section>
             <section className='telescopesList'>

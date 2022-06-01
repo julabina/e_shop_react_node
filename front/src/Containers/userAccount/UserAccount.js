@@ -15,6 +15,7 @@ const UserAccount = () => {
     const [passwordUpdateInputs, setPasswordUpdateInputs] = useState({password : "", newPassword: "", confirmNewPassword: ""})
     const [emailUpdateInputs, setEmailUpdateInputs] = useState({email: "", new: ""});
     const [successMsg, setSuccessMsg] = useState("");
+    const [orderData, setOrderData] = useState([]);
 
     useEffect(() => {
 
@@ -84,6 +85,7 @@ const UserAccount = () => {
                         zip: data.data.zip === null ? "" : (data.data.zip).toString()
                     };
                     setProfilUpdateInputs(newObj);
+                    getUserOrders(userIdToSend, tokenToSend.version);
                 })
                
     },[]);
@@ -94,6 +96,21 @@ const UserAccount = () => {
         })
         localStorage.removeItem('token');
         navigate('/login', { replace: true });
+    };
+
+    const getUserOrders = (userId, token) => {
+        fetch('http://localhost:3000/api/orders/' + userId,  {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token
+            }})
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                const newArr = data.data
+                setOrderData(newArr);
+            })
     };
 
     const isBusinessToggle = () => {
@@ -783,6 +800,22 @@ const UserAccount = () => {
                 {/* voir les commandes */}
                 <div className="profilUpdate__order profilUpdate__part">
                     
+                    {
+                        orderData.length > 0 ?
+                        <>
+                            <h2>Vos commandes</h2>
+                            {orderData.map(el => {
+                                let products = el.products.split(',');
+                                
+                                return <div className="">
+                                    <h3>{el.order}</h3>
+                                    <p>Article : {products.length}</p>
+                                </div>
+                            })}
+                        </>
+                        :   <h2>Aucune commandes à afficher</h2>
+                    }
+
                 </div>
 
 
