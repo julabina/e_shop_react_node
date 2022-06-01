@@ -1153,6 +1153,22 @@ main {
   border-bottom: rgba(223, 223, 223, 0.5333333333) 1px solid;
   margin: 10px 0;
 }
+.telescopesFilter__btn {
+  height: 35px;
+  margin: 5px 5px 15px;
+  color: #f3f3f3;
+  border: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 3px;
+  cursor: pointer;
+  background: #14416A;
+  transition: opacity 150ms ease-in-out;
+}
+.telescopesFilter__btn:hover {
+  opacity: 0.7;
+  transition: opacity 150ms ease-in-out;
+}
 
 .telescopeProduct {
   width: 1480px;
@@ -1492,6 +1508,22 @@ main {
   border-bottom: rgba(223, 223, 223, 0.5333333333) 1px solid;
   margin: 10px 0;
 }
+.oculaireFilter__btn {
+  height: 35px;
+  margin: 5px 5px 15px;
+  color: #f3f3f3;
+  border: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 3px;
+  cursor: pointer;
+  background: #14416A;
+  transition: opacity 150ms ease-in-out;
+}
+.oculaireFilter__btn:hover {
+  opacity: 0.7;
+  transition: opacity 150ms ease-in-out;
+}
 
 .oculaireProduct {
   width: 1480px;
@@ -1830,6 +1862,22 @@ main {
 .montureFilter__separator {
   border-bottom: rgba(223, 223, 223, 0.5333333333) 1px solid;
   margin: 10px 0;
+}
+.montureFilter__btn {
+  height: 35px;
+  margin: 5px 5px 15px;
+  color: #f3f3f3;
+  border: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 3px;
+  cursor: pointer;
+  background: #14416A;
+  transition: opacity 150ms ease-in-out;
+}
+.montureFilter__btn:hover {
+  opacity: 0.7;
+  transition: opacity 150ms ease-in-out;
 }
 
 .montureProduct {
@@ -2763,6 +2811,22 @@ main {
 .promotionFilter__separator {
   border-bottom: rgba(223, 223, 223, 0.5333333333) 1px solid;
   margin: 10px 0;
+}
+.promotionFilter__btn {
+  height: 35px;
+  margin: 5px 5px 15px;
+  color: #f3f3f3;
+  border: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 3px;
+  cursor: pointer;
+  background: #14416A;
+  transition: opacity 150ms ease-in-out;
+}
+.promotionFilter__btn:hover {
+  opacity: 0.7;
+  transition: opacity 150ms ease-in-out;
 }
 
 /*# sourceMappingURL=style.css.map */
