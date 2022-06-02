@@ -294,18 +294,22 @@ exports.findFilteredTelescopes = (req, res, next) => {
     where: {
         name: req.body.brand,
     },
+    attributes: ["id"],
+    raw: true,
   })
     .then((brand) => {
-        let selectedBrandId = brand.map((el) => {
-            return el.dataValues.id;
-        });
+        console.log(brand);
+        let selectedBrandId = brand;
+        console.log(selectedBrandId[0].id);
         
         return ProductAttribute.findAll({
             where: {
                     brandId: selectedBrandId,
             },
+            attributes: ["productId"]
         })
             .then((brandId) => {
+                console.log(brandId);
                 let brandIdArray = brandId.map((el) => {
                     return el.dataValues.productId;
                 });

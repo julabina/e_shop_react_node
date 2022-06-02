@@ -59,6 +59,16 @@
         }
         &__search {
             display: flex;
+            &__inputCont {
+                display: flex;
+                flex-direction: column;
+            }
+            &__span {
+                font-size: 0.82em;
+                height: 5px;
+                padding-top: 3px;
+                color: darken(map-get($map: $colors, $key: tertiary), 5);
+            }
             &__input {
                 height: 40px;
                 width: 360px;
@@ -77,6 +87,7 @@
                 margin-left: 3px;
                 border: none;
                 color: map-get($map: $colors, $key:whiteLight );
+                cursor: pointer;
             }
         }
     }

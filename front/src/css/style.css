@@ -828,6 +828,14 @@ body {
   max-width: 140px;
   object-fit: contain;
 }
+.cartStepPayment__articles__totalCont__total {
+  width: 250px;
+  text-align: end;
+  font-size: 1.2em;
+  font-weight: 600;
+  padding-top: 2px;
+  color: #FF0000;
+}
 
 .cartStepConfirm h2 {
   text-transform: uppercase;
@@ -1043,6 +1051,16 @@ main {
 .header__section__search {
   display: flex;
 }
+.header__section__search__inputCont {
+  display: flex;
+  flex-direction: column;
+}
+.header__section__search__span {
+  font-size: 0.82em;
+  height: 5px;
+  padding-top: 3px;
+  color: #e60000;
+}
 .header__section__search__input {
   height: 40px;
   width: 360px;
@@ -1061,6 +1079,7 @@ main {
   margin-left: 3px;
   border: none;
   color: #f3f3f3;
+  cursor: pointer;
 }
 
 .footer {
@@ -2827,6 +2846,51 @@ main {
 .promotionFilter__btn:hover {
   opacity: 0.7;
   transition: opacity 150ms ease-in-out;
+}
+
+.searchList {
+  width: 1250px;
+}
+.searchList__top {
+  margin: 20px 0 50px;
+}
+.searchList__top h2 {
+  font-size: 1.7em;
+  letter-spacing: 0.9px;
+}
+.searchList__top select {
+  background: initial;
+  border: #000 1px solid;
+  height: 30px;
+  width: 400px;
+  padding-left: 10px;
+  margin-top: 20px;
+}
+.searchList__main {
+  display: flex;
+}
+.searchList__main ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px 12px;
+}
+.searchList__spanQuery {
+  font-weight: 600;
+  font-style: italic;
+}
+.searchList__noResult {
+  width: 100%;
+  text-align: center;
+  padding-top: 150px;
+}
+.searchList__noResult h3 {
+  font-size: 2em;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #1b1b1b;
+}
+.searchList ul {
+  margin-bottom: 40px;
 }
 
 /*# sourceMappingURL=style.css.map */

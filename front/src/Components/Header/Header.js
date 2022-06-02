@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart, faHomeLg, faPen, faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
 import NavBar from '../NavBar/NavBar';
 import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 
 const Header = () => {
@@ -16,8 +16,12 @@ const Header = () => {
         ...state.loggedReducer
     }));
 
+    const navigate = useNavigate();
+
     const [headerCart, setHeaderCart] = useState([]);
     const [isLogged, setIsLogged] = useState(false);
+    const [searchValue, setSearchValue] = useState("");
+    const [errorMsg, setErrorMsg] = useState("");
 
     useEffect(() => {
 
@@ -43,7 +47,26 @@ const Header = () => {
 
     },[cart, logged])
 
-    const [searchValue, setSearchValue] = useState();
+    const toSearch = (e) => {
+        e.preventDefault();
+        if (searchValue === ""){
+            navigate("/search" ,{ replace: true })
+        } else if(!searchValue.match(/^[a-zA-Zé èà0-9]*$/)) { 
+            setErrorMsg("La recherche ne doit contenir que des chiffres et des lettres");
+        } else if(searchValue !== "") {    
+            const query = '/search/query_=' + searchValue;
+            navigate(query ,{ replace: true })
+        } 
+    };
+
+    const handleSearchInput = (value) => {
+        if(!value.match(/^[a-zA-Zé èà0-9]*$/)) {
+            setErrorMsg("La recherche ne doit contenir que des chiffres et des lettres");
+        } else {
+            setErrorMsg("");
+        }
+        setSearchValue(value);
+    };
 
     return (
         <header className='header'>
@@ -52,8 +75,11 @@ const Header = () => {
                     <h1 className='header__section__title'>REACT OPTIQUE SHOP</h1>
                 </NavLink>
                 <form className="header__section__search">
-                    <input type="search" className='header__section__search__input' placeholder='Rechercher' />
-                    <button className='header__section__search__btn'><FontAwesomeIcon className='header__section__search__btn__icon' icon={faSearch} /></button>
+                    <div className="header__section__search__inputCont">
+                        <input onInput={(e) => handleSearchInput(e.target.value)} value={searchValue} type="search" className='header__section__search__input' placeholder='Rechercher' />
+                        <span className='header__section__search__span'>{errorMsg}</span>
+                    </div>
+                    <button onClick={toSearch} className='header__section__search__btn'><FontAwesomeIcon className='header__section__search__btn__icon' icon={faSearch} /></button>
                 </form>
                 <div className="header__section__box">
                     <NavLink to='/'>

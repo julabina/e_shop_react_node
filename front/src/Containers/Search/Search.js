@@ -1,11 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { decodeToken, isExpired } from 'react-jwt';
+import { useParams } from 'react-router-dom';
+import TelescopeCard from '../../Components/TelescopeCard/TelescopeCard';
+import OculaireCard from '../../Components/OculaireCard/OculaireCard';
+import MontureCard from '../../Components/MontureCard/MontureCard';
 
 const Search = () => {
 
     const dispatch = useDispatch();
+    const params = useParams();
 
+    const [resultData, setResultData] = useState([]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -36,11 +42,96 @@ const Search = () => {
             })
         }; 
 
-    },[])
+        if (params.query) {
+            fetch('http://localhost:3000/api/search?query=' + params.query)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    let newArr = [];
+                    for (let i = 0; i < data.rows.length; i++) {
+                        if(data.rows[i] !== undefined) {
+                            const item = {
+                                cat: data.rows[i].Category.name,
+                                name: data.rows[i].name,
+                                pictures: data.rows[i].pictures,
+                                price: data.rows[i].price,
+                                id: data.rows[i].id,
+                                promo: data.rows[i].promo,
+                                promoValue: data.rows[i].promoValue,
+                                stock: data.rows[i].stock
+                            }
+                            newArr.push(item)
+                        }
+                    }
+                    setResultData(newArr);
+                })
+            } else {
+            setResultData([]);
+        }
+
+    },[params.query])
+
+    const handleSort = (option) => {
+        if (option === "ascName") {
+
+        } else if (option === "descName") {
+
+        } else if (option === "ascPrice") {
+
+        } else if (option === "descPrice") {
+
+        }
+    }
 
     return (
         <main>
-            <h2>SEARCH</h2>
+            <section className='searchList'>
+            { resultData.length > 0 ?
+            <>
+                <div className="searchList__top">
+                    <div className="searchList__top__top">
+                        <h2>Resultat de la recherche : <span className='searchList__spanQuery'>{params.query}</span></h2>
+                        <div className="searchList__top__top__pages"></div>
+                    </div>
+            
+                    <select onChange={(e) => handleSort(e.target.value)}>
+                        <option defaultChecked value="ascName">Trier par ordre alphabétique croissant</option>
+                        <option value="descName">Trier par ordre alphabétique décroissant</option>
+                        <option value="ascPrice">Trier par prix croissant</option>
+                        <option value="descPrice">Trier par prix décroissant</option>
+                    </select>
+                </div>
+                <div className="searchList__main">
+                    <ul>
+                        {resultData.map(el => {
+                            if(el.cat === "telescope") {
+                                return <TelescopeCard id={el.id} name={el.name} price={el.price} key={el.id} image={el.pictures[0]} stock={el.stock} promo={el.promo} promoValue={el.promoValue} />
+                            } else if(el.cat === "oculaire") {
+                                return <OculaireCard id={el.id} name={el.name} price={el.price} key={el.id} image={el.pictures} stock={el.stock} promo={el.promo} promoValue={el.promoValue} />
+                            } else if(el.cat === "monture") {
+                                return <MontureCard id={el.id} name={el.name} price={el.price} key={el.id} image={el.pictures} stock={el.stock} promo={el.promo} promoValue={el.promoValue} />
+                            } 
+                        })} 
+                    </ul>
+                </div>
+                <div className="searchList__bot">
+
+                </div>
+            </>
+            :
+            <>
+                <div className="searchList__top">
+                    <div className="searchList__top__top">
+                        <h2>Resultat de la recherche : <span className='searchList__spanQuery'>{params.query}</span></h2>
+                        <div className="searchList__top__top__pages"></div>
+                    </div>
+                </div>
+                <div className='searchList__noResult'>
+                    <h3>Aucun resultat</h3>
+                </div>
+            </>
+            }
+            </section>
         </main>
     );
 };

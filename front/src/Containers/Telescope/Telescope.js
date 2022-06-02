@@ -42,7 +42,7 @@ const Telescope = () => {
 
         getTelescopeslist();
 
-    }, [])
+    }, []);
 
     const getTelescopeslist = () => {
         window.scrollTo(0, 0);
@@ -204,7 +204,7 @@ const Telescope = () => {
             } else {
                 getTelescopeslist();
             }
-    }
+    };
         
     const removeFilter = () => {
         const inputsBrand = document.getElementsByName('telescopeBrand');
@@ -222,7 +222,7 @@ const Telescope = () => {
         let filter = {brand: "", type: "", onStock : false}
         setFilterOptions(filter);
         getTelescopeslist()
-    }
+    };
 
     return (
         <main className='mainList'>

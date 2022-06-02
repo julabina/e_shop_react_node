@@ -38,4 +38,12 @@
             }
         }
     }
+    &__articles__totalCont__total {
+        width: 250px;
+        text-align: end;
+        font-size: 1.2em;
+        font-weight: 600;
+        padding-top: 2px;
+        color: map-get($map: $colors, $key: tertiary);
+    }
 }

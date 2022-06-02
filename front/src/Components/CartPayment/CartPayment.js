@@ -128,15 +128,15 @@ const CartPayment = (props) => {
                 <div className="cart__articles__separator"></div>
                 <div className="cart__articles__totalCont">
                     <h4>Total Panier</h4>
-                    <p className="cart__articles__totalCont__total">{totalCart} €</p>
+                    <p className="cartStepPayment__articles__totalCont__total">{(totalCart).toFixed(2)} €</p>
                 </div>
                 <div className="cart__articles__totalCont">
                     <h4>Livraison</h4>
-                    <p className="cart__articles__totalCont__total">{props.delivery} €</p>
+                    <p className="cartStepPayment__articles__totalCont__total">{(props.delivery).toFixed(2)} €</p>
                 </div>
                 <div className="cart__articles__totalCont">
                     <h4>Montant Total TTC</h4>
-                    <p className="cart__articles__totalCont__total">{props.delivery + totalCart} €</p>
+                    <p className="cartStepPayment__articles__totalCont__total">{(props.delivery + totalCart).toFixed(2)} €</p>
                 </div>
             </div>
         </div>
