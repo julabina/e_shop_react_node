@@ -138,6 +138,7 @@ const initDb = () => {
                 pictures: el.pictures,
                 price: el.price,
                 stock: el.stock,
+                realStock: el.stock,
                 description1: el.description1,
                 description2: el.description2,
                 description3: el.description3,

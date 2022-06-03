@@ -42,7 +42,8 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
             validate: {
                 notEmpty: { msg: "Le prénom ne doit pas être vide." },
-                len: { args: [2, 25], msg: "Le prénom doit re compris entre 2 et 25 caractères." }
+                len: { args: [2, 25], msg: "Le prénom doit etre compris entre 2 et 25 caractères." },
+                is: {args: /^[a-zA-Zé èà]*$/, msg: "le prenom ne doit contenir que des lettres"}
             }
         },
         lastName: {
@@ -50,23 +51,24 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
             validate: {
                 notEmpty: { msg: "Le nom ne doit pas être vide." },
-                len: { args: [2, 25], msg: "Le nom doit re compris entre 2 et 25 caractères." }
+                len: { args: [2, 25], msg: "Le nom doit etre compris entre 2 et 25 caractères." },
+                is: {args: /^[a-zA-Zé èà]*$/, msg: "le nom ne doit contenir que des lettres"}
             }
         },
         mobile: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: true,
             validate: {
                 notEmpty: { msg: "Le mobile ne doit pas être vide." },
-                isInt: { msg: "Le mobile ne doit contenir uniquement des chiffres." }
+                is : {args : /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/, msg: "Le format de mobile n'est pas valide."}
             }
         },
         fixe: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: true,
             validate: {
                 notEmpty: { msg: "Le mobile ne doit pas être vide." },
-                isInt: { msg: "Le fixe ne doit contenir uniquement des chiffres." }
+                is : {args : /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/, msg: "Le format de fixe n'est pas valide."}
             }
         },
         newsletter: {
@@ -81,14 +83,16 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true,
             validate: {
-                notEmpty: { msg: "L'adresse ne doit pas etre vide." }
+                notEmpty: { msg: "L'adresse ne doit pas etre vide." },
+                is: {args: /^[a-zA-Zé èà0-9\s,.'-]{3,}$/, msg: "l'adresse n'est pas valide"}
             }
         },
         addressComp: {
             type: DataTypes.STRING,
             allowNull: true,
             validate: {
-                notEmpty: { msg: "Le complément d'adresse ne doit pas etre vide." }
+                notEmpty: { msg: "Le complément d'adresse ne doit pas etre vide." },
+                is: {args: /^[a-zA-Zé èà0-9\s,.'-]{3,}$/, msg: "le complément d'adresse n'est pas valide"}
             }
         },
         zip: {
@@ -96,7 +100,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
             validate: {
                 notEmpty: { msg: "Le code postal ne doit pas etre vide." },
-                isInt: { msg: "Le code postal doit uniquement contenir que des chiffres." }
+                is: {args: /^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$/, msg: "Le code postal n'est pas valide."}
             }
         },
         city: {
@@ -104,21 +108,24 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
             validate: {
                 notEmpty: { msg: "La ville ne doit pas etre vide." },
-                len: { args: [2, 30], msg: "La ville doit etre comprise entre 2 et 30 caractères."  }
+                len: { args: [2, 30], msg: "La ville doit etre comprise entre 2 et 30 caractères."  },
+                is: {args: /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/, msg: "La ville n'est pas dans un format valide"}
             }
         },
         deliveryAddress: {
             type: DataTypes.STRING,
             allowNull: true,
             validate: {
-                notEmpty: { msg: "L'adresse de livraison ne doit pas etre vide." }
+                notEmpty: { msg: "L'adresse de livraison ne doit pas etre vide." },
+                is: {args: /^[a-zA-Zé èà0-9\s,.'-]{3,}$/, msg: "l'adresse de livraison n'est pas valide"}
             }
         },
         deliveryAddressComp: {
             type: DataTypes.STRING,
             allowNull: true,
             validate: {
-                notEmpty: { msg: "Le complément d'adresse de livraison ne doit pas etre vide." }
+                notEmpty: { msg: "Le complément d'adresse de livraison ne doit pas etre vide." },
+                is: {args: /^[a-zA-Zé èà0-9\s,.'-]{3,}$/, msg: "le complement d'adresse de livraison n'est pas valide"}
             }
         },
         deliveryZip: {
@@ -126,14 +133,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
             validate: {
                 notEmpty: { msg: "Le code postal de livraison ne doit pas etre vide." },
-                isInt: { msg: "Le code postal de livraison doit uniquement contenir que des chiffres." },
-                isLengthIsFive(value) {
-                    if(value !== null && value !== undefined) {
-                        if (parseInt(value).length !== 5) {
-                            throw new Error('Le code postal de livraison doit avoir une longueur de 5.')
-                        }
-                    }
-                }
+                is: {args: /^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$/, msg: "Le code postal de livraison n'est pas valide."}
             }
         },
         deliveryCity: {
@@ -141,7 +141,8 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
             validate: {
                 notEmpty: { msg: "La ville de livraison ne doit pas etre vide." },
-                len: { args: [2, 30], msg: "La ville de livraison doit etre comprise entre 2 et 30 caractères."  }
+                len: { args: [2, 30], msg: "La ville de livraison doit etre comprise entre 2 et 30 caractères."  },
+                is: {args: /^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/, msg: "La ville de livraison n'est pas dans un format valide"}
             }
         },
         company: {
@@ -153,14 +154,15 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
             validate: {
                 notEmpty: { msg: "Le nom de la société ne doit pas etre vide." },
+                is: {args: /^[a-zA-Zé èà0-9\s,.'-]{3,}$/, msg: "La société n'a pas un format valide"}
             }
         },
         fax: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: true,
             validate: {
                 notEmpty: { msg: "Le mobile ne doit pas être vide." },
-                isInt: { msg: "Le fixe ne doit contenir uniquement des chiffres." }
+                is : {args : /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/, msg: "Le format de fax n'est pas valide."}
             }
         },
         tva: {
@@ -168,7 +170,8 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
             validate: {
                 notEmpty: { msg: "Le numero de tva ne doit pas être vide." },
-                len:{ args: [11, 13], msg: "Le numero de tva est composé d' une clé suivi du siret." }
+                len:{ args: [11, 13], msg: "Le numero de tva est composé d' une clé suivi du siret." },
+                is:{args: /^(FR){0,1}[0-9A-Z]{2}\ [0-9]{9}$/, msg: "Le numero de TVA n'est pas dans un format valide"}
             }
         },
         siret: {
@@ -180,18 +183,12 @@ module.exports = (sequelize, DataTypes) => {
             validate: {
                 notEmpty: { msg: "Le SIRET ne doit pas être vide." },
                 isInt: { msg: "Le SIRET ne doit contenir que des chiffres." },
-                isLengthIsNine(value) {
-                    if(value !== null && value !== undefined) {
-                        if(parseInt(value).length !== 9) {
-                            throw new Error('Le SIRET doit etre composé de 9 chiffres.')
-                        }
-                    }
-                }
+                is: {args: /^[0-9]{9}$/, msg:"Le SIRET doit etre composé de 9 chiffres."}
             }
         }
     },{
         timestamps: true,
         createdAt: 'created',
-        updatedAt: false
+        updatedAt: 'updated'
     })
 }

@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false
         },
+        realStock : {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
         pictures: {
             type: DataTypes.TEXT,
             allowNull: false,
