@@ -655,3 +655,56 @@ exports.findFilteredMontures = (req, res, next) => {
         });
   });
 };
+
+exports.removeStock = (req, res, next) => {
+    if(req.body.id) {
+        req.body.id = null
+    }
+    if(req.body.categoryId) {
+        req.body.categoryId = null
+    }
+    if(req.body.name) {
+        req.body.name = null
+    }
+    if(req.body.price) {
+        req.body.price = null
+    }
+    if(req.body.realStock) {
+        req.body.realStock = null
+    }
+    if(req.body.pictures) {
+        req.body.pictures = null
+    }
+    if(req.body.desciption1) {
+        req.body.desciption1 = null
+    }
+    if(req.body.description2) {
+        req.body.description2 = null
+    }
+    if(req.body.description3) {
+        req.body.description3 = null
+    }
+    if(req.body.descriptionPicture) {
+        req.body.descriptionPicture = null
+    }
+    if(req.body.promo) {
+        req.body.promo = null
+    }
+    if(req.body.promoValue) {
+        req.body.promoValue = null
+    }
+    
+    Product.findByPk(req.params.id)
+        .then(product => {
+            if(product !== null) {
+                return product.update({
+                    stock: req.body.stock
+                })
+                    .then(() => {
+                       res.status(200).json({ product })
+                    })
+                    .catch(error => res.status(500).json({ error }))
+            }
+        })
+        .catch(error => res.status(500).json({ error }))
+};

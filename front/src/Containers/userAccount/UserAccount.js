@@ -445,7 +445,7 @@ const UserAccount = () => {
         })
               .then(res => {
                 console.log(res);
-               if (res === 45) {
+               if (res === 200) {
                     setSuccessMsg("Infos personnelles bien modifiées !")
             
                     closeSectionToModify();

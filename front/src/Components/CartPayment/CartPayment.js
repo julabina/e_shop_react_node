@@ -4,14 +4,20 @@ import cheque from '../../assets/cheque.webp';
 import virement from '../../assets/virement.webp';
 import cb from '../../assets/cb.webp'
 import { NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 const CartPayment = (props) => {
 
+    const { cart } = useSelector(state => ({
+        ...state.cartReducer
+    }))
+    const dispatch = useDispatch()
+
     const [totalCart, setTotalCart] = useState(45);
     const [method, setMethode] = useState("creditCard");
+    const [cartData, setCartData] = useState([])
 
     useEffect(() => {
-        console.log('test');
         let total = 0;
         let newArr = props.cart
 
@@ -19,12 +25,79 @@ const CartPayment = (props) => {
             total += newArr[i].count * newArr[i].price     
         }
 
+        let newCartArr = [];
+
+        for(let i = 0; i < cart.length; i++) {
+            let item = {
+                category: cart[i].category,
+                id: cart[i].id,
+                count: cart[i].count,
+                price: cart[i].price,
+                stock: cart[i].stock,
+                name: cart[i].name,
+                image: cart[i].image,
+                key: cart[i].key
+            }
+            newCartArr.push(item);
+        }
+        setCartData(newCartArr);
+
         setTotalCart(total);
 
     },[props.cart])
 
     const changePaymentMethod = (value) => {
         setMethode(value)
+    }
+
+    const changeLocalStorage = (stock) => {
+        let newArr = [];
+        for (let i = 0; i < cart.length; i++) {
+            let item = {
+                category: cartData[i].category,
+                id: cartData[i].id,
+                count: stock,
+                price: cartData[i].price,
+                stock: stock,
+                name: cartData[i].name,
+                image: process.env.PUBLIC_URL +  cartData[i].image,
+                key: cartData[i].key
+            }
+            newArr.push(item);
+        }
+
+        dispatch ({
+            type: 'UPDATECART',
+            payload: newArr
+        }) 
+    }
+
+    const watchStock = () => {
+        let promiseArr = []
+
+        for(let i = 0; i < cart.length; i++) {
+            let promise = fetch('http://localhost:3000/api/products/' + cart[i].category + 's/' + cart[i].id).then(res => res.json());
+            promiseArr.push(promise);
+        }
+
+        Promise.all(promiseArr)
+        .then(data => {
+            for (let i = 0; i < data.length; i++) {     
+                if (data[i].data.stock === 0) {
+                    changeLocalStorage(0);
+                    (alert('Le produit ' + cart[i].name + ' n\'est plus disponible'))
+                    window.location.reload(false)
+                } 
+                if (data[i].data.stock < cartData[i].count) {
+                    changeLocalStorage(data[i].data.stock);
+                    (alert('Le produit ' + cart[i].name + ' ne dispose plus en stock du nombres d\'articles sélectionnés'))
+                    window.location.reload(false)
+                }
+            }
+            
+        })  
+        console.log('testez');
+        /* sendInfos(); */
     }
 
     const sendInfos = () => {
@@ -40,7 +113,7 @@ const CartPayment = (props) => {
             <div className="cart__btns__options">
                 <button  onClick={props.previous} id='' className='cart__btns__options__btn'>Retour livraison</button>
             </div>
-            <button onClick={sendInfos} className='cart__btns__orderBtn'>Continuer</button>
+            <button onClick={watchStock} className='cart__btns__orderBtn'>Continuer</button>
         </div>
 
         <div className="cartStepPayment__paymentChoice">
@@ -143,7 +216,7 @@ const CartPayment = (props) => {
 
 
         <div className="cart__articles__orderBtn">
-                <button onClick={sendInfos} className='cart__btns__orderBtn'>continuer</button>
+                <button onClick={watchStock} className='cart__btns__orderBtn'>continuer</button>
         </div>
         </>
     );
