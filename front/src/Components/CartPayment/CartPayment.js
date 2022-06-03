@@ -86,18 +86,17 @@ const CartPayment = (props) => {
                 if (data[i].data.stock === 0) {
                     changeLocalStorage(0);
                     (alert('Le produit ' + cart[i].name + ' n\'est plus disponible'))
-                    window.location.reload(false)
+                    return window.location.reload(false)
                 } 
                 if (data[i].data.stock < cartData[i].count) {
                     changeLocalStorage(data[i].data.stock);
                     (alert('Le produit ' + cart[i].name + ' ne dispose plus en stock du nombres d\'articles sélectionnés'))
-                    window.location.reload(false)
+                    return window.location.reload(false)
                 }
             }
             
         })  
-        console.log('testez');
-        /* sendInfos(); */
+        sendInfos();
     }
 
     const sendInfos = () => {
