@@ -298,41 +298,37 @@ exports.findFilteredTelescopes = (req, res, next) => {
     raw: true,
   })
     .then((brand) => {
-        console.log(brand);
-        let selectedBrandId = brand;
-        console.log(selectedBrandId[0].id);
+        let selectedBrandId = brand.map(el => el.id);
         
         return ProductAttribute.findAll({
             where: {
                     brandId: selectedBrandId,
             },
-            attributes: ["productId"]
+            attributes: ["productId"],
+            raw: true
         })
             .then((brandId) => {
-                console.log(brandId);
-                let brandIdArray = brandId.map((el) => {
-                    return el.dataValues.productId;
-                });
+                let brandIdArray = brandId.map((el) => el.productId);
 
                 return TelescopeType.findAll({
                     where: {
                         name: req.body.type,
                     },
+                    attributes: ['id'],
+                    raw: true
                 })
                     .then((typeFilteredId) => {
-                        selectedTypeId = typeFilteredId.map((el) => {
-                            return el.dataValues.id;
-                        });
+                        selectedTypeId = typeFilteredId.map((el) => el.id);
 
                         return ProductAttribute.findAll({
                         where: {
                                 telescopeTypeId: selectedTypeId,
                         },
+                        attributes: ['productId'],
+                        raw: true
                         })
                             .then((typeId) => {
-                                let typeIdArray = typeId.map((el) => {
-                                    return el.dataValues.productId;
-                                });
+                                let typeIdArray = typeId.map((el) => el.productId);
                                 
                                 let productIdFiltered = brandIdArray.filter(el => typeIdArray.includes(el));
 
@@ -435,21 +431,21 @@ exports.findFilteredOculaires = (req, res, next) => {
     where: {
         name: req.body.brand,
     },
+    attributes: ['id'],
+    raw: true
   })
     .then((brand) => {
-        let selectedBrandId = brand.map((el) => {
-            return el.dataValues.id;
-        });
+        let selectedBrandId = brand.map((el) => el.id);
         
         return ProductAttribute.findAll({
             where: {
                     brandId: selectedBrandId,
             },
+            attributes: ['productId'],
+            raw: true
         })
             .then((brandId) => {
-                let brandIdArray = brandId.map((el) => {
-                    return el.dataValues.productId;
-                });
+                let brandIdArray = brandId.map((el) => el.productId);
 
                 let modelOption;
                 if(oculaireModel !== undefined) {
@@ -463,21 +459,21 @@ exports.findFilteredOculaires = (req, res, next) => {
 
                 return OculaireCollection.findAll({
                     where: modelOption,
+                    attributes: ['id'],
+                    raw: true
                 })
                     .then((modelFilteredId) => {
-                        selectedModelId = modelFilteredId.map((el) => {
-                            return el.dataValues.id;
-                        });
+                        selectedModelId = modelFilteredId.map((el) => el.id);
 
                         return ProductAttribute.findAll({
-                        where: {
-                                oculaireModelId: selectedModelId,
-                        },
+                            where: {
+                                    oculaireModelId: selectedModelId,
+                            },
+                            attributes: ['productId'],
+                            raw: true
                         })
                             .then((modelId) => {
-                                let modelIdArray = modelId.map((el) => {
-                                    return el.dataValues.productId;
-                                });
+                                let modelIdArray = modelId.map((el) => el.productId);
                                 
                                 let productIdFiltered = brandIdArray.filter(el => modelIdArray.includes(el));
 
@@ -536,11 +532,11 @@ exports.findFilteredMontures = (req, res, next) => {
     where: {
         name: req.body.brand,
     },
+    attributes: ['id'],
+    raw: true
   })
     .then((brand) => {
-        let selectedBrandId = brand.map((el) => {
-            return el.dataValues.id;
-        });
+        let selectedBrandId = brand.map((el) => el.id);
 
         let goToOption;
         if (req.body.goTo === true) {
@@ -562,31 +558,30 @@ exports.findFilteredMontures = (req, res, next) => {
         
         return ProductAttribute.findAll({
             where: goToOption,
+            attributes: ['productId']
         })
             .then((brandId) => {
-                let brandIdArray = brandId.map((el) => {
-                    return el.dataValues.productId;
-                });
+                let brandIdArray = brandId.map((el) => el.productId);
 
                 return MountType.findAll({
                     where: {
                         name: req.body.type,
                     },
+                    attributes: ['id'],
+                    raw: true
                 })
                     .then((typeFilteredId) => {
-                        selectedTypeId = typeFilteredId.map((el) => {
-                            return el.dataValues.id;
-                        });
+                        selectedTypeId = typeFilteredId.map((el) => el.id);
 
                         return ProductAttribute.findAll({
-                        where: {
-                                mountTypeId: selectedTypeId,
-                        },
+                            where: {
+                                    mountTypeId: selectedTypeId,
+                            },
+                            attributes: ['productId'],
+                            raw: true
                         })
                             .then((typeId) => {
-                                let typeIdArray = typeId.map((el) => {
-                                    return el.dataValues.productId;
-                                });
+                                let typeIdArray = typeId.map((el) => el.productId);
                                 
                                 let productIdFiltered = brandIdArray.filter(el => typeIdArray.includes(el));
 

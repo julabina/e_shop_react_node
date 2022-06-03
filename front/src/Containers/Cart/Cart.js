@@ -498,73 +498,74 @@ const Cart = () => {
                             })}
                         </div>
                         <div className="cart__articles__separator"></div>
-                        <div className="">
-                            <p>Récapitulatif:</p>
-                            <p>Commande N° {orderNumber}</p>
-                            <p>le {orderDate} à {orderHour}</p>
-                            <p>Montant Total de la commande: {(parseInt(totalCart) + deliveryOptions.price).toFixed(2)} €</p>
-                            <p>Paiement par: {paymentInfos}</p>
-                            <p>Livraison en: {deliveryOptions.method}</p> 
-                            <p>Adresse de livraison:</p>
-                            {
-                                infosData.societe !== null && <p>{infosData.societe}</p> 
-                            }
-                            <p>{infosData.civilite} {infosData.lastName} {infosData.firstName}</p>
-                            {
-                                infosData.deliveryAddress === null ? 
-                                <>
-                                    { infosData.addressComp !== "" && <p>{infosData.addressComp}</p> }
-                                    <p>{infosData.address}</p>
-                                    <p>{infosData.zipCode} {infosData.city}</p>
-                                </>
-                                :
-                                <>
-                                    { infosData.deliveryAddressComp !== "" && <p>{infosData.deliveryAddressComp}</p> }
-                                    <p>{infosData.deliveryAddress}</p>
-                                    <p>{infosData.deliveryZipCode} {infosData.deliveryCity}</p>
-                                </>
-                            }
-                            {
-                                deliveryOptions.informations !== "" && 
-                                <>
-                                    <p>Instructions de livraison:</p>
-                                    <p>{deliveryOptions.informations}</p>
-                                </>
-                            }
-                            {
-                                infosData.instruction !== "" && 
-                                <>
-                                    <p>Autres instructions:</p>
-                                    <p>{infosData.instruction}</p>
-                                </>
-                            }
-                            <p>Moyens de contact:</p>
-                            <p>{infosData.mail}</p>
-                            <p>{infosData.mobile}</p>
-                            {
-                                infosData.tel !== "" && 
-                                <>
-                                    <p>{}</p>
-                                </>
-                            }
-                            {
-                                infosData.societe !== null &&
-                                <>
+                        <div className="cartStepConfirm__recap">
+                            <div className="cartStepConfirm__recap__content">
+                                <h4>Récapitulatif:</h4>
+                                <p>Commande N° {orderNumber}</p>
+                                <p>le {orderDate} à {orderHour}</p>
+                                <p>Montant Total de la commande: {(parseInt(totalCart) + deliveryOptions.price).toFixed(2)} €</p>
+                                <p>Paiement par {paymentInfos}</p>
+                                <p>Livraison en {deliveryOptions.method}</p> 
+                                <p className="cartStepConfirm__recap__content__title">Adresse de livraison:</p>
                                 {
+                                    infosData.societe !== null && <p>{infosData.societe}</p> 
+                                }
+                                <p>{infosData.lastName} {infosData.firstName}</p>
+                                {
+                                    infosData.deliveryAddress === null ? 
+                                    <>
+                                        { infosData.addressComp !== "" && <p>{infosData.addressComp}</p> }
+                                        <p>{infosData.address}</p>
+                                        <p>{infosData.zipCode} {infosData.city}</p>
+                                    </>
+                                    :
+                                    <>
+                                        { infosData.deliveryAddressComp !== "" && <p>{infosData.deliveryAddressComp}</p> }
+                                        <p>{infosData.deliveryAddress}</p>
+                                        <p>{infosData.deliveryZipCode} {infosData.deliveryCity}</p>
+                                    </>
+                                }
+                                {
+                                    deliveryOptions.informations !== "" && 
+                                    <>
+                                        <p className="cartStepConfirm__recap__content__title">Instructions de livraison:</p>
+                                        <p>{deliveryOptions.informations}</p>
+                                    </>
+                                }
+                                {
+                                    infosData.instruction !== "" && 
+                                    <>
+                                        <p className="cartStepConfirm__recap__content__title">Autres instructions:</p>
+                                        <p>{infosData.instruction}</p>
+                                    </>
+                                }
+                                <p className="cartStepConfirm__recap__content__title">Moyens de contact:</p>
+                                <p>{infosData.mobile}</p>
+                                {
+                                    infosData.tel !== "" && 
+                                    <>
+                                        <p>{}</p>
+                                    </>
+                                }
+                                {
+                                    infosData.societe !== null &&
+                                    <>
+                                    {
                                         infosData.fax !== "" && <p>Fax: {infosData.fax}</p>
                                     } 
-                                </>
-                            }
-                            {
-                                infosData.newsLetter ?
-                                <>
-                                    <p>Votre inscription à la newsletters{infosData.ad && <span> et aux campagnes SMS</span>} a bien été pris en compte.</p>                            
-                                </>
-                                :
-                                <>
-                                    { infosData.ad && <p>Votre inscription aux campagnes SMS a bien été pris en compte.</p> }
-                                </>
-                            }
+                                    </>
+                                }
+                                {
+                                    infosData.newsLetter ?
+                                    <>
+                                        <p>Votre inscription à la newsletters{infosData.ad && <span> et aux campagnes SMS</span>} a bien été pris en compte.</p>                            
+                                    </>
+                                    :
+                                    <>
+                                        { infosData.ad && <p>Votre inscription aux campagnes SMS a bien été pris en compte.</p> }
+                                    </>
+                                }
+                            </div>
                         </div>
                 </section>
                 </>

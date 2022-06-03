@@ -50,6 +50,7 @@ const Telescope = () => {
         fetch('http://localhost:3000/api/products/telescopes')
         .then(res => res.json())
         .then(data => {
+            console.log(data);
         let newArr = [];
         for (let i = 0; i < data.data.length; i++) {
             if(data.data[i] !== undefined) {

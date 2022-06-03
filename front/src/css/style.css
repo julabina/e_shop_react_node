@@ -837,6 +837,9 @@ body {
   color: #FF0000;
 }
 
+.cartStepConfirm {
+  width: 1480px;
+}
 .cartStepConfirm h2 {
   text-transform: uppercase;
   text-align: center;
@@ -848,6 +851,29 @@ body {
   text-align: center;
   letter-spacing: 1.1px;
   margin-bottom: 100px;
+}
+.cartStepConfirm__recap {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0;
+  width: 100%;
+  text-align: center;
+}
+.cartStepConfirm__recap__content {
+  width: 300px;
+  white-space: nowrap;
+}
+.cartStepConfirm__recap__content h4 {
+  font-size: 1.1em;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.cartStepConfirm__recap__content p {
+  line-height: 1.4;
+}
+.cartStepConfirm__recap__content__title {
+  font-weight: 600;
+  margin: 20px 0 7px;
 }
 
 .confirmModal {

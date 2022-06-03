@@ -132,11 +132,11 @@ const CartPayment = (props) => {
                 </div>
                 <div className="cart__articles__totalCont">
                     <h4>Livraison</h4>
-                    <p className="cartStepPayment__articles__totalCont__total">{(props.delivery).toFixed(2)} €</p>
+                    <p className="cartStepPayment__articles__totalCont__total">{(parseInt(props.delivery)).toFixed(2)} €</p>
                 </div>
                 <div className="cart__articles__totalCont">
                     <h4>Montant Total TTC</h4>
-                    <p className="cartStepPayment__articles__totalCont__total">{(props.delivery + totalCart).toFixed(2)} €</p>
+                    <p className="cartStepPayment__articles__totalCont__total">{(parseInt(props.delivery) + totalCart).toFixed(2)} €</p>
                 </div>
             </div>
         </div>
