@@ -99,9 +99,18 @@ const CartPayment = (props) => {
         sendInfos();
     }
 
+    const emptyCart = () => {
+        let emptyArr = []
+
+        dispatch ({
+            type: 'UPDATECART',
+            payload: emptyArr
+        })
+    }
+
     const sendInfos = () => {
         props.sendInfos(method);
-
+        emptyCart();
         props.next();
     }
 
