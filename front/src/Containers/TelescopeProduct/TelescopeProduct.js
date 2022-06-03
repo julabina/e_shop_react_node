@@ -20,6 +20,7 @@ const TelescopeProduct = () => {
     const [errorComment, setErrorComment] = useState('');
     const [inputAddCart, setInputAddCart] = useState("");
     const [isLogged, setIsLogged] = useState(false);
+    const [actualUser, setActualUser] = useState({id: '', token: ''});
     let back = '< retour'
 
     useEffect(() => {
@@ -84,27 +85,35 @@ const TelescopeProduct = () => {
             if (token !== null) {
                 let decodedToken = decodeToken(token.version);
                 let isTokenExpired = isExpired(token.version);
+                let newObj = {
+                    id: token.content,
+                    token: token.version
+                }
                 if (decodedToken.userId !== token.content || isTokenExpired === true) {
                     dispatch ({
                         type: 'DISCONNECT'
                     })
                     localStorage.removeItem('token');
+                    setActualUser({id: "", token: ""})
                     return setIsLogged(false);
                 };
                 dispatch ({
                     type: 'LOG'
                 })
                 setIsLogged(true);
+                setActualUser(newObj);
             } else {
                 dispatch ({
                     type: 'DISCONNECT'
                 })
+                setActualUser({id: "", token: ""})
                 setIsLogged(false);
             };
         } else {
             dispatch ({
                 type: 'DISCONNECT'
             })
+            setActualUser({id: "", token: ""})
             setIsLogged(false);
         }; 
         
@@ -114,6 +123,7 @@ const TelescopeProduct = () => {
         fetch("http://localhost:3000/api/comments/" + productId)
         .then(res => res.json())
         .then(data => {
+            console.log(data);
             if(data.data !== undefined) {
                 const arr = data.data;
                 setCommentsData(arr);
@@ -345,7 +355,7 @@ const TelescopeProduct = () => {
                         <>
                             {
                                 commentsData.map(el => {
-                                    return <Comment comment={el.comment} key={el.id} productId={el.productId} commentId={el.commentId} userId={el.userId} productCat={el.productCat} />
+                                    return <Comment comment={el.comment} key={el.id} productId={el.productId} commentId={el.id} userId={el.userId} productCat={el.productCat} created={el.created} updated={el.updated} actualUserId={actualUser.id} actualUserToken={actualUser.token} fetchFunc={fetchComment} />
                                 })
                             }
                         </>

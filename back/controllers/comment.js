@@ -46,10 +46,54 @@ exports.addComment = (req, res, next) => {
 
 // MODIFY ONE COMMENT
 exports.modifyComment = (req, res, next) => {
+    if(req.body.id) {
+        req.body.id = null
+    }
+    if(req.body.productId) {
+        req.body.productId = null
+    }
+    if(req.body.productCat) {
+        req.body.productCat = null
+    }
 
+    Comment.update(req.body, {
+        where: {
+            id: req.params.id
+        }
+    })
+        .then(() => {
+            return User.findOne({ where: { userId : req.body.userId }})
+                .then(user => {
+                if(user !== null) {
+                    const message = 'Utilisateur bien modifié.';
+                    res.status(200).json({ message })
+                } else {
+                    const message = 'Aucun utilisateur trouvé.';
+                    res.status(404).json({ message });
+                }
+            })
+            .catch(error => res.status(500).json({ error }))
+        })
+        .catch(error => res.status(500).json({ error }))
 };
 
 // DELETE ONE COMMENT
 exports.deleteComment = (req, res, next) => {
-
+    Comment.findByPk(req.params.id)
+        .then(comment => {
+            if(comment === null) {
+                const message = "Aucun commentaires trouvé.";
+                return res.status(404).json({ message });
+            }
+            Comment.destroy({
+                where: {id : comment.id}
+            })
+                .then(() => {
+                    const message = "Le commentaire a bien été supprimé";
+                    res.json({ message });
+                })
+        })
+        .catch(error => {
+            res.status(500).json({ error })
+        })
 };

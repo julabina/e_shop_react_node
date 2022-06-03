@@ -205,3 +205,22 @@ exports.modifyPassword = (req, res, next) => {
                         res.status(500).json({ message: "Une erreur est survenu.", data: error })
                     });      
     };
+
+    exports.findName = (req, res, next) => {
+        User.findOne({
+            where: {
+                userId: req.params.id
+            },
+            attributes: ['firstName', 'lastName'],
+            raw: true
+        })
+            .then(infos => {
+                if (infos !== null) {
+                    const message = "Les infos ont bien été récupéré.";
+                    return res.status(200).json({ message, data: infos })
+                }
+                const message = "Aucun utilisateur trouvé.";
+                res.status(404).json({ message })
+            })
+            .catch(error => res.status(500).json({ error }))
+    };
