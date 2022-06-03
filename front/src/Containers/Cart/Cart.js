@@ -558,11 +558,11 @@ const Cart = () => {
                                 {
                                     infosData.newsLetter ?
                                     <>
-                                        <p>Votre inscription à la newsletters{infosData.ad && <span> et aux campagnes SMS</span>} a bien été pris en compte.</p>                            
+                                        <p className='cartStepConfirm__recap__content__newsletter'>Votre inscription à la newsletters{infosData.ad && <span> et aux campagnes SMS</span>} a bien été pris en compte.</p>                            
                                     </>
                                     :
                                     <>
-                                        { infosData.ad && <p>Votre inscription aux campagnes SMS a bien été pris en compte.</p> }
+                                        { infosData.ad && <p className='cartStepConfirm__recap__content__newsletter'>Votre inscription aux campagnes SMS a bien été pris en compte.</p> }
                                     </>
                                 }
                             </div>

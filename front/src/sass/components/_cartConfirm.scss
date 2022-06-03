@@ -19,7 +19,6 @@
         width: 100%;
         text-align: center;
         &__content {
-            width: 300px;
             white-space: nowrap;
             h4 {
                 font-size: 1.1em;
@@ -32,6 +31,9 @@
             &__title {
                 font-weight: 600;
                 margin: 20px 0 7px;
+            }
+            &__newsletter {
+                margin-top: 60px;
             }
         }
     }

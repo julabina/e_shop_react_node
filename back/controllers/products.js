@@ -248,22 +248,60 @@ exports.findOneMonture = (req, res, next) => {
 };
 
 exports.findPromo = (req, res, next) => {
-  Category.hasMany(Product, { foreignKey: "categoryId" });
-  Product.belongsTo(Category);
+    Category.hasMany(Product, { foreignKey: "categoryId" });
+    Product.belongsTo(Category);
 
-  Product.findAll({
-    include: {
-        model: Category,
-    },
-    where: {
-        promo: true,
-    },
-  })
-    .then((promo) => {
-        const message = "La liste des promotions a bien été trouvé.";
-        res.status(200).json({ message, data: promo });
+    let catArr = [], includeOption;
+    if(req.body.telescope) {
+        catArr.push("telescope")
+    }
+    if(req.body.oculaire) {
+        catArr.push("oculaire")
+    }
+    if(req.body.monture) {
+        catArr.push("monture")
+    }
+
+    if (catArr.length !== 0) {
+        includeOption = {
+            model: Category,
+            where: {
+                name : catArr
+            }      
+        }
+    } else {
+        includeOption = {
+            model: Category,
+            where: {
+                name : ["telescope", "oculaire", "monture"]
+            }      
+        }
+    }
+
+    let options;
+
+    if (req.body.onStock === true) {
+        options = {
+            promo: true,
+            stock: {
+            [Op.ne]: 0
+            }
+        }
+    } else {
+        options = {
+            promo: true,
+        }   
+    } 
+
+    Product.findAll({
+        include: includeOption,
+        where: options,
     })
-    .catch((error) => res.status(500).json({ error }));
+        .then((promo) => {
+            const message = "La liste des promotions a bien été trouvé.";
+            res.status(200).json({ message, data: promo });
+        })
+        .catch((error) => res.status(500).json({ error }));
 };
 
 exports.findFilteredTelescopes = (req, res, next) => {

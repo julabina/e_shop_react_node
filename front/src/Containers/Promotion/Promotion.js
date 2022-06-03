@@ -10,33 +10,10 @@ const Promotion = () => {
     const dispatch = useDispatch();
 
     const [promoData, setPromoData] = useState([]);
+    const [filterOptions, setFilterOptions] = useState({telescope : false, oculaire: false, monture: false, onStock: false});
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        
-        fetch('http://localhost:3000/api/products/promotion')
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-            let newArr = [];
-            for (let i = 0; i < data.data.length; i++) {
-                if(data.data[i] !== undefined) {
-                    const item = {
-                        cat: data.data[i].Category.name,
-                        name: data.data[i].name,
-                        pictures: data.data[i].pictures,
-                        price: data.data[i].price,
-                        id: data.data[i].id,
-                        promo: data.data[i].promo,
-                        promoValue: data.data[i].promoValue,
-                        stock: data.data[i].stock
-                    }
-                    newArr.push(item)
-                }
-            }
-            console.log(newArr);
-            setPromoData(newArr);
-        });
 
         if (localStorage.getItem('token') !== null) {
             let getToken = localStorage.getItem('token');
@@ -64,7 +41,41 @@ const Promotion = () => {
             })
         }; 
 
+        getPromoProducts();
+
     },[])
+
+    const getPromoProducts = () => {
+        fetch('http://localhost:3000/api/products/promotion', {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method : 'POST'
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            let newArr = [];
+            for (let i = 0; i < data.data.length; i++) {
+                if(data.data[i] !== undefined) {
+                    const item = {
+                        cat: data.data[i].Category.name,
+                        name: data.data[i].name,
+                        pictures: data.data[i].pictures,
+                        price: data.data[i].price,
+                        id: data.data[i].id,
+                        promo: data.data[i].promo,
+                        promoValue: data.data[i].promoValue,
+                        stock: data.data[i].stock
+                    }
+                    newArr.push(item)
+                }
+            }
+            console.log(newArr);
+            setPromoData(newArr);
+        });
+    }
 
     const handleSort = (option) => {
         if (option === "ascName") {
@@ -78,43 +89,132 @@ const Promotion = () => {
         }
     }
 
+    const handleCheckFilters = (action) => {
+        if(action === "telescope") {
+            const newObj = {
+                ...filterOptions,
+                telescope: !filterOptions.telescope
+            }
+            setFilterOptions(newObj)
+        } else if(action === "oculaire") {
+            const newObj = {
+                ...filterOptions,
+                oculaire: !filterOptions.oculaire
+            }
+            setFilterOptions(newObj)
+        } else if(action === "monture") {
+            const newObj = {
+                ...filterOptions,
+                monture: !filterOptions.monture
+            }
+            setFilterOptions(newObj)        
+        } else if(action === "onStock") {
+            const newObj = {
+                ...filterOptions,
+                onStock: !filterOptions.onStock
+            }
+            setFilterOptions(newObj)
+        }
+    };
+
+    const getFilteredList = () => {
+        window.scrollTo(0, 0);
+
+        if(filterOptions.telescope === true || filterOptions.oculaire === true || filterOptions.monture === true || filterOptions.onStock === true) {
+
+            
+            let telescope = false, oculaire = false, monture = false, onStock;
+            
+            if(filterOptions.telescope) {
+                telescope = true
+            }
+            if(filterOptions.oculaire) {
+                oculaire = true
+            }
+            if(filterOptions.monture) {
+                monture = true
+            }
+            if(filterOptions.onStock) {
+                onStock = true
+            }
+            
+            fetch('http://localhost:3000/api/products/promotion', {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST', 
+                body: JSON.stringify({
+                    telescope: telescope,
+                    oculaire: oculaire,
+                    monture: monture,
+                    onStock: onStock
+                })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    let newArr = [];
+                    for (let i = 0; i < data.data.length; i++) {
+                        if(data.data[i] !== undefined) {
+                            const item = {
+                                cat: data.data[i].Category.name,
+                                name: data.data[i].name,
+                                pictures: data.data[i].pictures,
+                                price: data.data[i].price,
+                                id: data.data[i].id,
+                                promo: data.data[i].promo,
+                                promoValue: data.data[i].promoValue,
+                                stock: data.data[i].stock
+                            }
+                            newArr.push(item)
+                        }
+                    }
+                    setPromoData(newArr);
+                })
+            } else {
+                getPromoProducts();
+            }
+    };
+
+    const removeFilter = () => {
+        const filterTelescope = document.getElementById('optionFilterTelescope');
+        const filterOculaire = document.getElementById('optionFilterOculaire');
+        const filterMonture = document.getElementById('optionFilterMonture');
+        const filterOnStock = document.getElementById('optionFilterOnStock');
+
+        filterTelescope.checked = false;
+        filterOculaire.checked = false;
+        filterMonture.checked = false;
+        filterOnStock.checked = false;
+
+        getPromoProducts();
+    };
+
     return (
         <main className='mainList'>
             <section className="promotionFilter">
-                <h2>Marque</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
-                <div className="promotionFilter__separator"></div>
-                <h2>Modèle</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
-                <div className="promotionFilter__separator"></div>
-                <h2>Longueur focale</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
-                <div className="promotionFilter__separator"></div>
-                <h2>Champs apparent</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
-                <div className="promotionFilter__separator"></div>
-                <h2>Distance de l'oeil</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
-                <div className="promotionFilter__separator"></div>
-                <h2>Coulant</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
+                <h2>Categorie</h2>
+                    <div className="">
+                        <input onChange={() => handleCheckFilters("telescope")} type="checkbox" id="optionFilterTelescope" />
+                        <label htmlFor="optionFilterTelescope">Télescope</label>
+                    </div>
+                    <div className="">
+                        <input onChange={() => handleCheckFilters("oculaire")} type="checkbox" id="optionFilterOculaire" />
+                        <label htmlFor="optionFilterOculaire">Oculaire</label>
+                    </div>
+                    <div className="">
+                        <input onChange={() => handleCheckFilters("monture")} type="checkbox" id="optionFilterMonture" />
+                        <label htmlFor="optionFilterMonture">Monture</label>
+                    </div>
                 <div className="promotionFilter__separator"></div>
                 <h2>En stock</h2>
-                <p>test</p>
-                <p>test</p>
-                <p>test</p>
+                    <div className="">
+                        <input onChange={() => handleCheckFilters("onStock")} type="checkbox" id="optionFilterOnStock" />
+                        <label htmlFor="optionFilterOnStock">Produits en stock</label>
+                    </div>
+                <div className="promotionFilter__separator"></div>
+                    <button onClick={getFilteredList} className='promotionFilter__btn'>filtrer</button>
+                    <button onClick={removeFilter} className='promotionFilter__btn'>Reinitialiser filtres</button>
                 <div className="promotionFilter__separator"></div>
             </section>
             <section className='promotionList'>

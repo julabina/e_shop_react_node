@@ -860,7 +860,6 @@ body {
   text-align: center;
 }
 .cartStepConfirm__recap__content {
-  width: 300px;
   white-space: nowrap;
 }
 .cartStepConfirm__recap__content h4 {
@@ -874,6 +873,9 @@ body {
 .cartStepConfirm__recap__content__title {
   font-weight: 600;
   margin: 20px 0 7px;
+}
+.cartStepConfirm__recap__content__newsletter {
+  margin-top: 60px;
 }
 
 .confirmModal {

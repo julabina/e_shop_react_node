@@ -58,7 +58,7 @@ const CartLocation = (props) => {
                     firstName: data.data.firstName === null ? "" : data.data.firstName,
                     fixe: data.data.fixe === null ? "" : ('0' + data.data.fixe).toString(),
                     lastName: data.data.lastName === null ? "" : data.data.lastName,
-                    mobile: data.data.mobile === null ? "" : ('0' + data.data.mobile).toString(),
+                    mobile: data.data.mobile === null ? "" : data.data.mobile,
                     siret: data.data.siret === null ? "" : (data.data.siret).toString(),
                     tva: data.data.tva === null ? "" : (data.data.tva).toString(),
                     zip: data.data.zip === null ? "" : (data.data.zip).toString(),
