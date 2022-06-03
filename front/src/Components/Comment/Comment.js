@@ -33,8 +33,8 @@ const Comment = (props) => {
     },[]);
 
     const convertTime = () => {
-        let createdTS = Date.parse(props.created);
-        let updatedTS = Date.parse(props.updated);
+        let createdTS = props.created;
+        let updatedTS = props.updated;
         let createdDate = new Date(createdTS);
         let updatedDate = new Date(updatedTS);
         let createdHours = (createdDate.getHours() < 10 ? '0' : '') + createdDate.getHours();

@@ -123,10 +123,17 @@ const TelescopeProduct = () => {
         fetch("http://localhost:3000/api/comments/" + productId)
         .then(res => res.json())
         .then(data => {
-            console.log(data);
             if(data.data !== undefined) {
                 const arr = data.data;
-                setCommentsData(arr);
+                let n1 = arr.map(el => {
+                    el.created = Date.parse(el.created);
+                    el.updated = Date.parse(el.updated);
+                   return el
+                })
+                n1.sort((a,b) => {
+                    return b.updated - a.updated
+                })
+                setCommentsData(n1);
             } 
         })
         .catch(error => console.error(error));

@@ -18,6 +18,7 @@ const OculaireProduct = () => {
     const [errorComment, setErrorComment] = useState('');
     const [inputAddCart, setInputAddCart] = useState("");
     const [isLogged, setIsLogged] = useState(false);
+    const [actualUser, setActualUser] = useState({id: '', token: ''});
     let back = '< retour'
 
     useEffect(() => {
@@ -74,17 +75,24 @@ const OculaireProduct = () => {
             if (token !== null) {
                 let decodedToken = decodeToken(token.version);
                 let isTokenExpired = isExpired(token.version);
+                let newObj = {
+                    id: token.content,
+                    token: token.version
+                }
                 if (decodedToken.userId !== token.content || isTokenExpired === true) {
                     dispatch ({
                         type: 'DISCONNECT'
                     })
                     localStorage.removeItem('token');
+                    setActualUser({id: "", token: ""})
                     return setIsLogged(false);
                 };
                 dispatch ({
                     type: 'LOG'
                 })
+                setActualUser({id: "", token: ""})
                 setIsLogged(true);
+                setActualUser(newObj);
             } else {
                 dispatch ({
                     type: 'DISCONNECT'
@@ -95,6 +103,7 @@ const OculaireProduct = () => {
             dispatch ({
                 type: 'DISCONNECT'
             })
+            setActualUser({id: "", token: ""})
             setIsLogged(false);
         }; 
 
@@ -314,7 +323,7 @@ const OculaireProduct = () => {
                         <>
                             {
                                 commentsData.map(el => {
-                                    return <Comment comment={el.comment} key={el.id} productId={el.productId} commentId={el.commentId} userId={el.userId} productCat={el.productCat} />
+                                    return <Comment comment={el.comment} key={el.id} productId={el.productId} commentId={el.id} userId={el.userId} productCat={el.productCat} created={el.created} updated={el.updated} actualUserId={actualUser.id} actualUserToken={actualUser.token} fetchFunc={fetchComment} />
                                 })
                             }
                         </>
