@@ -562,3 +562,11 @@
         }
     }
 }
+
+@mixin homeTitle {
+    font-size: 2em;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 0 45px;
+}
