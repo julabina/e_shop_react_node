@@ -29,6 +29,8 @@ const Cart = () => {
     const [orderNumber, setOrderNumber] = useState("");
     const [isLogged, setIsLogged] = useState(false);
     const [user, setUser] = useState({id: "", token: ""})
+    const [modalDelete, setModalDelete] = useState(false);
+    const [idToDelete, setIdToDelete] = useState("");
     
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -313,6 +315,7 @@ const Cart = () => {
     }
 
     const deleteItem = (productId) => {
+        toggleDeleteModal();
         const newArr = cartData.filter(el => {
             return el.id !== productId;
         });
@@ -343,6 +346,13 @@ const Cart = () => {
         })
         
         setCartData(newArr); 
+    }
+
+    const toggleDeleteModal = (id) => {
+        if(id){
+            setIdToDelete(id)
+        }
+        setModalDelete(!modalDelete);
     }
 
     return (
@@ -416,7 +426,7 @@ const Cart = () => {
                                     <button onClick={() => ctrlInput(el.id,"minus")}>-</button>
                                     <input onChange={(e) => ctrlInput(el.id, null, e.target.value)} type="number" value={el.count} />
                                     <button onClick={() => ctrlInput(el.id, "plus")}>+</button>
-                                    <FontAwesomeIcon onClick={() => deleteItem(el.id)} className='cart__articles__cartContent__article__modify__trash' icon={faTrashCan} />
+                                    <FontAwesomeIcon onClick={() => toggleDeleteModal(el.id)} className='cart__articles__cartContent__article__modify__trash' icon={faTrashCan} />
                                 </div>
                                 <div className="cart__articles__cartContent__article__totalCont">
                                     <p className='cart__articles__cartContent__article__totalCont__result'>{(el.count * el.price).toFixed(2) + " €"}</p>
@@ -444,7 +454,18 @@ const Cart = () => {
                 </div>
             </section>
             }
-
+            {
+                modalDelete &&
+                <section className="cart__modalConfirmDelete">
+                    <div className="cart__modalConfirmDelete__modal">
+                        <h2>Voulez vous supprimer cet article du panier ?</h2>
+                        <div className="cart__modalConfirmDelete__modal__btnCont">
+                            <button onClick={toggleDeleteModal}>Non</button>
+                            <button onClick={() => deleteItem(idToDelete)}>Oui</button>
+                        </div>
+                    </div>
+                </section>
+            }
             {
                 isLogged
                 &&

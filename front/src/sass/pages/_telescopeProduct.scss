@@ -5,3 +5,7 @@
 .telescopeInfos {
     @include productInfos;
 }
+
+.telescopeModal  {
+    @include modal;
+}

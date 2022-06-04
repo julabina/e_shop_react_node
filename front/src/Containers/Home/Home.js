@@ -47,7 +47,48 @@ const Home = () => {
 
     return (
         <main>
-            <h1>HOME</h1>
+            <section className="home__carrousel">
+
+            </section>
+            <section className="home__categories">
+                <h2>Nos catégories</h2>
+                <div className="home__categories__cont">
+                    <div className="home__categories__cont__row">
+                        <div className="home__categories__cont__row__category">
+                            <h3>Telescopes</h3>
+                            <div className="home__categories__cont__row__category__imgCont">
+                                <img src="" alt="" />
+                            </div>
+                        </div>
+                        <div className="home__categories__cont__row__category">
+                            <h3>Oculaires</h3>
+                            <div className="home__categories__cont__row__category__imgCont">
+                                <img src="" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="home__categories__cont__row">
+                        <div className="home__categories__cont__row__category">
+                            <h3>Montures</h3>
+                            <div className="home__categories__cont__row__category__imgCont">
+                                <img src="" alt="" />
+                            </div>
+                        </div>
+                        <div className="home__categories__cont__row__category">
+                            <h3>Promotions</h3>
+                            <div className="home__categories__cont__row__category__imgCont">
+                                <img src="" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section className="home__promo">
+                <h2>Nos promotions</h2>
+                <div className="home__promo__promoCont"></div>
+                <p>Et bien d'autre encore !</p>
+                <button>Voir toutes les promotions</button>
+            </section>
         </main>
     );
 };
