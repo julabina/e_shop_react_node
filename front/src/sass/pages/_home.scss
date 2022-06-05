@@ -1,7 +1,13 @@
 .home {
     &__carrousel {
-        background: blue;
-        height: 500px;width: 100%;
+        background: transparentize(map-get($map: $colors, $key: primary), 0.8);
+        height: 550px;width: 100%;
+        img {
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
+            height: 550px;
+        }
     }
     &__categories {
         margin: 70px 0 0;

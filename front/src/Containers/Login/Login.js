@@ -82,11 +82,11 @@ const Login = () => {
                 .then(data => {
                     if (data.token) {
                         setLogErrorMsg('');
-                        let newObg = {
+                        let newObj = {
                             version: data.token,
                             content: data.userId
                         }
-                        localStorage.setItem('token', JSON.stringify(newObg)); 
+                        localStorage.setItem('token', JSON.stringify(newObj)); 
                         navigate('/userAccount', { replace: true })
                     } else if (data.message) {
                         setLogErrorMsg(data.message || data.error);

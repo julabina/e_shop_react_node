@@ -1213,6 +1213,19 @@ main {
   flex-wrap: wrap;
   gap: 25px 12px;
 }
+.telescopesList__separator {
+  border-bottom: 1px solid rgba(217, 217, 217, 0.452);
+  margin-top: 80px;
+}
+.telescopesList__bot__title {
+  font-size: 1.7em;
+  letter-spacing: 0.9px;
+  margin: 60px 0 50px;
+}
+.telescopesList__bot__list {
+  display: flex;
+  justify-content: space-between;
+}
 
 .telescopesFilter {
   width: 200px;
@@ -1612,6 +1625,19 @@ main {
   flex-wrap: wrap;
   gap: 25px 12px;
 }
+.oculaireList__separator {
+  border-bottom: 1px solid rgba(217, 217, 217, 0.452);
+  margin-top: 80px;
+}
+.oculaireList__bot__title {
+  font-size: 1.7em;
+  letter-spacing: 0.9px;
+  margin: 60px 0 50px;
+}
+.oculaireList__bot__list {
+  display: flex;
+  justify-content: space-between;
+}
 
 .oculaireFilter {
   width: 200px;
@@ -1966,6 +1992,19 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: 25px 12px;
+}
+.montureList__separator {
+  border-bottom: 1px solid rgba(217, 217, 217, 0.452);
+  margin-top: 80px;
+}
+.montureList__bot__title {
+  font-size: 1.7em;
+  letter-spacing: 0.9px;
+  margin: 60px 0 50px;
+}
+.montureList__bot__list {
+  display: flex;
+  justify-content: space-between;
 }
 
 .montureFilter {
@@ -2960,6 +2999,19 @@ main {
   flex-wrap: wrap;
   gap: 25px 12px;
 }
+.promotionList__separator {
+  border-bottom: 1px solid rgba(217, 217, 217, 0.452);
+  margin-top: 80px;
+}
+.promotionList__bot__title {
+  font-size: 1.7em;
+  letter-spacing: 0.9px;
+  margin: 60px 0 50px;
+}
+.promotionList__bot__list {
+  display: flex;
+  justify-content: space-between;
+}
 
 .promotionFilter {
   width: 200px;
@@ -3024,6 +3076,19 @@ main {
   flex-wrap: wrap;
   gap: 25px 12px;
 }
+.searchList__separator {
+  border-bottom: 1px solid rgba(217, 217, 217, 0.452);
+  margin-top: 80px;
+}
+.searchList__bot__title {
+  font-size: 1.7em;
+  letter-spacing: 0.9px;
+  margin: 60px 0 50px;
+}
+.searchList__bot__list {
+  display: flex;
+  justify-content: space-between;
+}
 .searchList__spanQuery {
   font-weight: 600;
   font-style: italic;
@@ -3044,9 +3109,15 @@ main {
 }
 
 .home__carrousel {
-  background: blue;
-  height: 500px;
+  background: rgba(20, 65, 106, 0.2);
+  height: 550px;
   width: 100%;
+}
+.home__carrousel img {
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  height: 550px;
 }
 .home__categories {
   margin: 70px 0 0;

@@ -9,6 +9,7 @@ import TelescopeCard from '../../Components/TelescopeCard/TelescopeCard';
 import OculaireCard from '../../Components/OculaireCard/OculaireCard';
 import MontureCard from '../../Components/MontureCard/MontureCard';
 import { NavLink } from 'react-router-dom';
+import HomeCarrousel from '../../Components/homeCarrousel/HomeCarrousel';
 
 const Home = () => {
 
@@ -86,9 +87,7 @@ const Home = () => {
 
     return (
         <main className='home'>
-            <section className="home__carrousel">
-
-            </section>
+            <HomeCarrousel />
             <section className="home__categories">
                 <h2>Nos catégories</h2>
                 <div className="home__categories__cont">
@@ -97,7 +96,7 @@ const Home = () => {
                             <div className="home__categories__cont__row__category">
                                 <h3>Telescopes</h3>
                                 <div className="home__categories__cont__row__category__imgCont">
-                                    <img src={telescopeImg} alt="" />
+                                    <img src={telescopeImg} alt="un telescope" />
                                 </div>
                             </div>
                         </NavLink>
@@ -105,7 +104,7 @@ const Home = () => {
                             <div className="home__categories__cont__row__category">
                                 <h3>Oculaires</h3>
                                 <div className="home__categories__cont__row__category__imgCont">
-                                    <img src={oculaireImg} alt="" />
+                                    <img src={oculaireImg} alt="un oculaire" />
                                 </div>
                             </div>
                         </NavLink>
@@ -115,7 +114,7 @@ const Home = () => {
                             <div className="home__categories__cont__row__category">
                                 <h3>Montures</h3>
                                 <div className="home__categories__cont__row__category__imgCont">
-                                    <img src={montureImg} alt="" />
+                                    <img src={montureImg} alt="une monture" />
                                 </div>
                             </div>
                         </NavLink>
@@ -123,7 +122,7 @@ const Home = () => {
                             <div className="home__categories__cont__row__category">
                                 <h3>Promotions</h3>
                                 <div className="home__categories__cont__row__category__imgCont">
-                                    <img src={promoImg} alt="" />
+                                    <img src={promoImg} alt="une promotion" />
                                 </div>
                             </div>
                         </NavLink>

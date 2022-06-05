@@ -148,6 +148,21 @@
             gap: 25px 12px;
         }
     }
+    &__separator {
+        border-bottom: 1px solid lighten(map-get($map: $colors, $key: grayTrans), 35);
+        margin-top: 80px ;
+    }
+    &__bot {
+        &__title {
+            font-size: 1.7em;
+            letter-spacing: 0.9px;
+            margin: 60px 0 50px;
+        }
+        &__list {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
 }
 
 @mixin filter {

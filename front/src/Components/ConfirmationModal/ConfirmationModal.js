@@ -17,13 +17,6 @@ const ConfirmationModal = (props) => {
         }
     },[])
 
-   /*  const addToCart = () => {
-        if (props.stock !== 0) {
-            modalToggle();
-            props.func(props.count);
-        }
-    } */
-
     const modalToggle = () => {
         setToggleModal(!toggleModal);
     }

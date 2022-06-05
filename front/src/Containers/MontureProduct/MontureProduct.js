@@ -70,6 +70,7 @@ const MontureProduct = () => {
                 } else {
                     setInputAddCart(1);
                 }
+                addToLastSeen(item,  data.data.pictures);
                 fetchComment(productId);
                 setPicturesData(newArr);
                 setMontureData(item);
@@ -116,6 +117,42 @@ const MontureProduct = () => {
         }; 
 
     },[]);
+
+    const addToLastSeen = (itemData, imgData) => {
+        let lastSeenArr = [];
+        let item = {
+            category: "monture",
+            id: itemData.id,
+            price: itemData.price,
+            stock: itemData.stock,
+            name: itemData.name,
+            promo: itemData.promo,
+            promoValue: itemData.promoValue,
+            image: imgData
+        }
+        if (localStorage.getItem('lastSeen') !== null) {
+            lastSeenArr = JSON.parse(localStorage.getItem('lastSeen'));
+        }
+        console.log(lastSeenArr);
+        for(let i = 0; i < lastSeenArr.length;i++) {
+            if(lastSeenArr[i].id === item.id) {
+                let newArr = lastSeenArr.filter(el => el.id !== item.id);
+                lastSeenArr = newArr;
+            }
+        }
+        if(lastSeenArr.length > 0) {
+            if(lastSeenArr.length < 4) {
+                lastSeenArr.unshift(item);
+            } else {
+                lastSeenArr.pop();
+                lastSeenArr.unshift(item);
+            }
+        } else {
+            lastSeenArr.unshift(item)
+        }
+        console.log(lastSeenArr);
+        localStorage.setItem('lastSeen', JSON.stringify(lastSeenArr));
+    }
     
     const fetchComment = (productId) => {
         fetch("http://localhost:3000/api/comments/" + productId)

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { decodeToken, isExpired } from 'react-jwt';
 import TelescopeCard from '../../Components/TelescopeCard/TelescopeCard';
+import OculaireCard from '../../Components/OculaireCard/OculaireCard';
+import MontureCard from '../../Components/MontureCard/MontureCard';
 
 const Telescope = () => {
 
@@ -9,6 +11,7 @@ const Telescope = () => {
 
     const [telescopeData, setTelescopeData] = useState([]);
     const [filterOptions, setFilterOptions] = useState({brand: "", type: "", onStock : false});
+    const [lastSeenData, setLastSeenData] = useState([]);
     const [sort, setSort] = useState("");
 
     useEffect(() => {
@@ -41,7 +44,7 @@ const Telescope = () => {
         }; 
 
         getTelescopeslist();
-
+        getLastSeen();
     }, []);
 
     const getTelescopeslist = () => {
@@ -67,9 +70,15 @@ const Telescope = () => {
             }
         }
         setTelescopeData(newArr);
-        
         });
     };
+
+    const getLastSeen = () => {
+        if (localStorage.getItem('lastSeen') !== null) {
+            let lastSeenArr = JSON.parse(localStorage.getItem('lastSeen'));
+            setLastSeenData(lastSeenArr);
+        }
+    }
 
     const handleSort = (option) => {
         if (option === "ascName") {
@@ -302,8 +311,26 @@ const Telescope = () => {
                         })} 
                     </ul>
                 </div>
+                <div className="telescopesList__separator"></div>
                 <div className="telescopesList__bot">
-
+                    {
+                        lastSeenData.length !== 0
+                        &&
+                        <>
+                            <h2 className='telescopesList__bot__title'>articles vus récemment</h2>
+                            <ul className='telescopesList__bot__list'>
+                                {lastSeenData.map(el => {
+                                    if(el.category === "telescope") {
+                                        return <TelescopeCard id={el.id} name={el.name} price={parseInt(el.price)} key={el.id} image={el.image} stock={parseInt(el.stock)} promo={el.promo} promoValue={parseInt(el.promoValue)} />
+                                    } else if(el.category === "oculaire") {
+                                        return <OculaireCard id={el.id} name={el.name} price={parseInt(el.price)} key={el.id} image={el.image} stock={parseInt(el.stock)} promo={el.promo} promoValue={parseInt(el.promoValue)} />
+                                    } else if(el.category === "monture") {
+                                        return <MontureCard id={el.id} name={el.name} price={parseInt(el.price)} key={el.id} image={el.image} stock={parseInt(el.stock)} promo={el.promo} promoValue={parseInt(el.promoValue)} />
+                                    } 
+                                })} 
+                            </ul>
+                        </>
+                    }
                 </div>
             </section>
         </main>

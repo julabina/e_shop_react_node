@@ -12,6 +12,7 @@ const Search = () => {
     const params = useParams();
 
     const [resultData, setResultData] = useState([]);
+    const [lastSeenData, setLastSeenData] = useState([]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -69,7 +70,16 @@ const Search = () => {
             setResultData([]);
         }
 
+        getLastSeen();
+
     },[params.query])
+
+    const getLastSeen = () => {
+        if (localStorage.getItem('lastSeen') !== null) {
+            let lastSeenArr = JSON.parse(localStorage.getItem('lastSeen'));
+            setLastSeenData(lastSeenArr);
+        }
+    }
 
     const handleSort = (option) => {
         if (option === "ascName") {
@@ -131,6 +141,27 @@ const Search = () => {
                 </div>
             </>
             }
+            <div className="searchList__separator"></div>
+                <div className="searchList__bot">
+                    {
+                        lastSeenData.length !== 0
+                        &&
+                        <>
+                            <h2 className='searchList__bot__title'>articles vus récemment</h2>
+                            <ul className='searchList__bot__list'>
+                                {lastSeenData.map(el => {
+                                    if(el.category === "telescope") {
+                                        return <TelescopeCard id={el.id} name={el.name} price={parseInt(el.price)} key={el.id} image={el.image} stock={parseInt(el.stock)} promo={el.promo} promoValue={parseInt(el.promoValue)} />
+                                    } else if(el.category === "oculaire") {
+                                        return <OculaireCard id={el.id} name={el.name} price={parseInt(el.price)} key={el.id} image={el.image} stock={parseInt(el.stock)} promo={el.promo} promoValue={parseInt(el.promoValue)} />
+                                    } else if(el.category === "monture") {
+                                        return <MontureCard id={el.id} name={el.name} price={parseInt(el.price)} key={el.id} image={el.image} stock={parseInt(el.stock)} promo={el.promo} promoValue={parseInt(el.promoValue)} />
+                                    } 
+                                })} 
+                            </ul>
+                        </>
+                    }
+                </div>
             </section>
         </main>
     );
