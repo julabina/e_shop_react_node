@@ -1,4 +1,4 @@
-.navBar {
+.navbar {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -7,14 +7,70 @@
     height: 40px;
     border-bottom: 2px solid white ;
     border-top: 2px solid white ;
-    color: map-get($map: $colors, $key:whiteLight );
-    &__link {
+    color: map-get($map: $colors, $key: whiteLight);
+    position: relative;
+    z-index: 1;
+    &__cont {
         display: flex;
         align-items: center;
-        height: 100%;
-        padding: 0 20px;
-        &:hover {
-            background: map-get($map: $colors, $key:primary );
+        justify-content: center;
+        width: 1480px;
+        &__navBar {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            height: 36px;
+            &__link {
+                display: flex;
+                align-items: center;
+                height: 100%;
+                padding: 0 20px;
+                &:hover {
+                    background: map-get($map: $colors, $key:primary );
+                }
+            }
+        }
+        &__hiddenStuff {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;  
+            padding: 0 30px 0 15px;
+            width: 100%; 
+            h2 {
+                text-transform: uppercase;
+                font-weight: 600;
+                cursor: pointer;
+                color: map-get($map: $colors, $key: whiteLight);
+            }
+            &__cartIcon {
+                cursor: pointer;
+                position: relative;
+                width: 44px;
+                text-align: end;
+                &__cartCount {
+                    position: absolute;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    right: 20px;
+                    top: 0px;
+                    background: map-get($map: $colors, $key: tertiary);
+                    width: 17px;
+                    height: 17px;
+                    border-radius: 50%;
+                    &__count {
+                        font-size: 0.7em;
+                        font-weight: 700;
+                    }
+                }
+                &__icon {
+                    transition: all 150ms ease-in-out;
+                }
+                &:hover &__icon {
+                    color: map-get($map: $colors, $key: tertiary);
+                    transition: all 150ms ease-in-out;
+                }
+            }
         }
     }
 }

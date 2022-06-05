@@ -78,7 +78,7 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
-.navBar {
+.navbar {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,15 +88,71 @@ body {
   border-bottom: 2px solid white;
   border-top: 2px solid white;
   color: #f3f3f3;
+  position: relative;
+  z-index: 1;
 }
-.navBar__link {
+.navbar__cont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1480px;
+}
+.navbar__cont__navBar {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  height: 36px;
+}
+.navbar__cont__navBar__link {
   display: flex;
   align-items: center;
   height: 100%;
   padding: 0 20px;
 }
-.navBar__link:hover {
+.navbar__cont__navBar__link:hover {
   background: #14416A;
+}
+.navbar__cont__hiddenStuff {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px 0 15px;
+  width: 100%;
+}
+.navbar__cont__hiddenStuff h2 {
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  color: #f3f3f3;
+}
+.navbar__cont__hiddenStuff__cartIcon {
+  cursor: pointer;
+  position: relative;
+  width: 44px;
+  text-align: end;
+}
+.navbar__cont__hiddenStuff__cartIcon__cartCount {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 20px;
+  top: 0px;
+  background: #FF0000;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+}
+.navbar__cont__hiddenStuff__cartIcon__cartCount__count {
+  font-size: 0.7em;
+  font-weight: 700;
+}
+.navbar__cont__hiddenStuff__cartIcon__icon {
+  transition: all 150ms ease-in-out;
+}
+.navbar__cont__hiddenStuff__cartIcon:hover .navbar__cont__hiddenStuff__cartIcon__icon {
+  color: #FF0000;
+  transition: all 150ms ease-in-out;
 }
 
 .telescopeCard {
@@ -159,6 +215,8 @@ body {
   transition: all 200ms ease-in-out;
 }
 .telescopeCard__addCount__btn--unselected {
+  position: relative;
+  z-index: -1;
   opacity: 0.5;
   pointer-events: none;
 }
@@ -384,6 +442,8 @@ body {
   transition: all 200ms ease-in-out;
 }
 .oculaireCard__addCount__btn--unselected {
+  position: relative;
+  z-index: -1;
   opacity: 0.5;
   pointer-events: none;
 }
@@ -490,6 +550,8 @@ body {
   transition: all 200ms ease-in-out;
 }
 .montureCard__addCount__btn--unselected {
+  position: relative;
+  z-index: -1;
   opacity: 0.5;
   pointer-events: none;
 }
@@ -1050,6 +1112,8 @@ main {
 }
 
 .header {
+  position: sticky;
+  top: -120px;
   display: flex;
   flex-direction: column;
   align-items: center;

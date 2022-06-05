@@ -121,7 +121,7 @@ const Header = () => {
                     </NavLink>
                 </div>
             </section>
-            <NavBar />
+            <NavBar artCount={headerCart.artCount} />
         </header>
     );
 };
