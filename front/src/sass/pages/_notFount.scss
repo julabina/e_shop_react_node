@@ -1,12 +1,23 @@
-.oculaireList {
-    @include list;
-}
-
-.oculaireFilter {
-    @include filter;
-    &__btn {
-        height: 40px;
-        width: 160px;
+.notFound {
+    position: relative;
+    h2 {
+        position: absolute;
+        font-size: 3em;
+        font-weight: 600;
+        text-transform: uppercase;
+        top: 35%
+    }
+    a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    button {
+        position: absolute;
+        top: 45%;
+        height: 35px;
+        padding: 0 10px;
         color: map-get($map: $colors, $key: whiteLight);
         border: none;
         font-weight: 700;

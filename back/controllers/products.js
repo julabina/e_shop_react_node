@@ -314,23 +314,49 @@ exports.findFilteredTelescopes = (req, res, next) => {
   TelescopeType.hasMany(ProductAttribute, { foreignKey: "telescopeTypeId" });
   ProductAttribute.belongsTo(TelescopeType);
 
-  if (req.body.brand !== "Sky-Watcher" && req.body.brand !== "Takahashi" && req.body.brand !== "Celestron" && req.body.brand !== "Unistellar") {
-        req.body.brand = ["Sky-Watcher", "Takahashi", "Celestron", "Unistellar"];
+  let brandQuery = [], typeQuery = [];
+
+  if (req.body.brand === undefined) {
+        brandQuery = ["Sky-Watcher", "Takahashi", "Celestron", "Unistellar"];
+  } else if (req.body.brand.length === 0) {
+        brandQuery = ["Sky-Watcher", "Takahashi", "Celestron", "Unistellar"];
+  } else {
+        for (let i = 0; i < req.body.brand.length; i++) {
+            if(req.body.brand[i] === "Sky-Watcher" || req.body.brand[i] === "Takahashi" || req.body.brand[i] === "Celestron" || req.body.brand[i] === "Unistellar") {
+                brandQuery.push(req.body.brand[i]);
+            }
+        }
   }
-  if (req.body.type !== "lunette achromatique" && req.body.type !== "lunette apochromatique" && req.body.type !== "telescope Schmidt-Cassegrain" && req.body.type !== "telescope Newton" && req.body.type !== "telescope Maksutov" && req.body.type !== "telescope  edge HD") {
-        req.body.type = [
-        "lunette achromatique",
-        "lunette apochromatique",
-        "telescope Schmidt-Cassegrain",
-        "telescope Newton",
-        "telescope Maksutov",
-        "telescope  edge HD",
-        ];
+  
+  if(req.body.type === undefined) {
+      typeQuery = [
+      "lunette achromatique",
+      "lunette apochromatique",
+      "telescope Schmidt-Cassegrain",
+      "telescope Newton",
+      "telescope Maksutov",
+      "telescope  edge HD",
+      ];
+  } else if(req.body.type.length === 0) {
+      typeQuery = [
+      "lunette achromatique",
+      "lunette apochromatique",
+      "telescope Schmidt-Cassegrain",
+      "telescope Newton",
+      "telescope Maksutov",
+      "telescope  edge HD",
+      ];
+  } else {
+      for(let i = 0; i < req.body.type.length; i++) {
+          if(req.body.type[i] === "lunette achromatique" || req.body.type[i] === "lunette apochromatique" || req.body.type[i] === "telescope Schmidt-Cassegrain" || req.body.type[i] === "telescope Newton" || req.body.type[i] === "telescope Maksutov" || req.body.type[i] === "telescope  edge HD") {
+            typeQuery.push(req.body.type[i])
+         }
+      }
   }
 
   Brand.findAll({
     where: {
-        name: req.body.brand,
+        name: brandQuery,
     },
     attributes: ["id"],
     raw: true,
@@ -350,7 +376,7 @@ exports.findFilteredTelescopes = (req, res, next) => {
 
                 return TelescopeType.findAll({
                     where: {
-                        name: req.body.type,
+                        name: typeQuery,
                     },
                     attributes: ['id'],
                     raw: true
@@ -413,14 +439,29 @@ exports.findFilteredOculaires = (req, res, next) => {
   TelescopeType.hasMany(ProductAttribute, { foreignKey: "telescopeTypeId" });
   ProductAttribute.belongsTo(TelescopeType);
 
-  let oculaireModel = undefined;
+  let oculaireModel = undefined, brandQuery = [];
 
-    if (req.body.brand === "Sky-Watcher" || req.body.brand === "TeleVue" || req.body.brand === "Celestron" || req.body.brand === "Orion" || req.body.brand === "Pentax" || req.body.brand === "Explore Scientific" || req.body.brand === "Baader") { 
-        if (req.body.brand === "Sky-Watcher") {
+    if (req.body.brand === undefined) {
+        brandQuery = ["Sky-Watcher", "TeleVue", "Celestron", "Orion", "Pentax", "Explore Scientific", "Baader"];
+    } else if (req.body.brand.length === 0) {
+        brandQuery = ["Sky-Watcher", "TeleVue", "Celestron", "Orion", "Pentax", "Explore Scientific", "Baader"];
+    } else {
+        for (let i = 0; i < req.body.brand.length; i++) {
+            if(req.body.brand[i] === "Sky-Watcher" || req.body.brand[i] === "TeleVue" || req.body.brand[i] === "Celestron" || req.body.brand[i] === "Orion" || req.body.brand[i] === "Pentax" || req.body.brand[i] === "Explore Scientific" || req.body.brand[i] === "Baader") {
+                brandQuery.push(req.body.brand[i]);
+            }
+        }
+    }
+
+
+  if(req.body.model !== undefined) {
+  
+
+        if (req.body.brand[0] === "Sky-Watcher") {
             if (req.body.model === "Super Plössl") {
                 oculaireModel = req.body.model;
             }
-        } else if (req.body.brand === "TeleVue") {
+        } else if (req.body.brand[0] === "TeleVue") {
             if (req.body.model === "Plössl") {
                 oculaireModel = req.body.model;
             } else if (req.body.model === "DeLite") {
@@ -432,23 +473,23 @@ exports.findFilteredOculaires = (req, res, next) => {
             } else if (req.body.model === "Delos") {
                 oculaireModel = req.body.model;
             }
-        } else if (req.body.brand === "Celestron") {
+        } else if (req.body.brand[0] === "Celestron") {
             if (req.body.model === "X-cel") {
                 oculaireModel = req.body.model;
             } else if (req.body.model === "Luminos") {
                 oculaireModel = req.body.model;
             }
-        } else if (req.body.brand === "Orion") {
+        } else if (req.body.brand[0] === "Orion") {
             if (req.body.model === "edge-On") {
                 oculaireModel = req.body.model;
             } else if (req.body.model === "Lanthanum") {
                 oculaireModel = req.body.model;
             }          
-        } else if (req.body.brand === "Pentax") {
+        } else if (req.body.brand[0] === "Pentax") {
             if (req.body.model === "XW") {
                 oculaireModel = req.body.model;
             }        
-        } else if (req.body.brand === "Explore Scientific") {
+        } else if (req.body.brand[0] === "Explore Scientific") {
             if (req.body.model === "68°") {
                 oculaireModel = req.body.model;
             } else if (req.body.model === "82°") {
@@ -456,18 +497,16 @@ exports.findFilteredOculaires = (req, res, next) => {
             } else if (req.body.model === "100°") {
                 oculaireModel = req.body.model;
             }          
-        } else if (req.body.brand === "Baader") {
+        } else if (req.body.brand[0] === "Baader") {
             if (req.body.model === "Hyperion") {
                 oculaireModel = req.body.model;
             }      
         }
-    } else {
-        req.body.brand = ["Sky-Watcher", "TeleVue", "Celestron", "Orion", "Pentax", "Explore Scientific", "Baader"];
-    }
-
+  }
+ 
   Brand.findAll({
     where: {
-        name: req.body.brand,
+        name: brandQuery,
     },
     attributes: ['id'],
     raw: true
@@ -557,18 +596,36 @@ exports.findFilteredMontures = (req, res, next) => {
   ProductAttribute.belongsTo(Brand);
   MountType.hasMany(ProductAttribute, { foreignKey: "mountTypeId" });
   ProductAttribute.belongsTo(MountType);
-    console.log(req.body.brand);
-    if (req.body.brand !== "Sky-Watcher" && req.body.brand !== "10Micron" && req.body.brand !== "Celestron" && req.body.brand !== "Orion") {
-        req.body.brand = ["Sky-Watcher", "10Micron", "Celestron", "Orion"];
+
+  let brandQuery = [], typeQuery = [];
+
+  if (req.body.brand === undefined) {
+        brandQuery = ["Sky-Watcher", "10Micron", "Celestron", "Orion"];
+  } else if (req.body.brand.length === 0) {
+        brandQuery = ["Sky-Watcher", "10Micron", "Celestron", "Orion"];
+  } else {
+        for (let i = 0; i < req.body.brand.length; i++) {
+            if(req.body.brand[i] === "Sky-Watcher" || req.body.brand[i] === "10Micron" || req.body.brand[i] === "Celestron" || req.body.brand[i] === "Orion") {
+                brandQuery.push(req.body.brand[i]);
+            }
+        }
+  }
+
+if(req.body.type === undefined) {
+    typeQuery = ["azimutale", "equatoriale"];
+} else if(req.body.type.length === 0) {
+    typeQuery = ["azimutale", "equatoriale"];
+} else {
+    for(let i = 0; i < req.body.type.length; i++) {
+        if(req.body.type[i] === "azimutale" || req.body.type[i] === "equatoriale") {
+          typeQuery.push(req.body.type[i])
+       }
     }
-    if (req.body.type !== "azimutale" && req.body.type !== "equatoriale") {
-        req.body.type = ["azimutale", "equatoriale"];
-    }
-    console.log(req.body.brand);
+}
 
   Brand.findAll({
     where: {
-        name: req.body.brand,
+        name: brandQuery,
     },
     attributes: ['id'],
     raw: true
@@ -603,7 +660,7 @@ exports.findFilteredMontures = (req, res, next) => {
 
                 return MountType.findAll({
                     where: {
-                        name: req.body.type,
+                        name: typeQuery,
                     },
                     attributes: ['id'],
                     raw: true

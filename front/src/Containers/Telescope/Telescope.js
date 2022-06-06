@@ -10,7 +10,9 @@ const Telescope = () => {
     const dispatch = useDispatch();
 
     const [telescopeData, setTelescopeData] = useState([]);
-    const [filterOptions, setFilterOptions] = useState({brand: "", type: "", onStock : false});
+    const [filterOptions, setFilterOptions] = useState({brand: [], type: [], onStock : false});
+    const [filterBrand, setFilterBrand] = useState([false, false, false, false])
+    const [filterType, setFilterType] = useState([false, false, false, false, false, false])
     const [lastSeenData, setLastSeenData] = useState([]);
     const [sort, setSort] = useState("");
 
@@ -53,22 +55,21 @@ const Telescope = () => {
         fetch('http://localhost:3000/api/products/telescopes')
         .then(res => res.json())
         .then(data => {
-            console.log(data);
-        let newArr = [];
-        for (let i = 0; i < data.data.length; i++) {
-            if(data.data[i] !== undefined) {
-                let item = {
-                    name: data.data[i].name,
-                    pictures: data.data[i].pictures,
-                    price: data.data[i].price,
-                    id: data.data[i].id,
-                    promo: data.data[i].promo,
-                    promoValue: data.data[i].promoValue,
-                    stock: data.data[i].stock
+            let newArr = [];
+            for (let i = 0; i < data.data.length; i++) {
+                if(data.data[i] !== undefined) {
+                    let item = {
+                        name: data.data[i].name,
+                        pictures: data.data[i].pictures,
+                        price: data.data[i].price,
+                        id: data.data[i].id,
+                        promo: data.data[i].promo,
+                        promoValue: data.data[i].promoValue,
+                        stock: data.data[i].stock
+                    }
+                    newArr.push(item);
                 }
-                newArr.push(item);
             }
-        }
         setTelescopeData(newArr);
         });
     };
@@ -91,68 +92,188 @@ const Telescope = () => {
 
         }
     };
-
+    
     const handleFilter = (action, value) => {
         if (action === "sky") {
+            let newArr = filterOptions.brand;
+            let filterCtrl = filterBrand;
+            if(filterCtrl[0] === true) {
+                let arrFiltered = newArr.filter(el => el !== value)
+                newArr = arrFiltered;
+            } else {
+                if(!filterOptions.brand.includes(value)){
+                    newArr.push(value);
+                }
+            }
+            filterCtrl[0] = !filterCtrl[0];
             const newObj = {
                 ...filterOptions,
-                brand : value
+                brand : newArr
             }
             setFilterOptions(newObj);
+            setFilterBrand(filterCtrl)
         } else if (action === "takahashi") {
+            let newArr = filterOptions.brand;
+            let filterCtrl = filterBrand;
+            if(filterCtrl[1] === true) {
+                let arrFiltered = newArr.filter(el => el !== value)
+                newArr = arrFiltered;
+            } else {
+                if(!filterOptions.brand.includes(value)){
+                    newArr.push(value);
+                }
+            }
+            filterCtrl[1] = !filterCtrl[1];
             const newObj = {
                 ...filterOptions,
-                brand : value
+                brand : newArr
             }
-            setFilterOptions(newObj);    
+            setFilterOptions(newObj);
+            setFilterBrand(filterCtrl)    
         } else if (action === "celestron") {
+            let newArr = filterOptions.brand;
+            let filterCtrl = filterBrand;
+            if(filterCtrl[2] === true) {
+                let arrFiltered = newArr.filter(el => el !== value)
+                newArr = arrFiltered;
+            } else {
+                if(!filterOptions.brand.includes(value)){
+                    newArr.push(value);
+                }
+            }
+            filterCtrl[2] = !filterCtrl[2];
             const newObj = {
                 ...filterOptions,
-                brand : value
+                brand : newArr
             }
-            setFilterOptions(newObj);           
+            setFilterOptions(newObj);
+            setFilterBrand(filterCtrl)         
         } else if (action === "unistellar") {
+            let newArr = filterOptions.brand;
+            let filterCtrl = filterBrand;
+            if(filterCtrl[3] === true) {
+                let arrFiltered = newArr.filter(el => el !== value)
+                newArr = arrFiltered;
+            } else {
+                if(!filterOptions.brand.includes(value)){
+                    newArr.push(value);
+                }
+            }
+            filterCtrl[3] = !filterCtrl[3];
             const newObj = {
                 ...filterOptions,
-                brand : value
+                brand : newArr
             }
             setFilterOptions(newObj);
+            setFilterBrand(filterCtrl)
         } else if (action === "achro") {
+            let newArr = filterOptions.type;
+            let filterCtrl = filterType;
+            if(filterCtrl[0] === true) {
+                let arrFiltered = newArr.filter(el => el !== value)
+                newArr = arrFiltered;
+            } else {
+                if(!filterOptions.type.includes(value)){
+                    newArr.push(value);
+                }
+            }
+            filterCtrl[0] = !filterCtrl[0];
             const newObj = {
                 ...filterOptions,
-                type : value
+                type : newArr
             }
             setFilterOptions(newObj);
+            setFilterType(filterCtrl)
         } else if (action === "apo") {
-            const newObj = {
-                ...filterOptions,
-                type : value
+            let newArr = filterOptions.type;
+            let filterCtrl = filterType;
+            if(filterCtrl[1] === true) {
+                let arrFiltered = newArr.filter(el => el !== value)
+                newArr = arrFiltered;
+            } else {
+                if(!filterOptions.type.includes(value)){
+                    newArr.push(value);
+                }
             }
-            setFilterOptions(newObj);         
-        } else if (action === "newton") {
+            filterCtrl[1] = !filterCtrl[1];
             const newObj = {
                 ...filterOptions,
-                type : value
-            }
-            setFilterOptions(newObj);        
-        } else if (action === "mak") {
-            const newObj = {
-                ...filterOptions,
-                type : value
-            }
-            setFilterOptions(newObj);          
-        } else if (action === "edge") {
-            const newObj = {
-                ...filterOptions,
-                type : value
-            }
-            setFilterOptions(newObj);          
-        } else if (action === "sc") {
-            const newObj = {
-                ...filterOptions,
-                type : value
+                type : newArr
             }
             setFilterOptions(newObj);
+            setFilterType(filterCtrl)        
+        } else if (action === "newton") {
+            let newArr = filterOptions.type;
+            let filterCtrl = filterType;
+            if(filterCtrl[2] === true) {
+                let arrFiltered = newArr.filter(el => el !== value)
+                newArr = arrFiltered;
+            } else {
+                if(!filterOptions.type.includes(value)){
+                    newArr.push(value);
+                }
+            }
+            filterCtrl[2] = !filterCtrl[2];
+            const newObj = {
+                ...filterOptions,
+                type : newArr
+            }
+            setFilterOptions(newObj);
+            setFilterType(filterCtrl)        
+        } else if (action === "mak") {
+            let newArr = filterOptions.type;
+            let filterCtrl = filterType;
+            if(filterCtrl[3] === true) {
+                let arrFiltered = newArr.filter(el => el !== value)
+                newArr = arrFiltered;
+            } else {
+                if(!filterOptions.type.includes(value)){
+                    newArr.push(value);
+                }
+            }
+            filterCtrl[3] = !filterCtrl[3];
+            const newObj = {
+                ...filterOptions,
+                type : newArr
+            }
+            setFilterOptions(newObj);
+            setFilterType(filterCtrl)          
+        } else if (action === "edge") {
+            let newArr = filterOptions.type;
+            let filterCtrl = filterType;
+            if(filterCtrl[4] === true) {
+                let arrFiltered = newArr.filter(el => el !== value)
+                newArr = arrFiltered;
+            } else {
+                if(!filterOptions.type.includes(value)){
+                    newArr.push(value);
+                }
+            }
+            filterCtrl[4] = !filterCtrl[4];
+            const newObj = {
+                ...filterOptions,
+                type : newArr
+            }
+            setFilterOptions(newObj);
+            setFilterType(filterCtrl)          
+        } else if (action === "sc") {
+            let newArr = filterOptions.type;
+            let filterCtrl = filterType;
+            if(filterCtrl[5] === true) {
+                let arrFiltered = newArr.filter(el => el !== value)
+                newArr = arrFiltered;
+            } else {
+                if(!filterOptions.type.includes(value)){
+                    newArr.push(value);
+                }
+            }
+            filterCtrl[5] = !filterCtrl[5];
+            const newObj = {
+                ...filterOptions,
+                type : newArr
+            }
+            setFilterOptions(newObj);
+            setFilterType(filterCtrl)
         } else if (action === "onStock") {
             const newObj = {
                 ...filterOptions,
@@ -165,15 +286,15 @@ const Telescope = () => {
     const getFilteredList = () => {
         window.scrollTo(0, 0);
 
-        if(filterOptions.brand !== "" || filterOptions.type !== "" || filterOptions.onStock === true) {
+        if(filterOptions.brand.length > 0 || filterOptions.type.length > 0 || filterOptions.onStock === true) {
 
             
             let brand = undefined, type = undefined, onStock;
             
-            if(filterOptions.brand !== "") {
+            if(filterOptions.brand.length > 0) {
                 brand = filterOptions.brand;
             }
-            if(filterOptions.type !== "") {
+            if(filterOptions.type.length > 0) {
                 type = filterOptions.type
             }
             if(filterOptions.onStock) {
@@ -229,7 +350,7 @@ const Telescope = () => {
         })
         stockInput.checked = false;
 
-        let filter = {brand: "", type: "", onStock : false}
+        let filter = {brand: [], type: [], onStock : false}
         setFilterOptions(filter);
         getTelescopeslist()
     };
@@ -239,46 +360,46 @@ const Telescope = () => {
             <section className='telescopesFilter'>
                 <h2>Marque</h2>
                     <div className="">
-                        <input onChange={(e) => handleFilter("sky", e.target.value)} value="Sky-Watcher" type="radio" name="telescopeBrand" id="radioTelescopeBrandSky" />
-                        <label htmlFor="radioTelescopeBrandSky">Sky-Watcher</label>
+                        <input onChange={(e) => handleFilter("sky", e.target.value)} value="Sky-Watcher" type="checkbox" name="telescopeBrand" id="checkboxTelescopeBrandSky" />
+                        <label htmlFor="checkboxTelescopeBrandSky">Sky-Watcher</label>
                     </div>
                     <div className="">
-                        <input onChange={(e) => handleFilter("takahashi", e.target.value)} value="Takahashi" type="radio" name="telescopeBrand" id="radioTelescopeBrandTakahashi" />
-                        <label htmlFor="radioTelescopeBrandTakahashi">Takahashi</label>
+                        <input onChange={(e) => handleFilter("takahashi", e.target.value)} value="Takahashi" type="checkbox" name="telescopeBrand" id="checkboxTelescopeBrandTakahashi" />
+                        <label htmlFor="checkboxTelescopeBrandTakahashi">Takahashi</label>
                     </div>
                     <div className="">
-                        <input onChange={(e) => handleFilter("celestron", e.target.value)} value="Celestron" type="radio" name="telescopeBrand" id="radioTelescopeBrandCelestron" />
-                        <label htmlFor="radioTelescopeBrandCelestron">Celestron</label>
+                        <input onChange={(e) => handleFilter("celestron", e.target.value)} value="Celestron" type="checkbox" name="telescopeBrand" id="checkboxTelescopeBrandCelestron" />
+                        <label htmlFor="checkboxTelescopeBrandCelestron">Celestron</label>
                     </div>
                     <div className="">
-                        <input onChange={(e) => handleFilter("unistellar", e.target.value)} value="Unistellar" type="radio" name="telescopeBrand" id="radioTelescopeBrandUnistellar" />
-                        <label htmlFor="radioTelescopeBrandUnistellar">Unistellar</label>
+                        <input onChange={(e) => handleFilter("unistellar", e.target.value)} value="Unistellar" type="checkbox" name="telescopeBrand" id="checkboxTelescopeBrandUnistellar" />
+                        <label htmlFor="checkboxTelescopeBrandUnistellar">Unistellar</label>
                     </div>
                 <div className="telescopesFilter__separator"></div>
                 <h2>Type</h2>
                     <div className="">
-                        <input onChange={(e) => handleFilter("achro", e.target.value)} value="lunette achromatique" type="radio" name="telescopeType" id="radioTelescopeTypeAchro" />
-                        <label htmlFor="radioTelescopeTypeAchro">Achromatique</label>
+                        <input onChange={(e) => handleFilter("achro", e.target.value)} value="lunette achromatique" type="checkbox" name="telescopeType" id="checkboxTelescopeTypeAchro" />
+                        <label htmlFor="checkboxTelescopeTypeAchro">Achromatique</label>
                     </div>
                     <div className="">
-                        <input onChange={(e) => handleFilter("apo", e.target.value)} value="lunette apochromatique" type="radio" name="telescopeType" id="radioTelescopeTypeApo" />
-                        <label htmlFor="radioTelescopeTypeApo">Apochromatique</label>
+                        <input onChange={(e) => handleFilter("apo", e.target.value)} value="lunette apochromatique" type="checkbox" name="telescopeType" id="checkboxTelescopeTypeApo" />
+                        <label htmlFor="checkboxTelescopeTypeApo">Apochromatique</label>
                     </div>
                     <div className="">
-                        <input onChange={(e) => handleFilter("newton", e.target.value)} value="telescope Newton" type="radio" name="telescopeType" id="radioTelescopeTypeNewton" />
-                        <label htmlFor="radioTelescopeTypeNewton">Newton</label>
+                        <input onChange={(e) => handleFilter("newton", e.target.value)} value="telescope Newton" type="checkbox" name="telescopeType" id="checkboxTelescopeTypeNewton" />
+                        <label htmlFor="checkboxTelescopeTypeNewton">Newton</label>
                     </div>
                     <div className="">
-                        <input onChange={(e) => handleFilter("mak", e.target.value)} value="telescope Maksutov" type="radio" name="telescopeType" id="radioTelescopeTypeMak" />
-                        <label htmlFor="radioTelescopeTypeMak">Maksutov</label>
+                        <input onChange={(e) => handleFilter("mak", e.target.value)} value="telescope Maksutov" type="checkbox" name="telescopeType" id="checkboxTelescopeTypeMak" />
+                        <label htmlFor="checkboxTelescopeTypeMak">Maksutov</label>
                     </div>
                     <div className="">
-                        <input onChange={(e) => handleFilter("edge", e.target.value)} value="telescope  edge HD" type="radio" name="telescopeType" id="radioTelescopeTypeEdge" />
-                        <label htmlFor="radioTelescopeTypeEdge">Edge HD</label>
+                        <input onChange={(e) => handleFilter("edge", e.target.value)} value="telescope  edge HD" type="checkbox" name="telescopeType" id="checkboxTelescopeTypeEdge" />
+                        <label htmlFor="checkboxTelescopeTypeEdge">Edge HD</label>
                     </div>
                     <div className="">
-                        <input onChange={(e) => handleFilter("sc", e.target.value)} value="telescope Schmidt-Cassegrain" type="radio" name="telescopeType" id="radioTelescopeTypeSC" />
-                        <label htmlFor="radioTelescopeTypeSC">Schmidt-Cassegrain</label>
+                        <input onChange={(e) => handleFilter("sc", e.target.value)} value="telescope Schmidt-Cassegrain" type="checkbox" name="telescopeType" id="checkboxTelescopeTypeSC" />
+                        <label htmlFor="checkboxTelescopeTypeSC">Schmidt-Cassegrain</label>
                     </div>
                     <div className="telescopesFilter__separator"></div>
                 <h2>En stock</h2>

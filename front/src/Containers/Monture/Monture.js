@@ -10,8 +10,10 @@ const Monture = () => {
     const dispatch = useDispatch();
 
     const [montureData, setMontureData] = useState([]);
-    const [filterOptions, setFilterOptions] = useState({brand: "", type: "", goTo: undefined, onStock : false});
+    const [filterOptions, setFilterOptions] = useState({brand: [], type: [], goTo: undefined, onStock : false});
     const [lastSeenData, setLastSeenData] = useState([]);
+    const [filterBrand, setFilterBrand] = useState([false, false, false, false])
+    const [filterType, setFilterType] = useState([false, false])
     const [sort, setSort] = useState("");
 
     useEffect(() => {
@@ -94,41 +96,113 @@ const Monture = () => {
 
     const handleFilter = (action, value) => {
         if (action === "sky") {
+            let newArr = filterOptions.brand;
+            let filterCtrl = filterBrand;
+            if(filterCtrl[0] === true) {
+                let arrFiltered = newArr.filter(el => el !== value)
+                newArr = arrFiltered;
+            } else {
+                if(!filterOptions.brand.includes(value)){
+                    newArr.push(value);
+                }
+            }
+            filterCtrl[0] = !filterCtrl[0];
             const newObj = {
                 ...filterOptions,
-                brand : value
+                brand : newArr
             }
             setFilterOptions(newObj);
+            setFilterBrand(filterCtrl)
         } else if (action === "10Micron") {
+            let newArr = filterOptions.brand;
+            let filterCtrl = filterBrand;
+            if(filterCtrl[1] === true) {
+                let arrFiltered = newArr.filter(el => el !== value)
+                newArr = arrFiltered;
+            } else {
+                if(!filterOptions.brand.includes(value)){
+                    newArr.push(value);
+                }
+            }
+            filterCtrl[1] = !filterCtrl[1];
             const newObj = {
                 ...filterOptions,
-                brand : value
+                brand : newArr
             }
-            setFilterOptions(newObj);    
+            setFilterOptions(newObj);
+            setFilterBrand(filterCtrl)   
         } else if (action === "celestron") {
+            let newArr = filterOptions.brand;
+            let filterCtrl = filterBrand;
+            if(filterCtrl[2] === true) {
+                let arrFiltered = newArr.filter(el => el !== value)
+                newArr = arrFiltered;
+            } else {
+                if(!filterOptions.brand.includes(value)){
+                    newArr.push(value);
+                }
+            }
+            filterCtrl[2] = !filterCtrl[2];
             const newObj = {
                 ...filterOptions,
-                brand : value
+                brand : newArr
             }
-            setFilterOptions(newObj);           
+            setFilterOptions(newObj);
+            setFilterBrand(filterCtrl)          
         } else if (action === "orion") {
+            let newArr = filterOptions.brand;
+            let filterCtrl = filterBrand;
+            if(filterCtrl[3] === true) {
+                let arrFiltered = newArr.filter(el => el !== value)
+                newArr = arrFiltered;
+            } else {
+                if(!filterOptions.brand.includes(value)){
+                    newArr.push(value);
+                }
+            }
+            filterCtrl[3] = !filterCtrl[3];
             const newObj = {
                 ...filterOptions,
-                brand : value
+                brand : newArr
             }
             setFilterOptions(newObj);
+            setFilterBrand(filterCtrl)
         } else if (action === "azi") {
+            let newArr = filterOptions.type;
+            let filterCtrl = filterType;
+            if(filterCtrl[0] === true) {
+                let arrFiltered = newArr.filter(el => el !== value)
+                newArr = arrFiltered;
+            } else {
+                if(!filterOptions.type.includes(value)){
+                    newArr.push(value);
+                }
+            }
+            filterCtrl[0] = !filterCtrl[0];
             const newObj = {
                 ...filterOptions,
-                type : value
+                type : newArr
             }
             setFilterOptions(newObj);
+            setFilterType(filterCtrl)
         } else if (action === "equa") {
+            let newArr = filterOptions.type;
+            let filterCtrl = filterType;
+            if(filterCtrl[1] === true) {
+                let arrFiltered = newArr.filter(el => el !== value)
+                newArr = arrFiltered;
+            } else {
+                if(!filterOptions.type.includes(value)){
+                    newArr.push(value);
+                }
+            }
+            filterCtrl[1] = !filterCtrl[1];
             const newObj = {
                 ...filterOptions,
-                type : value
+                type : newArr
             }
-            setFilterOptions(newObj);         
+            setFilterOptions(newObj);
+            setFilterType(filterCtrl)         
         } else if (action === "with") {
             const newObj = {
                 ...filterOptions,
@@ -139,6 +213,12 @@ const Monture = () => {
             const newObj = {
                 ...filterOptions,
                 goTo : false
+            }
+            setFilterOptions(newObj);          
+        } else if (action === "both") {
+            const newObj = {
+                ...filterOptions,
+                goTo : undefined
             }
             setFilterOptions(newObj);          
         } else if (action === "onStock") {
@@ -153,15 +233,15 @@ const Monture = () => {
     const getFilteredList = () => {
         window.scrollTo(0, 0);
 
-        if(filterOptions.brand !== "" || filterOptions.type !== "" || filterOptions.goTo !== undefined || filterOptions.onStock === true) {
+        if(filterOptions.brand.length > 0 || filterOptions.type.length > 0 || filterOptions.goTo !== undefined || filterOptions.onStock === true) {
 
             
             let brand = undefined, type = undefined, goto = undefined, onStock;
             
-            if(filterOptions.brand !== "") {
+            if(filterOptions.brand.length > 0) {
                 brand = filterOptions.brand;
             }
-            if(filterOptions.type !== "") {
+            if(filterOptions.type.length > 0) {
                 type = filterOptions.type
             }
             if(filterOptions.goTo !== undefined) {
@@ -225,7 +305,7 @@ const Monture = () => {
         })
         stockInput.checked = false;
 
-        let filter = {brand: "", type: "", onStock : false}
+        let filter = {brand: [], type: [], goTo: undefined, onStock : false}
         setFilterOptions(filter);
         getMonturesList();
     }
@@ -236,34 +316,38 @@ const Monture = () => {
             <section className="montureFilter">
             <h2>Marque</h2>
                     <div className="">
-                        <input onChange={(e) => handleFilter("sky", e.target.value)} value="Sky-Watcher" type="radio" name="mountBrand" id="radioMontureBrandSky" />
-                        <label htmlFor="radioMontureBrandSky">Sky-Watcher</label>
+                        <input onChange={(e) => handleFilter("sky", e.target.value)} value="Sky-Watcher" type="checkbox" name="mountBrand" id="checkboxMontureBrandSky" />
+                        <label htmlFor="checkboxMontureBrandSky">Sky-Watcher</label>
                     </div>
                     <div className="">
-                        <input onChange={(e) => handleFilter("10Micron", e.target.value)} value="10Micron" type="radio" name="mountBrand" id="radioMontureBrand10Micron" />
-                        <label htmlFor="radioMontureBrand10Micron">10Micron</label>
+                        <input onChange={(e) => handleFilter("10Micron", e.target.value)} value="10Micron" type="checkbox" name="mountBrand" id="checkboxMontureBrand10Micron" />
+                        <label htmlFor="checkboxMontureBrand10Micron">10Micron</label>
                     </div>
                     <div className="">
-                        <input onChange={(e) => handleFilter("celestron", e.target.value)} value="Celestron" type="radio" name="mountBrand" id="radioMontureBrandCelestron" />
-                        <label htmlFor="radioMontureBrandCelestron">Celestron</label>
+                        <input onChange={(e) => handleFilter("celestron", e.target.value)} value="Celestron" type="checkbox" name="mountBrand" id="checkboxMontureBrandCelestron" />
+                        <label htmlFor="checkboxMontureBrandCelestron">Celestron</label>
                     </div>
                     <div className="">
-                        <input onChange={(e) => handleFilter("orion", e.target.value)} value="Orion" type="radio" name="mountBrand" id="radioMontureBrandOrion" />
-                        <label htmlFor="radioMontureBrandOrion">Orion</label>
+                        <input onChange={(e) => handleFilter("orion", e.target.value)} value="Orion" type="checkbox" name="mountBrand" id="checkboxMontureBrandOrion" />
+                        <label htmlFor="checkboxMontureBrandOrion">Orion</label>
                     </div>
                 <div className="montureFilter__separator"></div>
                 <h2>Type</h2>
                     <div className="">
-                        <input onChange={(e) => handleFilter("azi", e.target.value)} value="azimutale" type="radio" name="mountType" id="radioMontureTypeAzimutale" />
-                        <label htmlFor="radioMontureTypeAzimutale">Azimutale</label>
+                        <input onChange={(e) => handleFilter("azi", e.target.value)} value="azimutale" type="checkbox" name="mountType" id="checkboxMontureTypeAzimutale" />
+                        <label htmlFor="checkboxMontureTypeAzimutale">Azimutale</label>
                     </div>
                     <div className="">
-                        <input onChange={(e) => handleFilter("equa", e.target.value)} value="equatorial" type="radio" name="mountType" id="radioMontureTypeEquatoriale" />
-                        <label htmlFor="radioMontureTypeEquatoriale">Equatoriale</label>
+                        <input onChange={(e) => handleFilter("equa", e.target.value)} value="equatoriale" type="checkbox" name="mountType" id="checkboxMontureTypeEquatoriale" />
+                        <label htmlFor="checkboxMontureTypeEquatoriale">Equatoriale</label>
                     </div>
                 <div className="montureFilter__separator"></div>
                 <h2>Goto</h2>
-                <div className="">
+                    <div className="">
+                        <input onChange={(e) => handleFilter("both", e.target.value)} value="false" type="radio" name="mountGoto" id="radioMontureGotoBoth" />
+                        <label htmlFor="radioMontureGotoBoth">Tous</label>
+                    </div>
+                    <div className="">
                         <input onChange={(e) => handleFilter("with", e.target.value)} value="true" type="radio" name="mountGoto" id="radioMontureGotoWith" />
                         <label htmlFor="radioMontureGotoWith">Avec</label>
                     </div>

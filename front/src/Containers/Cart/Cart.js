@@ -189,12 +189,13 @@ const Cart = () => {
                 break;
             }
         }  
+        window.scrollTo(0, 0);
     }
     
     const toPreviousStep = () => {
         const steps = document.querySelectorAll(".cartSteps__step");
         const stepsContent = document.querySelectorAll(".cartStepCart");
-
+        
         for(let i = (steps.length - 1); i >= 0; i--) {
             let a = i - 1;
             if (steps[i].classList.contains('cartSteps__step--active') ) {
@@ -204,6 +205,7 @@ const Cart = () => {
                 break;
             }
         }
+        window.scrollTo(0, 0);
     }
 
     const infosReceived = (infos) => {

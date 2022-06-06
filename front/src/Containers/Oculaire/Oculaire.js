@@ -10,7 +10,9 @@ const Oculaire = () => {
     const dispatch = useDispatch();
 
     const [oculaireData, setOculaireData] = useState([]);
-    const [filterOptions, setFilterOptions] = useState({brand: "", model: "", onStock : false});
+    const [filterOptions, setFilterOptions] = useState({brand: [], model: "", onStock : false});
+    const [filterBrand, setFilterBrand] = useState([false, false, false, false, false, false, false])
+    const [optionChoice, setOptionChoice] = useState(false)
     const [lastSeenData, setLastSeenData] = useState([]);
     const [sort, setSort] = useState("");
 
@@ -95,47 +97,194 @@ const Oculaire = () => {
 
     const handleFilter = (action, value) => {
         if (action === "sky") {
-            const newObj = {
-                ...filterOptions,
-                brand : value
+            if(optionChoice) {
+                const newObj = {
+                    ...filterOptions,
+                    brand : [value]
+                }
+                setFilterOptions(newObj);
+            } else {
+                let newArr = filterOptions.brand;
+                let filterCtrl = filterBrand;
+                if(filterCtrl[0] === true) {
+                    let arrFiltered = newArr.filter(el => el !== value)
+                    newArr = arrFiltered;
+                } else {
+                    if(!filterOptions.brand.includes(value)){
+                        newArr.push(value);
+                    }
+                }
+                filterCtrl[0] = !filterCtrl[0];
+                const newObj = {
+                    ...filterOptions,
+                    brand : newArr,
+                    model: ""
+                }
+                setFilterOptions(newObj);
+                setFilterBrand(filterCtrl);
             }
-            setFilterOptions(newObj);
         } else if (action === "teleVue") {
-            const newObj = {
-                ...filterOptions,
-                brand : value
-            }
-            setFilterOptions(newObj);    
+            if(optionChoice) {
+                const newObj = {
+                    ...filterOptions,
+                    brand : [value]
+                }
+                setFilterOptions(newObj);
+            } else {
+                let newArr = filterOptions.brand;
+                let filterCtrl = filterBrand;
+                if(filterCtrl[1] === true) {
+                    let arrFiltered = newArr.filter(el => el !== value)
+                    newArr = arrFiltered;
+                } else {
+                    if(!filterOptions.brand.includes(value)){
+                        newArr.push(value);
+                    }
+                }
+                filterCtrl[1] = !filterCtrl[1];
+                const newObj = {
+                    ...filterOptions,
+                    brand : newArr,
+                    model: ""
+                }
+                setFilterOptions(newObj);
+                setFilterBrand(filterCtrl);
+            }   
         } else if (action === "celestron") {
-            const newObj = {
-                ...filterOptions,
-                brand : value
-            }
-            setFilterOptions(newObj);           
+            if(optionChoice) {
+                const newObj = {
+                    ...filterOptions,
+                    brand : [value]
+                }
+                setFilterOptions(newObj);
+            } else {
+                let newArr = filterOptions.brand;
+                let filterCtrl = filterBrand;
+                if(filterCtrl[2] === true) {
+                    let arrFiltered = newArr.filter(el => el !== value)
+                    newArr = arrFiltered;
+                } else {
+                    if(!filterOptions.brand.includes(value)){
+                        newArr.push(value);
+                    }
+                }
+                filterCtrl[2] = !filterCtrl[2];
+                const newObj = {
+                    ...filterOptions,
+                    brand : newArr,
+                    model: ""
+                }
+                setFilterOptions(newObj);
+                setFilterBrand(filterCtrl);
+            }          
         } else if (action === "orion") {
-            const newObj = {
-                ...filterOptions,
-                brand : value
+            if(optionChoice) {
+                const newObj = {
+                    ...filterOptions,
+                    brand : [value]
+                }
+                setFilterOptions(newObj);
+            } else {
+                let newArr = filterOptions.brand;
+                let filterCtrl = filterBrand;
+                if(filterCtrl[3] === true) {
+                    let arrFiltered = newArr.filter(el => el !== value)
+                    newArr = arrFiltered;
+                } else {
+                    if(!filterOptions.brand.includes(value)){
+                        newArr.push(value);
+                    }
+                }
+                filterCtrl[3] = !filterCtrl[3];
+                const newObj = {
+                    ...filterOptions,
+                    brand : newArr,
+                    model: ""
+                }
+                setFilterOptions(newObj);
+                setFilterBrand(filterCtrl);
             }
-            setFilterOptions(newObj);
         } else if (action === "pentax") {
-            const newObj = {
-                ...filterOptions,
-                brand : value
+            if(optionChoice) {
+                const newObj = {
+                    ...filterOptions,
+                    brand : [value]
+                }
+                setFilterOptions(newObj);
+            } else {
+                let newArr = filterOptions.brand;
+                let filterCtrl = filterBrand;
+                if(filterCtrl[4] === true) {
+                    let arrFiltered = newArr.filter(el => el !== value)
+                    newArr = arrFiltered;
+                } else {
+                    if(!filterOptions.brand.includes(value)){
+                        newArr.push(value);
+                    }
+                }
+                filterCtrl[4] = !filterCtrl[4];
+                const newObj = {
+                    ...filterOptions,
+                    brand : newArr,
+                    model: ""
+                }
+                setFilterOptions(newObj);
+                setFilterBrand(filterCtrl);
             }
-            setFilterOptions(newObj);
         } else if (action === "es") {
-            const newObj = {
-                ...filterOptions,
-                brand : value
+            if(optionChoice) {
+                const newObj = {
+                    ...filterOptions,
+                    brand : [value]
+                }
+                setFilterOptions(newObj);
+            } else {
+                let newArr = filterOptions.brand;
+                let filterCtrl = filterBrand;
+                if(filterCtrl[5] === true) {
+                    let arrFiltered = newArr.filter(el => el !== value)
+                    newArr = arrFiltered;
+                } else {
+                    if(!filterOptions.brand.includes(value)){
+                        newArr.push(value);
+                    }
+                }
+                filterCtrl[5] = !filterCtrl[5];
+                const newObj = {
+                    ...filterOptions,
+                    brand : newArr,
+                    model: ""
+                }
+                setFilterOptions(newObj);
+                setFilterBrand(filterCtrl);
             }
-            setFilterOptions(newObj);
         } else if (action === "baader") {
-            const newObj = {
-                ...filterOptions,
-                brand : value
+            if(optionChoice) {
+                const newObj = {
+                    ...filterOptions,
+                    brand : [value]
+                }
+                setFilterOptions(newObj);
+            } else {
+                let newArr = filterOptions.brand;
+                let filterCtrl = filterBrand;
+                if(filterCtrl[6] === true) {
+                    let arrFiltered = newArr.filter(el => el !== value)
+                    newArr = arrFiltered;
+                } else {
+                    if(!filterOptions.brand.includes(value)){
+                        newArr.push(value);
+                    }
+                }
+                filterCtrl[6] = !filterCtrl[6];
+                const newObj = {
+                    ...filterOptions,
+                    brand : newArr,
+                    model: ""
+                }
+                setFilterOptions(newObj);
+                setFilterBrand(filterCtrl);
             }
-            setFilterOptions(newObj);
         } else if (action === "model") {
             const newObj = {
                 ...filterOptions,
@@ -154,12 +303,11 @@ const Oculaire = () => {
     const getFilteredList = () => {
         window.scrollTo(0, 0);
 
-        if(filterOptions.brand !== "" || filterOptions.model !== "" || filterOptions.onStock === true) {
-
+        if(filterOptions.brand.length > 0 || filterOptions.model !== "" || filterOptions.onStock === true) {
             
             let brand = undefined, model = undefined, onStock;
             
-            if(filterOptions.brand !== "") {
+            if(filterOptions.brand.length > 0) {
                 brand = filterOptions.brand;
             }
             if(filterOptions.model !== "") {
@@ -214,15 +362,30 @@ const Oculaire = () => {
         })
         stockInput.checked = false;
 
-        let filter = {brand: "", model: "", onStock : false}
+        let filter = {brand: [], model: "", onStock : false}
         setFilterOptions(filter);
         getOculairesList()
+    }
+
+    const toggleOptionChoice = () => {
+        setOptionChoice(!optionChoice);
     }
 
     return (
         <main className='mainList'>
             <section className="oculaireFilter">
+                {
+                    optionChoice ?
+                    <button className='oculaireFilter__btn' onClick={toggleOptionChoice}>Sélectionner marques</button>
+                    :
+                    <button className='oculaireFilter__btn' onClick={toggleOptionChoice}>Sélectionner modèle</button>
+                    
+                }
+                <div className="oculaireFilter__separator"></div>
                 <h2>Marque</h2>
+                {
+                    optionChoice ?
+                    <>
                     <div className="">
                         <input onChange={(e) => handleFilter("sky", e.target.value)} value="Sky-Watcher" type="radio" name="oculaireBrand" id="radioOculaireBrandSky" />
                         <label htmlFor="radioOculaireBrandSky">Sky-Watcher</label>
@@ -254,12 +417,12 @@ const Oculaire = () => {
                 <div className="oculaireFilter__separator"></div>
                 <h2>Modèle</h2>
                     {
-                            filterOptions.brand === "Sky-Watcher" ? 
+                            filterOptions.brand[0] === "Sky-Watcher" ? 
                                 <select onChange={(e) => handleFilter("model", e.target.value)} id="modelSelect">
                                     <option value="">Tous les modèles</option>
                                     <option value="Super Plössl">Super Plössl</option>
                                 </select>
-                            : filterOptions.brand === "TeleVue" ?
+                            : filterOptions.brand[0] === "TeleVue" ?
                                 <select onChange={(e) => handleFilter("model", e.target.value)} id="modelSelect">
                                 <option value="">Tous les modèles</option>
                                 <option value="Plössl">Plössl</option>
@@ -268,31 +431,31 @@ const Oculaire = () => {
                                 <option value="Nagler">Nagler</option>
                                 <option value="Delos">Delos</option>
                             </select>
-                           : filterOptions.brand === "Celestron" ?
+                           : filterOptions.brand[0] === "Celestron" ?
                                 <select onChange={(e) => handleFilter("model", e.target.value)} id="modelSelect">
                                     <option value="">Tous les modèles</option>
                                     <option value="X-cel">X-Cel</option>
                                     <option value="Luminos">Luminos</option>
                                 </select>
-                           : filterOptions.brand === "Orion" ?
+                           : filterOptions.brand[0] === "Orion" ?
                                 <select onChange={(e) => handleFilter("model", e.target.value)} id="modelSelect">
                                     <option value="">Tous les modèles</option>
                                     <option value="edge-On">Edge-On</option>
                                     <option value="Lanthanum">Lanthanum</option>
                                 </select>
-                           : filterOptions.brand === "Pentax" ?
+                           : filterOptions.brand[0] === "Pentax" ?
                                 <select onChange={(e) => handleFilter("model", e.target.value)} id="modelSelect">
                                     <option value="">Tous les modèles</option>
                                     <option value="XW">XW</option>
                                 </select>
-                           : filterOptions.brand === "Explore Scientific" ?
+                           : filterOptions.brand[0] === "Explore Scientific" ?
                                 <select onChange={(e) => handleFilter("model", e.target.value)} id="modelSelect">
                                     <option value="">Tous les modèles</option>
                                     <option value="68°">68°</option>
                                     <option value="82°">82°</option>
                                     <option value="100°">100°</option>
                                 </select>
-                           : filterOptions.brand === "Baader" ? 
+                           : filterOptions.brand[0] === "Baader" ? 
                                 <select onChange={(e) => handleFilter("model", e.target.value)} id="modelSelect">
                                     <option value="">Tous les modèles</option>
                                     <option value="Hyperion">Hyperion</option>
@@ -302,6 +465,39 @@ const Oculaire = () => {
                                     <option value="">Tous les modèles</option>
                                 </select>
                     }
+                    </>
+                    :
+                    <>
+                    <div className="">
+                        <input onChange={(e) => handleFilter("sky", e.target.value)} value="Sky-Watcher" type="checkbox" name="oculaireBrand" id="checkboxOculaireBrandSky" />
+                        <label htmlFor="checkboxOculaireBrandSky">Sky-Watcher</label>
+                    </div>
+                    <div className="">
+                        <input onChange={(e) => handleFilter("teleVue", e.target.value)} value="TeleVue" type="checkbox" name="oculaireBrand" id="checkboxOculaireBrandTeleVue" />
+                        <label htmlFor="checkboxOculaireBrandTeleVue">TeleVue</label>
+                    </div>
+                    <div className="">
+                        <input onChange={(e) => handleFilter("celestron", e.target.value)} value="Celestron" type="checkbox" name="oculaireBrand" id="checkboxOculaireBrandCelestron" />
+                        <label htmlFor="checkboxOculaireBrandCelestron">Celestron</label>
+                    </div>
+                    <div className="">
+                        <input onChange={(e) => handleFilter("orion", e.target.value)} value="Orion" type="checkbox" name="oculaireBrand" id="checkboxOculaireBrandOrion" />
+                        <label htmlFor="checkboxOculaireBrandOrion">Orion</label>
+                    </div>
+                    <div className="">
+                        <input onChange={(e) => handleFilter("pentax", e.target.value)} value="Pentax" type="checkbox" name="oculaireBrand" id="checkboxOculaireBrandPentax" />
+                        <label htmlFor="checkboxOculaireBrandPentax">Pentax</label>
+                    </div>
+                    <div className="">
+                        <input onChange={(e) => handleFilter("es", e.target.value)} value="Explore Scientific" type="checkbox" name="oculaireBrand" id="checkboxOculaireBrandES" />
+                        <label htmlFor="checkboxOculaireBrandES">Explore Scientific</label>
+                    </div>
+                    <div className="">
+                        <input onChange={(e) => handleFilter("baader", e.target.value)} value="Baader" type="checkbox" name="oculaireBrand" id="checkboxOculaireBrandBaader" />
+                        <label htmlFor="checkboxOculaireBrandBaader">Baader</label>
+                    </div>
+                    </>
+                }
                 <div className="oculaireFilter__separator"></div>
                 <h2>En stock</h2>
                     <div className="">

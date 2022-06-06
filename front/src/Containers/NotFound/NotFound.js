@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { decodeToken, isExpired } from 'react-jwt';
+import { NavLink } from 'react-router-dom'
 
 const NotFound = () => {
 
@@ -38,8 +39,11 @@ const NotFound = () => {
     },[])
 
     return (
-        <main>
-            <h1>404 not found</h1>
+        <main className='notFound'>
+            <h2>404 not found</h2>
+            <NavLink to="/">
+                <button>Retour à l'accueil</button>
+            </NavLink>
         </main>
     );
 };
