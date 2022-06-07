@@ -1,4 +1,5 @@
 .navbar {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -8,8 +9,6 @@
     border-bottom: 2px solid white ;
     border-top: 2px solid white ;
     color: map-get($map: $colors, $key: whiteLight);
-    position: relative;
-    z-index: 1;
     &__cont {
         display: flex;
         align-items: center;

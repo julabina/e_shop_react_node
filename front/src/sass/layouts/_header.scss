@@ -5,6 +5,7 @@
     flex-direction: column;
     align-items: center;
     background: map-get($colors, primary);
+    z-index: 100;
     &__section {
         display: flex;
         justify-content: space-between;

@@ -18,6 +18,7 @@ const Home = () => {
     const [isLogged, setIsLogged] = useState(false);
     const [promoProduct, setPromoProduct] = useState([])
 
+
     useEffect(() => {
         window.scrollTo(0, 0);
 
