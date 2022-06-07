@@ -75,6 +75,12 @@
     &--active {
         display: block;
     }
+    @include forLaptopHd {
+        width: 1100px;   
+        &__optionDelivery__cont__mainInfos {
+            width: 900px;
+        }
+    }
 }
 
 #delivery__backBtn {

@@ -380,6 +380,29 @@ body {
   background: rgba(128, 128, 128, 0.452);
   transition: all 150ms ease-in-out;
 }
+@media screen and (max-width: 1600px) {
+  .carrousel__modal {
+    width: 500px;
+    height: 500px;
+    top: 47%;
+  }
+  .carrousel__modal img {
+    width: 460px;
+    height: 460px;
+  }
+  .carrousel__modal__tinyImgs__cont {
+    height: 60px;
+    width: 60px;
+  }
+  .carrousel__modal__tinyImgs__cont__cover {
+    width: 60px;
+    height: 60px;
+  }
+  .carrousel__modal__tinyImgs__cont img {
+    width: 50px;
+    height: 50px;
+  }
+}
 
 .oculaireCard {
   display: flex;
@@ -762,6 +785,11 @@ body {
 .cartStepLocation--active {
   display: block;
 }
+@media screen and (max-width: 1600px) {
+  .cartStepLocation {
+    width: 1100px;
+  }
+}
 
 #mail {
   width: 550px;
@@ -845,6 +873,14 @@ body {
 .cartStepDelivery--active {
   display: block;
 }
+@media screen and (max-width: 1600px) {
+  .cartStepDelivery {
+    width: 1100px;
+  }
+  .cartStepDelivery__optionDelivery__cont__mainInfos {
+    width: 900px;
+  }
+}
 
 #delivery__backBtn {
   width: 200px;
@@ -897,6 +933,14 @@ body {
   padding-top: 2px;
   color: #FF0000;
 }
+@media screen and (max-width: 1600px) {
+  .cartStepPayment {
+    width: 1100px;
+  }
+  .cartStepPayment__paymentChoice__choice__textCont {
+    width: 900px;
+  }
+}
 
 .cartStepConfirm {
   width: 1480px;
@@ -937,6 +981,11 @@ body {
 }
 .cartStepConfirm__recap__content__newsletter {
   margin-top: 60px;
+}
+@media screen and (max-width: 1600px) {
+  .cartStepConfirm {
+    width: 1100px;
+  }
 }
 
 .confirmModal {
@@ -1257,6 +1306,20 @@ main {
   color: #f3f3f3;
   cursor: pointer;
 }
+@media screen and (max-width: 1600px) {
+  .header__section {
+    width: 1100px;
+  }
+  .header__section__title {
+    font-size: 1.6em;
+  }
+  .header__section__search__input {
+    width: 250px;
+  }
+  .header__section__box__menu {
+    width: 90px;
+  }
+}
 
 .footer {
   display: flex;
@@ -1300,6 +1363,14 @@ main {
   opacity: 0.6;
   transition: opacity 200ms ease-in-out;
 }
+@media screen and (max-width: 1600px) {
+  .footer__section {
+    width: 1100px;
+  }
+  .footer__section__cont__box {
+    width: 180px;
+  }
+}
 
 .telescopesList {
   width: 1250px;
@@ -1339,6 +1410,17 @@ main {
 .telescopesList__bot__list {
   display: flex;
   justify-content: space-between;
+}
+.telescopesList__bot__list li {
+  margin-bottom: 20px;
+}
+@media screen and (max-width: 1600px) {
+  .telescopesList {
+    width: 950px;
+  }
+  .telescopesList__bot__list {
+    flex-wrap: wrap;
+  }
 }
 
 .telescopesFilter {
@@ -1541,6 +1623,21 @@ main {
   height: 80px;
   width: 80px;
 }
+@media screen and (max-width: 1600px) {
+  .telescopeProduct {
+    width: 1100px;
+  }
+  .telescopeProduct__top__right {
+    width: 600px;
+  }
+  .telescopeProduct__top__right__addCart__countCont__input {
+    width: 70px;
+  }
+  .telescopeProduct__top__right__addCart__addBtn {
+    font-size: 1em;
+    width: 300px;
+  }
+}
 
 .telescopeInfos {
   display: flex;
@@ -1668,6 +1765,11 @@ main {
   border-bottom: 1px solid rgba(128, 128, 128, 0.452);
   margin-bottom: 50px;
 }
+@media screen and (max-width: 1600px) {
+  .telescopeInfos {
+    width: 1100px;
+  }
+}
 
 .telescopeModal {
   position: fixed;
@@ -1752,6 +1854,17 @@ main {
   display: flex;
   justify-content: space-between;
 }
+.oculaireList__bot__list li {
+  margin-bottom: 20px;
+}
+@media screen and (max-width: 1600px) {
+  .oculaireList {
+    width: 950px;
+  }
+  .oculaireList__bot__list {
+    flex-wrap: wrap;
+  }
+}
 
 .oculaireFilter {
   width: 200px;
@@ -1804,6 +1917,11 @@ main {
 .oculaireFilter__btn:hover {
   opacity: 0.7;
   transition: opacity 150ms ease-in-out;
+}
+@media screen and (max-width: 1600px) {
+  .oculaireFilter__btn {
+    width: auto;
+  }
 }
 
 .oculaireProduct {
@@ -1969,6 +2087,21 @@ main {
   height: 80px;
   width: 80px;
 }
+@media screen and (max-width: 1600px) {
+  .oculaireProduct {
+    width: 1100px;
+  }
+  .oculaireProduct__top__right {
+    width: 600px;
+  }
+  .oculaireProduct__top__right__addCart__countCont__input {
+    width: 70px;
+  }
+  .oculaireProduct__top__right__addCart__addBtn {
+    font-size: 1em;
+    width: 300px;
+  }
+}
 
 .oculaireInfos {
   display: flex;
@@ -2096,6 +2229,11 @@ main {
   border-bottom: 1px solid rgba(128, 128, 128, 0.452);
   margin-bottom: 50px;
 }
+@media screen and (max-width: 1600px) {
+  .oculaireInfos {
+    width: 1100px;
+  }
+}
 
 .montureList {
   width: 1250px;
@@ -2135,6 +2273,17 @@ main {
 .montureList__bot__list {
   display: flex;
   justify-content: space-between;
+}
+.montureList__bot__list li {
+  margin-bottom: 20px;
+}
+@media screen and (max-width: 1600px) {
+  .montureList {
+    width: 950px;
+  }
+  .montureList__bot__list {
+    flex-wrap: wrap;
+  }
 }
 
 .montureFilter {
@@ -2337,6 +2486,21 @@ main {
   height: 80px;
   width: 80px;
 }
+@media screen and (max-width: 1600px) {
+  .montureProduct {
+    width: 1100px;
+  }
+  .montureProduct__top__right {
+    width: 600px;
+  }
+  .montureProduct__top__right__addCart__countCont__input {
+    width: 70px;
+  }
+  .montureProduct__top__right__addCart__addBtn {
+    font-size: 1em;
+    width: 300px;
+  }
+}
 
 .montureInfos {
   display: flex;
@@ -2464,6 +2628,11 @@ main {
   border-bottom: 1px solid rgba(128, 128, 128, 0.452);
   margin-bottom: 50px;
 }
+@media screen and (max-width: 1600px) {
+  .montureInfos {
+    width: 1100px;
+  }
+}
 
 .cartSteps {
   display: flex;
@@ -2489,6 +2658,11 @@ main {
 .cartSteps__step__icon {
   height: 12px;
   margin-right: 5px;
+}
+@media screen and (max-width: 1600px) {
+  .cartSteps {
+    width: 1100px;
+  }
 }
 
 .cart {
@@ -2675,6 +2849,17 @@ main {
   justify-content: flex-end;
   margin: 70px 0 130px;
 }
+@media screen and (max-width: 1600px) {
+  .cart {
+    width: 1100px;
+  }
+  .cart__articles__cartContent__article__leftPart {
+    width: 665px;
+  }
+  .cart__articles__cartContent__article__priceCont__price {
+    width: 150px;
+  }
+}
 
 .cartEmpty {
   margin-top: 50px;
@@ -2802,6 +2987,11 @@ main {
 .contact__form__btnCont button:hover {
   opacity: 0.6;
   transition: opacity 200ms ease-in-out;
+}
+@media screen and (max-width: 1600px) {
+  .contact {
+    width: 1100px;
+  }
 }
 
 .legals {
@@ -3142,6 +3332,17 @@ main {
   display: flex;
   justify-content: space-between;
 }
+.promotionList__bot__list li {
+  margin-bottom: 20px;
+}
+@media screen and (max-width: 1600px) {
+  .promotionList {
+    width: 950px;
+  }
+  .promotionList__bot__list {
+    flex-wrap: wrap;
+  }
+}
 
 .promotionFilter {
   width: 200px;
@@ -3218,6 +3419,17 @@ main {
 .searchList__bot__list {
   display: flex;
   justify-content: space-between;
+}
+.searchList__bot__list li {
+  margin-bottom: 20px;
+}
+@media screen and (max-width: 1600px) {
+  .searchList {
+    width: 950px;
+  }
+  .searchList__bot__list {
+    flex-wrap: wrap;
+  }
 }
 .searchList__spanQuery {
   font-weight: 600;
@@ -3390,6 +3602,18 @@ main {
 .home__promo__btn:hover {
   opacity: 0.7;
   transition: opacity 150ms ease-in-out;
+}
+@media screen and (max-width: 1600px) {
+  .home__categories__cont__row__category h3 {
+    font-size: 1.6em;
+  }
+  .home__categories__cont__row__category__imgCont {
+    width: 250px;
+    height: 340px;
+  }
+  .home__promo {
+    width: 1100px;
+  }
 }
 
 #homeCarrouselRight {

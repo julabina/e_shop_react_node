@@ -39,4 +39,12 @@
             }
         }
     }
+    @include forLaptopHd {
+        &__section {
+            width: 1100px;
+            &__cont__box {
+                width: 180px;
+            }
+        }   
+    }
 }

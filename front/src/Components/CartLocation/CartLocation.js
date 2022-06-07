@@ -301,16 +301,6 @@ const CartLocation = (props) => {
                 totalCheck += 1;
             }
             
-            // verification tva
-            if(inputs[8].value === "") {
-                errorDisplay("Le numéro de tva ne doit pas être vide.","tva", "cartStepLocation__individual__names__tva")
-            } else if (!inputs[8].value.match(/^(FR){0,1}[0-9A-Z]{2}\ [0-9]{9}$/)) {
-                errorDisplay("Le numéro de tva n'a pas un format valide, n'indiquer pas FR. ","tva", "cartStepLocation__individual__names__tva")
-            } else {
-                errorDisplay("", "tva", "cartStepLocation__individual__names__tva", true)
-                totalCheck += 1;
-            }
-            
             // verification siret
             if(inputs[9].value === "") {
                 errorDisplay("Le siret ne doit pas être vide.","siret", "cartStepLocation__individual__names__siret")
@@ -318,6 +308,16 @@ const CartLocation = (props) => {
                 errorDisplay("Le siret n'a pas un format valide. ","siret", "cartStepLocation__individual__names__siret")
             } else {
                 errorDisplay("", "siret", "cartStepLocation__individual__names__siret", true)
+                totalCheck += 1;
+            }
+            
+            // verification tva
+            if(inputs[8].value === "") {
+                errorDisplay("Le numéro de tva ne doit pas être vide.","tva", "cartStepLocation__individual__names__tva")
+            } else if (!inputs[8].value.match(/^(FR){0,1}[0-9A-Z]{2}\ [0-9]{9}$/)) {
+                errorDisplay("Le numéro de tva n'a pas un format valide, n'indiquer pas FR. ","tva", "cartStepLocation__individual__names__tva")
+            } else {
+                errorDisplay("", "tva", "cartStepLocation__individual__names__tva", true)
                 totalCheck += 1;
             }
 

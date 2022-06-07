@@ -163,6 +163,17 @@
         &__list {
             display: flex;
             justify-content: space-between;
+            li {
+                margin-bottom: 20px;
+            }
+        }
+    }
+    @include forLaptopHd {
+        width: 950px;
+        &__bot {
+            &__list {
+                flex-wrap: wrap;
+            }
         }
     }
 }
@@ -365,6 +376,23 @@
             }
         }
     }
+    @include forLaptopHd {
+        width: 1100px;
+        &__top__right {
+            width: 600px;
+            &__addCart {
+                &__countCont {
+                    &__input {
+                        width: 70px;
+                    }
+                }
+                &__addBtn {
+                    font-size: 1em;
+                    width: 300px;
+                }
+            }
+        }   
+    }
 }
 
 @mixin productInfos {
@@ -492,6 +520,9 @@
             }
         }
     }
+    @include forLaptopHd {
+        width: 1100px; 
+    }
 }
 
 @mixin cartOptionBtn {
@@ -586,4 +617,10 @@
     text-transform: uppercase;
     text-align: center;
     margin: 0 0 45px;
+}
+
+@mixin forLaptopHd {
+    @media screen and (max-width: map-get($queries, laptop)) {
+        @content
+    }
 }

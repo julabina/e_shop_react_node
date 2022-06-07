@@ -18,6 +18,9 @@
         &:hover {
             opacity: 0.7;
             transition: opacity 150ms ease-in-out;
-        }        
+        }   
+        @include forLaptopHd {
+            width: auto;
+        }     
     }
 }
