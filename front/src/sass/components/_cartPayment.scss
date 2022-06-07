@@ -52,4 +52,7 @@
             width: 900px;
         }
     }
+    @include forTablet {
+        width: 90%;   
+    }
 }

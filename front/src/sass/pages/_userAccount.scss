@@ -60,6 +60,14 @@
             }
         }
     }
+    @include forTablet {
+        width: 100%;
+        &__options {
+            &__row__link {
+                width: 350px;
+            }
+        }   
+    }
 }
 
 .profilUpdate {

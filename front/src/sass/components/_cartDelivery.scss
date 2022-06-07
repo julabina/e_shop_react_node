@@ -81,6 +81,15 @@
             width: 900px;
         }
     }
+    @include forTablet {
+        width: 90%;   
+        &__optionDelivery__cont__mainInfos {
+            width: 550px;
+        }
+        &__infosComp {
+            width: 100%;
+        }
+    }
 }
 
 #delivery__backBtn {

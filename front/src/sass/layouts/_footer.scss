@@ -47,4 +47,12 @@
             }
         }   
     }
+    @include forTablet {
+        &__section {
+            width: 92%;
+            &__cont__box {
+                width: 120px;
+            }
+        }   
+    }
 }

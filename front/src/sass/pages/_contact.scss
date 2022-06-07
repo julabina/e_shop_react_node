@@ -58,4 +58,7 @@
     @include forLaptopHd {
         width: 1100px;   
     }
+    @include forTablet {
+        width: 90%;   
+    }
 }

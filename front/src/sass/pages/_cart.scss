@@ -25,6 +25,14 @@
     @include forLaptopHd {
         width: 1100px;   
     }
+    @include forTablet {
+        width: 90%;
+        &__step {
+            width: 135px;
+            height: 40px;
+            border-radius: 20px;
+        }   
+    }
 }
 
 .cart {
@@ -211,6 +219,23 @@
                     &__priceCont {
                         &__price {
                             width: 150px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @include forTablet {
+        width: 90%;
+        &__articles {
+            &__cartContent {
+                &__article {
+                    &__leftPart {
+                        width: 465px;
+                    }
+                    &__priceCont {
+                        &__price {
+                            width: 110px;
                         }
                     }
                 }

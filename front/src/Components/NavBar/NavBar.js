@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart, faHouse } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const NavBar = (props) => {
@@ -21,13 +21,14 @@ const NavBar = (props) => {
                     visible &&
                     <div className="navbar__cont__hiddenStuff">
                         <NavLink to='/'>
-                            <h2>React optique shop</h2>
+                            <h2 className='navbar__cont__homeForDesktop'>React optique shop</h2>
+                            <h2 className='navbar__cont__homeForTablet'><FontAwesomeIcon icon={faHouse}/></h2>
                         </NavLink>
                         <NavLink to="/cart">
                             <div className="navbar__cont__hiddenStuff__cartIcon">
                                 <div className="navbar__cont__hiddenStuff__cartIcon__cartCount">
-                                        <p className='navbar__cont__hiddenStuff__cartIcon__cartCount__count'>{props.artCount}</p>
-                                    </div>
+                                    <p className='navbar__cont__hiddenStuff__cartIcon__cartCount__count'>{props.artCount}</p>
+                                </div>
                                 <FontAwesomeIcon className='navbar__cont__hiddenStuff__cartIcon__icon' icon={faShoppingCart} />
                             </div>
                         </NavLink>

@@ -112,4 +112,41 @@
             }
         }
     }
+    @include forTablet {
+        width: 100%;
+        top: -230px;
+        &__section {
+            width: 90%;
+            flex-direction: column;
+            height: 230px;
+            &__title {
+                font-size: 1.4em;
+                margin-top: 20px;
+            }
+            &__search {
+                margin: 20px 0;
+                width: 100%;
+                &__inputCont {
+                    width: 100%;
+                }
+                &__input {
+                    width: 100%;
+                    height: 55px;
+                }
+                &__btn {
+                    width: 55px;
+                    height: 55px;
+                }
+            }
+            &__box {
+                margin-bottom: 20px;
+                &__menu {
+                    width: 170px;
+                    &__title {
+                        font-size: 0.9em;
+                    }
+                }
+            }
+        }
+    }
 }
