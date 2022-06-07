@@ -1785,8 +1785,8 @@ main {
     width: 90%;
   }
   .telescopeProduct__top__left__mainImg__img {
-    height: 300px;
-    width: 300px;
+    height: auto;
+    width: 90%;
   }
   .telescopeProduct__top__left__tinyImg__cont {
     margin: 10px 20px;
@@ -2327,8 +2327,8 @@ main {
     width: 90%;
   }
   .oculaireProduct__top__left__mainImg__img {
-    height: 300px;
-    width: 300px;
+    height: auto;
+    width: 90%;
   }
   .oculaireProduct__top__left__tinyImg__cont {
     margin: 10px 20px;
@@ -2804,8 +2804,8 @@ main {
     width: 90%;
   }
   .montureProduct__top__left__mainImg__img {
-    height: 300px;
-    width: 300px;
+    height: auto;
+    width: 90%;
   }
   .montureProduct__top__left__tinyImg__cont {
     margin: 10px 20px;
