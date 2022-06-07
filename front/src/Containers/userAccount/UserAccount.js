@@ -578,7 +578,7 @@ const UserAccount = () => {
         if (emailUpdateInputs.email === "" || emailUpdateInputs.newEmail === "") {
             return errorCont.innerHTML = `<p>- Tous les champs sont requis.</p>`
         }
-        if (!emailUpdateInputs.email.match(/^[\w_-]+@[\w-]+\.[a-z]{2,4}$/i) || !emailUpdateInputs.newEmail.match(/^[\w_-]+@[\w-]+\.[a-z]{2,4}$/i)) {
+        if (!emailUpdateInputs.email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i) || !emailUpdateInputs.newEmail.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i)) {
             return errorCont.innerHTML = `<p>- Mauvais format d'email.</p>`            
         }
         if (emailUpdateInputs.email === emailUpdateInputs.newEmail) {

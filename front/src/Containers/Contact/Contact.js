@@ -99,7 +99,7 @@ const Contact = () => {
         // vérification mail
         if(contactFormData.email === "") {
             error += `<p>- Le mail ne doit pas être vide.</p>`
-        } else if (!contactFormData.email.match(/^[\w_-]+@[\w-]+\.[a-z]{2,4}$/i)) {
+        } else if (!contactFormData.email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i)) {
             error += `<p>- Le mail n'a pas un format valide. </p>`
         } 
 

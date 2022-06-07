@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             primaryKey: true,
             unique: {
-                msg: "Le productId est deja utilisé."
+                msg: "Le numero de commande est deja utilisé."
             }
         },
         userId: {

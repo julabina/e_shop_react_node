@@ -59,7 +59,7 @@ const Login = () => {
         if (loginInputs.email === "" || loginInputs.password === "") {
             return setLogErrorMsg("- Tous les champs sont requis.");
         } 
-        if (!loginInputs.email.match(/^[\w_-]+@[\w-]+\.[a-z]{2,4}$/i)) {
+        if (!loginInputs.email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i)) {
             return setLogErrorMsg("- Le format de l'email n'est pas valide.");
         }
         if (!loginInputs.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)) {
@@ -103,7 +103,7 @@ const Login = () => {
         if (signInputs.email === "" || signInputs.password === "") {
             return setSignErrorMsg("- Tous les champs sont requis.");
         } 
-        if (!signInputs.email.match(/^[\w_-]+@[\w-]+\.[a-z]{2,4}$/i)) {
+        if (!signInputs.email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i)) {
             return setSignErrorMsg("- Le format de l'email n'est pas valide.");
         }
         if (!signInputs.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)) {

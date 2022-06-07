@@ -11,6 +11,7 @@ const Comment = (props) => {
     const [commentTime, setCommentTime] = useState({created: "", updated: ""});
     const [userName, setUserName] = useState({firstName: null, lastName: null});
     const [newTextComment, setNewTextComment] = useState(props.comment);
+    const [modalDeleteVisible, setModalDeleteVisible] = useState(false);
     const [onModify, setOnModify] = useState(false);
 
     useEffect(() => {
@@ -125,19 +126,8 @@ const Comment = (props) => {
 
     const postDeleteComment = (userId, token) => {
 
-        fetch('http://localhost:3000/api/comments/' + props.commentId , {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                "Authorization": "Bearer " + token
-            },
-            method : 'DELETE',
-            body: JSON.stringify({ userId : userId })
-        })
-            .then(res => res.json())
-            .then(rep => {
-                props.fetchFunc(props.productId);
-            })
+        toggleModalDelete()
+        props.deleteFunc(userId, token, props.commentId)
 
     };
 
@@ -154,7 +144,12 @@ const Comment = (props) => {
         setNewTextComment(value);
     };
 
+    const toggleModalDelete = () => {
+        setModalDeleteVisible(!modalDeleteVisible);
+    }
+
     return (
+        <>
         <div className='comment'>
             {
                 onModify ?
@@ -173,12 +168,26 @@ const Comment = (props) => {
                     props.userId === props.actualUserId &&
                     <div className="comment__bot__btnCont">
                         <button onClick={openModify} className='comment__bot__btnCont__btn'>Modifier</button>
-                        <button onClick={() => handleComment("delete")} className='comment__bot__btnCont__btn'>Supprimer</button>
+                        <button onClick={toggleModalDelete} className='comment__bot__btnCont__btn'>Supprimer</button>
                     </div>
                 }
             </div>
 
         </div>
+        {
+            modalDeleteVisible &&
+            <div className="comment__deleteConfirm">
+                <div className="comment__deleteConfirm__modal">
+                    <h2>Supprimer ce commentaire ?</h2>
+                    <div className="comment__deleteConfirm__modal__btnCont">
+                        <button onClick={toggleModalDelete}>non</button>
+                        <button onClick={() => handleComment("delete")}>oui</button>
+                    </div>
+                </div>
+            </div>
+        }
+        </>
+
     );
 };
 

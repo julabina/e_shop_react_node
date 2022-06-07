@@ -19,6 +19,7 @@ const TelescopeProduct = () => {
     const [commentsData, setCommentsData] = useState([]);
     const [errorComment, setErrorComment] = useState('');
     const [inputAddCart, setInputAddCart] = useState("");
+    const [reloadState, setReloadState] = useState("");
     const [isLogged, setIsLogged] = useState(false);
     const [actualUser, setActualUser] = useState({id: '', token: ''});
     let back = '< retour'
@@ -298,6 +299,24 @@ const TelescopeProduct = () => {
         setInputAddCart(newVal);
     }
 
+    const deleteComment = (userId, token, commentId) => {
+
+            fetch('http://localhost:3000/api/comments/' + commentId , {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    "Authorization": "Bearer " + token
+                },
+                method : 'DELETE',
+                body: JSON.stringify({ userId : userId })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setReloadState("");
+                    fetchComment(telescopeData.productId);
+                })
+    }
+
     return (
         <main>
         <section className='telescopeProduct'>
@@ -381,7 +400,7 @@ const TelescopeProduct = () => {
             </div>
             <div className="telescopeInfos__infos">
                 <div className="telescopeInfos__infos__commentsCont">
-                <div className="oculaireInfos__infos__commentsCont__error">{errorComment}</div>
+                    <div className="oculaireInfos__infos__commentsCont__error">{errorComment}</div>
                     <form onSubmit={sendComment} className='telescopeInfos__infos__commentsCont__form' method="post">
                         <textarea onInput={(e) => changeCommentValue(e.target.value)} value={commentValue} className="telescopeInfos__infos__commentsCont__form__textArea"></textarea>
                         {
@@ -399,7 +418,7 @@ const TelescopeProduct = () => {
                         <>
                             {
                                 commentsData.map(el => {
-                                    return <Comment comment={el.comment} key={el.id} productId={el.productId} commentId={el.id} userId={el.userId} productCat={el.productCat} created={el.created} updated={el.updated} actualUserId={actualUser.id} actualUserToken={actualUser.token} fetchFunc={fetchComment} />
+                                    return <Comment comment={el.comment} key={el.id} productId={el.productId} commentId={el.id} userId={el.userId} productCat={el.productCat} created={el.created} updated={el.updated} actualUserId={actualUser.id} actualUserToken={actualUser.token} fetchFunc={fetchComment} deleteFunc={deleteComment} />
                                 })
                             }
                         </>
