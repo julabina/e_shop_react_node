@@ -75,4 +75,9 @@
             }
         }
     }
+    @include forMobile1 {
+        &__modal {
+            width: 90%;
+        }
+    }
 }

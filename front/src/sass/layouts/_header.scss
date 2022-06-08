@@ -93,6 +93,12 @@
                 cursor: pointer;
             }
         }
+        &__hambMenu {
+            visibility: hidden;
+        }
+    }
+    &--hidden {
+        visibility: visible;
     }
     @include forLaptopHd {
         &__section {
@@ -147,6 +153,39 @@
                     }
                 }
             }
+        }
+    }
+    @include forMobile1 {
+        position: fixed;
+        top: 0;
+        right: 0;left: 0;
+        visibility: visible;
+        &__section {
+            height: auto;
+            &__box {
+                display: none;
+            }
+            &__hambMenu {
+                visibility: visible;
+                position: fixed;
+                left: 14px;
+                top: 14px;
+                font-size: 2.8em;
+                color: black;
+                &--black {
+                    font-size: 2.4em;
+                }
+            }
+            &__search {
+                flex-direction: column;
+                &__btn {
+                    width: 100%;
+                    margin-left: initial;
+                }
+            }
+        }
+        &--hidden {
+            visibility: hidden;
         }
     }
 }

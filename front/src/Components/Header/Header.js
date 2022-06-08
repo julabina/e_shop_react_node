@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faShoppingCart, faHomeLg, faPen, faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart, faHomeLg, faPen, faUser, faSearch, faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import NavBar from '../NavBar/NavBar';
 import { useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -22,6 +22,7 @@ const Header = () => {
     const [isLogged, setIsLogged] = useState(false);
     const [searchValue, setSearchValue] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
+    const [hambMenuOpen, setHambMenuOpen] = useState(false);
 
     useEffect(() => {
 
@@ -68,9 +69,27 @@ const Header = () => {
         setSearchValue(value);
     };
 
+    const toggleHambMenu = () => {
+        const header = document.querySelector('.header');
+
+        if(hambMenuOpen) {
+            header.classList.add('header--hidden');
+        } else {
+            header.classList.remove('header--hidden');
+        }
+
+        setHambMenuOpen(!hambMenuOpen);
+    };
+
     return (
-        <header className='header'>
+        <header className='header header--hidden'>
             <section className='header__section'>
+                {
+                    hambMenuOpen ?
+                    <FontAwesomeIcon onClick={toggleHambMenu} icon={faXmark} className="header__section__hambMenu header__section__hambMenu--black" />
+                    :
+                    <FontAwesomeIcon onClick={toggleHambMenu} icon={faBars} className="header__section__hambMenu" />
+                }
                 <NavLink to="/">
                     <h1 className='header__section__title'>REACT OPTIQUE SHOP</h1>
                 </NavLink>

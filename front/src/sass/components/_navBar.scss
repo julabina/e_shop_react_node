@@ -38,6 +38,9 @@
                     background: map-get($map: $colors, $key:primary );
                 }
             }
+            &__forMobile {
+                display: none;
+            }
         }
         &__hiddenStuff {
             display: flex;
@@ -91,6 +94,33 @@
                 &__link {
                     height: 76px;
                 }
+            }
+        }
+    }
+    @include forMobile1 {
+        height: auto;
+        &__cont {
+            flex-direction: column;
+            &__homeForTablet {
+                display: none;
+            }
+            &__navBar {
+                position: static;
+                flex-direction: column;
+                height: auto;
+                margin: 20px 0;
+                font-size: 1.4em;
+                letter-spacing: 1.2px;
+                &__link {
+                    height: auto;
+                    margin: 18px;
+                }
+                &__forMobile {
+                    display: block;
+                }
+            }
+            &__hiddenStuff {
+                display: none;
             }
         }
     }

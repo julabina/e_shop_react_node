@@ -61,4 +61,32 @@
     @include forTablet {
         width: 90%;   
     }
+    @include forMobile1 {
+        &__errorCont {
+            width: 90%;
+            p {
+                width: 90%;
+            }
+        }
+        &__form {
+            &__row {
+                flex-direction: column;
+                width: 90%;
+                &__inputCont {
+                    width: 100%;
+                    margin: 0;
+                }
+            }
+            &__message {
+                width: 90%;
+            }
+            &__btnCont {
+                width: 90%;
+                button {
+                    height: 80px;
+                    width: 100%;
+                }
+            }
+        }
+    }
 }

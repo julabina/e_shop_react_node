@@ -121,6 +121,9 @@ body {
 .navbar__cont__navBar__link:hover {
   background: #14416A;
 }
+.navbar__cont__navBar__forMobile {
+  display: none;
+}
 .navbar__cont__hiddenStuff {
   display: flex;
   align-items: center;
@@ -171,6 +174,35 @@ body {
   }
   .navbar__cont__navBar__link {
     height: 76px;
+  }
+}
+@media screen and (max-width: 809px) {
+  .navbar {
+    height: auto;
+  }
+  .navbar__cont {
+    flex-direction: column;
+  }
+  .navbar__cont__homeForTablet {
+    display: none;
+  }
+  .navbar__cont__navBar {
+    position: static;
+    flex-direction: column;
+    height: auto;
+    margin: 20px 0;
+    font-size: 1.4em;
+    letter-spacing: 1.2px;
+  }
+  .navbar__cont__navBar__link {
+    height: auto;
+    margin: 18px;
+  }
+  .navbar__cont__navBar__forMobile {
+    display: block;
+  }
+  .navbar__cont__hiddenStuff {
+    display: none;
   }
 }
 
@@ -1113,6 +1145,11 @@ body {
 .confirmModal__modal__btnCont__continueBtn {
   background: #14416A;
 }
+@media screen and (max-width: 809px) {
+  .confirmModal__modal {
+    width: 90%;
+  }
+}
 
 .toTop {
   display: flex;
@@ -1236,6 +1273,25 @@ body {
   opacity: 0.7;
   transition: opacity 150ms ease-in-out;
 }
+@media screen and (max-width: 809px) {
+  .comment {
+    width: 100%;
+  }
+  .comment__bot__infos {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .comment__bot__btnCont {
+    flex-direction: column;
+    align-items: center;
+  }
+  .comment__bot__btnCont__btn {
+    width: 100px;
+    margin-top: 5px;
+    padding: 10px 0;
+  }
+}
 
 html, body {
   height: 100vh;
@@ -1358,6 +1414,12 @@ main {
   color: #f3f3f3;
   cursor: pointer;
 }
+.header__section__hambMenu {
+  visibility: hidden;
+}
+.header--hidden {
+  visibility: visible;
+}
 @media screen and (max-width: 1600px) {
   .header__section {
     width: 1100px;
@@ -1409,6 +1471,42 @@ main {
   }
   .header__section__box__menu__title {
     font-size: 0.9em;
+  }
+}
+@media screen and (max-width: 809px) {
+  .header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    visibility: visible;
+  }
+  .header__section {
+    height: auto;
+  }
+  .header__section__box {
+    display: none;
+  }
+  .header__section__hambMenu {
+    visibility: visible;
+    position: fixed;
+    left: 14px;
+    top: 14px;
+    font-size: 2.8em;
+    color: black;
+  }
+  .header__section__hambMenu--black {
+    font-size: 2.4em;
+  }
+  .header__section__search {
+    flex-direction: column;
+  }
+  .header__section__search__btn {
+    width: 100%;
+    margin-left: initial;
+  }
+  .header--hidden {
+    visibility: hidden;
   }
 }
 
@@ -1468,6 +1566,37 @@ main {
   }
   .footer__section__cont__box {
     width: 120px;
+  }
+}
+@media screen and (max-width: 809px) {
+  .footer__section {
+    flex-direction: column;
+    padding-top: 50px;
+  }
+  .footer__section a {
+    display: flex;
+    justify-content: center;
+  }
+  .footer__section h2 {
+    width: 90%;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+  }
+  .footer__section p {
+    line-height: 2.5;
+    text-align: center;
+  }
+  .footer__section__cont {
+    flex-direction: column;
+    align-items: center;
+  }
+  .footer__section__cont__box {
+    width: 90%;
+    margin: 0;
+  }
+  .footer__section__cont__box h3 {
+    text-align: center;
+    margin-top: 30px;
   }
 }
 
@@ -1531,6 +1660,12 @@ main {
   }
   .telescopesList__bot__list li {
     margin: 7px 7px;
+  }
+}
+@media screen and (max-width: 809px) {
+  .telescopesList__top select {
+    width: 100%;
+    height: 50px;
   }
 }
 
@@ -1800,6 +1935,63 @@ main {
     height: 60px;
   }
 }
+@media screen and (max-width: 809px) {
+  .telescopeProduct__back {
+    margin-top: 90px;
+  }
+  .telescopeProduct__top {
+    flex-direction: column;
+  }
+  .telescopeProduct__top__right, .telescopeProduct__top__left {
+    width: 100%;
+  }
+  .telescopeProduct__top__right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-left: none;
+    padding: 10px 20px;
+  }
+  .telescopeProduct__top__right h2 {
+    width: 100%;
+    text-align: center;
+  }
+  .telescopeProduct__top__right__price {
+    text-align: center;
+  }
+  .telescopeProduct__top__right__addCart__countCont {
+    justify-content: center;
+  }
+  .telescopeProduct__top__right__addCart__countCont__input {
+    width: 100%;
+  }
+  .telescopeProduct__top__right__addCart__addBtn {
+    margin-top: 50px;
+    height: 100px;
+  }
+  .telescopeProduct__top__left {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .telescopeProduct__top__left__tinyImg {
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+  }
+  .telescopeProduct__top__left__tinyImg__cont {
+    margin: 10px 20px;
+  }
+  .telescopeProduct__top__left__tinyImg__cont__cover {
+    width: 70px;
+    height: 70px;
+  }
+  .telescopeProduct__top__left__tinyImg__cont img {
+    width: 70px;
+    height: 70px;
+  }
+}
 
 .telescopeInfos {
   display: flex;
@@ -1947,6 +2139,46 @@ main {
     width: 85%;
   }
 }
+@media screen and (max-width: 809px) {
+  .telescopeInfos {
+    width: 100%;
+    border-radius: 0;
+    padding: 40px 0;
+  }
+  .telescopeInfos__tabsCont {
+    flex-direction: column;
+    width: 90%;
+  }
+  .telescopeInfos__tabsCont__tab {
+    text-align: center;
+    padding: 15px 0 12px;
+  }
+  .telescopeInfos__infos {
+    width: 90%;
+  }
+  .telescopeInfos__infos__caractCont {
+    width: 100%;
+  }
+  .telescopeInfos__infos__caractCont__caract__value {
+    text-align: end;
+  }
+  .telescopeInfos__infos__caractCont__caract__title {
+    height: auto;
+    font-size: 1em;
+  }
+  .telescopeInfos__infos__commentsCont {
+    width: 100%;
+  }
+  .telescopeInfos__infos__commentsCont__form {
+    width: 100%;
+  }
+  .telescopeInfos__infos__commentsCont__form__textArea {
+    width: 100%;
+  }
+  .telescopeInfos__infos__commentsCont__separator {
+    width: 100%;
+  }
+}
 
 .telescopeModal {
   position: fixed;
@@ -2052,6 +2284,12 @@ main {
   }
   .oculaireList__bot__list li {
     margin: 7px 7px;
+  }
+}
+@media screen and (max-width: 809px) {
+  .oculaireList__top select {
+    width: 100%;
+    height: 50px;
   }
 }
 
@@ -2342,6 +2580,63 @@ main {
     height: 60px;
   }
 }
+@media screen and (max-width: 809px) {
+  .oculaireProduct__back {
+    margin-top: 90px;
+  }
+  .oculaireProduct__top {
+    flex-direction: column;
+  }
+  .oculaireProduct__top__right, .oculaireProduct__top__left {
+    width: 100%;
+  }
+  .oculaireProduct__top__right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-left: none;
+    padding: 10px 20px;
+  }
+  .oculaireProduct__top__right h2 {
+    width: 100%;
+    text-align: center;
+  }
+  .oculaireProduct__top__right__price {
+    text-align: center;
+  }
+  .oculaireProduct__top__right__addCart__countCont {
+    justify-content: center;
+  }
+  .oculaireProduct__top__right__addCart__countCont__input {
+    width: 100%;
+  }
+  .oculaireProduct__top__right__addCart__addBtn {
+    margin-top: 50px;
+    height: 100px;
+  }
+  .oculaireProduct__top__left {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .oculaireProduct__top__left__tinyImg {
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+  }
+  .oculaireProduct__top__left__tinyImg__cont {
+    margin: 10px 20px;
+  }
+  .oculaireProduct__top__left__tinyImg__cont__cover {
+    width: 70px;
+    height: 70px;
+  }
+  .oculaireProduct__top__left__tinyImg__cont img {
+    width: 70px;
+    height: 70px;
+  }
+}
 
 .oculaireInfos {
   display: flex;
@@ -2489,6 +2784,46 @@ main {
     width: 85%;
   }
 }
+@media screen and (max-width: 809px) {
+  .oculaireInfos {
+    width: 100%;
+    border-radius: 0;
+    padding: 40px 0;
+  }
+  .oculaireInfos__tabsCont {
+    flex-direction: column;
+    width: 90%;
+  }
+  .oculaireInfos__tabsCont__tab {
+    text-align: center;
+    padding: 15px 0 12px;
+  }
+  .oculaireInfos__infos {
+    width: 90%;
+  }
+  .oculaireInfos__infos__caractCont {
+    width: 100%;
+  }
+  .oculaireInfos__infos__caractCont__caract__value {
+    text-align: end;
+  }
+  .oculaireInfos__infos__caractCont__caract__title {
+    height: auto;
+    font-size: 1em;
+  }
+  .oculaireInfos__infos__commentsCont {
+    width: 100%;
+  }
+  .oculaireInfos__infos__commentsCont__form {
+    width: 100%;
+  }
+  .oculaireInfos__infos__commentsCont__form__textArea {
+    width: 100%;
+  }
+  .oculaireInfos__infos__commentsCont__separator {
+    width: 100%;
+  }
+}
 
 .montureList {
   width: 1250px;
@@ -2550,6 +2885,12 @@ main {
   }
   .montureList__bot__list li {
     margin: 7px 7px;
+  }
+}
+@media screen and (max-width: 809px) {
+  .montureList__top select {
+    width: 100%;
+    height: 50px;
   }
 }
 
@@ -2819,6 +3160,63 @@ main {
     height: 60px;
   }
 }
+@media screen and (max-width: 809px) {
+  .montureProduct__back {
+    margin-top: 90px;
+  }
+  .montureProduct__top {
+    flex-direction: column;
+  }
+  .montureProduct__top__right, .montureProduct__top__left {
+    width: 100%;
+  }
+  .montureProduct__top__right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-left: none;
+    padding: 10px 20px;
+  }
+  .montureProduct__top__right h2 {
+    width: 100%;
+    text-align: center;
+  }
+  .montureProduct__top__right__price {
+    text-align: center;
+  }
+  .montureProduct__top__right__addCart__countCont {
+    justify-content: center;
+  }
+  .montureProduct__top__right__addCart__countCont__input {
+    width: 100%;
+  }
+  .montureProduct__top__right__addCart__addBtn {
+    margin-top: 50px;
+    height: 100px;
+  }
+  .montureProduct__top__left {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .montureProduct__top__left__tinyImg {
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+  }
+  .montureProduct__top__left__tinyImg__cont {
+    margin: 10px 20px;
+  }
+  .montureProduct__top__left__tinyImg__cont__cover {
+    width: 70px;
+    height: 70px;
+  }
+  .montureProduct__top__left__tinyImg__cont img {
+    width: 70px;
+    height: 70px;
+  }
+}
 
 .montureInfos {
   display: flex;
@@ -2964,6 +3362,46 @@ main {
   }
   .montureInfos__infos__caractCont {
     width: 85%;
+  }
+}
+@media screen and (max-width: 809px) {
+  .montureInfos {
+    width: 100%;
+    border-radius: 0;
+    padding: 40px 0;
+  }
+  .montureInfos__tabsCont {
+    flex-direction: column;
+    width: 90%;
+  }
+  .montureInfos__tabsCont__tab {
+    text-align: center;
+    padding: 15px 0 12px;
+  }
+  .montureInfos__infos {
+    width: 90%;
+  }
+  .montureInfos__infos__caractCont {
+    width: 100%;
+  }
+  .montureInfos__infos__caractCont__caract__value {
+    text-align: end;
+  }
+  .montureInfos__infos__caractCont__caract__title {
+    height: auto;
+    font-size: 1em;
+  }
+  .montureInfos__infos__commentsCont {
+    width: 100%;
+  }
+  .montureInfos__infos__commentsCont__form {
+    width: 100%;
+  }
+  .montureInfos__infos__commentsCont__form__textArea {
+    width: 100%;
+  }
+  .montureInfos__infos__commentsCont__separator {
+    width: 100%;
   }
 }
 
@@ -3352,6 +3790,32 @@ main {
     width: 90%;
   }
 }
+@media screen and (max-width: 809px) {
+  .contact__errorCont {
+    width: 90%;
+  }
+  .contact__errorCont p {
+    width: 90%;
+  }
+  .contact__form__row {
+    flex-direction: column;
+    width: 90%;
+  }
+  .contact__form__row__inputCont {
+    width: 100%;
+    margin: 0;
+  }
+  .contact__form__message {
+    width: 90%;
+  }
+  .contact__form__btnCont {
+    width: 90%;
+  }
+  .contact__form__btnCont button {
+    height: 80px;
+    width: 100%;
+  }
+}
 
 .legals {
   width: 900px;
@@ -3549,6 +4013,19 @@ main {
     width: 350px;
   }
 }
+@media screen and (max-width: 809px) {
+  .profil__options {
+    flex-direction: column;
+    align-items: center;
+  }
+  .profil__options__row {
+    flex-direction: column;
+    align-items: center;
+  }
+  .profil__options__row__link {
+    width: 100%;
+  }
+}
 
 .profilUpdate {
   margin-bottom: 100px;
@@ -3665,6 +4142,31 @@ main {
   color: #b10202;
   line-height: 1.4;
 }
+@media screen and (max-width: 809px) {
+  .profilUpdate h2 {
+    width: 90%;
+  }
+  .profilUpdate__userProfil h2 {
+    width: 90%;
+  }
+  .profilUpdate__userProfil h3 {
+    text-align: center;
+  }
+  .profilUpdate__userProfil__basicsInfos {
+    width: 90%;
+  }
+  .profilUpdate__userProfil__basicsInfos__row {
+    width: 100%;
+    flex-direction: column;
+  }
+  .profilUpdate__userProfil__basicsInfos__row__inputCont input {
+    height: 40px;
+    width: 100%;
+  }
+  .profilUpdate__userProfil__basicsInfos__row__inputCont:last-child {
+    margin-left: initial;
+  }
+}
 
 #profilUpdate__email__lastChildFix {
   margin-left: 0;
@@ -3730,6 +4232,12 @@ main {
   }
   .promotionList__bot__list li {
     margin: 7px 7px;
+  }
+}
+@media screen and (max-width: 809px) {
+  .promotionList__top select {
+    width: 100%;
+    height: 50px;
   }
 }
 
@@ -3835,6 +4343,12 @@ main {
   }
   .searchList__bot__list li {
     margin: 7px 7px;
+  }
+}
+@media screen and (max-width: 809px) {
+  .searchList__top select {
+    width: 100%;
+    height: 50px;
   }
 }
 .searchList__spanQuery {
@@ -4039,6 +4553,40 @@ main {
   }
   .home__promo__btn {
     height: 70px;
+  }
+}
+@media screen and (max-width: 809px) {
+  .home__carrousel__btn {
+    height: 50px;
+    width: 50px;
+  }
+  .home__carrousel__nav__btn {
+    height: 15px;
+    width: 15px;
+    margin: 0 25px;
+  }
+  .home__categories__cont {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+  .home__categories__cont__row {
+    flex-direction: column;
+    width: 100%;
+  }
+  .home__categories__cont__row a {
+    display: flex;
+    justify-content: center;
+  }
+  .home__categories__cont__row__category {
+    width: 70%;
+    margin-bottom: 30px;
+  }
+  .home__categories__cont__row__category__imgCont {
+    width: auto;
+  }
+  .home__promo ul li {
+    margin-bottom: 30px;
   }
 }
 

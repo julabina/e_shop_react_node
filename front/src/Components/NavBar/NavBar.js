@@ -38,19 +38,27 @@ const NavBar = (props) => {
                     <NavLink to="/telescope" className={({isActive}) => {
                         return isActive ? 'navbar__cont__navBar__link navbar__cont__navBar__link--active' : 'navbar__cont__navBar__link'
                     }
-                }>Télescopes</NavLink>
+                    }>Télescopes</NavLink>
                     <NavLink to="/oculaire" className={({isActive}) => {
-                        return isActive ? 'navbar__cont__navBar__link navbar__cont__navBar__link--active' : 'navbar__cont__navBar__link'
-                    }
-                }>Oculaires</NavLink>
+                            return isActive ? 'navbar__cont__navBar__link navbar__cont__navBar__link--active' : 'navbar__cont__navBar__link'
+                        }
+                    }>Oculaires</NavLink>
                     <NavLink to="/monture" className={({isActive}) => {
-                        return isActive ? 'navbar__cont__navBar__link navbar__cont__navBar__link--active' : 'navbar__cont__navBar__link'
-                    }
-                }>Montures</NavLink>
+                            return isActive ? 'navbar__cont__navBar__link navbar__cont__navBar__link--active' : 'navbar__cont__navBar__link'
+                        }
+                    }>Montures</NavLink>
                     <NavLink to="/promotion" className={({isActive}) => {
-                        return isActive ? 'navbar__cont__navBar__link navbar__cont__navBar__link--active' : 'navbar__cont__navBar__link'
-                    }
-                }>Promotions</NavLink>
+                            return isActive ? 'navbar__cont__navBar__link navbar__cont__navBar__link--active' : 'navbar__cont__navBar__link'
+                        }
+                    }>Promotions</NavLink>
+                    <NavLink to="/userAccount" className={({isActive}) => {
+                            return isActive ? 'navbar__cont__navBar__link navbar__cont__navBar__link--active navbar__cont__navBar__forMobile' : 'navbar__cont__navBar__link navbar__cont__navBar__forMobile'
+                        }
+                    }>Profil</NavLink>
+                    <NavLink to="/cart" className={({isActive}) => {
+                            return isActive ? 'navbar__cont__navBar__link navbar__cont__navBar__link--active navbar__cont__navBar__forMobile' : 'navbar__cont__navBar__link navbar__cont__navBar__forMobile'
+                        }
+                    }>Panier</NavLink>
                 </nav>
             </div>
         </section>

@@ -68,6 +68,19 @@
             }
         }   
     }
+    @include forMobile1 {
+        &__options {
+            flex-direction: column;
+            align-items: center;
+            &__row {
+                flex-direction: column;
+                align-items: center;
+                &__link {
+                    width: 100%;
+                }
+            }
+        }
+    }
 }
 
 .profilUpdate {
@@ -188,6 +201,35 @@
             margin: 0 0 30px;
             color: rgb(177, 2, 2);
             line-height: 1.4;
+        }
+    }
+    @include forMobile1 {
+        h2 {
+            width: 90%;
+        }
+        &__userProfil {
+            h2 {
+                width: 90%;
+            }
+            h3 {
+                text-align: center;
+            }
+            &__basicsInfos {
+                width: 90%;
+                &__row {
+                    width: 100%;
+                    flex-direction: column;
+                    &__inputCont {
+                        input {
+                            height: 40px;
+                            width: 100%;
+                        }
+                        &:last-child {
+                            margin-left: initial;
+                        }
+                    }
+                }
+            }
         }
     }
 }

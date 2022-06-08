@@ -190,6 +190,14 @@
             }
         }
     }
+    @include forMobile1 {
+        &__top {
+            select {
+                width: 100%;
+                height: 50px;
+            }
+        }
+    }
 }
 
 @mixin filter {
@@ -460,6 +468,65 @@
             }
         }   
     }
+    @include forMobile1 {
+        &__back {
+            margin-top: 90px;
+        }
+        &__top {
+            flex-direction: column;
+            &__right, &__left {
+                width: 100%;
+            }
+            &__right {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                border-left: none;
+                padding: 10px 20px;
+                h2 {
+                    width: 100%;
+                    text-align: center;
+                }
+                &__price {
+                    text-align: center;
+                }
+                &__addCart {
+                    &__countCont {
+                        justify-content: center;
+                        &__input {
+                            width: 100%;
+                        }
+                    }
+                    &__addBtn {
+                        margin-top: 50px;
+                        height: 100px;
+                    }
+                }
+            }
+            &__left {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                &__tinyImg {
+                    flex-direction: row;
+                    justify-content: center;
+                    margin-top: 20px;
+                    width: 100%;
+                    &__cont {
+                        margin: 10px 20px;
+                        &__cover {
+                            width: 70px;
+                            height: 70px;
+                        }
+                        img {
+                            width: 70px;
+                            height: 70px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 @mixin productInfos {
@@ -605,6 +672,46 @@
             }
         }
     }
+    @include forMobile1 {
+        width: 100%;
+        border-radius: 0; 
+        padding: 40px 0;
+        &__tabsCont {
+            flex-direction: column;
+            width: 90%;
+            &__tab {
+                text-align: center;
+                padding: 15px 0 12px;
+            }
+        }
+        &__infos {
+            width: 90%;
+            &__caractCont {
+                width: 100%;
+                &__caract {
+                    &__value {
+                        text-align: end;
+                    }
+                    &__title {
+                        height: auto;
+                        font-size: 1em;
+                    }
+                }
+            }
+            &__commentsCont {
+                width: 100%;
+                &__form {
+                    width: 100%;
+                    &__textArea {
+                        width: 100%;
+                    }
+                }
+                &__separator {
+                    width: 100%;
+                }
+            }
+        }
+    }
 }
 
 @mixin cartOptionBtn {
@@ -712,6 +819,12 @@
 
 @mixin forTablet {
     @media screen and (max-width: map-get($queries, tablet)) {
+        @content
+    }
+}
+
+@mixin forMobile1 {
+    @media screen and (max-width: map-get($queries, mobile1)) {
         @content
     }
 }
