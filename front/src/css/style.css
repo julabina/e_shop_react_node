@@ -1668,6 +1668,12 @@ main {
     height: 50px;
   }
 }
+.telescopesList__noResult {
+  font-size: 2em;
+  text-align: center;
+  width: 100%;
+  margin: 100px 0;
+}
 
 .telescopesFilter {
   width: 200px;
@@ -2292,6 +2298,12 @@ main {
     height: 50px;
   }
 }
+.oculaireList__noResult {
+  font-size: 2em;
+  text-align: center;
+  width: 100%;
+  margin: 100px 0;
+}
 
 .oculaireFilter {
   width: 200px;
@@ -2892,6 +2904,12 @@ main {
     width: 100%;
     height: 50px;
   }
+}
+.montureList__noResult {
+  font-size: 2em;
+  text-align: center;
+  width: 100%;
+  margin: 100px 0;
 }
 
 .montureFilter {
@@ -4240,6 +4258,12 @@ main {
     height: 50px;
   }
 }
+.promotionList__noResult {
+  font-size: 2em;
+  text-align: center;
+  width: 100%;
+  margin: 100px 0;
+}
 
 .promotionFilter {
   width: 200px;
@@ -4350,6 +4374,12 @@ main {
     width: 100%;
     height: 50px;
   }
+}
+.searchList__noResult {
+  font-size: 2em;
+  text-align: center;
+  width: 100%;
+  margin: 100px 0;
 }
 .searchList__spanQuery {
   font-weight: 600;

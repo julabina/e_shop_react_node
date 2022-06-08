@@ -380,11 +380,16 @@ const Monture = () => {
                     </select>
                 </div>
                 <div className="montureList__main">
+                    {
+                    montureData.length === 0 ?
+                        <h3 className="montureList__noResult">Aucune monture ne correspond à la recherche</h3>
+                        :
                     <ul>
                         {montureData.map(el => {
                             return <MontureCard id={el.id} name={el.name} price={el.price} key={el.id} image={el.pictures} stock={el.stock} promo={el.promo} promoValue={el.promoValue} />
                         })} 
                     </ul>
+                    }
                 </div>
                 <div className="montureList__separator"></div>
                 <div className="montureList__bot">

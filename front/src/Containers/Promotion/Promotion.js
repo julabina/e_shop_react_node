@@ -240,7 +240,11 @@ const Promotion = () => {
                     </select>
                 </div>
                 <div className="promotionList__main">
-                    <ul>
+                    {
+                     promoData.length === 0 ?
+                        <h3 className="promotionList__noResult">Aucun produit ne correspond à la recherche</h3>
+                     :
+                     <ul>
                         {promoData.map(el => {
                             if(el.cat === "telescope") {
                                 return <TelescopeCard id={el.id} name={el.name} price={el.price} key={el.id} image={el.pictures[0]} stock={el.stock} promo={el.promo} promoValue={el.promoValue} />
@@ -251,6 +255,7 @@ const Promotion = () => {
                             } 
                         })} 
                     </ul>
+                    }
                 </div>
                 <div className="promotionList__separator"></div>
                 <div className="promotionList__bot">

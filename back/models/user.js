@@ -96,7 +96,7 @@ module.exports = (sequelize, DataTypes) => {
             }
         },
         zip: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: true,
             validate: {
                 notEmpty: { msg: "Le code postal ne doit pas etre vide." },
@@ -166,7 +166,7 @@ module.exports = (sequelize, DataTypes) => {
             }
         },
         tva: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: true,
             validate: {
                 notEmpty: { msg: "Le numero de tva ne doit pas être vide." },
@@ -175,7 +175,7 @@ module.exports = (sequelize, DataTypes) => {
             }
         },
         siret: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: true,
             unique: {
                 msg: "Numero de SIRET deja lié à un autre compte.",

@@ -523,11 +523,16 @@ const Oculaire = () => {
                     </select>
                 </div>
                 <div className="oculaireList__main">
-                    <ul>
+                    {
+                     oculaireData.length === 0 ?
+                     <h3 className="oculaireList__noResult">Aucun oculaire ne correspond à la recherche</h3>
+                     :
+                     <ul>
                         {oculaireData.map(el => {
                             return <OculaireCard id={el.id} name={el.name} price={el.price} key={el.id} image={el.pictures} stock={el.stock} promo={el.promo} promoValue={el.promoValue} />
                         })} 
                     </ul>
+                    }
                 </div>
                 <div className="oculaireList__separator"></div>
                 <div className="oculaireList__bot">
