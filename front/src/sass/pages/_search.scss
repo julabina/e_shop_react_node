@@ -19,3 +19,7 @@
         margin-bottom: 40px;
     }
 }
+
+.searchFilter {
+    @include filter;
+}

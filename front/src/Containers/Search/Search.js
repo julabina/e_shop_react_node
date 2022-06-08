@@ -12,11 +12,11 @@ const Search = () => {
     const params = useParams();
 
     const [resultData, setResultData] = useState([]);
+    const [filterOptions, setFilterOptions] = useState({categories:[], onStock: false});
+    const [filterCat, setFilterCat] = useState([false, false, false]);
     const [lastSeenData, setLastSeenData] = useState([]);
 
     useEffect(() => {
-        window.scrollTo(0, 0);
-
         if (localStorage.getItem('token') !== null) {
             let getToken = localStorage.getItem('token');
             let token = JSON.parse(getToken);
@@ -44,7 +44,19 @@ const Search = () => {
         }; 
 
         if (params.query) {
-            fetch('http://localhost:3000/api/search?query=' + params.query)
+            getSearchList()
+            } else {
+            setResultData([]);
+        }
+
+        getLastSeen();
+
+    },[params.query])
+
+    const getSearchList = () => {
+        window.scrollTo(0, 0);
+
+        fetch('http://localhost:3000/api/search?query=' + params.query)
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);
@@ -66,13 +78,7 @@ const Search = () => {
                     }
                     setResultData(newArr);
                 })
-            } else {
-            setResultData([]);
-        }
-
-        getLastSeen();
-
-    },[params.query])
+    }
 
     const getLastSeen = () => {
         if (localStorage.getItem('lastSeen') !== null) {
@@ -93,8 +99,161 @@ const Search = () => {
         }
     }
 
+    const handleFilter = (action, value) => {
+        if(action === "telescope") {
+            let newArr = filterOptions.categories;
+            let filteredCtrl = filterOptions;
+            if(filterOptions[0] === true) {
+                let arrFiltered = newArr.filter(el => el !== value)
+                newArr = arrFiltered;
+            } else {
+                if(!filterOptions.categories.includes(value)){
+                    newArr.push(value);
+                }
+            }
+            filteredCtrl[0] = !filteredCtrl[0];
+            const newObj = {
+                ...filterOptions,
+                categories: newArr
+            }
+            setFilterOptions(newObj);
+            setFilterCat(filteredCtrl)
+        } else if(action === "oculaire") {
+            let newArr = filterOptions.categories;
+            let filteredCtrl = filterOptions;
+            if(filterOptions[1] === true) {
+                let arrFiltered = newArr.filter(el => el !== value)
+                newArr = arrFiltered;
+            } else {
+                if(!filterOptions.categories.includes(value)){
+                    newArr.push(value);
+                }
+            }
+            filteredCtrl[1] = !filteredCtrl[1];
+            const newObj = {
+                ...filterOptions,
+                categories: newArr
+            }
+            setFilterOptions(newObj);
+            setFilterCat(filteredCtrl)           
+        } else if(action === "monture") {
+            let newArr = filterOptions.categories;
+            let filteredCtrl = filterOptions;
+            if(filterOptions[2] === true) {
+                let arrFiltered = newArr.filter(el => el !== value)
+                newArr = arrFiltered;
+            } else {
+                if(!filterOptions.categories.includes(value)){
+                    newArr.push(value);
+                }
+            }
+            filteredCtrl[2] = !filteredCtrl[2];
+            const newObj = {
+                ...filterOptions,
+                categories: newArr
+            }
+            setFilterOptions(newObj);
+            setFilterCat(filteredCtrl)
+        } else if (action === "onStock") {
+            const newObj = {
+                ...filterOptions,
+                onStock : !filterOptions.onStock
+            }
+            setFilterOptions(newObj);
+        } 
+    }
+
+    const getFilteredList = () => {
+        window.scrollTo(0, 0);
+
+        if(filterOptions.categories.length > 0 || filterOptions.onStock === true) {
+
+            
+            let categories = undefined, onStock;
+            
+            if(filterOptions.categories.length > 0) {
+                categories = filterOptions.categories;
+            }
+            if(filterOptions.onStock) {
+                onStock = true
+            }
+            
+            fetch('http://localhost:3000/api/search?query=' + params.query, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST', 
+                body: JSON.stringify({
+                    categories: categories,
+                    onStock: onStock
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                let newArr = [];
+                for (let i = 0; i < data.rows.length; i++) {
+                    if(data.rows[i] !== undefined) {
+                        const item = {
+                            cat: data.rows[i].Category.name,
+                            name: data.rows[i].name,
+                            pictures: data.rows[i].pictures,
+                            price: data.rows[i].price,
+                            id: data.rows[i].id,
+                            promo: data.rows[i].promo,
+                            promoValue: data.rows[i].promoValue,
+                            stock: data.rows[i].stock
+                        }
+                        newArr.push(item)
+                    }
+                }
+                setResultData(newArr);  
+                })
+            } else {
+                getSearchList();
+            }
+    }
+
+    const removeFilter = () => {
+        const inputCat = document.getElementsByName('searchCategory');
+
+        inputCat.forEach(el => {
+            el.checked = false
+        })
+
+        let filter = {categories: [], onStock: false}
+        setFilterOptions(filter);
+        getSearchList()
+    }
+
     return (
-        <main>
+        <main className='mainList'>
+            <section className='searchFilter'>
+                <h2>Categorie</h2>
+                    <div className="">
+                        <input onChange={(e) => handleFilter("telescope", e.target.value)} value="telescope" type="checkbox" name="searchCategory" id="checkboxCatTelescope" />
+                        <label htmlFor="checkboxCatTelescope">Telescope</label>
+                    </div>
+                    <div className="">
+                        <input onChange={(e) => handleFilter("oculaire", e.target.value)} value="oculaire" type="checkbox" name="searchCategory" id="checkboxCatOculaire" />
+                        <label htmlFor="checkboxCatOculaire">Oculaire</label>
+                    </div>
+                    <div className="">
+                        <input onChange={(e) => handleFilter("monture", e.target.value)} value="monture" type="checkbox" name="searchCategory" id="checkboxCatMonture" />
+                        <label htmlFor="checkboxCatMonture">Monture</label>
+                    </div>
+                    <div className="searchFilter__separator"></div>
+                <h2>En stock</h2>
+                    <div className="">
+                        <input onChange={() => handleFilter("onStock")} type="checkbox" id="telescopeOnStock" />
+                        <label htmlFor="telescopeOnStock">Produits en stock</label>
+                    </div>
+                <div className="searchFilter__separator"></div>
+                    <button onClick={getFilteredList} className='searchFilter__btn'>filtrer</button>
+                    <button onClick={removeFilter} className='searchFilter__btn'>Reinitialiser filtres</button>
+                <div className="searchFilter__separator"></div>
+            </section>
             <section className='searchList'>
             { resultData.length > 0 ?
             <>
