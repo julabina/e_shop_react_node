@@ -11,6 +11,7 @@ router.put('/password/:id', auth, userController.modifyPassword);
 router.put('/email/:id', auth, userController.modifyEmail);
 router.post('/', auth, userController.findOneUser);
 router.get('/:id', userController.findName);
+router.put('/delete/:id', auth, userController.deleteAccount);
 
 
 module.exports = router;

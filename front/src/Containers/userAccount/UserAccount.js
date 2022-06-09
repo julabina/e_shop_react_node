@@ -16,6 +16,7 @@ const UserAccount = () => {
     const [emailUpdateInputs, setEmailUpdateInputs] = useState({email: "", new: ""});
     const [successMsg, setSuccessMsg] = useState("");
     const [orderData, setOrderData] = useState([]);
+    const [deleteModal, setDeleteModal] = useState(false);
 
     useEffect(() => {
 
@@ -625,7 +626,7 @@ const UserAccount = () => {
         })
             .then(res => {
                 console.log(res);
-                 if (res === 45) {
+                 if (res.status === 200) {
                     setSuccessMsg("Adresse email modifié !")
             
                     closeSectionToModify();
@@ -637,6 +638,66 @@ const UserAccount = () => {
                 return errorCont.innerHTML = '';
             }) 
     };
+
+    const handleDeleteAccount = () => {
+
+        let userIdToSend = "", tokenToSend = "";
+
+       if (localStorage.getItem('token') !== null) {
+        let getToken = localStorage.getItem('token');
+        let token = JSON.parse(getToken);
+        tokenToSend = token;
+        if (token !== null) {
+            let decodedToken = decodeToken(token.version);
+            let isTokenExpired = isExpired(token.version);
+            if (decodedToken.userId !== token.content || isTokenExpired === true) {
+                dispatch ({
+                    type: 'DISCONNECT'
+                })
+                localStorage.removeItem('token');
+                return navigate('/login', { replace: true });
+            };
+            userIdToSend = decodedToken.userId;
+            dispatch ({
+                type: 'LOG'
+            }) 
+        };
+    } else {
+        dispatch ({
+            type: 'DISCONNECT'
+        })
+        return navigate('/login', { replace: true });
+    }; 
+
+        fetch('http://localhost:3000/api/users/delete/' + userIdToSend, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + tokenToSend.version
+            },
+            method : 'PUT'
+        })
+            .then(res => {
+                console.log(res);
+                if(res.status === 200) {
+                    alert('Utilisateur supprimer');
+                    dispatch ({
+                        type: 'DISCONNECT'
+                    })
+                    localStorage.removeItem('token');
+                    navigate('/login', { replace: true })
+                } else {
+                    toggleDeleteModal()
+                    alert('Un probleme est survenu.')
+                }
+            })
+
+
+    }
+  
+    const toggleDeleteModal = () => {
+        setDeleteModal(!deleteModal);
+    }
 
     return (
         <main>
@@ -666,6 +727,24 @@ const UserAccount = () => {
                     </div>
                 </div>
             </section>
+
+            <section className="profilDelete">
+                <button className='profilDelete__btn' onClick={toggleDeleteModal}>Supprimer le compte</button>
+                {
+                    deleteModal &&
+                    <div className="profilDelete__modalCont">
+                        <div className="profilDelete__modalCont__modal">
+                            <h2>Voulez vous vraiment supprimer votre compte ?</h2> 
+                            <p>Cette action est définitive !</p>
+                            <div className="profilDelete__modalCont__modal__btnCont">
+                                <button onClick={toggleDeleteModal} className='profilDelete__modalCont__modal__btnCont--no'>Non</button>
+                                <button onClick={handleDeleteAccount} className='profilDelete__modalCont__modal__btnCont--yes'>Oui</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </section>
+
             <section className="profilUpdate">
                 <p className='profilUpdate__success'>{successMsg}</p>
                 

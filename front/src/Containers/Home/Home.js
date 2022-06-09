@@ -65,29 +65,37 @@ const Home = () => {
         })
             .then(res => res.json())
             .then(products => {
+                let productArr = products.data;
+                
+                if(products.data !== undefined) {
+                    productArr.sort((a, b) => b.promoValue - a.promoValue);
+                }
+
                 let newArr = [];
 
                 for(let i = 0; i < 4; i++) {
                     if(products.data[i] !== undefined) {
                         const item = {
-                            cat: products.data[i].Category.name,
-                            name: products.data[i].name,
-                            pictures: products.data[i].pictures,
-                            price: products.data[i].price,
-                            id: products.data[i].id,
-                            promo: products.data[i].promo,
-                            promoValue: products.data[i].promoValue,
-                            stock: products.data[i].stock
+                            cat: productArr[i].Category.name,
+                            name: productArr[i].name,
+                            pictures: productArr[i].pictures,
+                            price: productArr[i].price,
+                            id: productArr[i].id,
+                            promo: productArr[i].promo,
+                            promoValue: productArr[i].promoValue,
+                            stock: productArr[i].stock
                         }
                         newArr.push(item)
                     }
                 }
+
+
                 setPromoProduct(newArr);
             })
     }
 
     return (
-        <main className='home'>
+        <main className='home'> 
             <HomeCarrousel />
             <section className="home__categories">
                 <h2>Nos catégories</h2>

@@ -172,7 +172,6 @@ exports.modifyPassword = (req, res, next) => {
         
         exports.modifyEmail = (req, res, next) => {
             let email = {email: req.body.email};
-            console.log(email);
             User.update(email, { where: { userId : req.params.id }})
                 .then(() => {
                     return User.findOne({ where: { userId : req.params.id }})
@@ -223,4 +222,114 @@ exports.modifyPassword = (req, res, next) => {
                 res.status(404).json({ message })
             })
             .catch(error => res.status(500).json({ error }))
+    };
+
+    exports.deleteAccount = (req, res, next) => {
+        const token = req.headers.authorization.split(' ')[1];
+        const decodeToken = jwt.verify(token,'' + process.env.REACT_APP_JWT_PRIVATE_KEY + '');
+        const idUser = decodeToken.userId;
+
+        let userToDelete = null
+
+        if(req.params.id === idUser) {
+            userToDelete = req.params.id
+        }
+        
+        User.findOne({
+            where: {
+                userId: userToDelete
+            }
+        })
+            .then(user => {
+                let characters  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+                let letters  = 'abcdefghijklmnopqrstuvwxyz';
+                
+                let start = "", body = "", end = ""
+                
+                let startLength = Math.ceil(Math.random() * 100);
+                let bodyLength = Math.ceil(Math.random() * 100);
+                let endLength = Math.ceil(Math.random() * 3) + 1;
+                
+                let charactersLength = characters.length;
+                let lettersLength = letters.length
+                
+                for(let i = 0; i < startLength; i++) {
+                    start += characters.charAt(Math.floor(Math.random() * 
+                 charactersLength));
+                }
+                for(let i = 0; i < bodyLength; i++) {
+                    body += characters.charAt(Math.floor(Math.random() * 
+                   charactersLength));
+                }
+                for(let i = 0; i < endLength; i++) {
+                    end += letters.charAt(Math.floor(Math.random() * 
+                 lettersLength));
+                }    
+
+                let newMail = start + "@" + body + "." + end
+
+                let newUser = {
+                    email: newMail,
+                    password: v4(),
+                    firstName: null,
+                    lastName: null,
+                    mobile: null,
+                    fixe: null,
+                    newsletter: false,
+                    pub: false,
+                    address: null,
+                    addressComp: null,
+                    zip: null,
+                    city: null,
+                    deleveryAddress: null,
+                    deliveryAddressComp: null,
+                    deliveryZip: null,
+                    deliveryCity: null,
+                    company: null,
+                    companyName: null,
+                    fax: null,
+                    tva: null,
+                    siret: null
+                }
+                
+                return User.update( newUser, {
+                     where : {
+                         userId : userToDelete
+                     }
+                 })
+                 .then(() => {
+                    return User.findOne({ where: { userId : userToDelete }})
+                    .then(user => {
+                            if(user !== null) {
+                                const message = 'Utilisateur bien supprimé.';
+                                res.status(200).json({ message })
+                            } else {
+                                const message = 'Aucun utilisateur trouvé.';
+                                res.status(404).json({ message });
+                            }
+                        })
+                        .catch(error => {
+                            if (error instanceof ValidationError) {
+                                return res.status(400).json({message: error.message, data: error});
+                            }
+                            if (error instanceof UniqueConstraintError) {
+                                return res.status(400).json({message: error.message, data: error});
+                            }
+                            res.status(500).json({ message: "Une erreur est survenu.", data: error })
+                        });      
+                    })
+                    .catch(error => {
+                        if (error instanceof ValidationError) {
+                            return res.status(400).json({message: error.message, data: error});
+                        }
+                        if (error instanceof UniqueConstraintError) {
+                            return res.status(400).json({message: error.message, data: error});
+                        }
+                        res.status(500).json({ message: "Une erreur est survenu.", data: error })
+                    });  
+                    
+            })
+            .catch(error => res.status(500).json({ error }));
+
+
     };
