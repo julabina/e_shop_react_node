@@ -142,6 +142,15 @@
             }    
         }
     }
+    &__middle {
+        width: 1265px;
+        height: 550px;
+        margin: 220px 0 120px;
+        background-image: url('../assets/homeBody.webp');
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+    }
     @include forLaptopHd {
         &__categories__cont__row__category {
             h3 {
@@ -220,6 +229,21 @@
                 li {
                     margin-bottom: 30px;
                 }
+            }
+        }
+    }
+    &__logo {
+        margin: 50px 0 120px;
+        h2 {
+            @include homeTitle;
+            margin-bottom: 80px;
+        }
+        &__logoCont {
+            display: flex;
+            justify-content: space-between;
+            width: 800px;
+            &__img {
+                height: 50px;
             }
         }
     }

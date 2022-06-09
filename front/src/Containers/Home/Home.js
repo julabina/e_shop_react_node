@@ -5,6 +5,13 @@ import telescopeImg from '../../assets/telescope.webp'
 import oculaireImg from '../../assets/oculaire.webp'
 import montureImg from '../../assets/monture.webp'
 import promoImg from '../../assets/promo.webp'
+import reactLogo from '../../assets/logo/react.webp'
+import nodejsLogo from '../../assets/logo/nodejs.webp'
+import expressLogo from '../../assets/logo/express.webp'
+import reduxLogo from '../../assets/logo/redux.webp'
+import sassLogo from '../../assets/logo/sass.webp'
+import sequelizeLogo from '../../assets/logo/sequelize.webp'
+import mariaDBLogo from '../../assets/logo/mariaDB.webp'
 import TelescopeCard from '../../Components/TelescopeCard/TelescopeCard';
 import OculaireCard from '../../Components/OculaireCard/OculaireCard';
 import MontureCard from '../../Components/MontureCard/MontureCard';
@@ -138,6 +145,7 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+            <section className="home__middle"></section>
             <section className="home__promo">
                 <h2>Nos promotions</h2>
                 <div className="home__promo__promoCont">
@@ -157,6 +165,18 @@ const Home = () => {
                 <NavLink to="/promotion">
                     <button className='home__promo__btn'>Voir toutes les promotions</button>
                 </NavLink>
+            </section>
+            <section className='home__logo'>
+                <h2>Site réalisé avec</h2>
+                <div className="home__logo__logoCont">
+                    <img className='home__logo__logoCont__img' src={reactLogo} alt="logo de react" />
+                    <img className='home__logo__logoCont__img' src={reduxLogo} alt="logo de redux" />
+                    <img className='home__logo__logoCont__img' src={sassLogo} alt="logo de sass" />
+                    <img className='home__logo__logoCont__img' src={nodejsLogo} alt="logo de node js" />
+                    <img className='home__logo__logoCont__img' src={expressLogo} alt="logo d'express " />
+                    <img className='home__logo__logoCont__img' src={sequelizeLogo} alt="logo de sequelize" />
+                    <img className='home__logo__logoCont__img' src={mariaDBLogo} alt="logo de mariaDB" />
+                </div>
             </section>
         </main>
     );

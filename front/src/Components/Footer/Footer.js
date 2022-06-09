@@ -1,7 +1,18 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 
 const Footer = () => {
+
+    const [modalQuit, setModalQuit] = useState(false);
+    const [toLink, setToLink] = useState("");
+
+    const toggleModalQuit = (link) => {
+        if(link) {
+            setToLink(link)
+        }
+        setModalQuit(!modalQuit);
+    }
+
     return (
         <footer className='footer'>
             <section className='footer__section'>
@@ -14,12 +25,8 @@ const Footer = () => {
                         <NavLink to='/about'>
                             <p>À propos</p>
                         </NavLink>
-                        <a href='https://github.com/julabina/e_shop_react_node'>
-                            <p>Dépot distant du projet</p>
-                        </a>
-                        <a href='https://www.telescopes-et-accessoires.fr/' target="_blank" >
-                            <p>Optique Unterlinden</p>
-                        </a>
+                        <p onClick={() => toggleModalQuit('https://github.com/julabina/e_shop_react_node')}>Dépot distant du projet</p>
+                        <p onClick={() => toggleModalQuit('https://www.telescopes-et-accessoires.fr/')}>Optique Unterlinden</p>
                         <NavLink to="/contact">
                             <p>Contact</p>
                         </NavLink>
@@ -51,6 +58,20 @@ const Footer = () => {
                     </div>
                 </div>
             </section>
+            {
+                modalQuit &&
+                <section className="footer__modalQuit">
+                    <div className="footer__modalQuit__modal">
+                        <h2>Vous etes sur le point d'ouvrir un lien exterieur</h2>
+                        <div className="footer__modalQuit__modal__btnCont">
+                            <button onClick={toggleModalQuit}>Annuler</button>
+                            <a href={toLink} target='_blank'>
+                                <button onClick={toggleModalQuit}>Ok</button>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            }
         </footer>
     );
 };

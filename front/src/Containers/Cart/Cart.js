@@ -519,14 +519,18 @@ const Cart = () => {
                                 </div>
                                 )
                             })}
+                            <div className="cartStepConfirm__deliveryPrice">
+                                <h4>Livraison</h4>
+                                <p className="cart__articles__cartContent__article__totalCont__result">{parseInt(deliveryOptions.price).toFixed(2) + " €"}</p>
+                            </div>
                         </div>
                         <div className="cart__articles__separator"></div>
                         <div className="cartStepConfirm__recap">
                             <div className="cartStepConfirm__recap__content">
                                 <h4>Récapitulatif:</h4>
+                                <p>Montant Total de la commande: {(parseInt(totalCart) + deliveryOptions.price).toFixed(2)} €</p>
                                 <p>Commande N° {orderNumber}</p>
                                 <p>le {orderDate} à {orderHour}</p>
-                                <p>Montant Total de la commande: {(parseInt(totalCart) + deliveryOptions.price).toFixed(2)} €</p>
                                 <p>Paiement par {paymentInfos}</p>
                                 <p>Livraison en {deliveryOptions.method}</p> 
                                 <p className="cartStepConfirm__recap__content__title">Adresse de livraison:</p>

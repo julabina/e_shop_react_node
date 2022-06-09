@@ -1055,6 +1055,17 @@ body {
 .cartStepConfirm__recap__content__newsletter {
   margin-top: 60px;
 }
+.cartStepConfirm__deliveryPrice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
+  border-top: 2px solid rgba(128, 128, 128, 0.452);
+}
+.cartStepConfirm__deliveryPrice h4 {
+  margin-left: 125px;
+  font-size: 1.1em;
+}
 @media screen and (max-width: 1600px) {
   .cartStepConfirm {
     width: 1100px;
@@ -1598,6 +1609,57 @@ main {
     text-align: center;
     margin-top: 30px;
   }
+}
+.footer__modalQuit {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.733);
+}
+.footer__modalQuit__modal {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f3f3f3;
+  padding: 40px 30px;
+  border-radius: 3px;
+  height: 210px;
+}
+.footer__modalQuit__modal h2 {
+  font-size: 1.4em;
+  font-weight: 600;
+}
+.footer__modalQuit__modal__btnCont {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.footer__modalQuit__modal__btnCont button {
+  margin: 0 15px;
+  height: 40px;
+  width: 130px;
+  padding: 0 15px;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: 700;
+  letter-spacing: 1.7px;
+  background: #14416A;
+  border: none;
+  border-radius: 3px;
+  color: #f3f3f3;
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+}
+.footer__modalQuit__modal__btnCont button:hover {
+  opacity: 0.7;
+  transition: all 250ms ease-in-out;
 }
 
 .telescopesList {
@@ -4736,6 +4798,15 @@ main {
   opacity: 0.7;
   transition: opacity 150ms ease-in-out;
 }
+.home__middle {
+  width: 1265px;
+  height: 550px;
+  margin: 220px 0 120px;
+  background-image: url("../assets/homeBody.webp");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
 @media screen and (max-width: 1600px) {
   .home__categories__cont__row__category h3 {
     font-size: 1.6em;
@@ -4801,6 +4872,25 @@ main {
   .home__promo ul li {
     margin-bottom: 30px;
   }
+}
+.home__logo {
+  margin: 50px 0 120px;
+}
+.home__logo h2 {
+  font-size: 2em;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0 0 45px;
+  margin-bottom: 80px;
+}
+.home__logo__logoCont {
+  display: flex;
+  justify-content: space-between;
+  width: 800px;
+}
+.home__logo__logoCont__img {
+  height: 50px;
 }
 
 #homeCarrouselRight {
