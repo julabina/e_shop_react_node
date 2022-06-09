@@ -359,51 +359,51 @@ const Telescope = () => {
         <main className='mainList'>
             <section className='telescopesFilter'>
                 <h2>Marque</h2>
-                    <div className="">
+                    <div className="telescopesFilter__option">
                         <input onChange={(e) => handleFilter("sky", e.target.value)} value="Sky-Watcher" type="checkbox" name="telescopeBrand" id="checkboxTelescopeBrandSky" />
                         <label htmlFor="checkboxTelescopeBrandSky">Sky-Watcher</label>
                     </div>
-                    <div className="">
+                    <div className="telescopesFilter__option">
                         <input onChange={(e) => handleFilter("takahashi", e.target.value)} value="Takahashi" type="checkbox" name="telescopeBrand" id="checkboxTelescopeBrandTakahashi" />
                         <label htmlFor="checkboxTelescopeBrandTakahashi">Takahashi</label>
                     </div>
-                    <div className="">
+                    <div className="telescopesFilter__option">
                         <input onChange={(e) => handleFilter("celestron", e.target.value)} value="Celestron" type="checkbox" name="telescopeBrand" id="checkboxTelescopeBrandCelestron" />
                         <label htmlFor="checkboxTelescopeBrandCelestron">Celestron</label>
                     </div>
-                    <div className="">
+                    <div className="telescopesFilter__option">
                         <input onChange={(e) => handleFilter("unistellar", e.target.value)} value="Unistellar" type="checkbox" name="telescopeBrand" id="checkboxTelescopeBrandUnistellar" />
                         <label htmlFor="checkboxTelescopeBrandUnistellar">Unistellar</label>
                     </div>
                 <div className="telescopesFilter__separator"></div>
                 <h2>Type</h2>
-                    <div className="">
+                    <div className="telescopesFilter__option">
                         <input onChange={(e) => handleFilter("achro", e.target.value)} value="lunette achromatique" type="checkbox" name="telescopeType" id="checkboxTelescopeTypeAchro" />
                         <label htmlFor="checkboxTelescopeTypeAchro">Achromatique</label>
                     </div>
-                    <div className="">
+                    <div className="telescopesFilter__option">
                         <input onChange={(e) => handleFilter("apo", e.target.value)} value="lunette apochromatique" type="checkbox" name="telescopeType" id="checkboxTelescopeTypeApo" />
                         <label htmlFor="checkboxTelescopeTypeApo">Apochromatique</label>
                     </div>
-                    <div className="">
+                    <div className="telescopesFilter__option">
                         <input onChange={(e) => handleFilter("newton", e.target.value)} value="telescope Newton" type="checkbox" name="telescopeType" id="checkboxTelescopeTypeNewton" />
                         <label htmlFor="checkboxTelescopeTypeNewton">Newton</label>
                     </div>
-                    <div className="">
+                    <div className="telescopesFilter__option">
                         <input onChange={(e) => handleFilter("mak", e.target.value)} value="telescope Maksutov" type="checkbox" name="telescopeType" id="checkboxTelescopeTypeMak" />
                         <label htmlFor="checkboxTelescopeTypeMak">Maksutov</label>
                     </div>
-                    <div className="">
+                    <div className="telescopesFilter__option">
                         <input onChange={(e) => handleFilter("edge", e.target.value)} value="telescope  edge HD" type="checkbox" name="telescopeType" id="checkboxTelescopeTypeEdge" />
                         <label htmlFor="checkboxTelescopeTypeEdge">Edge HD</label>
                     </div>
-                    <div className="">
+                    <div className="telescopesFilter__option">
                         <input onChange={(e) => handleFilter("sc", e.target.value)} value="telescope Schmidt-Cassegrain" type="checkbox" name="telescopeType" id="checkboxTelescopeTypeSC" />
                         <label htmlFor="checkboxTelescopeTypeSC">Schmidt-Cassegrain</label>
                     </div>
                     <div className="telescopesFilter__separator"></div>
                 <h2>En stock</h2>
-                    <div className="">
+                    <div className="telescopesFilter__option">
                         <input onChange={() => handleFilter("onStock")} type="checkbox" id="telescopeOnStock" />
                         <label htmlFor="telescopeOnStock">Produits en stock</label>
                     </div>

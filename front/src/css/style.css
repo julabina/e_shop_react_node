@@ -1680,6 +1680,17 @@ main {
   margin: 20px 30px 0 0;
   padding: 20px 10px;
 }
+.telescopesFilter__option {
+  cursor: pointer;
+  margin-bottom: 3px;
+}
+.telescopesFilter__option label {
+  cursor: pointer;
+  margin-left: 3px;
+}
+.telescopesFilter__option input {
+  cursor: pointer;
+}
 .telescopesFilter h2 {
   text-transform: uppercase;
   font-weight: 700;
@@ -2310,6 +2321,17 @@ main {
   margin: 20px 30px 0 0;
   padding: 20px 10px;
 }
+.oculaireFilter__option {
+  cursor: pointer;
+  margin-bottom: 3px;
+}
+.oculaireFilter__option label {
+  cursor: pointer;
+  margin-left: 3px;
+}
+.oculaireFilter__option input {
+  cursor: pointer;
+}
 .oculaireFilter h2 {
   text-transform: uppercase;
   font-weight: 700;
@@ -2916,6 +2938,17 @@ main {
   width: 200px;
   margin: 20px 30px 0 0;
   padding: 20px 10px;
+}
+.montureFilter__option {
+  cursor: pointer;
+  margin-bottom: 3px;
+}
+.montureFilter__option label {
+  cursor: pointer;
+  margin-left: 3px;
+}
+.montureFilter__option input {
+  cursor: pointer;
 }
 .montureFilter h2 {
   text-transform: uppercase;
@@ -4270,6 +4303,17 @@ main {
   margin: 20px 30px 0 0;
   padding: 20px 10px;
 }
+.promotionFilter__option {
+  cursor: pointer;
+  margin-bottom: 3px;
+}
+.promotionFilter__option label {
+  cursor: pointer;
+  margin-left: 3px;
+}
+.promotionFilter__option input {
+  cursor: pointer;
+}
 .promotionFilter h2 {
   text-transform: uppercase;
   font-weight: 700;
@@ -4404,6 +4448,17 @@ main {
   width: 200px;
   margin: 20px 30px 0 0;
   padding: 20px 10px;
+}
+.searchFilter__option {
+  cursor: pointer;
+  margin-bottom: 3px;
+}
+.searchFilter__option label {
+  cursor: pointer;
+  margin-left: 3px;
+}
+.searchFilter__option input {
+  cursor: pointer;
 }
 .searchFilter h2 {
   text-transform: uppercase;

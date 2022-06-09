@@ -134,6 +134,9 @@ const Comment = (props) => {
     const openModify = () => {
         if(onModify) {
             if(newTextComment !== "") {
+                if(!newTextComment.match(/^[a-zA-Zé èà,.'-€:!?]*$/)) {
+                   alert('Le commentaire ne doit comporter que des lettres') 
+                }
                 handleComment("modify");
             }
         }

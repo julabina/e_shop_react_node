@@ -181,6 +181,10 @@ const TelescopeProduct = () => {
         e.preventDefault();
 
         if (isLogged) {
+            
+            if(!commentValue.match(/^[a-zA-Zé èà,.'-€:!?]*$/)) {
+                return alert("Le commentaire ne doit comporter que des lettres")
+            }
 
             let loggedUser = localStorage.getItem('token');
 

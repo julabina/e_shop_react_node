@@ -210,6 +210,17 @@
     width: 200px;
     margin:20px 30px 0 0;
     padding: 20px 10px;
+    &__option {
+        cursor: pointer;
+        margin-bottom: 3px;
+        label {
+            cursor: pointer;
+            margin-left: 3px;
+        }
+        input {
+            cursor: pointer;
+        }
+    }
     h2 {
         text-transform: uppercase;
         font-weight: 700;
