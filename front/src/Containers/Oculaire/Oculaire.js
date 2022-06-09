@@ -14,7 +14,7 @@ const Oculaire = () => {
     const [filterBrand, setFilterBrand] = useState([false, false, false, false, false, false, false])
     const [optionChoice, setOptionChoice] = useState(false)
     const [lastSeenData, setLastSeenData] = useState([]);
-    const [sort, setSort] = useState("");
+    const [sortValue, setSortValue] = useState("ascName");
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -45,12 +45,12 @@ const Oculaire = () => {
             })
         }; 
 
-        getOculairesList()
+        getOculairesList(sortValue)
         getLastSeen();
 
     },[])
 
-    const getOculairesList = () => {
+    const getOculairesList = (sort) => {
         window.scrollTo(0, 0);
         
         fetch('http://localhost:3000/api/products/oculaires')
@@ -72,6 +72,17 @@ const Oculaire = () => {
                     newArr.push(item);
                 }
             }
+
+            if(sort === "ascPrice") {
+                newArr.sort((a, b) => a.price - b.price)
+            } else if(sort === "descPrice") {
+                newArr.sort((a, b) => b.price - a.price)
+            } else if(sort === "descName") {
+                newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
+            } else if (sort === "ascName") {
+                newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
+            }
+
             setOculaireData(newArr);
         });
     }
@@ -84,15 +95,8 @@ const Oculaire = () => {
     }
 
     const handleSort = (option) => {
-        if (option === "ascName") {
-
-        } else if (option === "descName") {
-
-        } else if (option === "ascPrice") {
-
-        } else if (option === "descPrice") {
-
-        }
+        setSortValue(option);
+        getOculairesList(option);
     }
 
     const handleFilter = (action, value) => {
@@ -349,7 +353,7 @@ const Oculaire = () => {
                 setOculaireData(newArr);
                 })
             } else {
-                getOculairesList()
+                getOculairesList(sortValue)
             }
     }
 
@@ -364,7 +368,7 @@ const Oculaire = () => {
 
         let filter = {brand: [], model: "", onStock : false}
         setFilterOptions(filter);
-        getOculairesList()
+        getOculairesList(sortValue)
     }
 
     const toggleOptionChoice = () => {

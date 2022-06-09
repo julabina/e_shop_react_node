@@ -15,6 +15,7 @@ const Search = () => {
     const [filterOptions, setFilterOptions] = useState({categories:[], onStock: false});
     const [filterCat, setFilterCat] = useState([false, false, false]);
     const [lastSeenData, setLastSeenData] = useState([]);
+    const [sortValue, setSortValue] = useState("ascName");
 
     useEffect(() => {
         if (localStorage.getItem('token') !== null) {
@@ -44,7 +45,7 @@ const Search = () => {
         }; 
 
         if (params.query) {
-            getSearchList()
+            getSearchList(sortValue)
             } else {
             setResultData([]);
         }
@@ -53,7 +54,7 @@ const Search = () => {
 
     },[params.query])
 
-    const getSearchList = () => {
+    const getSearchList = (sort) => {
         window.scrollTo(0, 0);
 
         fetch('http://localhost:3000/api/search?query=' + params.query)
@@ -76,6 +77,17 @@ const Search = () => {
                             newArr.push(item)
                         }
                     }
+
+                    if(sort === "ascPrice") {
+                        newArr.sort((a, b) => a.price - b.price)
+                    } else if(sort === "descPrice") {
+                        newArr.sort((a, b) => b.price - a.price)
+                    } else if(sort === "descName") {
+                        newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
+                    } else if (sort === "ascName") {
+                        newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
+                    }
+
                     setResultData(newArr);
                 })
     }
@@ -88,15 +100,8 @@ const Search = () => {
     }
 
     const handleSort = (option) => {
-        if (option === "ascName") {
-
-        } else if (option === "descName") {
-
-        } else if (option === "ascPrice") {
-
-        } else if (option === "descPrice") {
-
-        }
+        setSortValue(option);
+        getSearchList(option);
     }
 
     const handleFilter = (action, value) => {
@@ -211,7 +216,7 @@ const Search = () => {
                 setResultData(newArr);  
                 })
             } else {
-                getSearchList();
+                getSearchList(sortValue);
             }
     }
 
@@ -224,7 +229,7 @@ const Search = () => {
 
         let filter = {categories: [], onStock: false}
         setFilterOptions(filter);
-        getSearchList()
+        getSearchList(sortValue)
     }
 
     return (

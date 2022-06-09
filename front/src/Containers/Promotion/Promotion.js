@@ -12,6 +12,7 @@ const Promotion = () => {
     const [promoData, setPromoData] = useState([]);
     const [filterOptions, setFilterOptions] = useState({telescope : false, oculaire: false, monture: false, onStock: false});
     const [lastSeenData, setLastSeenData] = useState([]);
+    const [sortValue, setSortValue] = useState("ascName");
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -42,12 +43,12 @@ const Promotion = () => {
             })
         }; 
 
-        getPromoProducts();
+        getPromoProducts(sortValue);
         getLastSeen();
 
     },[])
 
-    const getPromoProducts = () => {
+    const getPromoProducts = (sort) => {
         fetch('http://localhost:3000/api/products/promotion', {
             headers: {
                 'Accept': 'application/json',
@@ -74,7 +75,17 @@ const Promotion = () => {
                     newArr.push(item)
                 }
             }
-            console.log(newArr);
+
+            if(sort === "ascPrice") {
+                newArr.sort((a, b) => a.price - b.price)
+            } else if(sort === "descPrice") {
+                newArr.sort((a, b) => b.price - a.price)
+            } else if(sort === "descName") {
+                newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
+            } else if (sort === "ascName") {
+                newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
+            }
+            
             setPromoData(newArr);
         });
     }
@@ -87,15 +98,8 @@ const Promotion = () => {
     }
 
     const handleSort = (option) => {
-        if (option === "ascName") {
-
-        } else if (option === "descName") {
-
-        } else if (option === "ascPrice") {
-
-        } else if (option === "descPrice") {
-
-        }
+        setSortValue(option);
+        getPromoProducts(option);
     }
 
     const handleCheckFilters = (action) => {
@@ -181,7 +185,7 @@ const Promotion = () => {
                     setPromoData(newArr);
                 })
             } else {
-                getPromoProducts();
+                getPromoProducts(sortValue);
             }
     };
 
@@ -196,7 +200,7 @@ const Promotion = () => {
         filterMonture.checked = false;
         filterOnStock.checked = false;
 
-        getPromoProducts();
+        getPromoProducts(sortValue);
     };
 
     return (

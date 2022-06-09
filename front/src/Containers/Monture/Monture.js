@@ -14,7 +14,7 @@ const Monture = () => {
     const [lastSeenData, setLastSeenData] = useState([]);
     const [filterBrand, setFilterBrand] = useState([false, false, false, false])
     const [filterType, setFilterType] = useState([false, false])
-    const [sort, setSort] = useState("");
+    const [sortValue, setSortValue] = useState("ascName");
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -45,12 +45,12 @@ const Monture = () => {
             })
         }; 
 
-        getMonturesList()
+        getMonturesList(sortValue)
         getLastSeen();
 
     },[])
 
-    const getMonturesList = () => {
+    const getMonturesList = (sort) => {
         window.scrollTo(0, 0);
 
         fetch('http://localhost:3000/api/products/montures')
@@ -71,6 +71,17 @@ const Monture = () => {
                     newArr.push(item);
                 }
             }
+
+            if(sort === "ascPrice") {
+                newArr.sort((a, b) => a.price - b.price)
+            } else if(sort === "descPrice") {
+                newArr.sort((a, b) => b.price - a.price)
+            } else if(sort === "descName") {
+                newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
+            } else if (sort === "ascName") {
+                newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
+            }
+
             setMontureData(newArr);
         });
     }
@@ -83,15 +94,8 @@ const Monture = () => {
     }
 
     const handleSort = (option) => {
-        if (option === "ascName") {
-
-        } else if (option === "descName") {
-
-        } else if (option === "ascPrice") {
-
-        } else if (option === "descPrice") {
-
-        }
+        setSortValue(option);
+        getMonturesList(option);
     };
 
     const handleFilter = (action, value) => {
@@ -284,7 +288,7 @@ const Monture = () => {
             setMontureData(newArr);
                 })
             } else {
-                getMonturesList();
+                getMonturesList(sortValue);
             }
     }
 
@@ -307,7 +311,7 @@ const Monture = () => {
 
         let filter = {brand: [], type: [], goTo: undefined, onStock : false}
         setFilterOptions(filter);
-        getMonturesList();
+        getMonturesList(sortValue);
     }
 
 

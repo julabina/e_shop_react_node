@@ -13,8 +13,8 @@ const Telescope = () => {
     const [filterOptions, setFilterOptions] = useState({brand: [], type: [], onStock : false});
     const [filterBrand, setFilterBrand] = useState([false, false, false, false])
     const [filterType, setFilterType] = useState([false, false, false, false, false, false])
+    const [sortValue, setSortValue] = useState("ascName");
     const [lastSeenData, setLastSeenData] = useState([]);
-    const [sort, setSort] = useState("");
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -45,11 +45,11 @@ const Telescope = () => {
             })
         }; 
 
-        getTelescopeslist();
+        getTelescopeslist(sortValue);
         getLastSeen();
     }, []);
 
-    const getTelescopeslist = () => {
+    const getTelescopeslist = (sort) => {
         window.scrollTo(0, 0);
 
         fetch('http://localhost:3000/api/products/telescopes')
@@ -70,7 +70,18 @@ const Telescope = () => {
                     newArr.push(item);
                 }
             }
-        setTelescopeData(newArr);
+
+            if(sort === "ascPrice") {
+                newArr.sort((a, b) => a.price - b.price)
+            } else if(sort === "descPrice") {
+                newArr.sort((a, b) => b.price - a.price)
+            } else if(sort === "descName") {
+                newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
+            } else if (sort === "ascName") {
+                newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
+            }
+
+            setTelescopeData(newArr);
         });
     };
 
@@ -82,15 +93,8 @@ const Telescope = () => {
     }
 
     const handleSort = (option) => {
-        if (option === "ascName") {
-
-        } else if (option === "descName") {
-
-        } else if (option === "ascPrice") {
-
-        } else if (option === "descPrice") {
-
-        }
+        setSortValue(option);
+        getTelescopeslist(option);
     };
     
     const handleFilter = (action, value) => {
@@ -333,7 +337,7 @@ const Telescope = () => {
                 setTelescopeData(newArr);
                 })
             } else {
-                getTelescopeslist();
+                getTelescopeslist(sortValue);
             }
     };
         
@@ -352,7 +356,7 @@ const Telescope = () => {
 
         let filter = {brand: [], type: [], onStock : false}
         setFilterOptions(filter);
-        getTelescopeslist()
+        getTelescopeslist(sortValue)
     };
 
     return (
