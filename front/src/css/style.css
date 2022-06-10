@@ -1284,6 +1284,50 @@ body {
   opacity: 0.7;
   transition: opacity 150ms ease-in-out;
 }
+.comment__handleModal {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.705);
+}
+.comment__handleModal__modal {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 170px;
+  top: 42%;
+  left: 50%;
+  background: #f3f3f3;
+  transform: translate(-50%, -50%);
+  padding: 25px 40px;
+  border-radius: 3px;
+}
+.comment__handleModal__modal h2 {
+  font-size: 1.2em;
+  font-weight: 600;
+}
+.comment__handleModal__modal button {
+  margin: 60px 5px 0;
+  width: 70px;
+  height: 35px;
+  color: #f3f3f3;
+  border: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 3px;
+  cursor: pointer;
+  background: #14416A;
+  transition: opacity 150ms ease-in-out;
+}
+.comment__handleModal__modal button:hover {
+  opacity: 0.7;
+  transition: opacity 150ms ease-in-out;
+}
 @media screen and (max-width: 809px) {
   .comment {
     width: 100%;
@@ -3743,6 +3787,55 @@ main {
   justify-content: flex-end;
   margin: 70px 0 130px;
 }
+.cart__modalCont {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.767);
+}
+.cart__modalCont__modal {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f3f3f3;
+  width: 600px;
+  height: 300px;
+  border-radius: 5px;
+  padding: 25px 30px;
+}
+.cart__modalCont__modal h2 {
+  font-weight: 700;
+  font-size: 1.4em;
+  margin: 30px 0 10px;
+}
+.cart__modalCont__modal button {
+  height: 40px;
+  width: auto;
+  padding: 0 15px;
+  margin: 50px 0 20px;
+  text-transform: uppercase;
+  font-size: 1em;
+  font-weight: 700;
+  letter-spacing: 1.7px;
+  border: none;
+  border-radius: 3px;
+  color: #f3f3f3;
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+  margin: 0 20px;
+  background: #14416A;
+}
+.cart__modalCont__modal button:hover {
+  opacity: 0.7;
+  transition: all 250ms ease-in-out;
+}
 @media screen and (max-width: 1600px) {
   .cart {
     width: 1100px;
@@ -4305,7 +4398,7 @@ main {
   color: #1d1d1d;
   transition: all 250ms ease-in-out;
 }
-.profilDelete__modalCont {
+.profilDelete__modalCont, .profilDelete__modalMsgCont {
   position: fixed;
   z-index: 100;
   top: 0;
@@ -4314,7 +4407,7 @@ main {
   right: 0;
   background: rgba(0, 0, 0, 0.767);
 }
-.profilDelete__modalCont__modal {
+.profilDelete__modalCont__modal, .profilDelete__modalMsgCont__modal {
   position: absolute;
   top: 42%;
   left: 50%;
@@ -4328,19 +4421,19 @@ main {
   border-radius: 5px;
   padding: 25px 30px;
 }
-.profilDelete__modalCont__modal h2 {
+.profilDelete__modalCont__modal h2, .profilDelete__modalMsgCont__modal h2 {
   font-weight: 700;
   font-size: 1.4em;
   margin: 30px 0 10px;
 }
-.profilDelete__modalCont__modal p {
+.profilDelete__modalCont__modal p, .profilDelete__modalMsgCont__modal p {
   color: #FF0000;
 }
-.profilDelete__modalCont__modal__btnCont {
+.profilDelete__modalCont__modal__btnCont, .profilDelete__modalMsgCont__modal__btnCont {
   position: absolute;
   bottom: 60px;
 }
-.profilDelete__modalCont__modal__btnCont button {
+.profilDelete__modalCont__modal__btnCont button, .profilDelete__modalMsgCont__modal__btnCont button {
   height: 40px;
   width: auto;
   padding: 0 15px;
@@ -4356,17 +4449,17 @@ main {
   transition: all 250ms ease-in-out;
   margin: 0 20px;
 }
-.profilDelete__modalCont__modal__btnCont--yes {
+.profilDelete__modalCont__modal__btnCont--yes, .profilDelete__modalMsgCont__modal__btnCont--yes {
   background: #FF0000;
 }
-.profilDelete__modalCont__modal__btnCont--yes:hover {
+.profilDelete__modalCont__modal__btnCont--yes:hover, .profilDelete__modalMsgCont__modal__btnCont--yes:hover {
   color: #1d1d1d;
   transition: all 250ms ease-in-out;
 }
-.profilDelete__modalCont__modal__btnCont--no {
+.profilDelete__modalCont__modal__btnCont--no, .profilDelete__modalMsgCont__modal__btnCont--no {
   background: #14416A;
 }
-.profilDelete__modalCont__modal__btnCont--no:hover {
+.profilDelete__modalCont__modal__btnCont--no:hover, .profilDelete__modalMsgCont__modal__btnCont--no:hover {
   opacity: 0.7;
   transition: all 250ms ease-in-out;
 }

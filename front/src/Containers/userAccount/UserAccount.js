@@ -17,6 +17,8 @@ const UserAccount = () => {
     const [successMsg, setSuccessMsg] = useState("");
     const [orderData, setOrderData] = useState([]);
     const [deleteModal, setDeleteModal] = useState(false);
+    const [modalMsg, setModalMsg] = useState("");
+    const [deleteResModal, setDeleteResModal] = useState(false);
 
     useEffect(() => {
 
@@ -680,7 +682,7 @@ const UserAccount = () => {
             .then(res => {
                 console.log(res);
                 if(res.status === 200) {
-                    alert('Utilisateur supprimer');
+                    toggleMsgModal('Utilisateur supprimer');
                     dispatch ({
                         type: 'DISCONNECT'
                     })
@@ -688,7 +690,7 @@ const UserAccount = () => {
                     navigate('/login', { replace: true })
                 } else {
                     toggleDeleteModal()
-                    alert('Un probleme est survenu.')
+                    toggleMsgModal('Un probleme est survenu.')
                 }
             })
 
@@ -697,6 +699,13 @@ const UserAccount = () => {
   
     const toggleDeleteModal = () => {
         setDeleteModal(!deleteModal);
+    }
+
+    const toggleMsgModal = (message) => {
+        if(message) {
+            setModalMsg(message);
+        }
+        setDeleteResModal(!deleteResModal);
     }
 
     return (
@@ -739,6 +748,17 @@ const UserAccount = () => {
                             <div className="profilDelete__modalCont__modal__btnCont">
                                 <button onClick={toggleDeleteModal} className='profilDelete__modalCont__modal__btnCont--no'>Non</button>
                                 <button onClick={handleDeleteAccount} className='profilDelete__modalCont__modal__btnCont--yes'>Oui</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+                {
+                    deleteResModal && 
+                    <div className="profilDelete__modalMsgCont">
+                        <div className="profilDelete__modalMsgCont__modal">
+                            <h2>{modalMsg}</h2> 
+                            <div className="profilDelete__modalMsgCont__modal__btnCont">
+                                <button onClick={toggleMsgModal} className='profilDelete__modalMsgCont__modal__btnCont--no'>Ok</button>
                             </div>
                         </div>
                     </div>

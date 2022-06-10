@@ -31,6 +31,8 @@ const Cart = () => {
     const [user, setUser] = useState({id: "", token: ""})
     const [modalDelete, setModalDelete] = useState(false);
     const [idToDelete, setIdToDelete] = useState("");
+    const [modalCartInfos, setModalCartInfos] = useState(false);
+    const [modalInfosMsg, setModalInfosMsg] = useState("");
     
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -156,14 +158,14 @@ const Cart = () => {
                     newArr[i].count = data[i].data.stock;
                     setCartData(newArr);
                     changeLocalStorage();
-                    return (alert('Le produit ' + cartData[i].name + ' n\'est plus disponible'))
+                    return toggleInfosModal('Le produit ' + cartData[i].name + ' n\'est plus disponible')
                 } else if (data[i].data.stock < cartData[i].stock) {
                     const newArr = cartData;
                     newArr[i].stock = data[i].data.stock;
                     newArr[i].count = data[i].data.stock;
                     setCartData(newArr);
                     changeLocalStorage();
-                    return alert('Le produit ' + cartData[i].name + ' a été mis à jour');
+                    return toggleInfosModal('Le produit ' + cartData[i].name + ' a été mis à jour')
                 }
             }
             
@@ -357,6 +359,13 @@ const Cart = () => {
         setModalDelete(!modalDelete);
     }
 
+    const toggleInfosModal = (message) => {
+        if(message) {
+            setModalInfosMsg(message);
+        }
+        setModalCartInfos(!modalCartInfos);
+    }
+
     return (
         <main>
             <section className="cartSteps">
@@ -381,6 +390,15 @@ const Cart = () => {
                     <p>Confirmation</p>
                 </div>
             </section>
+            {
+                modalCartInfos &&
+                <section className="cart__modalCont">
+                    <div className="cart__modalCont__modal">
+                        <h2>{modalInfosMsg}</h2>
+                        <div className=""><button onClick={toggleInfosModal}>Ok</button></div>
+                    </div>
+                </section>
+            }
 
             {/* FIRST STEP : PANIER */}
             {cartData.length === 0 ? <p className='cartEmpty'>Votre panier est vide.</p>

@@ -225,7 +225,7 @@ const Monture = () => {
                 goTo : undefined
             }
             setFilterOptions(newObj);          
-        } else if (action === "onStock") {
+        } else if (action === "stock") {
             const newObj = {
                 ...filterOptions,
                 onStock : !filterOptions.onStock
@@ -254,6 +254,8 @@ const Monture = () => {
             if(filterOptions.onStock) {
                 onStock = true
             }
+
+            console.log(onStock);
             
             fetch('http://localhost:3000/api/products/montures', {
                 headers: {

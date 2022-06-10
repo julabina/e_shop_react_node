@@ -168,11 +168,12 @@ const OculaireProduct = () => {
 
     const sendComment = (e) => {
         e.preventDefault();
+        const errorCont = document.querySelector(".oculaireInfos__infos__commentsCont__error");
 
         if (isLogged) {
 
             if(!commentValue.match(/^[a-zA-Zé èà,.'-€:!?]*$/)) {
-                return alert("Le commentaire ne doit comporter que des lettres")
+                return errorCont.innerHTML = `Le commentaire ne doit comporter que des lettres`;
             }
 
             let loggedUser = localStorage.getItem('token');

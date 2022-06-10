@@ -12,6 +12,8 @@ const Comment = (props) => {
     const [userName, setUserName] = useState({firstName: null, lastName: null});
     const [newTextComment, setNewTextComment] = useState(props.comment);
     const [modalDeleteVisible, setModalDeleteVisible] = useState(false);
+    const [modalComment, setModalComment] = useState(false);
+    const [modalMsg, setModalMsg] = useState("");
     const [onModify, setOnModify] = useState(false);
 
     useEffect(() => {
@@ -84,7 +86,12 @@ const Comment = (props) => {
                         type: 'DISCONNECT'
                     })
                     localStorage.removeItem('token');
-                    return alert("Vous devez etre connecté pour supprimer un commentaire.");
+                    if(action === "modify") {
+                        return toggleCommentModal("Vous devez etre connecté pour modifier un commentaire.")
+                    } else if (action === "delete") {
+                        toggleModalDelete();
+                        return toggleCommentModal("Vous devez etre connecté pour supprimer un commentaire.")
+                    }
                 };
                 userIdToSend = decodedToken.userId;
                 dispatch ({
@@ -95,7 +102,12 @@ const Comment = (props) => {
             dispatch ({
                 type: 'DISCONNECT'
             })
-            return alert("Vous devez etre connecté pour supprimer un commentaire.");
+            if(action === "modify") {
+                return toggleCommentModal("Vous devez etre connecté pour modifier un commentaire.")
+            } else if (action === "delete") {
+                toggleModalDelete();
+                return toggleCommentModal("Vous devez etre connecté pour supprimer un commentaire.")
+            }
         }; 
         
         if( action === "modify") {
@@ -135,7 +147,7 @@ const Comment = (props) => {
         if(onModify) {
             if(newTextComment !== "") {
                 if(!newTextComment.match(/^[a-zA-Zé èà,.'-€:!?]*$/)) {
-                   alert('Le commentaire ne doit comporter que des lettres') 
+                    toggleCommentModal('Le commentaire ne doit comporter que des lettres')
                 }
                 handleComment("modify");
             }
@@ -149,6 +161,13 @@ const Comment = (props) => {
 
     const toggleModalDelete = () => {
         setModalDeleteVisible(!modalDeleteVisible);
+    }
+
+    const toggleCommentModal = (message) => {
+        if(message) {
+            setModalMsg(message)
+        }
+        setModalComment(!modalComment);
     }
 
     return (
@@ -186,6 +205,15 @@ const Comment = (props) => {
                         <button onClick={toggleModalDelete}>non</button>
                         <button onClick={() => handleComment("delete")}>oui</button>
                     </div>
+                </div>
+            </div>
+        }
+        {
+            modalComment &&
+            <div className="comment__handleModal">
+                <div className="comment__handleModal__modal">
+                    <h2>{modalMsg}</h2>
+                    <div><button onClick={toggleCommentModal}>Ok</button></div>
                 </div>
             </div>
         }

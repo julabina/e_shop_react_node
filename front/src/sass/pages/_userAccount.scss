@@ -259,7 +259,7 @@
             transition: all 250ms ease-in-out;
         }
     }
-    &__modalCont {
+    &__modalCont, &__modalMsgCont {
         position: fixed;
         z-index: 100;
         top: 0;bottom: 0;

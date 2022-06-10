@@ -15,7 +15,9 @@ const CartPayment = (props) => {
 
     const [totalCart, setTotalCart] = useState(45);
     const [method, setMethode] = useState("creditCard");
-    const [cartData, setCartData] = useState([])
+    const [cartData, setCartData] = useState([]);
+    const [modalInfos, setModalInfos] = useState(false);
+    const [modalInfosMsg, setModalInfosMsg] = useState('');
 
     useEffect(() => {
         let total = 0;
@@ -85,12 +87,12 @@ const CartPayment = (props) => {
             for (let i = 0; i < data.length; i++) {     
                 if (data[i].data.stock === 0) {
                     changeLocalStorage(0);
-                    (alert('Le produit ' + cart[i].name + ' n\'est plus disponible'))
+                    toggleInfoModal('Le produit ' + cart[i].name + ' n\'est plus disponible')
                     return window.location.reload(false)
                 } 
                 if (data[i].data.stock < cartData[i].count) {
                     changeLocalStorage(data[i].data.stock);
-                    (alert('Le produit ' + cart[i].name + ' ne dispose plus en stock du nombres d\'articles sélectionnés'))
+                    toggleInfoModal('Le produit ' + cart[i].name + ' ne dispose plus en stock du nombres d\'articles sélectionnés')
                     return window.location.reload(false)
                 }
             }
@@ -112,6 +114,13 @@ const CartPayment = (props) => {
         props.sendInfos(method);
         emptyCart();
         props.next();
+    }
+
+    const toggleInfoModal = (message) => {
+        if(message) {
+            setModalInfosMsg(message);
+        }
+        setModalInfos(!modalInfos);
     }
 
     return (
@@ -226,6 +235,15 @@ const CartPayment = (props) => {
         <div className="cart__articles__orderBtn">
                 <button onClick={watchStock} className='cart__btns__orderBtn'>continuer</button>
         </div>
+        {
+            modalInfos &&
+            <div className="cart__modalCont">
+                <div className="cart__modalCont__modal">
+                    <h2>{modalInfosMsg}</h2>
+                    <div className=""><button onClick={toggleInfoModal}>Ok</button></div>
+                </div>
+            </div>
+        }
         </>
     );
 

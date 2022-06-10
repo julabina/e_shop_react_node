@@ -179,11 +179,12 @@ const TelescopeProduct = () => {
 
     const sendComment = (e) => {
         e.preventDefault();
+        const errorCont = document.querySelector(".telescopesInfos__infos__commentsCont__error");
 
         if (isLogged) {
             
             if(!commentValue.match(/^[a-zA-Zé èà,.'-€:!?]*$/)) {
-                return alert("Le commentaire ne doit comporter que des lettres")
+                return errorCont.innerHTML = `Le commentaire ne doit comporter que des lettres`
             }
 
             let loggedUser = localStorage.getItem('token');
@@ -404,7 +405,7 @@ const TelescopeProduct = () => {
             </div>
             <div className="telescopeInfos__infos">
                 <div className="telescopeInfos__infos__commentsCont">
-                    <div className="oculaireInfos__infos__commentsCont__error">{errorComment}</div>
+                    <div className="telescopesInfos__infos__commentsCont__error">{errorComment}</div>
                     <form onSubmit={sendComment} className='telescopeInfos__infos__commentsCont__form' method="post">
                         <textarea onInput={(e) => changeCommentValue(e.target.value)} value={commentValue} className="telescopeInfos__infos__commentsCont__form__textArea"></textarea>
                         {
