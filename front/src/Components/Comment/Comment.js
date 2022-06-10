@@ -17,7 +17,14 @@ const Comment = (props) => {
     const [onModify, setOnModify] = useState(false);
 
     useEffect(() => {
-        convertTime();
+
+            getUserName()
+
+            convertTime();
+
+    },[props.updated]);
+
+    const getUserName = () => {
 
         fetch("http://localhost:3000/api/users/" + props.userId)
             .then(res => res.json())
@@ -32,8 +39,7 @@ const Comment = (props) => {
                 };
                 setUserName(newObj);
             })
-
-    },[]);
+    }
 
     const convertTime = () => {
         let createdTS = props.created;
@@ -52,8 +58,6 @@ const Comment = (props) => {
         let updatedLocale = updatedDate.toLocaleDateString("fr-FR", options)
         let createdTimeLocale = createdDate.toLocaleString("fr-FR", options)
         let updatedTimeLocale = updatedDate.toLocaleString("fr-FR", options)
-        console.log(createdTimeLocale);
-        console.log(updatedTimeLocale);
         const newObjDate = {
             created: createdLocale,
             updated: updatedLocale
@@ -62,6 +66,7 @@ const Comment = (props) => {
             created: createdTS,
             updated: updatedTS
         };
+        console.log(newObjTS);
         const newObjTime = {
             created: createdHours + ":" + createdMinutes + ":" + createdSecondes,
             updated: updatedHours + ":" + updatedMinutes + ":" + updatedSecondes
@@ -111,7 +116,7 @@ const Comment = (props) => {
         }; 
         
         if( action === "modify") {
-            postModifyComment(userIdToSend, tokenToSend.version)
+            postModifyComment(userIdToSend, tokenToSend.version);
         } else if (action === "delete") {
             postDeleteComment(userIdToSend, tokenToSend.version);
         }
@@ -130,12 +135,12 @@ const Comment = (props) => {
         })
             .then(res => res.json())
             .then(rep => {
-                console.log(rep);
+              
                 props.fetchFunc(props.productId);
             })
     
     };
-
+    
     const postDeleteComment = (userId, token) => {
 
         toggleModalDelete()
@@ -182,7 +187,15 @@ const Comment = (props) => {
             <div className="comment__separator"></div>
             <div className="comment__bot">
                 <div className="comment__bot__infos">
-                    <p className="comment__bot__infos__date">{ commentTS.created === commentTS.updated ? "Ajouté le " + commentDate.created : "Modifié le " + commentDate.updated }</p>
+                    <p className="comment__bot__infos__date">{ commentTS.created === commentTS.updated ?
+                    <>
+                     Ajouté le {commentDate.created }
+                    </>
+                     :
+                     <>
+                      Modifié le {commentDate.updated }
+                     </>
+                      }</p>
                     <p className="comment__bot__infos__date">{ commentTS.created === commentTS.updated ? "À " + commentTime.created : "À " + commentTime.updated }</p>
                     <p className='comment__bot__infos__name'>{ (userName.firstName === null || userName.lastName === null) ? "Par Anonyme" : "Par " + userName.firstName + " " + userName.lastName + "." }</p>
                 </div>

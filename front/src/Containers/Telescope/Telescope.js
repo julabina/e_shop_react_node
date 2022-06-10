@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { decodeToken, isExpired } from 'react-jwt';
 import TelescopeCard from '../../Components/TelescopeCard/TelescopeCard';
-import OculaireCard from '../../Components/OculaireCard/OculaireCard';
-import MontureCard from '../../Components/MontureCard/MontureCard';
+import LastSeen from '../../Components/LastSeen/LastSeen';
 
 const Telescope = () => {
 
@@ -14,7 +13,6 @@ const Telescope = () => {
     const [filterBrand, setFilterBrand] = useState([false, false, false, false])
     const [filterType, setFilterType] = useState([false, false, false, false, false, false])
     const [sortValue, setSortValue] = useState("ascName");
-    const [lastSeenData, setLastSeenData] = useState([]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -46,7 +44,7 @@ const Telescope = () => {
         }; 
 
         getTelescopeslist(sortValue);
-        getLastSeen();
+
     }, []);
 
     const getTelescopeslist = (sort) => {
@@ -85,16 +83,23 @@ const Telescope = () => {
         });
     };
 
-    const getLastSeen = () => {
-        if (localStorage.getItem('lastSeen') !== null) {
-            let lastSeenArr = JSON.parse(localStorage.getItem('lastSeen'));
-            setLastSeenData(lastSeenArr);
-        }
-    }
-
     const handleSort = (option) => {
         setSortValue(option);
-        getTelescopeslist(option);
+
+        let newArr = telescopeData;
+
+        if(option === "ascPrice") {
+            newArr.sort((a, b) => a.price - b.price)
+        } else if(option === "descPrice") {
+            newArr.sort((a, b) => b.price - a.price)
+        } else if(option === "descName") {
+            newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
+        } else if (option === "ascName") {
+            newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
+        }
+
+        setTelescopeData(newArr);
+
     };
     
     const handleFilter = (action, value) => {
@@ -334,6 +339,17 @@ const Telescope = () => {
                         newArr.push(item);
                     }
                 }
+
+                if(sortValue === "ascPrice") {
+                    newArr.sort((a, b) => a.price - b.price)
+                } else if(sortValue === "descPrice") {
+                    newArr.sort((a, b) => b.price - a.price)
+                } else if(sortValue === "descName") {
+                    newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
+                } else if (sortValue === "ascName") {
+                    newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
+                }
+
                 setTelescopeData(newArr);
                 })
             } else {
@@ -442,26 +458,7 @@ const Telescope = () => {
                     }
                 </div>
                 <div className="telescopesList__separator"></div>
-                <div className="telescopesList__bot">
-                    {
-                        lastSeenData.length !== 0
-                        &&
-                        <>
-                            <h2 className='telescopesList__bot__title'>articles vus récemment</h2>
-                            <ul className='telescopesList__bot__list'>
-                                {lastSeenData.map(el => {
-                                    if(el.category === "telescope") {
-                                        return <TelescopeCard id={el.id} name={el.name} price={parseInt(el.price)} key={el.id} image={el.image} stock={parseInt(el.stock)} promo={el.promo} promoValue={parseInt(el.promoValue)} />
-                                    } else if(el.category === "oculaire") {
-                                        return <OculaireCard id={el.id} name={el.name} price={parseInt(el.price)} key={el.id} image={el.image} stock={parseInt(el.stock)} promo={el.promo} promoValue={parseInt(el.promoValue)} />
-                                    } else if(el.category === "monture") {
-                                        return <MontureCard id={el.id} name={el.name} price={parseInt(el.price)} key={el.id} image={el.image} stock={parseInt(el.stock)} promo={el.promo} promoValue={parseInt(el.promoValue)} />
-                                    } 
-                                })} 
-                            </ul>
-                        </>
-                    }
-                </div>
+                <LastSeen />
             </section>
         </main>
     );

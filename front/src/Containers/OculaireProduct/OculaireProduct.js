@@ -161,20 +161,23 @@ const OculaireProduct = () => {
                     return b.updated - a.updated
                 })
                 setCommentsData(n1);
-            } 
+            } else {
+                setCommentsData("");
+            }
         })
         .catch(error => console.error(error));
     };
 
     const sendComment = (e) => {
         e.preventDefault();
-        const errorCont = document.querySelector(".oculaireInfos__infos__commentsCont__error");
 
         if (isLogged) {
 
-            if(!commentValue.match(/^[a-zA-Zé èà,.'-€:!?]*$/)) {
-                return errorCont.innerHTML = `Le commentaire ne doit comporter que des lettres`;
-            }
+            if (commentValue === "") {
+                return setErrorComment("Le commentaire ne doit pas etre vide.");
+            } else if(!commentValue.match(/^[a-zA-Zé èà,.'-€:!?]*$/)) {
+                return setErrorComment("Le commentaire ne doit comporter que des lettres");
+            } 
 
             let loggedUser = localStorage.getItem('token');
 
@@ -190,6 +193,7 @@ const OculaireProduct = () => {
                     if (res.status === 201) {
                         fetchComment(oculaireData.productId);
                         setCommentValue('');
+                        setErrorComment("");
                     } else {
                         setErrorComment("Un problème est survenu.");
                     } 
@@ -279,6 +283,23 @@ const OculaireProduct = () => {
         let valueString = newVal.toString();
         setInputAddCart(valueString);
     };
+
+    const deleteComment = (userId, token, commentId) => {
+
+        fetch('http://localhost:3000/api/comments/' + commentId , {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token
+            },
+            method : 'DELETE',
+            body: JSON.stringify({ userId : userId })
+        })
+            .then(res => res.json())
+            .then(data => {
+                fetchComment(oculaireData.productId);
+            })
+    }
 
     return (
         <main>
@@ -373,7 +394,7 @@ const OculaireProduct = () => {
                         <>
                             {
                                 commentsData.map(el => {
-                                    return <Comment comment={el.comment} key={el.id} productId={el.productId} commentId={el.id} userId={el.userId} productCat={el.productCat} created={el.created} updated={el.updated} actualUserId={actualUser.id} actualUserToken={actualUser.token} fetchFunc={fetchComment} />
+                                    return <Comment comment={el.comment} key={el.id} productId={el.productId} commentId={el.id} userId={el.userId} productCat={el.productCat} created={el.created} updated={el.updated} actualUserId={actualUser.id} actualUserToken={actualUser.token} fetchFunc={fetchComment} deleteFunc={deleteComment} />
                                 })
                             }
                         </>

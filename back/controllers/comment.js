@@ -1,6 +1,6 @@
-const { Comment, Product } = require('../db/sequelize');
+const { Comment, Product, User } = require('../db/sequelize');
 const { v4 } = require('uuid');
-const jwt = require('jsonwebtoken');
+const { ValidationError, UniqueConstraintError } = require('sequelize');
 
 // FIND ALL COMMENT FOR ONE PRODUCT 
 exports.findProductComment = (req, res, next) => {
@@ -65,16 +65,26 @@ exports.modifyComment = (req, res, next) => {
             return User.findOne({ where: { userId : req.body.userId }})
                 .then(user => {
                 if(user !== null) {
-                    const message = 'Utilisateur bien modifié.';
+                    const message = 'commentaire bien modifié.';
                     res.status(200).json({ message })
                 } else {
-                    const message = 'Aucun utilisateur trouvé.';
+                    const message = 'Aucun commentaire trouvé.';
                     res.status(404).json({ message });
                 }
             })
-            .catch(error => res.status(500).json({ error }))
+            .catch(error => {
+                if (error instanceof ValidationError) {
+                    return res.status(400).json({message: error.message, data: error});
+                }
+                res.status(500).json({ error })
+            } )
         })
-        .catch(error => res.status(500).json({ error }))
+        .catch(error => {
+            if (error instanceof ValidationError) {
+                return res.status(400).json({message: error.message, data: error});
+            }
+            res.status(500).json({ error })
+        })
 };
 
 // DELETE ONE COMMENT

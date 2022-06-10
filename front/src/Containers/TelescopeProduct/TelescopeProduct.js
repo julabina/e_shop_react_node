@@ -19,7 +19,6 @@ const TelescopeProduct = () => {
     const [commentsData, setCommentsData] = useState([]);
     const [errorComment, setErrorComment] = useState('');
     const [inputAddCart, setInputAddCart] = useState("");
-    const [reloadState, setReloadState] = useState("");
     const [isLogged, setIsLogged] = useState(false);
     const [actualUser, setActualUser] = useState({id: '', token: ''});
     let back = '< retour'
@@ -161,6 +160,7 @@ const TelescopeProduct = () => {
         fetch("http://localhost:3000/api/comments/" + productId)
         .then(res => res.json())
         .then(data => {
+            console.log(data);
             if(data.data !== undefined) {
                 const arr = data.data;
                 let n1 = arr.map(el => {
@@ -172,20 +172,23 @@ const TelescopeProduct = () => {
                     return b.updated - a.updated
                 })
                 setCommentsData(n1);
-            } 
+            } else {
+                setCommentsData("");
+            }
         })
         .catch(error => console.error(error));
     };
 
     const sendComment = (e) => {
         e.preventDefault();
-        const errorCont = document.querySelector(".telescopesInfos__infos__commentsCont__error");
 
         if (isLogged) {
             
-            if(!commentValue.match(/^[a-zA-Zé èà,.'-€:!?]*$/)) {
-                return errorCont.innerHTML = `Le commentaire ne doit comporter que des lettres`
-            }
+            if (commentValue === "") {
+                return setErrorComment("Le commentaire ne doit pas etre vide.");
+            } else if(!commentValue.match(/^[a-zA-Zé èà,.'-€:!?]*$/)) {
+                return setErrorComment("Le commentaire ne doit comporter que des lettres");
+            } 
 
             let loggedUser = localStorage.getItem('token');
 
@@ -201,6 +204,7 @@ const TelescopeProduct = () => {
                     if (res.status === 201) {
                         fetchComment(telescopeData.productId);
                         setCommentValue('');
+                        setErrorComment("");
                     } else {
                         setErrorComment("Un problème est survenu.");
                     } 
@@ -317,7 +321,6 @@ const TelescopeProduct = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    setReloadState("");
                     fetchComment(telescopeData.productId);
                 })
     }

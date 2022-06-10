@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import TelescopeCard from '../../Components/TelescopeCard/TelescopeCard';
 import OculaireCard from '../../Components/OculaireCard/OculaireCard';
 import MontureCard from '../../Components/MontureCard/MontureCard';
+import LastSeen from '../../Components/LastSeen/LastSeen';
 
 const Search = () => {
 
@@ -14,7 +15,6 @@ const Search = () => {
     const [resultData, setResultData] = useState([]);
     const [filterOptions, setFilterOptions] = useState({categories:[], onStock: false});
     const [filterCat, setFilterCat] = useState([false, false, false]);
-    const [lastSeenData, setLastSeenData] = useState([]);
     const [sortValue, setSortValue] = useState("ascName");
 
     useEffect(() => {
@@ -49,8 +49,6 @@ const Search = () => {
             } else {
             setResultData([]);
         }
-
-        getLastSeen();
 
     },[params.query])
 
@@ -92,16 +90,22 @@ const Search = () => {
                 })
     }
 
-    const getLastSeen = () => {
-        if (localStorage.getItem('lastSeen') !== null) {
-            let lastSeenArr = JSON.parse(localStorage.getItem('lastSeen'));
-            setLastSeenData(lastSeenArr);
-        }
-    }
-
     const handleSort = (option) => {
         setSortValue(option);
-        getSearchList(option);
+        
+        let newArr = resultData;
+
+        if(option === "ascPrice") {
+            newArr.sort((a, b) => a.price - b.price)
+        } else if(option === "descPrice") {
+            newArr.sort((a, b) => b.price - a.price)
+        } else if(option === "descName") {
+            newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
+        } else if (option === "ascName") {
+            newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
+        }
+
+        setResultData(newArr)
     }
 
     const handleFilter = (action, value) => {
@@ -213,6 +217,17 @@ const Search = () => {
                         newArr.push(item)
                     }
                 }
+
+                if(sortValue === "ascPrice") {
+                    newArr.sort((a, b) => a.price - b.price)
+                } else if(sortValue === "descPrice") {
+                    newArr.sort((a, b) => b.price - a.price)
+                } else if(sortValue === "descName") {
+                    newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
+                } else if (sortValue === "ascName") {
+                    newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
+                }
+
                 setResultData(newArr);  
                 })
             } else {
@@ -306,26 +321,7 @@ const Search = () => {
             </>
             }
             <div className="searchList__separator"></div>
-                <div className="searchList__bot">
-                    {
-                        lastSeenData.length !== 0
-                        &&
-                        <>
-                            <h2 className='searchList__bot__title'>articles vus récemment</h2>
-                            <ul className='searchList__bot__list'>
-                                {lastSeenData.map(el => {
-                                    if(el.category === "telescope") {
-                                        return <TelescopeCard id={el.id} name={el.name} price={parseInt(el.price)} key={el.id} image={el.image} stock={parseInt(el.stock)} promo={el.promo} promoValue={parseInt(el.promoValue)} />
-                                    } else if(el.category === "oculaire") {
-                                        return <OculaireCard id={el.id} name={el.name} price={parseInt(el.price)} key={el.id} image={el.image} stock={parseInt(el.stock)} promo={el.promo} promoValue={parseInt(el.promoValue)} />
-                                    } else if(el.category === "monture") {
-                                        return <MontureCard id={el.id} name={el.name} price={parseInt(el.price)} key={el.id} image={el.image} stock={parseInt(el.stock)} promo={el.promo} promoValue={parseInt(el.promoValue)} />
-                                    } 
-                                })} 
-                            </ul>
-                        </>
-                    }
-                </div>
+            <LastSeen />
             </section>
         </main>
     );

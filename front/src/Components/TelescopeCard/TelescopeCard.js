@@ -47,7 +47,8 @@ const TelescopeCard = (props) => {
             (newVal >= props.stock) && (newVal = props.stock)
         }
         console.log(newVal);
-
+        console.log(props.stock);
+        console.log(typeof props.stock);
         if(newVal > 1 && newVal !== props.stock) {
             if(lessBtn.classList.contains('telescopeCard__addCount__btn--unselected')) {
                 lessBtn.classList.remove('telescopeCard__addCount__btn--unselected')
@@ -73,6 +74,7 @@ const TelescopeCard = (props) => {
                 }
             }
             if(!addBtn.classList.contains('telescopeCard__addCount__btn--unselected')) {
+                console.log("TEST");
                 addBtn.classList.add('telescopeCard__addCount__btn--unselected')
             }
         }

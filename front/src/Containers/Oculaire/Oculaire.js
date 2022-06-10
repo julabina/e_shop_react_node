@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { decodeToken, isExpired } from 'react-jwt';
-import TelescopeCard from '../../Components/TelescopeCard/TelescopeCard';
 import OculaireCard from '../../Components/OculaireCard/OculaireCard';
-import MontureCard from '../../Components/MontureCard/MontureCard';
+import LastSeen from '../../Components/LastSeen/LastSeen';
 
 const Oculaire = () => {
 
@@ -13,7 +12,6 @@ const Oculaire = () => {
     const [filterOptions, setFilterOptions] = useState({brand: [], model: "", onStock : false});
     const [filterBrand, setFilterBrand] = useState([false, false, false, false, false, false, false])
     const [optionChoice, setOptionChoice] = useState(false)
-    const [lastSeenData, setLastSeenData] = useState([]);
     const [sortValue, setSortValue] = useState("ascName");
 
     useEffect(() => {
@@ -46,7 +44,6 @@ const Oculaire = () => {
         }; 
 
         getOculairesList(sortValue)
-        getLastSeen();
 
     },[])
 
@@ -87,16 +84,22 @@ const Oculaire = () => {
         });
     }
 
-    const getLastSeen = () => {
-        if (localStorage.getItem('lastSeen') !== null) {
-            let lastSeenArr = JSON.parse(localStorage.getItem('lastSeen'));
-            setLastSeenData(lastSeenArr);
-        }
-    }
-
     const handleSort = (option) => {
         setSortValue(option);
-        getOculairesList(option);
+
+        let newArr = oculaireData;
+
+        if(option === "ascPrice") {
+            newArr.sort((a, b) => a.price - b.price)
+        } else if(option === "descPrice") {
+            newArr.sort((a, b) => b.price - a.price)
+        } else if(option === "descName") {
+            newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
+        } else if (option === "ascName") {
+            newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
+        }
+
+        setOculaireData(newArr)
     }
 
     const handleFilter = (action, value) => {
@@ -350,6 +353,17 @@ const Oculaire = () => {
                         newArr.push(item);
                     }
                 }
+
+                if(sortValue === "ascPrice") {
+                    newArr.sort((a, b) => a.price - b.price)
+                } else if(sortValue === "descPrice") {
+                    newArr.sort((a, b) => b.price - a.price)
+                } else if(sortValue === "descName") {
+                    newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
+                } else if (sortValue === "ascName") {
+                    newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
+                }
+
                 setOculaireData(newArr);
                 })
             } else {
@@ -539,26 +553,7 @@ const Oculaire = () => {
                     }
                 </div>
                 <div className="oculaireList__separator"></div>
-                <div className="oculaireList__bot">
-                    {
-                        lastSeenData.length !== 0
-                        &&
-                        <>
-                            <h2 className='oculaireList__bot__title'>articles vus récemment</h2>
-                            <ul className='oculaireList__bot__list'>
-                                {lastSeenData.map(el => {
-                                    if(el.category === "telescope") {
-                                        return <TelescopeCard id={el.id} name={el.name} price={parseInt(el.price)} key={el.id} image={el.image} stock={parseInt(el.stock)} promo={el.promo} promoValue={parseInt(el.promoValue)} />
-                                    } else if(el.category === "oculaire") {
-                                        return <OculaireCard id={el.id} name={el.name} price={parseInt(el.price)} key={el.id} image={el.image} stock={parseInt(el.stock)} promo={el.promo} promoValue={parseInt(el.promoValue)} />
-                                    } else if(el.category === "monture") {
-                                        return <MontureCard id={el.id} name={el.name} price={parseInt(el.price)} key={el.id} image={el.image} stock={parseInt(el.stock)} promo={el.promo} promoValue={parseInt(el.promoValue)} />
-                                    } 
-                                })} 
-                            </ul>
-                        </>
-                    }
-                </div>
+                <LastSeen />
             </section>
         </main>
     );
