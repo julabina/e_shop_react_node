@@ -284,13 +284,27 @@ const Cart = () => {
         const idArr = cartData.map(el => {
             return el.id;
         })
-        const products = idArr.join()
-        
+        const countArr = cartData.map(el => {
+            return el.count;
+        })
+        const namesArr = cartData.map(el => {
+            return el.name;
+        })
+        const products = idArr.join();
+        const counts = countArr.join();
+        const names = namesArr.join();
+
         const newOrder = {
             userId:  user.id,
             order: orderNumb,
-            products: products
+            products: products,
+            count: counts,
+            names: names,
+            instruction: infosData.instruction,
+            deliveryInformation: deliveryOptions.informations
         }
+
+        console.log(newOrder);
 
         fetch("http://localhost:3000/api/orders/", {
             headers: {

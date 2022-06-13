@@ -4423,6 +4423,25 @@ main {
   color: #b10202;
   line-height: 1.4;
 }
+.profilUpdate__orders__order {
+  border: 1px solid rgba(128, 128, 128, 0.452);
+  margin-top: 40px;
+  padding: 15px;
+  border-radius: 3px;
+}
+.profilUpdate__orders__order h3 {
+  font-weight: 600;
+}
+.profilUpdate__orders__order__date {
+  margin: 5px 0 25px;
+  font-size: 0.75em;
+}
+.profilUpdate__orders__order__elements {
+  display: flex;
+  justify-content: space-between;
+  width: 700px;
+  margin-top: 8px;
+}
 @media screen and (max-width: 809px) {
   .profilUpdate h2 {
     width: 90%;

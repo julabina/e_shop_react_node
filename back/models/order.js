@@ -22,6 +22,22 @@ module.exports = (sequelize, DataTypes) => {
         products: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        count: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        names: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        instruction: {
+            type: DataTypes.STRING, 
+            allowNull: true
+        },
+        deliveryInformation: {
+            type: DataTypes.STRING, 
+            allowNull: true
         }
     },{
         timestamps: true,

@@ -2,13 +2,29 @@ const { Order } = require('../db/sequelize');
 const { v4 } = require('uuid');
 
 exports.createOrder = (req, res, next) => {
-    console.log(req.body.products);
+    let instruction, deliveryInformation;
+
+    if(req.body.instruction === "" || req.body.instruction === undefined) {
+        instruction = null
+    } else {
+        instruction = req.body.instruction;
+    }
+    if(req.body.deliveryInformation === "" || req.body.deliveryInformation === undefined) {
+        deliveryInformation = null
+    } else {
+        deliveryInformation = req.body.deliveryInformation;
+    }
+
     const order = new Order({
         id: v4(),
         userId:  req.body.userId,
         order: req.body.order,
         products: req.body.products,
-        status: 'En préparation'
+        count: req.body.count,
+        names: req.body.names,
+        status: 'En préparation',
+        instruction: instruction,
+        deliveryInformation: deliveryInformation
     });
     order.save()
         .then(() => {

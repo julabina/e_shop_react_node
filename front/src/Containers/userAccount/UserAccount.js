@@ -897,18 +897,42 @@ const UserAccount = () => {
 
 
                 {/* voir les commandes */}
-                <div className="profilUpdate__order profilUpdate__part">
+                <div className="profilUpdate__orders profilUpdate__part">
                     
                     {
                         orderData.length > 0 ?
                         <>
                             <h2>Vos commandes</h2>
                             {orderData.map(el => {
+                                let dateTS = Date.parse(el.created);
+                                let createdDate = new Date(dateTS);
+                                let timeOptions = { hh: 'numeric', mm: 'numeric', ss: 'numeric' };
+                                let createTimes = createdDate.toLocaleString("fr-FR", timeOptions);
                                 let products = el.products.split(',');
+                                let articlesCount = el.count.split(',');
+                                let articlesName = el.names.split(',');
+                                let articles = [];
+                                for(let i = 0; i < products.length; i++) {
+                                    let item = {
+                                        names : articlesName[i],
+                                        count: articlesCount[i]
+                                    }
+                                    articles.push(item);
+                                }
                                 
-                                return <div className="">
-                                    <h3>{el.order}</h3>
-                                    <p>Article : {products.length}</p>
+                                return <div key={el.order} className="profilUpdate__orders__order">
+                                    <h3>Commande N° {el.order}</h3>
+                                    <p className='profilUpdate__orders__order__date'>Le {createTimes}</p>
+                                    {
+                                        articles.map(ele => {
+                                            return (
+                                                <div className="profilUpdate__orders__order__elements">
+                                                    <p>{ele.names}</p>
+                                                    <p>nbr: {ele.count}</p>
+                                                </div>
+                                            )
+                                        })
+                                    }
                                 </div>
                             })}
                         </>

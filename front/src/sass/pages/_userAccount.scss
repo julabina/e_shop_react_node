@@ -203,6 +203,27 @@
             line-height: 1.4;
         }
     }
+    &__orders {
+        &__order {
+            border: 1px solid map-get($map: $colors, $key: grayTrans);
+            margin-top: 40px;
+            padding: 15px;
+            border-radius: 3px;
+            h3 {
+                font-weight: 600;
+            }
+            &__date {
+                margin:5px 0 25px;
+                font-size: 0.75em;
+            }
+            &__elements {
+                display: flex;
+                justify-content: space-between;
+                width: 700px;
+                margin-top: 8px;
+            }
+        }
+    }
     @include forMobile1 {
         h2 {
             width: 90%;
