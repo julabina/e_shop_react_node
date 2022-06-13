@@ -8,6 +8,7 @@ const commentRoute = require('./routes/comment');
 const productsRoute = require('./routes/products');
 const orderRoute = require('./routes/order');
 const searchRoute = require('./routes/search');
+const contactRoute = require('./routes/contact');
 const { initDb } = require('./db/sequelize');
 
 const app = express();
@@ -33,6 +34,7 @@ app.use('/api/comments', commentRoute);
 app.use('/api/products', productsRoute);
 app.use('/api/orders', orderRoute);
 app.use('/api/search', searchRoute);
+app.use('/api/contact', contactRoute);
 
 
 module.exports = app;

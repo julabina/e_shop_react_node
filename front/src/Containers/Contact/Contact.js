@@ -105,12 +105,11 @@ const Contact = () => {
 
         // vérification mobile
         if(contactFormData.mobile === "") {
-            error += `<p>- Le mobile ne doit pas être vide.</p>`
         } else if (!contactFormData.mobile.match(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/)) {
             error += `<p>- Le mobile n'a pas un format valide'. </p>`
         }
      
-        // vérification instructions spéciales
+        // vérification message
         if(contactFormData.message !== "") {
             if (contactFormData.message.length < 3 || contactFormData.message.length > 200) {
                 error += `<p>- Le message doit avoir entre 2 et 200 caratères.</p>`
@@ -125,8 +124,24 @@ const Contact = () => {
             return errorCont.innerHTML = error;
         }
         
-        console.log('GO SEND MSG');
+        mailSend()
 
+    }
+
+    const mailSend = () => {
+        fetch('http://localhost:3000/api/contact/send', {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method : 'POST',
+            body: JSON.stringify( {message : contactFormData.message , firstName: contactFormData.firstName, lastName: contactFormData.lastName, tel: contactFormData.mobile, contactEmail : contactFormData.email} )
+       
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
     }
 
     return (
