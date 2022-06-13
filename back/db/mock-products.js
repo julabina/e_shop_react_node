@@ -4087,6 +4087,12 @@ const montures = [
     }
 ];
 
+const restoreStock = [
+    {
+        id: 1
+    }
+]
+
 module.exports = {
-    telescopes, oculaires, montures, categories, products, productsAttributes, brands, oculaireModel, telescopeType, mountType
+    telescopes, oculaires, montures, categories, products, productsAttributes, brands, oculaireModel, telescopeType, mountType, restoreStock
 }

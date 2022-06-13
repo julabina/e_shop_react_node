@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const { User } = require('../db/sequelize');
+const { User, RestoreStock } = require('../db/sequelize');
 const jwt = require('jsonwebtoken');
 const { v4 } = require('uuid');
 const { ValidationError, UniqueConstraintError } = require('sequelize');
@@ -45,6 +45,19 @@ exports.signup = (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
+
+   /*  RestoreStock.findOne({
+        id: 1
+    })
+        .then(rest => {
+            const currentDate = new Date()
+            const updatedDate = Date.parse(rest.updated)
+            const time = Date.parse(currentDate) - updatedDate
+            if(time > 200000000) {
+
+            }
+        })  */ 
+
     User.findOne({ where : { email: req.body.email } })
         .then(user => {
             if (user === null) {
