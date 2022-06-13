@@ -33,6 +33,7 @@ const Cart = () => {
     const [idToDelete, setIdToDelete] = useState("");
     const [modalCartInfos, setModalCartInfos] = useState(false);
     const [modalInfosMsg, setModalInfosMsg] = useState("");
+    const [emptyCartModal, setEmptyCartModal] = useState(false);
     
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -156,6 +157,13 @@ const Cart = () => {
                     const newArr = cartData;
                     newArr[i].stock = data[i].data.stock;
                     newArr[i].count = data[i].data.stock;
+
+                    dispatch ({
+                        type: 'UPDATECART',
+                        payload: newArr
+                    }) 
+
+                    calculTotalCart(newArr);
                     setCartData(newArr);
                     changeLocalStorage();
                     return toggleInfosModal('Le produit ' + cartData[i].name + ' n\'est plus disponible')
@@ -163,13 +171,19 @@ const Cart = () => {
                     const newArr = cartData;
                     newArr[i].stock = data[i].data.stock;
                     newArr[i].count = data[i].data.stock;
+
+                    dispatch ({
+                        type: 'UPDATECART',
+                        payload: newArr
+                    }) 
+
+                    calculTotalCart(newArr);
                     setCartData(newArr);
                     changeLocalStorage();
                     return toggleInfosModal('Le produit ' + cartData[i].name + ' a été mis à jour')
                 }
             }
             
-            /* produit en stock, valider, ici reserver temp stock */
             const newArr = cartData;
             setOrderArticles(newArr);
 
@@ -303,18 +317,13 @@ const Cart = () => {
             type: 'UPDATECART',
             payload: newArr
         }) 
+
+        toggleEmptyCartModal()
         
         setCartData([]);
     }
     
     const reloadPage = () => {
-        let newArr = cartData;
-
-        dispatch ({
-            type: 'UPDATECART',
-            payload: newArr
-        }) 
-
         window.location.reload();
     }
 
@@ -323,6 +332,13 @@ const Cart = () => {
         const newArr = cartData.filter(el => {
             return el.id !== productId;
         });
+
+        dispatch ({
+            type: 'UPDATECART',
+            payload: newArr
+        }) 
+
+        calculTotalCart(newArr);
         setCartData(newArr);
     }
 
@@ -331,12 +347,22 @@ const Cart = () => {
         const newArr = cartData.map(el => {
             if(el.id === productId) {
                 if(btn === "plus") {
-                    value = el.count + 1;
+                    if (el.count < el.stock) {
+                        value = el.count + 1;
+                    } else {
+                        value = el.count
+                    }
                 } else if (btn === "minus") {
                     if (el.count > 1) {
                         value = el.count - 1;
                     } else {
                         value = el.count
+                    }
+                } else {
+                    if(value > el.stock) {
+                        value = el.stock
+                    } else if (value <= 0) {
+                        value = 1
                     }
                 }
                 const newObj = {
@@ -348,8 +374,23 @@ const Cart = () => {
                 return el
             }
         })
+
+
+        dispatch ({
+            type: 'UPDATECART',
+            payload: newArr
+        })  
         
+        calculTotalCart(newArr);
         setCartData(newArr); 
+    }
+
+    const calculTotalCart = (productArr) => {
+        let total = 0;
+        for(let i = 0; i < productArr.length; i++) {
+            total += (productArr[i].count * productArr[i].price);
+        }
+        setTotalCart((total).toFixed(2))
     }
 
     const toggleDeleteModal = (id) => {
@@ -364,6 +405,10 @@ const Cart = () => {
             setModalInfosMsg(message);
         }
         setModalCartInfos(!modalCartInfos);
+    }
+
+    const toggleEmptyCartModal = () => {
+        setEmptyCartModal(!emptyCartModal);
     }
 
     return (
@@ -408,7 +453,7 @@ const Cart = () => {
                 <div className="cart__btns">
                     <div className="cart__btns__options">
                         <button onClick={reloadPage} className='cart__btns__options__btn'>Mettre à jour</button>
-                        <button onClick={emptyCart} className='cart__btns__options__btn'>Vider le panier</button>
+                        <button onClick={toggleEmptyCartModal} className='cart__btns__options__btn'>Vider le panier</button>
                     </div>
                     {
                         isLogged
@@ -482,6 +527,18 @@ const Cart = () => {
                         <div className="cart__modalConfirmDelete__modal__btnCont">
                             <button onClick={toggleDeleteModal}>Non</button>
                             <button onClick={() => deleteItem(idToDelete)}>Oui</button>
+                        </div>
+                    </div>
+                </section>
+            }
+            {
+                emptyCartModal && 
+                <section className="cart__modalConfirmDelete">
+                    <div className="cart__modalConfirmDelete__modal">
+                        <h2>Voulez vous supprimer tout le panier ?</h2>
+                        <div className="cart__modalConfirmDelete__modal__btnCont">
+                            <button onClick={toggleEmptyCartModal}>Non</button>
+                            <button onClick={emptyCart}>Oui</button>
                         </div>
                     </div>
                 </section>

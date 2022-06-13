@@ -52,30 +52,33 @@ const CartPayment = (props) => {
         setMethode(value)
     }
 
-    const changeLocalStorage = (stock) => {
-        let newArr = [];
-        for (let i = 0; i < cart.length; i++) {
-            let item = {
-                category: cartData[i].category,
-                id: cartData[i].id,
-                count: stock,
-                price: cartData[i].price,
-                stock: stock,
-                name: cartData[i].name,
-                image: process.env.PUBLIC_URL +  cartData[i].image,
-                key: cartData[i].key
+    const changeLocalStorage = () => {
+
+        const changeLocalStorage = () => {
+            let newArr = [];
+            for (let i = 0; i < cartData.length; i++) {
+                let item = {
+                    category: cartData[i].category,
+                    id: cartData[i].id,
+                    count: cartData[i].count,
+                    price: cartData[i].price,
+                    stock: cartData[i].stock,
+                    name: cartData[i].name,
+                    image: process.env.PUBLIC_URL +  cartData[i].image
+                }
+                newArr.push(item);
             }
-            newArr.push(item);
+    
+            dispatch ({
+                type: 'UPDATECART',
+                payload: newArr
+            }) 
         }
 
-        dispatch ({
-            type: 'UPDATECART',
-            payload: newArr
-        }) 
     }
 
     const watchStock = () => {
-        let promiseArr = []
+        let promiseArr = [], validate = true
 
         for(let i = 0; i < cart.length; i++) {
             let promise = fetch('http://localhost:3000/api/products/' + cart[i].category + 's/' + cart[i].id).then(res => res.json());
@@ -85,20 +88,40 @@ const CartPayment = (props) => {
         Promise.all(promiseArr)
         .then(data => {
             for (let i = 0; i < data.length; i++) {     
+
                 if (data[i].data.stock === 0) {
-                    changeLocalStorage(0);
-                    toggleInfoModal('Le produit ' + cart[i].name + ' n\'est plus disponible')
-                    return window.location.reload(false)
-                } 
-                if (data[i].data.stock < cartData[i].count) {
-                    changeLocalStorage(data[i].data.stock);
+                    const newArr = cartData;
+                    newArr[i].stock = data[i].data.stock;
+                    newArr[i].count = data[i].data.stock;
+
+                    dispatch ({
+                        type: 'UPDATECART',
+                        payload: newArr
+                    }) 
+
+                    changeLocalStorage();
+                    toggleInfoModal('Le produit ' + cartData[i].name + ' n\'est plus disponible');
+                    return validate = false
+                } else if (data[i].data.stock < cartData[i].stock) {
+                    const newArr = cartData;
+                    newArr[i].stock = data[i].data.stock;
+                    newArr[i].count = data[i].data.stock;
+
+                    dispatch ({
+                        type: 'UPDATECART',
+                        payload: newArr
+                    }) 
+
+                    changeLocalStorage();
                     toggleInfoModal('Le produit ' + cart[i].name + ' ne dispose plus en stock du nombres d\'articles sélectionnés')
-                    return window.location.reload(false)
+                    return validate = false
                 }
             }
             
+            if(validate) {
+                sendInfos();
+            }
         })  
-        sendInfos();
     }
 
     const emptyCart = () => {
@@ -116,9 +139,12 @@ const CartPayment = (props) => {
         props.next();
     }
 
-    const toggleInfoModal = (message) => {
+    const toggleInfoModal = (message, redirection) => {
         if(message) {
             setModalInfosMsg(message);
+        }
+        if(redirection) {
+            window.location.reload(false)
         }
         setModalInfos(!modalInfos);
     }
@@ -240,7 +266,7 @@ const CartPayment = (props) => {
             <div className="cart__modalCont">
                 <div className="cart__modalCont__modal">
                     <h2>{modalInfosMsg}</h2>
-                    <div className=""><button onClick={toggleInfoModal}>Ok</button></div>
+                    <div className=""><button onClick={() => toggleInfoModal(null, true)}>Ok</button></div>
                 </div>
             </div>
         }
