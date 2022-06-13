@@ -10,10 +10,11 @@ const LastSeen = () => {
     useEffect(() => {
         getLastSeen()
     },[])
-
+    
     const getLastSeen = () => {
         if (localStorage.getItem('lastSeen') !== null) {
             let lastSeenArr = JSON.parse(localStorage.getItem('lastSeen'));
+            console.log(lastSeenData);
             setLastSeenData(lastSeenArr);
         }
     }
@@ -24,11 +25,11 @@ const LastSeen = () => {
             <ul className='lastSeen__bot__list'>
                 {lastSeenData.map(el => {
                     if(el.category === "telescope") {
-                        return <TelescopeCard id={el.id} name={el.name} price={parseInt(el.price)} key={el.id} image={el.image} stock={parseInt(el.stock)} promo={el.promo} promoValue={parseInt(el.promoValue)} />
+                        return <TelescopeCard id={el.id + "lastSeen"} name={el.name} price={parseInt(el.price)} key={el.id + "lastSeen"} image={el.image} stock={parseInt(el.stock)} promo={el.promo} promoValue={parseInt(el.promoValue)} lastSeen={true} />
                     } else if(el.category === "oculaire") {
-                        return <OculaireCard id={el.id} name={el.name} price={parseInt(el.price)} key={el.id} image={el.image} stock={parseInt(el.stock)} promo={el.promo} promoValue={parseInt(el.promoValue)} />
+                        return <OculaireCard id={el.id + "lastSeen"} name={el.name} price={parseInt(el.price)} key={el.id + "lastSeen"} image={el.image} stock={parseInt(el.stock)} promo={el.promo} promoValue={parseInt(el.promoValue)} lastSeen={true} />
                     } else if(el.category === "monture") {
-                        return <MontureCard id={el.id} name={el.name} price={parseInt(el.price)} key={el.id} image={el.image} stock={parseInt(el.stock)} promo={el.promo} promoValue={parseInt(el.promoValue)} />
+                        return <MontureCard id={el.id + "lastSeen"} name={el.name} price={parseInt(el.price)} key={el.id + "lastSeen"} image={el.image} stock={parseInt(el.stock)} promo={el.promo} promoValue={parseInt(el.promoValue)} lastSeen={true} />
                     } 
                 })} 
             </ul>           

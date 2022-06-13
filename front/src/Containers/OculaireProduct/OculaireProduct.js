@@ -250,6 +250,10 @@ const OculaireProduct = () => {
             newVal = parseInt(value);
             
             (newVal >= oculaireData.stock) && (newVal = oculaireData.stock)
+
+            if (newVal > 1) {
+                lessBtn.classList.remove('oculaireProduct__top__right__addCart__countCont__btn--unselected')
+            }
         }
 
         if(newVal > 1 && newVal !== oculaireData.stock) {

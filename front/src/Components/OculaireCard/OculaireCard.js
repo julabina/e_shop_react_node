@@ -12,6 +12,7 @@ const OculaireCard = (props) => {
 
     const [inputValue, setInputValue] = useState(inputFirstValue);
     const [price, setPrice] = useState();
+    const [productLink, setProductLink] = useState(props.id);
 
     useEffect(() => {
         let val;
@@ -22,6 +23,10 @@ const OculaireCard = (props) => {
             val = props.price;
         }
         setPrice((val).toFixed(2));
+        if(props.lastSeen) {
+            let newId = props.id.slice(0, (props.id.length - 8))
+            setProductLink(newId)
+        }
     },[]);
 
     const changeInputValue = (action, value) => {
@@ -80,7 +85,7 @@ const OculaireCard = (props) => {
 
     return (
         <li className='oculaireCard' >
-                <NavLink className='oculaireCard__link' to={'/oculaire/ref_=' + props.id}>
+                <NavLink className='oculaireCard__link' to={'/oculaire/ref_=' + productLink}>
                     <h3>{props.name}</h3>
                     <img className='oculaireCard__img' src={process.env.PUBLIC_URL + props.image} alt={"photo de " + props.name} />
                 </NavLink>
@@ -91,7 +96,7 @@ const OculaireCard = (props) => {
                     <button onClick={() => changeInputValue('add')} className={props.stock < 2 ? 'oculaireCard__addCount__btn oculaireCard__addCount__btn--unselected' : 'oculaireCard__addCount__btn'} id={"oculaireCard__addBtn" + props.id}>+</button>
                 </div>
                 <div className="oculaireCard__buttons">
-                    <NavLink to={'/oculaire/ref_=' + props.id}>
+                    <NavLink to={'/oculaire/ref_=' + productLink}>
                         <button className='oculaireCard__buttons__btn oculaireCard__buttons__btn__infos'>Infos</button>
                     </NavLink>
                     <ConfirmationModal name={props.name} price={price} count={inputValue} stock={props.stock} img={props.image} id={props.id} category={"oculaire"} />

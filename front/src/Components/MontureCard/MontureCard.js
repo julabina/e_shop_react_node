@@ -12,6 +12,7 @@ const MontureCard = (props) => {
 
     const [inputValue, setInputValue] = useState(inputFirstValue);
     const [price, setPrice] = useState();
+    const [productLink, setProductLink] = useState(props.id);
 
     useEffect(() => {
         let val;
@@ -22,6 +23,10 @@ const MontureCard = (props) => {
             val = props.price;
         }
         setPrice((val).toFixed(2));
+        if(props.lastSeen) {
+            let newId = props.id.slice(0, (props.id.length - 8))
+            setProductLink(newId)
+        }
     },[]);
 
     const changeInputValue = (action, value) => {
@@ -32,23 +37,24 @@ const MontureCard = (props) => {
         if (isNaN(val)) {
             val = 1;
         }
-
+        
         if(action === 'add') {
             
             (inputValue !== props.stock) ? (newVal = val + 1) : (newVal = val)
-
+            
         } else if(action === 'less') {
-
+            
             (val > 1) ? (newVal = val -1) : (newVal = val)
-
+            
         } else if(action === 'change') {
             newVal = parseInt(value);
             
             (newVal >= props.stock) && (newVal = props.stock)
         }
-
+        
         if(newVal > 1 && newVal !== props.stock) {
             if(lessBtn.classList.contains('montureCard__addCount__btn--unselected')) {
+                console.log("montureTest", newVal);
                 lessBtn.classList.remove('montureCard__addCount__btn--unselected')
             } 
             if(addBtn.classList.contains('montureCard__addCount__btn--unselected')) {
@@ -77,31 +83,10 @@ const MontureCard = (props) => {
         }
         setInputValue(newVal);
     }
-    
-    const addToCart = (value) => {
-        if (props.stock !== 0) {
-
-            let item = {
-                category: "monture",
-                id: props.id,
-                count: value,
-                price: props.price,
-                stock: props.stock,
-                name: props.name,
-                image: process.env.PUBLIC_URL + props.image[0]
-            }
-            
-            dispatch({
-                type: 'ADDTOCART',
-                payload : item
-            })
-        
-        } 
-    }
 
     return (
         <li className='montureCard' >
-                <NavLink className='montureCard__link' to={'/monture/ref_=' + props.id}>
+                <NavLink className='montureCard__link' to={'/monture/ref_=' + productLink}>
                     <h3>{props.name}</h3>
                     <img className='montureCard__img' src={process.env.PUBLIC_URL + props.image[0]} alt={"photo de " + props.name} />
                 </NavLink>
@@ -112,7 +97,7 @@ const MontureCard = (props) => {
                     <button onClick={() => changeInputValue('add')} className={props.stock < 2 ? 'montureCard__addCount__btn montureCard__addCount__btn--unselected' : 'montureCard__addCount__btn'} id={"montureCard__addBtn" + props.id}>+</button>
                 </div>
                 <div className="montureCard__buttons">
-                    <NavLink to={'/monture/ref_=' + props.id}>
+                    <NavLink to={'/monture/ref_=' + productLink}>
                         <button className='montureCard__buttons__btn montureCard__buttons__btn__infos'>Infos</button>
                     </NavLink>
                     <ConfirmationModal name={props.name} price={price} count={inputValue} stock={props.stock} img={props.image} id={props.id} category={"monture"} />

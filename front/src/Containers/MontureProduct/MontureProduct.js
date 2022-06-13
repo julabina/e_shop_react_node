@@ -272,6 +272,10 @@ const MontureProduct = () => {
             newVal = parseInt(value);
             
             (newVal >= montureData.stock) && (newVal = montureData.stock)
+
+            if (newVal > 1) {
+                lessBtn.classList.remove('montureProduct__top__right__addCart__countCont__btn--unselected')
+            }
         }
 
         if(newVal > 1 && newVal !== montureData.stock) {

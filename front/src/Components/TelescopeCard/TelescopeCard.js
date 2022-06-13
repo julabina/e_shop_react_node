@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 
 const TelescopeCard = (props) => {
-
     const dispatch = useDispatch();
     let inputFirstValue;
     
@@ -12,6 +11,7 @@ const TelescopeCard = (props) => {
 
     const [inputValue, setInputValue] = useState(inputFirstValue);
     const [price, setPrice] = useState();
+    const [productLink, setProductLink] = useState(props.id);
 
     useEffect(() => {
         let val;
@@ -22,6 +22,10 @@ const TelescopeCard = (props) => {
             val = props.price;
         }
         setPrice((val).toFixed(2));
+        if(props.lastSeen) {
+            let newId = props.id.slice(0, (props.id.length - 8))
+            setProductLink(newId)
+        }
     },[]);
 
     const changeInputValue = (action, value) => {
@@ -38,18 +42,17 @@ const TelescopeCard = (props) => {
             (inputValue !== props.stock) ? (newVal = val + 1) : (newVal = val)
 
         } else if(action === 'less') {
-
+            
             (val > 1) ? (newVal = val -1) : (newVal = val)
-
+            
         } else if(action === 'change') {
             newVal = parseInt(value);
             
             (newVal >= props.stock) && (newVal = props.stock)
         }
-        console.log(newVal);
-        console.log(props.stock);
-        console.log(typeof props.stock);
+        
         if(newVal > 1 && newVal !== props.stock) {
+            console.log("TEST");
             if(lessBtn.classList.contains('telescopeCard__addCount__btn--unselected')) {
                 lessBtn.classList.remove('telescopeCard__addCount__btn--unselected')
             } 
@@ -74,7 +77,6 @@ const TelescopeCard = (props) => {
                 }
             }
             if(!addBtn.classList.contains('telescopeCard__addCount__btn--unselected')) {
-                console.log("TEST");
                 addBtn.classList.add('telescopeCard__addCount__btn--unselected')
             }
         }
@@ -83,7 +85,7 @@ const TelescopeCard = (props) => {
 
     return (
             <li className='telescopeCard' >
-                <NavLink className='telescopeCard__link' to={'/telescope/ref_=' + props.id}>
+                <NavLink className='telescopeCard__link' to={'/telescope/ref_=' + productLink}>
                     <h3>{props.name}</h3>
                     <img className='telescopeCard__img' src={process.env.PUBLIC_URL + props.image} alt={"photo de " + props.name} />
                 </NavLink>
@@ -94,7 +96,7 @@ const TelescopeCard = (props) => {
                     <button onClick={() => changeInputValue('add')} className={props.stock < 2 ? 'telescopeCard__addCount__btn telescopeCard__addCount__btn--unselected' : 'telescopeCard__addCount__btn'} id={"telescopeCard__addBtn" + props.id}>+</button>
                 </div>
                 <div className="telescopeCard__buttons">
-                    <NavLink to={'/telescope/ref_=' + props.id}>
+                    <NavLink to={'/telescope/ref_=' + productLink}>
                         <button className='telescopeCard__buttons__btn telescopeCard__buttons__btn__infos'>Infos</button>
                     </NavLink>
                     <ConfirmationModal name={props.name} price={price} count={inputValue} stock={props.stock} img={props.image} id={props.id} category={"telescope"} />

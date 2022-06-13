@@ -275,6 +275,10 @@ const TelescopeProduct = () => {
             newVal = parseInt(value);
             
             (newVal >= telescopeData.stock) && (newVal = telescopeData.stock)
+
+            if (newVal > 1) {
+                lessBtn.classList.remove('telescopeProduct__top__right__addCart__countCont__btn--unselected')
+            }
         }
 
         if(newVal > 1 && newVal !== telescopeData.stock) {
