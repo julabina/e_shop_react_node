@@ -1179,12 +1179,14 @@ body {
   border: none;
   transition: all 200ms ease-out;
   opacity: 0;
+  visibility: hidden;
 }
 .toTop:hover {
   opacity: 0.8;
   transition: opacity 500ms ease-out;
 }
 .toTop--visible {
+  visibility: visible;
   opacity: 1;
   transition: opacity 500ms ease-out;
 }
@@ -4222,11 +4224,26 @@ main {
   font-size: 2em;
   font-weight: 700;
 }
+.login__section__or__log {
+  margin-top: 39px;
+}
 .login__section__logError, .login__section__signError {
   margin: 0 0 20px;
   color: #b10202;
   line-height: 1.4;
   width: 100%;
+}
+.login__section__input {
+  height: 35px;
+  width: 300px;
+}
+.login__section__cgu {
+  margin-top: 15px;
+}
+.login__section__cgu input {
+  margin-right: 5px;
+  height: 18px;
+  width: 18px;
 }
 .login button {
   height: 45px;
@@ -4247,10 +4264,6 @@ main {
 .login button:hover {
   opacity: 0.7;
   transition: opacity 250ms ease-in-out;
-}
-.login input {
-  height: 35px;
-  width: 300px;
 }
 .login label {
   margin: 15px 0 5px;

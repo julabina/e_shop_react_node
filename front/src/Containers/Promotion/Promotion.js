@@ -83,6 +83,10 @@ const Promotion = () => {
                 newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
             } else if (sort === "ascName") {
                 newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
+            } else if (sort === "ascPromo") {
+                newArr.sort((a, b) => a.promoValue - b.promoValue)
+            } else if (sort === "descPromo") {
+                newArr.sort((a, b) => b.promoValue - a.promoValue)
             }
             
             setPromoData(newArr);
@@ -102,6 +106,10 @@ const Promotion = () => {
             newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
         } else if (option === "ascName") {
             newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
+        } else if (option === "ascPromo") {
+            newArr.sort((a, b) => a.promoValue - b.promoValue)
+        } else if (option === "descPromo") {
+            newArr.sort((a, b) => b.promoValue - a.promoValue)
         }
 
         setPromoData(newArr)
@@ -196,6 +204,10 @@ const Promotion = () => {
                         newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
                     } else if (sortValue === "ascName") {
                         newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
+                    } else if (sortValue === "ascPromo") {
+                        newArr.sort((a, b) => a.promoValue - b.promoValue)
+                    } else if (sortValue === "descPromo") {
+                        newArr.sort((a, b) => b.promoValue - a.promoValue)
                     }
 
                     setPromoData(newArr);
@@ -257,6 +269,8 @@ const Promotion = () => {
                         <option value="descName">Trier par ordre alphabétique décroissant</option>
                         <option value="ascPrice">Trier par prix croissant</option>
                         <option value="descPrice">Trier par prix décroissant</option>
+                        <option value="ascPromo">Trier par promotion croissante</option>
+                        <option value="descPromo">Trier par promotion décroissante</option>
                     </select>
                 </div>
                 <div className="promotionList__main">

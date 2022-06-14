@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { decodeToken, isExpired } from 'react-jwt';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { set } from 'mongoose';
 
 const Login = () => {
 
@@ -10,7 +9,7 @@ const Login = () => {
     const dispatch = useDispatch();
 
     const [loginInputs, setLoginInputs] = useState({email: "", password: ""});
-    const [signInputs, setSignInputs] = useState({email: "", password: ""});
+    const [signInputs, setSignInputs] = useState({email: "", password: "", cgu: false});
     const [isLogged, setIsLogged] = useState(false);
     const [logErrorMsg, setLogErrorMsg] = useState("");
     const [signErrorMsg, setSignErrorMsg] = useState("");
@@ -109,6 +108,9 @@ const Login = () => {
         if (!signInputs.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)) {
             return setSignErrorMsg("- Le mot de passe doit contenir minimun 1 lettre 1 chiffre 1 lettre majuscule et 8 caractères.");
         }
+        if(!signInputs.cgu) {
+            return setSignErrorMsg("- Veuillez accepter les Conditions générales d'utilisation.");
+        }
 
         tryToSign(signInputs.email, signInputs.password);
     };
@@ -179,6 +181,14 @@ const Login = () => {
     const toggleActionUser = () => {
         setToggleUserAction(!toggleUserAction);
     }
+
+    const toggleCguCheck = () => {
+        const newObj = {
+            ...signInputs,
+            cgu: !signInputs.cgu
+        }
+        setSignInputs(newObj)
+    }
     
     const logOut = () => {
         dispatch ({
@@ -211,13 +221,13 @@ const Login = () => {
                             <div className="login__section__logError">{logErrorMsg}</div>
                             <form onSubmit={verifyToLog}>
                                 <label htmlFor="logEmail">Email</label>
-                                <input onInput={(e) => handleLoginInputs("email", e.target.value)} type="email" value={loginInputs.email} id="logEmail" />
+                                <input className='login__section__input' onInput={(e) => handleLoginInputs("email", e.target.value)} type="email" value={loginInputs.email} id="logEmail" />
                                 <label htmlFor="logPassword">Password</label>
-                                <input onInput={(e) => handleLoginInputs("password", e.target.value)} type="password" value={loginInputs.password} id="logPassword" />
+                                <input className='login__section__input' onInput={(e) => handleLoginInputs("password", e.target.value)} type="password" value={loginInputs.password} id="logPassword" />
                                 <button>Se connecter</button>
                             </form>
 
-                            <p className='login__section__or'>ou</p>
+                            <p className='login__section__or login__section__or__log'>ou</p>
                             <button onClick={toggleActionUser}>S'Enregistrer</button>
                         </>
                         :
@@ -226,9 +236,13 @@ const Login = () => {
                             <div className="login__section__signError">{signErrorMsg}</div>
                             <form onSubmit={verifyToSign}>
                                 <label htmlFor="signEmail">Email</label>
-                                <input onInput={(e) => handleSignInputs("email", e.target.value)} type="email" value={signInputs.email} id="signEmail" />
+                                <input className='login__section__input' onInput={(e) => handleSignInputs("email", e.target.value)} type="email" value={signInputs.email} id="signEmail" />
                                 <label htmlFor="signPassword">Password</label>
-                                <input onInput={(e) => handleSignInputs("password", e.target.value)} type="password" value={signInputs.password} id="signPassword" />
+                                <input className='login__section__input' onInput={(e) => handleSignInputs("password", e.target.value)} type="password" value={signInputs.password} id="signPassword" />
+                                <div className="login__section__cgu">
+                                    <input onChange={toggleCguCheck} type="checkbox" name='cguInput' id="cguAccept" checked={signInputs.cgu} />
+                                    <label htmlFor="cguAccept">J'ai lu et j'accepte la <NavLink className="login__section__cgu__link" to="/cgu">CGU</NavLink>.</label>
+                                </div>
                                 <button>S'enregistrer</button>
                             </form>
 

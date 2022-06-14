@@ -14,11 +14,13 @@
     border: none;
     transition: all 200ms ease-out;
     opacity: 0;
+    visibility: hidden;
     &:hover {
         opacity: 0.8;
         transition: opacity 500ms ease-out;
     }
     &--visible {
+        visibility: visible;
         opacity: 1;
         transition: opacity 500ms ease-out;
     }
