@@ -4173,6 +4173,37 @@ main {
   font-weight: 600;
 }
 
+.about {
+  width: 900px;
+  margin: 80px 0 80px;
+}
+.about h2 {
+  font-weight: 600;
+  font-size: 1.7em;
+  margin-bottom: 70px;
+  text-align: center;
+}
+.about h3 {
+  font-size: 1.2em;
+  font-weight: 700;
+  margin: 50px 0 25px;
+}
+.about p {
+  line-height: 1.4;
+  letter-spacing: 0.7px;
+}
+.about__link {
+  color: #0606c7;
+}
+.about__marginTop {
+  margin-top: 15px;
+}
+@media screen and (max-width: 1160px) {
+  .about {
+    width: 90%;
+  }
+}
+
 .login__section {
   display: flex;
   flex-direction: column;

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { decodeToken, isExpired } from 'react-jwt';
+import { NavLink } from 'react-router-dom';
 
 const About = () => {
 
@@ -39,7 +40,12 @@ const About = () => {
 
     return (
         <main>
-            
+            <section className="about">
+                <h2>À propos</h2>
+                <p>React-optique-shop est un site de démonstration, réalisé avec React, Redux et Sass pour la partie front-end ainsi que Nodejs, Express, Sequelize et MariaDB pour le back-end.</p>
+                <p className='about__marginTop'>Le code est disponible sur mon compte github via ce <a className='about__link' href="https://github.com/julabina/e_shop_react_node">dépot</a>.</p>
+                <p className='about__marginTop'>Vous pouvez me contacter grace au formulaire de <NavLink className='about__link' to="/contact">contact</NavLink>.</p>
+            </section>
         </main>
     );
 };

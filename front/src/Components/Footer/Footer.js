@@ -54,7 +54,7 @@ const Footer = () => {
                         <NavLink to="/cgu" >
                             <p>Condition Générales d'utilisation</p>
                         </NavLink>
-                        <p>Gérer les cookies</p>
+                        <p><a href='#'>Gérer les cookies</a></p>
                     </div>
                 </div>
             </section>
