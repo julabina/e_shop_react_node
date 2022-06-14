@@ -4245,6 +4245,9 @@ main {
   height: 18px;
   width: 18px;
 }
+.login__section__almostLogBtn a {
+  margin-right: 25px;
+}
 .login button {
   height: 45px;
   width: auto;

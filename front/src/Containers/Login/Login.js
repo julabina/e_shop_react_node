@@ -195,7 +195,7 @@ const Login = () => {
             type: 'DISCONNECT'
         })
         localStorage.removeItem('token');
-        navigate('/login', { replace: true });
+        window.location.reload(false)
     }
 
     return (
@@ -204,7 +204,7 @@ const Login = () => {
                 isLogged ?
                 <section className='login__section'>
                     <h2>Vous ete deja connecté</h2>
-                    <div className="">
+                    <div className="login__section__almostLogBtn">
                         <NavLink to="/">
                             <button>Accueil</button>
                         </NavLink>

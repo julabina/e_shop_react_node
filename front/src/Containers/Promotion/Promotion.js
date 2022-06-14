@@ -269,8 +269,8 @@ const Promotion = () => {
                         <option value="descName">Trier par ordre alphabétique décroissant</option>
                         <option value="ascPrice">Trier par prix croissant</option>
                         <option value="descPrice">Trier par prix décroissant</option>
-                        <option value="ascPromo">Trier par promotion croissante</option>
-                        <option value="descPromo">Trier par promotion décroissante</option>
+                        <option value="ascPromo">Trier par remise croissante</option>
+                        <option value="descPromo">Trier par remise décroissante</option>
                     </select>
                 </div>
                 <div className="promotionList__main">

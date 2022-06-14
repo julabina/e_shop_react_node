@@ -17,7 +17,7 @@ exports.sendMail = (req, res, next) => {
         },
         from: "julabina@hotmail.fr",
         to: "julien.lenfume@gmail.com",
-        subject: "eShop react  " + req.body.lastName + " " + req.body.firstName,
+        subject: "eShop react - " + req.body.lastName + " " + req.body.firstName,
         text: req.body.contactEmail + " - " + mobile + "     " + req.body.message,
         onError: (e) => res.status(500).json({error: e}),
         onSuccess: (i) => res.status(200).json({message: "Email envoyé"})
