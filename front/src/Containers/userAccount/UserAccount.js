@@ -264,7 +264,7 @@ const UserAccount = () => {
         } else if (action === "new") {
             const newObj = {
                 ...emailUpdateInputs,
-                newEmail : value
+                new : value
             };
             setEmailUpdateInputs(newObj);
         }
@@ -583,13 +583,13 @@ const UserAccount = () => {
 
         errorCont.innerHTML = ''
         
-        if (emailUpdateInputs.email === "" || emailUpdateInputs.newEmail === "") {
+        if (emailUpdateInputs.email === "" || emailUpdateInputs.new === "") {
             return errorCont.innerHTML = `<p>- Tous les champs sont requis.</p>`
         }
-        if (!emailUpdateInputs.email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i) || !emailUpdateInputs.newEmail.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i)) {
+        if (!emailUpdateInputs.email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i) || !emailUpdateInputs.new.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i)) {
             return errorCont.innerHTML = `<p>- Mauvais format d'email.</p>`            
         }
-        if (emailUpdateInputs.email === emailUpdateInputs.newEmail) {
+        if (emailUpdateInputs.email === emailUpdateInputs.new) {
             return errorCont.innerHTML = `<p>- L'ancien email ne doit pas être identique au nouveau.</p>`
         }
 
@@ -620,7 +620,7 @@ const UserAccount = () => {
         })
         return navigate('/login', { replace: true });
     }; 
-
+    console.log(typeof emailUpdateInputs.email,typeof emailUpdateInputs.new );
         fetch('http://localhost:3000/api/users/email/' + userIdToSend, {
             headers: {
                 'Accept': 'application/json',
@@ -628,7 +628,7 @@ const UserAccount = () => {
                 "Authorization": "Bearer " + tokenToSend.version
             },
             method : 'PUT',
-            body: JSON.stringify( {email: emailUpdateInputs.newEmail} )
+            body: JSON.stringify({email: emailUpdateInputs.email , new: emailUpdateInputs.new})
         })
             .then(res => {
                 console.log(res);
@@ -642,7 +642,11 @@ const UserAccount = () => {
                     closeSectionToModify();
                     
                     window.scrollTo(0,0);
-                } 
+                } else if(res.status === 401) {
+                    errorCont.innerHTML = "- L'email ne correspond pas."
+                } else {
+                    errorCont.innerHTML = "- Un probleme est survenu."
+                }
             })
             .catch(error => {
                 return errorCont.innerHTML = '';
@@ -983,7 +987,7 @@ const UserAccount = () => {
                     </div>
                     <div className="profilUpdate__userProfil__basicsInfos__row__inputCont" id='profilUpdate__email__lastChildFix'>
                         <label htmlFor="newEmail">Votre nouvelle adresse email</label>
-                        <input onInput={(e) => ctrlEmailInputs("new", e.target.value)} type="email" value={emailUpdateInputs.newEmail} id="newEmail" />
+                        <input onInput={(e) => ctrlEmailInputs("new", e.target.value)} type="email" value={emailUpdateInputs.new} id="newEmail" />
                     </div>
 
                     <div className="profilUpdate__userProfil__btnCont">

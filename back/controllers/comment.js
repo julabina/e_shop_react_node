@@ -55,6 +55,9 @@ exports.modifyComment = (req, res, next) => {
     if(req.body.productCat) {
         req.body.productCat = null
     }
+    if(req.body.created) {
+        req.body.created = null
+    }
 
     Comment.update(req.body, {
         where: {

@@ -392,10 +392,10 @@ exports.findFilteredTelescopes = (req, res, next) => {
                         raw: true
                         })
                             .then((typeId) => {
-                                let typeIdArray = typeId.map((el) => el.productId);
+                                const typeIdArray = typeId.map((el) => el.productId);
+                               
+                                const productIdFiltered = brandIdArray.filter(el => typeIdArray.includes(el));
                                 
-                                let productIdFiltered = brandIdArray.filter(el => typeIdArray.includes(el));
-
                                 let options;
 
                                 if (req.body.onStock === true) {

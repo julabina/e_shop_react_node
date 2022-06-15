@@ -111,6 +111,9 @@ exports.modifyProfilInfos = (req, res, next) => {
     if(req.body.id) {
         req.body.id = null;
     }
+    if(req.body.created) {
+        req.body.created = null
+    }
 
     User.update(req.body, { where: { userId : req.params.id }})
         .then(() => {
@@ -184,8 +187,63 @@ exports.modifyPassword = (req, res, next) => {
         };
         
         exports.modifyEmail = (req, res, next) => {
-            let email = {email: req.body.email};
-            User.update(email, { where: { userId : req.params.id }})
+            let email = {email: req.body.new};
+            
+            User.findOne({where: {userId: req.params.id}}) 
+                .then(user => {
+                    if(user !== null) {
+                        if(user.email === req.body.email) {
+                            return User.update(email, { where: { userId : req.params.id }})
+                            .then(() => {
+                                return User.findOne({ where: { userId : req.params.id }})
+                                        .then(user => {
+                                            if(user !== null) {
+                                                const message = 'Adresse email bien modifié.';
+                                                res.status(200).json({ message })
+                                            } else {
+                                                const message = 'Aucun utilisateur trouvé.';
+                                                res.status(404).json({ message });
+                                            }
+                                        })
+                                        .catch(error => {
+                                            if (error instanceof ValidationError) {
+                                                return res.status(400).json({message: error.message, data: error});
+                                            }
+                                            if (error instanceof UniqueConstraintError) {
+                                                return res.status(400).json({message: error.message, data: error});
+                                            }
+                                            res.status(500).json({ message: "Une erreur est survenu.", data: error })
+                                        });  
+                            })
+                            .catch(error => {
+                                if (error instanceof ValidationError) {
+                                    return res.status(400).json({message: error.message, data: error});
+                                }
+                                if (error instanceof UniqueConstraintError) {
+                                    return res.status(400).json({message: error.message, data: error});
+                                }
+                                res.status(500).json({ message: "Une erreur est survenu.", data: error })
+                            });  
+                        } else {
+                            const message = "L'email ne correspond pas.";
+                            return res.status(401).json({ message });
+                        }
+                    } else {
+                        const message = 'Aucun utilisateur trouvé.';
+                        return res.status(404).json({ message });
+                    }
+                })
+                .catch(error => {
+                    if (error instanceof ValidationError) {
+                        return res.status(400).json({message: error.message, data: error});
+                    }
+                    if (error instanceof UniqueConstraintError) {
+                        return res.status(400).json({message: error.message, data: error});
+                    }
+                    res.status(500).json({ message: "Une erreur est survenu.", data: error })
+                });  
+
+            /* User.update(email, { where: { userId : req.params.id }})
                 .then(() => {
                     return User.findOne({ where: { userId : req.params.id }})
                     .then(user => {
@@ -215,7 +273,7 @@ exports.modifyPassword = (req, res, next) => {
                             return res.status(400).json({message: error.message, data: error});
                         }
                         res.status(500).json({ message: "Une erreur est survenu.", data: error })
-                    });      
+                    });  */     
     };
 
     exports.findName = (req, res, next) => {
