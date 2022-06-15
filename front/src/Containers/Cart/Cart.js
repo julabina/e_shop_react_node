@@ -658,17 +658,15 @@ const Cart = () => {
                                 <p className="cartStepConfirm__recap__content__title">Moyens de contact:</p>
                                 <p>{infosData.mobile}</p>
                                 {
-                                    infosData.tel !== "" && 
+                                    (infosData.fixe !== null || infosData.fixe !== "") && 
                                     <>
-                                        <p>{}</p>
+                                        <p>{infosData.fixe}</p>
                                     </>
                                 }
                                 {
-                                    infosData.societe !== null &&
+                                    infosData.fax !== null &&
                                     <>
-                                    {
-                                        infosData.fax !== "" && <p>Fax: {infosData.fax}</p>
-                                    } 
+                                        <p>Fax: {infosData.fax}</p>
                                     </>
                                 }
                                 {

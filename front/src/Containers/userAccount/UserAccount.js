@@ -76,11 +76,11 @@ const UserAccount = () => {
                         deliveryAddressComp: data.data.deliveryAddressComp === null ? "" : data.data.deliveryAddressComp,
                         deliveryCity: data.data.deliveryCity === null ? "" : data.data.city,
                         deliveryZip: data.data.deliveryZip === null ? "" : (data.data.deliveryZip).toString(),
-                        fax: data.data.fax === null ? "" : ('0' + data.data.fax).toString(),
+                        fax: data.data.fax === null ? "" : data.data.fax,
                         firstName: data.data.firstName === null ? "" : data.data.firstName,
-                        fixe: data.data.fixe === null ? "" : ('0' + data.data.fixe).toString(),
+                        fixe: data.data.fixe === null ? "" : data.data.fixe,
                         lastName: data.data.lastName === null ? "" : data.data.lastName,
-                        mobile: data.data.mobile === null ? "" : ('0' + data.data.mobile).toString(),
+                        mobile: data.data.mobile === null ? "" : data.data.mobile,
                         newsletter: data.data.newsletter === null ? false : data.data.newsletter,
                         pub: data.data.pub === null ? false : data.data.pub,
                         siret: data.data.siret === null ? "" : (data.data.siret).toString(),
@@ -395,7 +395,7 @@ const UserAccount = () => {
             companyName: profilUpdateInputs.companyName === "" ? null : profilUpdateInputs.companyName,
             deliveryAddress: profilUpdateInputs.deliveryAddress === "" ? null : profilUpdateInputs.deliveryAddress,
             deliveryAddressComp: profilUpdateInputs.deliveryAddressComp === "" ? null : profilUpdateInputs.deliveryAddressComp,
-            deliveryCity: profilUpdateInputs.deliveryCity === "" ? null : profilUpdateInputs.city,
+            deliveryCity: profilUpdateInputs.deliveryCity === "" ? null : profilUpdateInputs.deliveryCity,
             deliveryZip: profilUpdateInputs.deliveryZip === "" ? null : profilUpdateInputs.deliveryZip,
             fax: profilUpdateInputs.fax === "" ? null : profilUpdateInputs.fax,
             firstName: profilUpdateInputs.firstName === "" ? null : profilUpdateInputs.firstName,
@@ -448,9 +448,9 @@ const UserAccount = () => {
         })
               .then(res => {
                 console.log(res);
-               if (res === 200) {
-                    setSuccessMsg("Infos personnelles bien modifiées !")
-            
+               if (res.status === 200) {
+                    setSuccessMsg("Infos personnelles bien modifiées !");
+                    errorCont.innerHTML = "";
                     closeSectionToModify();
                     
                     window.scrollTo(0,0);
@@ -557,11 +557,16 @@ const UserAccount = () => {
         })
             .then(res => {
                 console.log(res);
-                 if (res === 200) {
+                 if (res.status === 200) {
                     setSuccessMsg("Mot de passe modifié !")
             
                     closeSectionToModify();
-                    
+                    const newObj = {
+                        password : "",
+                        newPassword: "", 
+                        confirmNewPassword: ""
+                    };
+                    setPasswordUpdateInputs(newObj);
                     window.scrollTo(0,0);
                 } 
             })
@@ -616,7 +621,6 @@ const UserAccount = () => {
         return navigate('/login', { replace: true });
     }; 
 
-
         fetch('http://localhost:3000/api/users/email/' + userIdToSend, {
             headers: {
                 'Accept': 'application/json',
@@ -630,7 +634,11 @@ const UserAccount = () => {
                 console.log(res);
                  if (res.status === 200) {
                     setSuccessMsg("Adresse email modifié !")
-            
+                    let newObj = {
+                        email: "", 
+                        new: ""
+                    }
+                    setEmailUpdateInputs(newObj)
                     closeSectionToModify();
                     
                     window.scrollTo(0,0);

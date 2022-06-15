@@ -4003,16 +4003,22 @@ main {
   border-bottom: 4px solid black;
   margin: 10px 0 110px 0;
 }
-.contact__errorCont {
+.contact__errorCont, .contact__success {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 40px;
 }
-.contact__errorCont p {
+.contact__errorCont p, .contact__success p {
   width: 620px;
   line-height: 1.4;
+}
+.contact__errorCont {
   color: #b10202;
+}
+.contact__success p {
+  text-align: center;
+  font-size: 1.3em;
 }
 .contact__form {
   display: flex;

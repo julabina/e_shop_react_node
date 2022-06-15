@@ -10,7 +10,7 @@ const CartLocation = (props) => {
 
     const [toggleStatus, setToggleStatus] = useState(false);
     const [togglelocation, setTogglelocation] = useState(false);
-    const [checkBox, setCheckBox] = useState([false, false])
+    const [checkBox, setCheckBox] = useState({newletter: false, pub: false})
     const [inputs, setInputs] = useState({
         firstName: "",
         lastName: "",
@@ -64,8 +64,12 @@ const CartLocation = (props) => {
                     zip: data.data.zip === null ? "" : (data.data.zip).toString(),
                     instruction: ""
                 };
-                console.log(newObj);
                 setInputs(newObj);
+                const newCheckboxObj = {
+                    newletter: data.data.newsletter === true ? true : false,
+                    pub: data.data.pub === true ? true : false
+                }
+                setCheckBox(newCheckboxObj)
             }) 
 
     },[])
@@ -82,13 +86,19 @@ const CartLocation = (props) => {
 
     // verifie si cocher ou non
     const toggleCheckBox = (checkbox) => {
-        let newArr = checkBox;
         if (checkbox === "letter") {
-            newArr[0] = !newArr[0]
+            const newObj = {
+                ...checkBox,
+                newletter: !checkBox.newletter
+            }
+            setCheckBox(newObj);
         } else if (checkbox === 'advertisement') {
-            newArr[1] = !newArr[1]
+            const newObj = {
+                ...checkBox,
+                pub: !checkBox.pub
+            }
+            setCheckBox(newObj);
         }
-        setCheckBox(newArr);
     }
 
     // controler les inputs
@@ -312,13 +322,15 @@ const CartLocation = (props) => {
             }
             
             // verification tva
-            if(inputs[8].value === "") {
-                errorDisplay("Le numéro de tva ne doit pas être vide.","tva", "cartStepLocation__individual__names__tva")
-            } else if (!inputs[8].value.match(/^(FR){0,1}[0-9A-Z]{2}\ [0-9]{9}$/)) {
-                errorDisplay("Le numéro de tva n'a pas un format valide, n'indiquer pas FR. ","tva", "cartStepLocation__individual__names__tva")
+            if(inputs[8].value !== "") {
+                if (!inputs[8].value.match(/^(FR){0,1}[0-9A-Z]{2}\ [0-9]{9}$/)) {
+                    errorDisplay("Le numéro de tva n'a pas un format valide, n'indiquer pas FR. ","tva", "cartStepLocation__individual__names__tva")
+                } else {
+                    errorDisplay("", "tva", "cartStepLocation__individual__names__tva", true)
+                    totalCheck += 1;
+                }
             } else {
-                errorDisplay("", "tva", "cartStepLocation__individual__names__tva", true)
-                totalCheck += 1;
+                totalCheck += 1
             }
 
 
@@ -438,19 +450,16 @@ const CartLocation = (props) => {
         
         // if checked
         if (toggleStatus && togglelocation) {
-            console.log("test1");
             if (totalCheck === 17) {
                 console.log('1');
                 prepareInfos();
             }
         } else if (toggleStatus || togglelocation) {
-            console.log("test2");
             if (totalCheck === 13) {
                 console.log('2');
                 prepareInfos();
             }
         } else {
-            console.log("test3");
             if (totalCheck === 9) {
                 console.log('3');
                 prepareInfos();
@@ -506,8 +515,8 @@ const CartLocation = (props) => {
             deliveryZip: zip,
             deliveryCity: city,
             instruction: inputs.instruction,
-            newsLetter: checkBox[0],
-            ad: checkBox[1]
+            newsLetter: checkBox.newletter,
+            ad: checkBox.pub
         }
 
         props.sendInfos(infos);
@@ -532,8 +541,8 @@ const CartLocation = (props) => {
             fixe: inputs.fixe === "" ? null : inputs.fixe,
             lastName: inputs.lastName === "" ? null : inputs.lastName,
             mobile: inputs.mobile === "" ? null : inputs.mobile,
-            newsletter: checkBox[0],
-            pub: checkBox[0],
+            newsletter: checkBox.newletter,
+            pub: checkBox.pub,
             siret: inputs.siret === "" ? null : inputs.siret,
             tva: inputs.tva === "" ? null : inputs.tva,
             zip: inputs.zip === "" ? null : inputs.zip
@@ -641,11 +650,11 @@ const CartLocation = (props) => {
                             </div>
                             <div className="cartStepLocation__individual__newsletter">
                                 <div className="cartStepLocation__individual__newsletter__checkBoxCont">
-                                    <input className="cartStepLocation__individual__inputs" onChange={() => toggleCheckBox('letter')} on type="checkbox" name="" id="newsletter" />
+                                    <input className="cartStepLocation__individual__inputs" onChange={() => toggleCheckBox('letter')} type="checkbox" checked={checkBox.newletter} id="newsletter" />
                                     <label htmlFor="newsletter">Je souhaite recevoir votre lettre d'informations commerciales.</label>
                                 </div>
                                 <div className="cartStepLocation__individual__newsletter__checkBoxCont">
-                                    <input className="cartStepLocation__individual__inputs" onChange={() => toggleCheckBox('advertisement')} type="checkbox" name="" id="advertisement" />
+                                    <input className="cartStepLocation__individual__inputs" onChange={() => toggleCheckBox('advertisement')} type="checkbox" checked={checkBox.pub} id="advertisement" />
                                     <label htmlFor="advertisement">Je souhaite recevoir vos campagnes SMS.</label>
                                 </div>
                             </div>
@@ -666,7 +675,7 @@ const CartLocation = (props) => {
                                     </div>
                                     <div className="cartStepLocation__business__row">
                                         <div className="cartStepLocation__business__row__infos">
-                                            <label htmlFor="">N° de TVA intra-communautaire<span> *</span></label>
+                                            <label htmlFor="">N° de TVA intra-communautaire</label>
                                             <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('tva', e.target.value)} value={inputs.tva} type="text" name="" id="tva" />
                                             <span className='cartStepLocation__individual__names__tva__span cartStepLocation__individual__errorSpan'></span>
                                         </div>

@@ -9,7 +9,7 @@
         border-bottom:4px solid black ;
         margin: 10px 0 110px 0;
     }
-    &__errorCont {
+    &__errorCont, &__success {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -17,7 +17,15 @@
         p {
             width: 620px;
             line-height: 1.4;
-            color: rgb(177, 2, 2);
+        }
+    }
+    &__errorCont {
+        color: rgb(177, 2, 2);
+    }
+    &__success {
+        p {
+            text-align: center;
+            font-size: 1.3em;
         }
     }
     &__form {

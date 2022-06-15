@@ -223,7 +223,7 @@ exports.modifyPassword = (req, res, next) => {
             where: {
                 userId: req.params.id
             },
-            attributes: ['firstName', 'lastName'],
+            attributes: ['firstName', 'lastName', 'email', 'mobile'],
             raw: true
         })
             .then(infos => {

@@ -26,6 +26,7 @@ const Contact = () => {
                 dispatch ({
                     type: 'LOG'
                 })
+                getInfos(token.content);
             } else {
                 dispatch ({
                     type: 'DISCONNECT'
@@ -38,6 +39,22 @@ const Contact = () => {
         }; 
 
     },[])
+
+    const getInfos = (userId) => {
+        fetch('http://localhost:3000/api/users/' + userId)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                let newObj = {
+                    ...contactFormData,
+                    firstName: data.data.firstName === null ? "" : data.data.firstName ,
+                    lastName: data.data.lastName === null ? "" : data.data.lastName,
+                    email: data.data.email,
+                    mobile: data.data.mobile === null ? "" : data.data.mobile,
+                }
+                setContactFormData(newObj)
+            })
+    };
 
     const handleInputs = (action, value) => {
         if(action === "firstName") {
@@ -138,9 +155,21 @@ const Contact = () => {
             body: JSON.stringify( {message : contactFormData.message , firstName: contactFormData.firstName, lastName: contactFormData.lastName, tel: contactFormData.mobile, contactEmail : contactFormData.email} )
        
         })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
+            .then(res => {
+                const errorCont = document.querySelector(".contact__errorCont");
+                const successCont = document.querySelector(".contact__success");
+                if(res.status === 200) {
+                    successCont.innerHTML = `<p>Message bien envoyé.</p>`;
+                    errorCont.innerHTML = "";
+                    const newObj = {
+                        ...contactFormData,
+                        message: ""
+                    }
+                    setContactFormData(newObj)
+                } else {
+                    successCont.innerHTML = "";
+                    errorCont.innerHTML = `<p>- Le message n'a pas pu être envoyé, veuillez réessayer plus tard.</p>`;
+                }
             })
     }
 
@@ -150,6 +179,7 @@ const Contact = () => {
                 <h2>Contactez nous</h2>
                 <div className="contact__separator"></div>
                 <div className="contact__errorCont"></div>
+                <div className="contact__success"></div>
                 <form action="" className='contact__form'>
                     <div className="contact__form__row">
                         <div className="contact__form__row__inputCont">

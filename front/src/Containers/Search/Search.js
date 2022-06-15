@@ -237,10 +237,12 @@ const Search = () => {
 
     const removeFilter = () => {
         const inputCat = document.getElementsByName('searchCategory');
+        const onStockFilter = document.getElementById('telescopeOnStock');
 
         inputCat.forEach(el => {
             el.checked = false
         })
+        onStockFilter.checked = false
 
         let filter = {categories: [], onStock: false}
         setFilterOptions(filter);
