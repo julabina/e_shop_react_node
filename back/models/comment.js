@@ -20,10 +20,10 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         comment: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
             validate: {
-                is: {args:/^[a-zA-Zé èà,.'-€:!?]*$/, msg: 'Le commentaire ne doit comporter que des lettres'},
+                is: {args:/^[a-zA-Zé èà,\b<br />\b.'-€:!?]*$/, msg: 'Le commentaire ne doit comporter que des lettres'},
                 notEmpty: {msg: "Le commentaire ne doit pas etre vide"}
             }
         }

@@ -46,20 +46,10 @@ exports.addComment = (req, res, next) => {
 
 // MODIFY ONE COMMENT
 exports.modifyComment = (req, res, next) => {
-    if(req.body.id) {
-        req.body.id = null
-    }
-    if(req.body.productId) {
-        req.body.productId = null
-    }
-    if(req.body.productCat) {
-        req.body.productCat = null
-    }
-    if(req.body.created) {
-        req.body.created = null
-    }
 
-    Comment.update(req.body, {
+    let comment = {comment: req.body.comment}
+
+    Comment.update(comment, {
         where: {
             id: req.params.id
         }

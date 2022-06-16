@@ -6,6 +6,8 @@ const Comment = (props) => {
 
     const dispatch = useDispatch();
 
+    const [comment, setComment] = useState([]);
+    const [commentToSend, setCommentToSend] = useState("");
     const [commentDate, setCommentDate] = useState({created: "", updated: ""});
     const [commentTS, setCommentTS] = useState({created: "", updated: ""});
     const [commentTime, setCommentTime] = useState({created: "", updated: ""});
@@ -18,9 +20,21 @@ const Comment = (props) => {
 
     useEffect(() => {
 
-            getUserName()
-
-            convertTime();
+        
+        getUserName()
+        
+        convertTime();
+        
+        if(props.comment.includes(`<br />`)) {
+            const brCommentArr = props.comment.split('<br />');
+            const brComment = brCommentArr.join('\n')
+            setNewTextComment(brComment);
+            setComment(brCommentArr)
+        } else {
+            const toArr = [props.comment]
+            setNewTextComment(props.comment);
+            setComment(toArr)
+        }
 
     },[props.updated]);
 
@@ -76,7 +90,7 @@ const Comment = (props) => {
         setCommentDate(newObjDate);
     };
     
-    const handleComment = (action) => {
+    const handleComment = (action, newCom) => {
         let userIdToSend = "", tokenToSend = "";
         
         if (localStorage.getItem('token') !== null) {
@@ -116,14 +130,14 @@ const Comment = (props) => {
         }; 
         
         if( action === "modify") {
-            postModifyComment(userIdToSend, tokenToSend.version);
+            postModifyComment(userIdToSend, tokenToSend.version, newCom);
         } else if (action === "delete") {
             postDeleteComment(userIdToSend, tokenToSend.version);
         }
     };
     
-    const postModifyComment = (userId, token) => {
-    
+    const postModifyComment = (userId, token, newCom) => {
+
         fetch('http://localhost:3000/api/comments/' + props.commentId , {
             headers: {
                 'Accept': 'application/json',
@@ -131,11 +145,11 @@ const Comment = (props) => {
                 "Authorization": "Bearer " + token
             },
             method : 'PUT',
-            body: JSON.stringify({ userId : userId, comment: newTextComment })
+            body: JSON.stringify({ userId : userId, comment: newCom })
         })
             .then(res => res.json())
             .then(rep => {
-              
+                console.log(rep);
                 props.fetchFunc(props.productId);
             })
     
@@ -150,14 +164,29 @@ const Comment = (props) => {
 
     const openModify = () => {
         if(onModify) {
+            
             if(newTextComment !== "") {
-                if(!newTextComment.match(/^[a-zA-Zé èà,.'-€:!?]*$/)) {
-                    toggleCommentModal('Le commentaire ne doit comporter que des lettres')
+                let newCommentArr = newTextComment.split('\n');
+                console.log(newCommentArr);
+                for (let i = 0;i < newCommentArr.length; i++) {
+                    if(!newCommentArr[i].match(/^[a-zA-Zé èà,.'-€:!?]*$/)) {
+                        setOnModify(!onModify); 
+                         return toggleCommentModal('Le commentaire ne doit comporter que des lettres')
+                    }
                 }
-                handleComment("modify");
+                const newComment = newCommentArr.join('<br />');
+                console.log(newTextComment);
+                console.log(newCommentArr.join('\n'));
+                console.log(comment);
+                console.log(newComment);
+                if(newTextComment !== comment.join('\n')) {
+                    console.log("CPAREILLOL");
+                    /* setCommentToSend(newComment); */
+                    handleComment("modify", newComment);
+                }
             }
         }
-        setOnModify(!onModify);
+        setOnModify(!onModify); 
     };
 
     const handleTextArea = (value) => {
@@ -182,7 +211,10 @@ const Comment = (props) => {
                 onModify ?
                 <textarea onChange={(e) => handleTextArea(e.target.value)} value={newTextComment} className='comment__textArea'></textarea>
                 :
-                <p>{props.comment}</p>  
+                <> {
+                    comment.map(el => <p>{el}</p>)
+                    }
+                </>  
             }
             <div className="comment__separator"></div>
             <div className="comment__bot">

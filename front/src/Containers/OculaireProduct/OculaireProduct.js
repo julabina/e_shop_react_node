@@ -173,11 +173,17 @@ const OculaireProduct = () => {
 
         if (isLogged) {
 
-            if (commentValue === "") {
+            let commentValueArr = commentValue.split('\n'), commentToSend = "";
+            if(commentValue !== "") {
+                for (let i = 0;i < commentValueArr.length; i++) {
+                    if(!commentValueArr[i].match(/^[a-zA-Zé èà,.'-€:!?]*$/)) {
+                        return setErrorComment("Le commentaire ne doit comporter que des lettres");
+                    }
+                }
+            } else {
                 return setErrorComment("Le commentaire ne doit pas etre vide.");
-            } else if(!commentValue.match(/^[a-zA-Zé èà,.'-€:!?]*$/)) {
-                return setErrorComment("Le commentaire ne doit comporter que des lettres");
-            } 
+            }
+            commentToSend = commentValueArr.join('<br />');
 
             let loggedUser = localStorage.getItem('token');
 
@@ -188,7 +194,7 @@ const OculaireProduct = () => {
                 "Authorization": "Bearer " + JSON.parse(loggedUser).version
             },
             method: 'POST', 
-            body: JSON.stringify({category: "oculaire", productId: oculaireData.productId, userId: JSON.parse(loggedUser).content, comment: commentValue})})
+            body: JSON.stringify({category: "oculaire", productId: oculaireData.productId, userId: JSON.parse(loggedUser).content, comment: commentToSend})})
                 .then(res => {
                     if (res.status === 201) {
                         fetchComment(oculaireData.productId);

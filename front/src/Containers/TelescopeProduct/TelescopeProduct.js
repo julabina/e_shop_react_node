@@ -157,6 +157,7 @@ const TelescopeProduct = () => {
     }
     
     const fetchComment = (productId) => {
+
         fetch("http://localhost:3000/api/comments/" + productId)
         .then(res => res.json())
         .then(data => {
@@ -181,14 +182,21 @@ const TelescopeProduct = () => {
 
     const sendComment = (e) => {
         e.preventDefault();
+       
 
         if (isLogged) {
-            
-            if (commentValue === "") {
+           
+            let commentValueArr = commentValue.split('\n'), commentToSend = "";
+            if(commentValue !== "") {
+                for (let i = 0;i < commentValueArr.length; i++) {
+                    if(!commentValueArr[i].match(/^[a-zA-Zé èà,.'-€:!?]*$/)) {
+                        return setErrorComment("Le commentaire ne doit comporter que des lettres");
+                    }
+                }
+            } else {
                 return setErrorComment("Le commentaire ne doit pas etre vide.");
-            } else if(!commentValue.match(/^[a-zA-Zé èà,.'-€:!?]*$/)) {
-                return setErrorComment("Le commentaire ne doit comporter que des lettres");
-            } 
+            }
+            commentToSend = commentValueArr.join('<br />');
 
             let loggedUser = localStorage.getItem('token');
 
@@ -199,7 +207,7 @@ const TelescopeProduct = () => {
                 "Authorization": "Bearer " + JSON.parse(loggedUser).version
             },
             method: 'POST', 
-            body: JSON.stringify({category: "telescope", productId: telescopeData.productId, userId: JSON.parse(loggedUser).content, comment: commentValue})})
+            body: JSON.stringify({category: "telescope", productId: telescopeData.productId, userId: JSON.parse(loggedUser).content, comment: commentToSend})})
                 .then(res => {
                     if (res.status === 201) {
                         fetchComment(telescopeData.productId);
