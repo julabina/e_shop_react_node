@@ -4,7 +4,6 @@ import { decodeToken, isExpired } from 'react-jwt';
 import telescopeImg from '../../assets/telescope.webp'
 import oculaireImg from '../../assets/oculaire.webp'
 import montureImg from '../../assets/monture.webp'
-import promoImg from '../../assets/promo.webp'
 import reactLogo from '../../assets/logo/react.webp'
 import nodejsLogo from '../../assets/logo/nodejs.webp'
 import expressLogo from '../../assets/logo/express.webp'
@@ -134,18 +133,9 @@ const Home = () => {
                                 </div>
                             </div>
                         </NavLink>
-                        <NavLink to="/promotion">
-                            <div className="home__categories__cont__row__category">
-                                <h3>Promotions</h3>
-                                <div className="home__categories__cont__row__category__imgCont">
-                                    <img src={promoImg} alt="une promotion" />
-                                </div>
-                            </div>
-                        </NavLink>
                     </div>
                 </div>
             </section>
-            <section className="home__middle"></section>
             <section className="home__promo">
                 <h2>Nos promotions</h2>
                 <div className="home__promo__promoCont">
@@ -162,9 +152,11 @@ const Home = () => {
                 </ul>
                 </div>
                 <p className='home__promo__para'>Et bien d'autre encore !</p>
-                <NavLink to="/promotion">
-                    <button className='home__promo__btn'>Voir toutes les promotions</button>
-                </NavLink>
+                <div className="home__promo__btnCont">
+                    <NavLink to="/promotion">
+                        <button className='home__promo__btnCont__btn'>Voir toutes les promotions</button>
+                    </NavLink>
+                </div>
             </section>
             <section className='home__logo'>
                 <h2>Site réalisé avec</h2>
