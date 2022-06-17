@@ -74,7 +74,7 @@ const MontureProduct = () => {
                 fetchComment(productId);
                 setPicturesData(newArr);
                 setMontureData(item);
-                setMainPicture(process.env.PUBLIC_URL + data.data.pictures[0]);
+                setMainPicture(data.data.pictures[0]);
             }
         })
 
@@ -226,7 +226,7 @@ const MontureProduct = () => {
                 tinyImgs[i].classList.add('montureProduct__top__left__tinyImg__cont__cover--active')
             }
         }
-        let pict =  process.env.PUBLIC_URL + img;
+        let pict =  img;
         setMainPicture(pict);
     }
 
@@ -350,7 +350,7 @@ const MontureProduct = () => {
                                 return (
                                     <div key={el.id} className="montureProduct__top__left__tinyImg__cont">
                                         <div onClick={() => changeImg(el.img, el.ind)} className={el.ind === 0 ? "montureProduct__top__left__tinyImg__cont__cover montureProduct__top__left__tinyImg__cont__cover--active" : "montureProduct__top__left__tinyImg__cont__cover" }></div>
-                                        <img className='montureProduct__top__left__tinyImg__cont__img' src={process.env.PUBLIC_URL + el.img} alt={'photo de ' + montureData.name} />
+                                        <img className='montureProduct__top__left__tinyImg__cont__img' src={el.img} alt={'photo de ' + montureData.name} />
                                     </div>
                                 ) 
                             }
@@ -382,7 +382,7 @@ const MontureProduct = () => {
                 <h3>Tout savoir sur {montureData.name}</h3>
                 <p className='montureInfos__infos__description'>{montureData.description1}</p>
                 {montureData.description2 !== null && <p className='montureInfos__infos__description'>{montureData.description2}</p>}
-                {montureData.imgDesc !== null && <img className='montureInfos__infos__img' src={process.env.PUBLIC_URL + montureData.imgDesc} alt={"photo de " + montureData.name} />}
+                {montureData.imgDesc !== null && <img className='montureInfos__infos__img' src={montureData.imgDesc} alt={"photo de " + montureData.name} />}
                 {montureData.description3 !== null && <p className='montureInfos__infos__description'>{montureData.description3}</p>}
             </div>
             <div className="montureInfos__infos">
