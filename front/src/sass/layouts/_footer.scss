@@ -50,8 +50,10 @@
     @include forTablet {
         &__section {
             width: 92%;
-            &__cont__box {
-                width: 120px;
+            &__cont {
+                &__box {
+                    width: 30%;
+                }
             }
         }   
     }
@@ -88,6 +90,7 @@
     }
     &__modalQuit {
         position: fixed;
+        z-index: 100;
         top: 0;bottom: 0;
         left: 0;right: 0;
         background: rgba(0, 0, 0, 0.733);
@@ -132,6 +135,12 @@
                         transition: all 250ms ease-in-out;
                     }
                 }
+            }
+        }
+        @include forMobile1 {
+            &__modal {
+                width: 95%;
+                text-align: center;
             }
         }
     }

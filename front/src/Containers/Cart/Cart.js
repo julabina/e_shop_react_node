@@ -583,6 +583,12 @@ const Cart = () => {
 
                     <h3>Merci de votre commande ! A bientôt</h3>
 
+                    <div className='cartStepConfirm__backBtn'>
+                        <NavLink to="/">
+                            <button>Retour à l'accueil</button>
+                        </NavLink>
+                    </div>
+
                     <div className="cart__articles__separator"></div>
                     <div className="cart__articles__cartContent">
                             {cartData.map(el => {

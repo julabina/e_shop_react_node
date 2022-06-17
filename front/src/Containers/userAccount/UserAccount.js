@@ -809,7 +809,7 @@ const UserAccount = () => {
                         <div className="profilUpdate__userProfil__basicsInfos__row profilUpdate__userProfil__basicsInfos__zip">
                             <div className="profilUpdate__userProfil__basicsInfos__row__inputCont profilUpdate__userProfil__basicsInfos__zip__zip">
                                 <label htmlFor="profilZip">Code postal</label>
-                                <input onInput={(e) => ctrlInputsProfilUpdate("zip", e.target.value)} type="number" value={profilUpdateInputs.zip} id="profilZip" />
+                                <input onInput={(e) => ctrlInputsProfilUpdate("zip", e.target.value)} type="text" value={profilUpdateInputs.zip} id="profilZip" />
                             </div>
                             <div className="profilUpdate__userProfil__basicsInfos__row__inputCont profilUpdate__userProfil__basicsInfos__zip__city">
                                 <label htmlFor="profilCity">Ville</label>
@@ -819,11 +819,11 @@ const UserAccount = () => {
                         <div className="profilUpdate__userProfil__basicsInfos__row profilUpdate__userProfil__basicsInfos__phones">
                             <div className="profilUpdate__userProfil__basicsInfos__row__inputCont profilUpdate__userProfil__basicsInfos__phones__mobile">
                                 <label htmlFor="profilMobile">Mobile</label>
-                                <input onInput={(e) => ctrlInputsProfilUpdate("mobile", e.target.value)} type="number" value={profilUpdateInputs.mobile} id="profilMobile" />
+                                <input onInput={(e) => ctrlInputsProfilUpdate("mobile", e.target.value)} type="text" value={profilUpdateInputs.mobile} id="profilMobile" />
                             </div>
                             <div className="profilUpdate__userProfil__basicsInfos__row__inputCont profilUpdate__userProfil__basicsInfos__phones__fixe">
                                 <label htmlFor="profilFixe">Fixe</label>
-                                <input onInput={(e) => ctrlInputsProfilUpdate("fixe", e.target.value)} type="number" value={profilUpdateInputs.fixe} id="profilFixe" />
+                                <input onInput={(e) => ctrlInputsProfilUpdate("fixe", e.target.value)} type="text" value={profilUpdateInputs.fixe} id="profilFixe" />
                             </div>
                         </div>
                     </div>
@@ -879,7 +879,7 @@ const UserAccount = () => {
                         <div className="profilUpdate__userProfil__basicsInfos__row">
                             <div className="profilUpdate__userProfil__basicsInfos__row__inputCont">
                                 <label htmlFor="profilDeliveryZip">Code postal</label>
-                                <input onInput={(e) => ctrlInputsProfilUpdate("deliveryZip", e.target.value)} type="number" value={profilUpdateInputs.deliveryZip} id="profilDeliveryZip" />
+                                <input onInput={(e) => ctrlInputsProfilUpdate("deliveryZip", e.target.value)} type="text" value={profilUpdateInputs.deliveryZip} id="profilDeliveryZip" />
                             </div>
                             <div className="profilUpdate__userProfil__basicsInfos__row__inputCont">
                                 <label htmlFor="profilDeliveryCity">Ville</label>
@@ -958,19 +958,22 @@ const UserAccount = () => {
                 <form className="profilUpdate__part profilUpdate__password">
                     <h2>Modifier votre mot de passe</h2>
                     <div className="profilUpdate__password__errorCont"></div>
-                    <div className="profilUpdate__userProfil__basicsInfos__row__inputCont">
-                        <label htmlFor="actualPassword">Votre mot de passe actuel</label>
-                        <input onInput={(e) => ctrlPasswordInputs("actual", e.target.value)} type="password" value={passwordUpdateInputs.password} id="actualPassword" />
-                    </div>
-                    <div className="profilUpdate__userProfil__basicsInfos__row__inputCont">
-                        <label htmlFor="newPassword">Votre nouveau mot de passe</label>
-                        <input onInput={(e) => ctrlPasswordInputs("new", e.target.value)} type="password" value={passwordUpdateInputs.newPassword} id="newPassword" />
-                    </div>
-                    <div className="profilUpdate__userProfil__basicsInfos__row__inputCont">
-                        <label htmlFor="confirmNewPassword">Confirmer votre nouveau mot de passe</label>
-                        <input onInput={(e) => ctrlPasswordInputs("confirm", e.target.value)} type="password" value={passwordUpdateInputs.confirmNewPassword} id="confirmNewPassword" />
-                    </div>
-
+                    <div className="profilUpdate__userProfil__basicsInfos">
+                        <div className="profilUpdate__userProfil__basicsInfos__row">
+                            <div className="profilUpdate__userProfil__basicsInfos__row__inputCont">
+                                <label htmlFor="actualPassword">Votre mot de passe actuel</label>
+                                <input onInput={(e) => ctrlPasswordInputs("actual", e.target.value)} type="password" value={passwordUpdateInputs.password} id="actualPassword" />
+                            </div>
+                            <div className="profilUpdate__userProfil__basicsInfos__row__inputCont">
+                                <label htmlFor="newPassword">Votre nouveau mot de passe</label>
+                                <input onInput={(e) => ctrlPasswordInputs("new", e.target.value)} type="password" value={passwordUpdateInputs.newPassword} id="newPassword" />
+                            </div>
+                            <div className="profilUpdate__userProfil__basicsInfos__row__inputCont">
+                                <label htmlFor="confirmNewPassword">Confirmer votre nouveau mot de passe</label>
+                                <input onInput={(e) => ctrlPasswordInputs("confirm", e.target.value)} type="password" value={passwordUpdateInputs.confirmNewPassword} id="confirmNewPassword" />
+                            </div>
+                        </div>
+                        </div>
                     <div className="profilUpdate__userProfil__btnCont">
                         <button onClick={updatePassword}>Modifier</button>
                     </div>
@@ -981,14 +984,18 @@ const UserAccount = () => {
                 <form className="profilUpdate__email profilUpdate__part">
                     <h2>Modifier votre adresse email</h2>
                     <div className="profilUpdate__email__errorCont"></div>
-                    <div className="profilUpdate__userProfil__basicsInfos__row__inputCont">
-                        <label htmlFor="actualEmail">Votre adresse email actuel</label>
-                        <input onInput={(e) => ctrlEmailInputs("actual", e.target.value)} type="email" value={emailUpdateInputs.email} id="actualEmail" />
-                    </div>
-                    <div className="profilUpdate__userProfil__basicsInfos__row__inputCont" id='profilUpdate__email__lastChildFix'>
-                        <label htmlFor="newEmail">Votre nouvelle adresse email</label>
-                        <input onInput={(e) => ctrlEmailInputs("new", e.target.value)} type="email" value={emailUpdateInputs.new} id="newEmail" />
-                    </div>
+                    <div className="profilUpdate__userProfil__basicsInfos">
+                        <div className="profilUpdate__userProfil__basicsInfos__row">
+                            <div className="profilUpdate__userProfil__basicsInfos__row__inputCont">
+                                <label htmlFor="actualEmail">Votre adresse email actuel</label>
+                                <input onInput={(e) => ctrlEmailInputs("actual", e.target.value)} type="email" value={emailUpdateInputs.email} id="actualEmail" />
+                            </div>
+                            <div className="profilUpdate__userProfil__basicsInfos__row__inputCont" id='profilUpdate__email__lastChildFix'>
+                                <label htmlFor="newEmail">Votre nouvelle adresse email</label>
+                                <input onInput={(e) => ctrlEmailInputs("new", e.target.value)} type="email" value={emailUpdateInputs.new} id="newEmail" />
+                            </div>
+                        </div>    
+                    </div>    
 
                     <div className="profilUpdate__userProfil__btnCont">
                         <button onClick={updateMail}>Modifier</button>

@@ -12,6 +12,7 @@
     }
     &__status {
         margin: 15px 0;
+        display: flex;
         label {
             margin-right: 10px;
         }
@@ -169,6 +170,89 @@
     }
     @include forTablet {
         width: 90%;   
+    }
+    @include forMobile1 {
+        input[type=checkbox], input[type=radio] {
+            width: 20px;
+            height: 20px;
+            min-height: 20px;
+            min-width: 20px;
+        }
+        input[type=text] {
+            width: 100%;
+        }
+        &__infosOblig {
+            font-size: 0.9em;
+        }
+        &__status {
+            flex-direction: column;
+            margin-bottom: 40px;
+            &__radio {
+                display: flex;
+                align-items: center;
+                margin: 10px 0; 
+            }
+        }
+        &__individual {
+            &__newsletter {
+                margin: 40px 0 40px;
+                &__checkBoxCont {
+                    display: flex;
+                    align-items: center;
+                    height: 50px;
+                    margin: 8px 0;
+                }
+            }
+            &__names {
+                flex-direction: column;
+                label {
+                    margin-top: 10px;
+                }
+                select {
+                    width: 100%;
+                }
+            }
+            &__contacts {
+                &__phones {
+
+                    flex-direction: column;
+                }
+            }
+            &__billLocation {
+                &__row {
+                    flex-direction: column;
+                    &__cont {
+                        width: 100%;
+
+                    }
+                }
+            }
+            &__sameLocation {
+                display: flex;
+                align-items: center;
+            }
+            &__notSameLocation {
+                &__row {
+                    flex-direction: column;
+                    &__cont {
+                        width: 100%;
+                    }
+                }
+            }
+            &__divers {
+                textarea {
+                    width: 100%;
+                }
+            }
+        }
+        &__business {
+            input {
+                width: 100%;
+            }
+            &__row {
+                flex-direction: column;
+            }
+        }
     }
 }
 

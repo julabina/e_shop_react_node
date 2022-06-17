@@ -35,27 +35,27 @@ const NavBar = (props) => {
                     </div>
                 }
                 <nav className="navbar__cont__navBar">
-                    <NavLink to="/telescope" className={({isActive}) => {
+                    <NavLink onClick={props.func} to="/telescope" className={({isActive}) => {
                         return isActive ? 'navbar__cont__navBar__link navbar__cont__navBar__link--active' : 'navbar__cont__navBar__link'
                     }
                     }>Télescopes</NavLink>
-                    <NavLink to="/oculaire" className={({isActive}) => {
+                    <NavLink onClick={props.func} to="/oculaire" className={({isActive}) => {
                             return isActive ? 'navbar__cont__navBar__link navbar__cont__navBar__link--active' : 'navbar__cont__navBar__link'
                         }
                     }>Oculaires</NavLink>
-                    <NavLink to="/monture" className={({isActive}) => {
+                    <NavLink onClick={props.func} to="/monture" className={({isActive}) => {
                             return isActive ? 'navbar__cont__navBar__link navbar__cont__navBar__link--active' : 'navbar__cont__navBar__link'
                         }
                     }>Montures</NavLink>
-                    <NavLink to="/promotion" className={({isActive}) => {
+                    <NavLink onClick={props.func} to="/promotion" className={({isActive}) => {
                             return isActive ? 'navbar__cont__navBar__link navbar__cont__navBar__link--active' : 'navbar__cont__navBar__link'
                         }
                     }>Promotions</NavLink>
-                    <NavLink to="/userAccount" className={({isActive}) => {
+                    <NavLink onClick={props.func} to="/userAccount" className={({isActive}) => {
                             return isActive ? 'navbar__cont__navBar__link navbar__cont__navBar__link--active navbar__cont__navBar__forMobile' : 'navbar__cont__navBar__link navbar__cont__navBar__forMobile'
                         }
                     }>Profil</NavLink>
-                    <NavLink to="/cart" className={({isActive}) => {
+                    <NavLink onClick={props.func} to="/cart" className={({isActive}) => {
                             return isActive ? 'navbar__cont__navBar__link navbar__cont__navBar__link--active navbar__cont__navBar__forMobile' : 'navbar__cont__navBar__link navbar__cont__navBar__forMobile'
                         }
                     }>Panier</NavLink>

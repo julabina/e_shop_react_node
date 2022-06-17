@@ -400,39 +400,43 @@ const Oculaire = () => {
                     
                 }
                 <div className="oculaireFilter__separator"></div>
-                <h2>Marque</h2>
+                <div className="oculaireFilter__optionsCont">
                 {
                     optionChoice ?
                     <>
-                    <div className="oculaireFilter__option">
-                        <input onChange={(e) => handleFilter("sky", e.target.value)} value="Sky-Watcher" type="radio" name="oculaireBrand" id="radioOculaireBrandSky" />
-                        <label htmlFor="radioOculaireBrandSky">Sky-Watcher</label>
+                    <div className='oculaireFilter__optionsCont__filter'>
+                        <h2>Marque</h2>
+                        <div className="oculaireFilter__option">
+                            <input onChange={(e) => handleFilter("sky", e.target.value)} value="Sky-Watcher" type="radio" name="oculaireBrand" id="radioOculaireBrandSky" />
+                            <label htmlFor="radioOculaireBrandSky">Sky-Watcher</label>
+                        </div>
+                        <div className="oculaireFilter__option">
+                            <input onChange={(e) => handleFilter("teleVue", e.target.value)} value="TeleVue" type="radio" name="oculaireBrand" id="radioOculaireBrandTeleVue" />
+                            <label htmlFor="radioOculaireBrandTeleVue">TeleVue</label>
+                        </div>
+                        <div className="oculaireFilter__option">
+                            <input onChange={(e) => handleFilter("celestron", e.target.value)} value="Celestron" type="radio" name="oculaireBrand" id="radioOculaireBrandCelestron" />
+                            <label htmlFor="radioOculaireBrandCelestron">Celestron</label>
+                        </div>
+                        <div className="oculaireFilter__option">
+                            <input onChange={(e) => handleFilter("orion", e.target.value)} value="Orion" type="radio" name="oculaireBrand" id="radioOculaireBrandOrion" />
+                            <label htmlFor="radioOculaireBrandOrion">Orion</label>
+                        </div>
+                        <div className="oculaireFilter__option">
+                            <input onChange={(e) => handleFilter("pentax", e.target.value)} value="Pentax" type="radio" name="oculaireBrand" id="radioOculaireBrandPentax" />
+                            <label htmlFor="radioOculaireBrandPentax">Pentax</label>
+                        </div>
+                        <div className="oculaireFilter__option">
+                            <input onChange={(e) => handleFilter("es", e.target.value)} value="Explore Scientific" type="radio" name="oculaireBrand" id="radioOculaireBrandES" />
+                            <label htmlFor="radioOculaireBrandES">Explore Scientific</label>
+                        </div>
+                        <div className="oculaireFilter__option">
+                            <input onChange={(e) => handleFilter("baader", e.target.value)} value="Baader" type="radio" name="oculaireBrand" id="radioOculaireBrandBaader" />
+                            <label htmlFor="radioOculaireBrandBaader">Baader</label>
+                        </div>
+                    <div className="oculaireFilter__separator"></div>
                     </div>
-                    <div className="oculaireFilter__option">
-                        <input onChange={(e) => handleFilter("teleVue", e.target.value)} value="TeleVue" type="radio" name="oculaireBrand" id="radioOculaireBrandTeleVue" />
-                        <label htmlFor="radioOculaireBrandTeleVue">TeleVue</label>
-                    </div>
-                    <div className="oculaireFilter__option">
-                        <input onChange={(e) => handleFilter("celestron", e.target.value)} value="Celestron" type="radio" name="oculaireBrand" id="radioOculaireBrandCelestron" />
-                        <label htmlFor="radioOculaireBrandCelestron">Celestron</label>
-                    </div>
-                    <div className="oculaireFilter__option">
-                        <input onChange={(e) => handleFilter("orion", e.target.value)} value="Orion" type="radio" name="oculaireBrand" id="radioOculaireBrandOrion" />
-                        <label htmlFor="radioOculaireBrandOrion">Orion</label>
-                    </div>
-                    <div className="oculaireFilter__option">
-                        <input onChange={(e) => handleFilter("pentax", e.target.value)} value="Pentax" type="radio" name="oculaireBrand" id="radioOculaireBrandPentax" />
-                        <label htmlFor="radioOculaireBrandPentax">Pentax</label>
-                    </div>
-                    <div className="oculaireFilter__option">
-                        <input onChange={(e) => handleFilter("es", e.target.value)} value="Explore Scientific" type="radio" name="oculaireBrand" id="radioOculaireBrandES" />
-                        <label htmlFor="radioOculaireBrandES">Explore Scientific</label>
-                    </div>
-                    <div className="oculaireFilter__option">
-                        <input onChange={(e) => handleFilter("baader", e.target.value)} value="Baader" type="radio" name="oculaireBrand" id="radioOculaireBrandBaader" />
-                        <label htmlFor="radioOculaireBrandBaader">Baader</label>
-                    </div>
-                <div className="oculaireFilter__separator"></div>
+                    <div className="oculaireFilter__optionsCont__select">
                 <h2>Modèle</h2>
                     {
                             filterOptions.brand[0] === "Sky-Watcher" ? 
@@ -483,49 +487,59 @@ const Oculaire = () => {
                                     <option value="">Tous les modèles</option>
                                 </select>
                     }
+                        <div className="oculaireFilter__separator"></div>
+                    </div>
                     </>
                     :
                     <>
-                    <div className="oculaireFilter__option">
-                        <input onChange={(e) => handleFilter("sky", e.target.value)} value="Sky-Watcher" type="checkbox" name="oculaireBrand" id="checkboxOculaireBrandSky" />
-                        <label htmlFor="checkboxOculaireBrandSky">Sky-Watcher</label>
-                    </div>
-                    <div className="oculaireFilter__option">
-                        <input onChange={(e) => handleFilter("teleVue", e.target.value)} value="TeleVue" type="checkbox" name="oculaireBrand" id="checkboxOculaireBrandTeleVue" />
-                        <label htmlFor="checkboxOculaireBrandTeleVue">TeleVue</label>
-                    </div>
-                    <div className="oculaireFilter__option">
-                        <input onChange={(e) => handleFilter("celestron", e.target.value)} value="Celestron" type="checkbox" name="oculaireBrand" id="checkboxOculaireBrandCelestron" />
-                        <label htmlFor="checkboxOculaireBrandCelestron">Celestron</label>
-                    </div>
-                    <div className="oculaireFilter__option">
-                        <input onChange={(e) => handleFilter("orion", e.target.value)} value="Orion" type="checkbox" name="oculaireBrand" id="checkboxOculaireBrandOrion" />
-                        <label htmlFor="checkboxOculaireBrandOrion">Orion</label>
-                    </div>
-                    <div className="oculaireFilter__option">
-                        <input onChange={(e) => handleFilter("pentax", e.target.value)} value="Pentax" type="checkbox" name="oculaireBrand" id="checkboxOculaireBrandPentax" />
-                        <label htmlFor="checkboxOculaireBrandPentax">Pentax</label>
-                    </div>
-                    <div className="oculaireFilter__option">
-                        <input onChange={(e) => handleFilter("es", e.target.value)} value="Explore Scientific" type="checkbox" name="oculaireBrand" id="checkboxOculaireBrandES" />
-                        <label htmlFor="checkboxOculaireBrandES">Explore Scientific</label>
-                    </div>
-                    <div className="oculaireFilter__option">
-                        <input onChange={(e) => handleFilter("baader", e.target.value)} value="Baader" type="checkbox" name="oculaireBrand" id="checkboxOculaireBrandBaader" />
-                        <label htmlFor="checkboxOculaireBrandBaader">Baader</label>
+                    <div className='oculaireFilter__optionsCont__filter'>
+                        <h2>Marque</h2>
+                        <div className="oculaireFilter__option">
+                            <input onChange={(e) => handleFilter("sky", e.target.value)} value="Sky-Watcher" type="checkbox" name="oculaireBrand" id="checkboxOculaireBrandSky" />
+                            <label htmlFor="checkboxOculaireBrandSky">Sky-Watcher</label>
+                        </div>
+                        <div className="oculaireFilter__option">
+                            <input onChange={(e) => handleFilter("teleVue", e.target.value)} value="TeleVue" type="checkbox" name="oculaireBrand" id="checkboxOculaireBrandTeleVue" />
+                            <label htmlFor="checkboxOculaireBrandTeleVue">TeleVue</label>
+                        </div>
+                        <div className="oculaireFilter__option">
+                            <input onChange={(e) => handleFilter("celestron", e.target.value)} value="Celestron" type="checkbox" name="oculaireBrand" id="checkboxOculaireBrandCelestron" />
+                            <label htmlFor="checkboxOculaireBrandCelestron">Celestron</label>
+                        </div>
+                        <div className="oculaireFilter__option">
+                            <input onChange={(e) => handleFilter("orion", e.target.value)} value="Orion" type="checkbox" name="oculaireBrand" id="checkboxOculaireBrandOrion" />
+                            <label htmlFor="checkboxOculaireBrandOrion">Orion</label>
+                        </div>
+                        <div className="oculaireFilter__option">
+                            <input onChange={(e) => handleFilter("pentax", e.target.value)} value="Pentax" type="checkbox" name="oculaireBrand" id="checkboxOculaireBrandPentax" />
+                            <label htmlFor="checkboxOculaireBrandPentax">Pentax</label>
+                        </div>
+                        <div className="oculaireFilter__option">
+                            <input onChange={(e) => handleFilter("es", e.target.value)} value="Explore Scientific" type="checkbox" name="oculaireBrand" id="checkboxOculaireBrandES" />
+                            <label htmlFor="checkboxOculaireBrandES">Explore Scientific</label>
+                        </div>
+                        <div className="oculaireFilter__option">
+                            <input onChange={(e) => handleFilter("baader", e.target.value)} value="Baader" type="checkbox" name="oculaireBrand" id="checkboxOculaireBrandBaader" />
+                            <label htmlFor="checkboxOculaireBrandBaader">Baader</label>
+                        </div>
+                    <div className="oculaireFilter__separator"></div>
                     </div>
                     </>
                 }
-                <div className="oculaireFilter__separator"></div>
-                <h2>En stock</h2>
-                    <div className="oculaireFilter__option">
-                        <input onChange={() => handleFilter("onStock")} type="checkbox" id="oculaireOnStock" />
-                        <label htmlFor="">Produits en stock</label>
-                    </div>
-                <div className="oculaireFilter__separator"></div>
-                    <button onClick={getFilteredList} className='telescopesFilter__btn'>filtrer</button>
-                    <button onClick={removeFilter} className='telescopesFilter__btn'>Reinitialiser filtres</button>
-                <div className="telescopesFilter__separator"></div>
+                <div className="oculaireFilter__optionsCont__filter">
+                    <h2>En stock</h2>
+                        <div className="oculaireFilter__option">
+                            <input onChange={() => handleFilter("onStock")} type="checkbox" id="oculaireOnStock" />
+                            <label htmlFor="">Produits en stock</label>
+                        </div>
+                        </div>
+                </div>
+                <div className="oculaireFilter__btnCont">
+                    <div className="oculaireFilter__separator"></div>
+                        <button onClick={getFilteredList} className='oculaireFilter__btn'>filtrer</button>
+                        <button onClick={removeFilter} className='oculaireFilter__btn'>Reinitialiser filtres</button>
+                    <div className="oculaireFilter__separator"></div>
+                </div>
             </section>
             <section className='oculaireList'>
                 <div className="oculaireList__top">

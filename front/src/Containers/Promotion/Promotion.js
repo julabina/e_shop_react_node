@@ -234,29 +234,37 @@ const Promotion = () => {
     return (
         <main className='mainList'>
             <section className="promotionFilter">
-                <h2>Categorie</h2>
-                    <div className="">
-                        <input onChange={() => handleCheckFilters("telescope")} type="checkbox" id="optionFilterTelescope" />
-                        <label htmlFor="optionFilterTelescope">Télescope</label>
+            <div className='promotionFilter__optionsCont'>
+                <div className="promotionFilter__optionsCont__filter">
+                    <h2>Categorie</h2>
+                        <div className="promotionFilter__option">
+                            <input onChange={() => handleCheckFilters("telescope")} type="checkbox" id="optionFilterTelescope" />
+                            <label htmlFor="optionFilterTelescope">Télescope</label>
+                        </div>
+                        <div className="promotionFilter__option">
+                            <input onChange={() => handleCheckFilters("oculaire")} type="checkbox" id="optionFilterOculaire" />
+                            <label htmlFor="optionFilterOculaire">Oculaire</label>
+                        </div>
+                        <div className="promotionFilter__option">
+                            <input onChange={() => handleCheckFilters("monture")} type="checkbox" id="optionFilterMonture" />
+                            <label htmlFor="optionFilterMonture">Monture</label>
+                        </div>
+                    <div className="promotionFilter__separator"></div>
+                </div>
+                <div className="promotionFilter__optionsCont__filter">  
+                    <h2>En stock</h2>
+                        <div className="promotionFilter__option">
+                            <input onChange={() => handleCheckFilters("onStock")} type="checkbox" id="optionFilterOnStock" />
+                            <label htmlFor="optionFilterOnStock">Produits en stock</label>
+                        </div>
                     </div>
-                    <div className="">
-                        <input onChange={() => handleCheckFilters("oculaire")} type="checkbox" id="optionFilterOculaire" />
-                        <label htmlFor="optionFilterOculaire">Oculaire</label>
-                    </div>
-                    <div className="">
-                        <input onChange={() => handleCheckFilters("monture")} type="checkbox" id="optionFilterMonture" />
-                        <label htmlFor="optionFilterMonture">Monture</label>
-                    </div>
-                <div className="promotionFilter__separator"></div>
-                <h2>En stock</h2>
-                    <div className="">
-                        <input onChange={() => handleCheckFilters("onStock")} type="checkbox" id="optionFilterOnStock" />
-                        <label htmlFor="optionFilterOnStock">Produits en stock</label>
-                    </div>
-                <div className="promotionFilter__separator"></div>
-                    <button onClick={getFilteredList} className='promotionFilter__btn'>filtrer</button>
-                    <button onClick={removeFilter} className='promotionFilter__btn'>Reinitialiser filtres</button>
-                <div className="promotionFilter__separator"></div>
+                </div>
+                <div className="promotionFilter__btnCont">
+                    <div className="promotionFilter__separator"></div>
+                        <button onClick={getFilteredList} className='promotionFilter__btn'>filtrer</button>
+                        <button onClick={removeFilter} className='promotionFilter__btn'>Reinitialiser filtres</button>
+                    <div className="promotionFilter__separator"></div>
+                </div>
             </section>
             <section className='promotionList'>
                 <div className="promotionList__top">

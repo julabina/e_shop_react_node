@@ -51,10 +51,12 @@ const Header = () => {
     const toSearch = (e) => {
         e.preventDefault();
         if (searchValue === ""){
+            toggleMobileNav()
             navigate("/search" ,{ replace: true })
         } else if(!searchValue.match(/^[a-zA-Zé èà0-9]*$/)) { 
             setErrorMsg("La recherche ne doit contenir que des chiffres et des lettres");
         } else if(searchValue !== "") {    
+            toggleMobileNav()
             const query = '/search/query_=' + searchValue;
             navigate(query ,{ replace: true })
         } 
@@ -71,15 +73,22 @@ const Header = () => {
 
     const toggleHambMenu = () => {
         const header = document.querySelector('.header');
-
+        
         if(hambMenuOpen) {
             header.classList.add('header--hidden');
         } else {
             header.classList.remove('header--hidden');
         }
-
+        
         setHambMenuOpen(!hambMenuOpen);
     };
+    
+    const toggleMobileNav = () => {
+        const header = document.querySelector('.header');
+        
+        header.classList.add('header--hidden');
+        setHambMenuOpen(false);
+    }
 
     return (
         <header className='header header--hidden'>
@@ -90,7 +99,7 @@ const Header = () => {
                     :
                     <FontAwesomeIcon onClick={toggleHambMenu} icon={faBars} className="header__section__hambMenu" />
                 }
-                <NavLink to="/">
+                <NavLink onClick={toggleMobileNav} to="/">
                     <h1 className='header__section__title'>REACT OPTIQUE SHOP</h1>
                 </NavLink>
                 <form className="header__section__search">
@@ -140,7 +149,7 @@ const Header = () => {
                     </NavLink>
                 </div>
             </section>
-            <NavBar artCount={headerCart.artCount} />
+            <NavBar artCount={headerCart.artCount} func={toggleMobileNav} />
         </header>
     );
 };

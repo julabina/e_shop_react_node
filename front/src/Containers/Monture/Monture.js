@@ -334,57 +334,69 @@ const Monture = () => {
     return (
         <main className='mainList'>
             <section className="montureFilter">
-            <h2>Marque</h2>
-                    <div className="montureFilter__option">
-                        <input onChange={(e) => handleFilter("sky", e.target.value)} value="Sky-Watcher" type="checkbox" name="mountBrand" id="checkboxMontureBrandSky" />
-                        <label htmlFor="checkboxMontureBrandSky">Sky-Watcher</label>
-                    </div>
-                    <div className="montureFilter__option">
-                        <input onChange={(e) => handleFilter("10Micron", e.target.value)} value="10Micron" type="checkbox" name="mountBrand" id="checkboxMontureBrand10Micron" />
-                        <label htmlFor="checkboxMontureBrand10Micron">10Micron</label>
-                    </div>
-                    <div className="montureFilter__option">
-                        <input onChange={(e) => handleFilter("celestron", e.target.value)} value="Celestron" type="checkbox" name="mountBrand" id="checkboxMontureBrandCelestron" />
-                        <label htmlFor="checkboxMontureBrandCelestron">Celestron</label>
-                    </div>
-                    <div className="montureFilter__option">
-                        <input onChange={(e) => handleFilter("orion", e.target.value)} value="Orion" type="checkbox" name="mountBrand" id="checkboxMontureBrandOrion" />
-                        <label htmlFor="checkboxMontureBrandOrion">Orion</label>
-                    </div>
-                <div className="montureFilter__separator"></div>
-                <h2>Type</h2>
-                    <div className="montureFilter__option">
-                        <input onChange={(e) => handleFilter("azi", e.target.value)} value="azimutale" type="checkbox" name="mountType" id="checkboxMontureTypeAzimutale" />
-                        <label htmlFor="checkboxMontureTypeAzimutale">Azimutale</label>
-                    </div>
-                    <div className="montureFilter__option">
-                        <input onChange={(e) => handleFilter("equa", e.target.value)} value="equatoriale" type="checkbox" name="mountType" id="checkboxMontureTypeEquatoriale" />
-                        <label htmlFor="checkboxMontureTypeEquatoriale">Equatoriale</label>
-                    </div>
-                <div className="montureFilter__separator"></div>
-                <h2>Goto</h2>
-                    <div className="montureFilter__option">
-                        <input onChange={(e) => handleFilter("both", e.target.value)} value="false" type="radio" name="mountGoto" id="radioMontureGotoBoth" />
-                        <label htmlFor="radioMontureGotoBoth">Tous</label>
-                    </div>
-                    <div className="montureFilter__option">
-                        <input onChange={(e) => handleFilter("with", e.target.value)} value="true" type="radio" name="mountGoto" id="radioMontureGotoWith" />
-                        <label htmlFor="radioMontureGotoWith">Avec</label>
-                    </div>
-                    <div className="montureFilter__option">
-                        <input onChange={(e) => handleFilter("withNot", e.target.value)} value="false" type="radio" name="mountGoto" id="radioMontureGotoWithNot" />
-                        <label htmlFor="radioMontureGotoWithNot">Sans</label>
-                    </div>
-                <div className="montureFilter__separator"></div>
-                <h2>En stock</h2>
-                    <div className="montureFilter__option">
-                        <input onChange={() => handleFilter("stock")} type="checkbox" id="mountOnStock" />
-                        <label htmlFor="stockFilter">Produits en stock</label>
-                    </div>
-                <div className="montureFilter__separator"></div>
-                    <button onClick={getFilteredList} className='telescopesFilter__btn'>filtrer</button>
-                    <button onClick={removeFilter} className='telescopesFilter__btn'>Reinitialiser filtres</button>
-                <div className="telescopesFilter__separator"></div>
+            <div className='montureFilter__optionsCont'>
+                <div className="montureFilter__optionsCont__filter">
+                    <h2>Marque</h2>
+                            <div className="montureFilter__option">
+                                <input onChange={(e) => handleFilter("sky", e.target.value)} value="Sky-Watcher" type="checkbox" name="mountBrand" id="checkboxMontureBrandSky" />
+                                <label htmlFor="checkboxMontureBrandSky">Sky-Watcher</label>
+                            </div>
+                            <div className="montureFilter__option">
+                                <input onChange={(e) => handleFilter("10Micron", e.target.value)} value="10Micron" type="checkbox" name="mountBrand" id="checkboxMontureBrand10Micron" />
+                                <label htmlFor="checkboxMontureBrand10Micron">10Micron</label>
+                            </div>
+                            <div className="montureFilter__option">
+                                <input onChange={(e) => handleFilter("celestron", e.target.value)} value="Celestron" type="checkbox" name="mountBrand" id="checkboxMontureBrandCelestron" />
+                                <label htmlFor="checkboxMontureBrandCelestron">Celestron</label>
+                            </div>
+                            <div className="montureFilter__option">
+                                <input onChange={(e) => handleFilter("orion", e.target.value)} value="Orion" type="checkbox" name="mountBrand" id="checkboxMontureBrandOrion" />
+                                <label htmlFor="checkboxMontureBrandOrion">Orion</label>
+                            </div>
+                        <div className="montureFilter__separator"></div>
+                </div>
+                <div className="montureFilter__optionsCont__filter">    
+                    <h2>Type</h2>
+                        <div className="montureFilter__option">
+                            <input onChange={(e) => handleFilter("azi", e.target.value)} value="azimutale" type="checkbox" name="mountType" id="checkboxMontureTypeAzimutale" />
+                            <label htmlFor="checkboxMontureTypeAzimutale">Azimutale</label>
+                        </div>
+                        <div className="montureFilter__option">
+                            <input onChange={(e) => handleFilter("equa", e.target.value)} value="equatoriale" type="checkbox" name="mountType" id="checkboxMontureTypeEquatoriale" />
+                            <label htmlFor="checkboxMontureTypeEquatoriale">Equatoriale</label>
+                        </div>
+                    <div className="montureFilter__separator"></div>
+                </div>
+                <div className="montureFilter__optionsCont__filter">
+                    <h2>Goto</h2>
+                        <div className="montureFilter__option">
+                            <input onChange={(e) => handleFilter("both", e.target.value)} value="false" type="radio" name="mountGoto" id="radioMontureGotoBoth" />
+                            <label htmlFor="radioMontureGotoBoth">Tous</label>
+                        </div>
+                        <div className="montureFilter__option">
+                            <input onChange={(e) => handleFilter("with", e.target.value)} value="true" type="radio" name="mountGoto" id="radioMontureGotoWith" />
+                            <label htmlFor="radioMontureGotoWith">Avec</label>
+                        </div>
+                        <div className="montureFilter__option">
+                            <input onChange={(e) => handleFilter("withNot", e.target.value)} value="false" type="radio" name="mountGoto" id="radioMontureGotoWithNot" />
+                            <label htmlFor="radioMontureGotoWithNot">Sans</label>
+                        </div>
+                    <div className="montureFilter__separator"></div>
+                </div>
+                <div className="montureFilter__optionsCont__filter">
+                    <h2>En stock</h2>
+                        <div className="montureFilter__option">
+                            <input onChange={() => handleFilter("stock")} type="checkbox" id="mountOnStock" />
+                            <label htmlFor="stockFilter">Produits en stock</label>
+                        </div>
+                </div>        
+                </div>
+                <div className="montureFilter__btnCont">
+                    <div className="montureFilter__separator"></div>
+                        <button onClick={getFilteredList} className='montureFilter__btn'>filtrer</button>
+                        <button onClick={removeFilter} className='montureFilter__btn'>Reinitialiser filtres</button>
+                    <div className="montureFilter__separator"></div>
+                </div>
             </section>
             <section className='montureList'>
                 <div className="montureList__top">

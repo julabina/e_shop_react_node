@@ -607,10 +607,14 @@ const CartLocation = (props) => {
                 <p className='cartStepLocation__infosOblig'>Les zones marquées par un astérisque sont obligatoires.</p>
 
                 <div className="cartStepLocation__status">
-                    <input defaultChecked onInput={changeToggleStatus} type="radio" name="status" id="individual" />
-                    <label htmlFor="individual">Je suis un particulier</label>
-                    <input onInput={changeToggleStatus} type="radio" name="status" id="business" />
-                    <label htmlFor="business">Je suis une entreprise</label>
+                    <div className='cartStepLocation__status__radio'>
+                        <input defaultChecked onInput={changeToggleStatus} type="radio" name="status" id="individual" />
+                        <label htmlFor="individual">Je suis un particulier</label>
+                    </div>
+                    <div className='cartStepLocation__status__radio'>
+                        <input onInput={changeToggleStatus} type="radio" name="status" id="business" />
+                        <label htmlFor="business">Je suis une entreprise</label>
+                    </div>
                 </div>
  
                         <form className="cartStepLocation__individual">
@@ -706,7 +710,7 @@ const CartLocation = (props) => {
                                 <div className='cartStepLocation__individual__billLocation__row'>
                                     <div className="cartStepLocation__individual__billLocation__row__cont">
                                         <label htmlFor="">Code postal<span> *</span></label>
-                                        <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('zipCode', e.target.value)} value={inputs.zip} type="number" name="" id="billZipCode" required />
+                                        <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('zipCode', e.target.value)} value={inputs.zip} type="text" name="" id="billZipCode" required />
                                         <span className='cartStepLocation__individual__names__billZipCode__span cartStepLocation__individual__errorSpan'></span>
                                     </div>
                                     <div className="cartStepLocation__individual__billLocation__row__cont">
@@ -741,7 +745,7 @@ const CartLocation = (props) => {
                                     <div className='cartStepLocation__individual__notSameLocation__row'>
                                         <div className="cartStepLocation__individual__notSameLocation__row__cont">
                                             <label htmlFor="">Code postal<span> *</span></label>
-                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('deliveryZipCode', e.target.value)} value={inputs.deliveryZip} type="number" name="" id="deliveryZipCode" required />
+                                            <input className="cartStepLocation__individual__inputs" onInput={(e) => changeInput('deliveryZipCode', e.target.value)} value={inputs.deliveryZip} type="text" name="" id="deliveryZipCode" required />
                                             <span className='cartStepLocation__individual__names__deliveryZipCode__span cartStepLocation__individual__errorSpan'></span>
                                         </div>
                                         <div className="cartStepLocation__individual__notSameLocation__row__cont">

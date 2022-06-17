@@ -252,29 +252,37 @@ const Search = () => {
     return (
         <main className='mainList'>
             <section className='searchFilter'>
-                <h2>Categorie</h2>
-                    <div className="">
-                        <input onChange={(e) => handleFilter("telescope", e.target.value)} value="telescope" type="checkbox" name="searchCategory" id="checkboxCatTelescope" />
-                        <label htmlFor="checkboxCatTelescope">Telescope</label>
-                    </div>
-                    <div className="">
-                        <input onChange={(e) => handleFilter("oculaire", e.target.value)} value="oculaire" type="checkbox" name="searchCategory" id="checkboxCatOculaire" />
-                        <label htmlFor="checkboxCatOculaire">Oculaire</label>
-                    </div>
-                    <div className="">
-                        <input onChange={(e) => handleFilter("monture", e.target.value)} value="monture" type="checkbox" name="searchCategory" id="checkboxCatMonture" />
-                        <label htmlFor="checkboxCatMonture">Monture</label>
-                    </div>
-                    <div className="searchFilter__separator"></div>
-                <h2>En stock</h2>
-                    <div className="">
-                        <input onChange={() => handleFilter("onStock")} type="checkbox" id="telescopeOnStock" />
-                        <label htmlFor="telescopeOnStock">Produits en stock</label>
-                    </div>
+            <div className='searchFilter__optionsCont'>
+                <div className="searchFilter__optionsCont__filter">
+                    <h2>Categorie</h2>
+                        <div className="searchFilter__option">
+                            <input onChange={(e) => handleFilter("telescope", e.target.value)} value="telescope" type="checkbox" name="searchCategory" id="checkboxCatTelescope" />
+                            <label htmlFor="checkboxCatTelescope">Telescope</label>
+                        </div>
+                        <div className="searchFilter__option">
+                            <input onChange={(e) => handleFilter("oculaire", e.target.value)} value="oculaire" type="checkbox" name="searchCategory" id="checkboxCatOculaire" />
+                            <label htmlFor="checkboxCatOculaire">Oculaire</label>
+                        </div>
+                        <div className="searchFilter__option">
+                            <input onChange={(e) => handleFilter("monture", e.target.value)} value="monture" type="checkbox" name="searchCategory" id="checkboxCatMonture" />
+                            <label htmlFor="checkboxCatMonture">Monture</label>
+                        </div>
+                        <div className="searchFilter__separator"></div>
+                </div>
+                <div className="searchFilter__optionsCont__filter">
+                    <h2>En stock</h2>
+                        <div className="searchFilter__option">
+                            <input onChange={() => handleFilter("onStock")} type="checkbox" id="telescopeOnStock" />
+                            <label htmlFor="telescopeOnStock">Produits en stock</label>
+                        </div>
+                </div>
+            </div>
+            <div className='searchFilter__btnCont'>
                 <div className="searchFilter__separator"></div>
                     <button onClick={getFilteredList} className='searchFilter__btn'>filtrer</button>
                     <button onClick={removeFilter} className='searchFilter__btn'>Reinitialiser filtres</button>
                 <div className="searchFilter__separator"></div>
+            </div>
             </section>
             <section className='searchList'>
             { resultData.length > 0 ?

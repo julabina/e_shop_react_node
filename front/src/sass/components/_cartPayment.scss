@@ -55,4 +55,30 @@
     @include forTablet {
         width: 90%;   
     }
+    @include forMobile1 {
+        &__paymentChoice {
+            h3 {
+                font-weight: 600;
+                margin-bottom: 50px;
+            }
+            &__choice {
+                flex-direction: column;
+                align-items: center;
+                height: auto;
+                border-top: 1px solid map-get($map: $colors, $key: grayTrans);
+                input {
+                    margin-right: 0;
+                    width: 20px;
+                    height: 20px;
+                }
+                &__textCont {
+                    width: 100%;
+                    margin: 20px 0;
+                }
+                &:last-child {
+                    border-bottom: 1px solid map-get($map: $colors, $key: grayTrans);
+                }
+            }
+        }
+    }
 }
