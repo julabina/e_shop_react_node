@@ -63,10 +63,10 @@ const OculaireProduct = () => {
                 } else {
                     setInputAddCart("1");
                 }
-                addToLastSeen(item, process.env.PUBLIC_URL + data.data.pictures[0]);
+                addToLastSeen(item, data.data.pictures[0]);
                 fetchComment(productId);
                 setOculaireData(item);
-                setMainPicture(process.env.PUBLIC_URL + data.data.pictures)
+                setMainPicture(data.data.pictures)
             }
         });
 
@@ -349,7 +349,7 @@ const OculaireProduct = () => {
                 <h3>Tout savoir sur {oculaireData.name}</h3>
                 <p className='oculaireInfos__infos__description'>{oculaireData.description1}</p>
                 {oculaireData.description2 !== null && <p className='oculaireInfos__infos__description'>{oculaireData.description2}</p>}
-                {oculaireData.imgDesc !== null && <img className='oculaireInfos__infos__img' src={process.env.PUBLIC_URL + oculaireData.imgDesc} alt={"photo de " + oculaireData.name} />}
+                {oculaireData.imgDesc !== null && <img className='oculaireInfos__infos__img' src={oculaireData.imgDesc} alt={"photo de " + oculaireData.name} />}
                 {oculaireData.description3 !== null && <p className='oculaireInfos__infos__description'>{oculaireData.description3}</p>}
             </div>
             <div className="oculaireInfos__infos">

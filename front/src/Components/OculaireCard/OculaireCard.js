@@ -87,7 +87,7 @@ const OculaireCard = (props) => {
         <li className='oculaireCard' >
                 <NavLink className='oculaireCard__link' to={'/oculaire/ref_=' + productLink}>
                     <h3>{props.name}</h3>
-                    <img className='oculaireCard__img' src={process.env.PUBLIC_URL + props.image} alt={"photo de " + props.name} />
+                    <img className='oculaireCard__img' src={props.image} alt={"photo de " + props.name} />
                 </NavLink>
                 <p className='oculaireCard__price'>{props.promo && <span className='oculaireCard__price__span'>{'-' + props.promoValue + "%"}</span>}{price} €</p>
                 <div className="oculaireCard__addCount">

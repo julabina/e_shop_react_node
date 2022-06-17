@@ -64,7 +64,7 @@ const CartPayment = (props) => {
                     price: cartData[i].price,
                     stock: cartData[i].stock,
                     name: cartData[i].name,
-                    image: process.env.PUBLIC_URL +  cartData[i].image
+                    image: cartData[i].image
                 }
                 newArr.push(item);
             }

@@ -8,7 +8,7 @@ const ProductCarrousel = (props) => {
     useEffect(() => {
         const tinyImgs = document.querySelectorAll('.carrousel__modal__tinyImgs__cont__cover');
         for(let i = 0; i < props.images.length; i++) {
-            let img = process.env.PUBLIC_URL + props.images[i].img;
+            let img = props.images[i].img;
             if (img === props.mainImg) {
                 tinyImgs[i].classList.add('carrousel__modal__tinyImgs__cont__cover--active')
             }
@@ -25,7 +25,7 @@ const ProductCarrousel = (props) => {
                 tinyImgs[i].classList.add('carrousel__modal__tinyImgs__cont__cover--active')
             }
         }
-        let pict =  process.env.PUBLIC_URL + img;
+        let pict =  img;
         setMainPicture(pict);
     }
 
@@ -84,18 +84,18 @@ const ProductCarrousel = (props) => {
                 <div className="carrousel__modal__tinyImgs">
                     <div className="carrousel__modal__tinyImgs__cont">
                         <div onClick={() => changeImg(props.images[0].img, 0)} className="carrousel__modal__tinyImgs__cont__cover"></div>
-                        <img src={process.env.PUBLIC_URL + props.images[0].img} alt="" />
+                        <img src={props.images[0].img} alt="" />
                     </div>
                     {
                         props.images[1] !== undefined && <div className="carrousel__modal__tinyImgs__cont">
                             <div onClick={() => changeImg(props.images[1].img, 1)} className="carrousel__modal__tinyImgs__cont__cover"></div>
-                            <img src={process.env.PUBLIC_URL + props.images[1].img} alt="" />
+                            <img src={props.images[1].img} alt="" />
                         </div>
                     }
                     {
                         props.images[2] !== undefined && <div className="carrousel__modal__tinyImgs__cont">
                             <div onClick={() => changeImg(props.images[2].img, 2)} className="carrousel__modal__tinyImgs__cont__cover"></div>
-                            <img src={process.env.PUBLIC_URL + props.images[2].img} alt="" />
+                            <img src={props.images[2].img} alt="" />
                         </div>
                     }
                 </div>

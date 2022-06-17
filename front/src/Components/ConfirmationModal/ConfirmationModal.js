@@ -33,7 +33,7 @@ const ConfirmationModal = (props) => {
                     price: props.price,
                     stock: props.stock,
                     name: props.name,
-                    image: process.env.PUBLIC_URL + props.img[0].img
+                    image: props.img[0].img
                 }
             } else if(props.category === "telescope") {
                 item = {
@@ -43,7 +43,7 @@ const ConfirmationModal = (props) => {
                     price: props.price,
                     stock: props.stock,
                     name: props.name,
-                    image: process.env.PUBLIC_URL + props.img[0].img
+                    image: props.img[0].img
                 }
             } else if (props.category === "oculaire") {
                 item = {

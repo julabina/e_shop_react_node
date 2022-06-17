@@ -88,7 +88,7 @@ const MontureCard = (props) => {
         <li className='montureCard' >
                 <NavLink className='montureCard__link' to={'/monture/ref_=' + productLink}>
                     <h3>{props.name}</h3>
-                    <img className='montureCard__img' src={process.env.PUBLIC_URL + props.image[0]} alt={"photo de " + props.name} />
+                    <img className='montureCard__img' src={props.image[0]} alt={"photo de " + props.name} />
                 </NavLink>
                 <p className='montureCard__price'>{props.promo && <span className='montureCard__price__span'>{'-' + props.promoValue + "%"}</span>}{price} €</p>
                 <div className="montureCard__addCount">

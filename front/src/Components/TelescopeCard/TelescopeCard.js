@@ -87,7 +87,7 @@ const TelescopeCard = (props) => {
             <li className='telescopeCard' >
                 <NavLink className='telescopeCard__link' to={'/telescope/ref_=' + productLink}>
                     <h3>{props.name}</h3>
-                    <img className='telescopeCard__img' src={process.env.PUBLIC_URL + props.image} alt={"photo de " + props.name} />
+                    <img className='telescopeCard__img' src={props.image} alt={"photo de " + props.name} />
                 </NavLink>
                 <p className='telescopeCard__price'>{props.promo && <span className='telescopeCard__price__span'>{'-' + props.promoValue + "%"}</span>}{price} €</p>
                 <div className="telescopeCard__addCount">

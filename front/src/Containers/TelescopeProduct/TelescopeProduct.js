@@ -72,11 +72,11 @@ const TelescopeProduct = () => {
                 } else {
                     setInputAddCart(1);
                 }
-                addToLastSeen(item, process.env.PUBLIC_URL + data.data.pictures[0]);
+                addToLastSeen(item, data.data.pictures[0]);
                 fetchComment(productId);
                 setPicturesData(newArr);
                 setTelescopeData(item);
-                setMainPicture(process.env.PUBLIC_URL + data.data.pictures[0])
+                setMainPicture(data.data.pictures[0])
             }
         });
 
@@ -231,7 +231,7 @@ const TelescopeProduct = () => {
                 tinyImgs[i].classList.add('telescopeProduct__top__left__tinyImg__cont__cover--active')
             }
         }
-        let pict =  process.env.PUBLIC_URL + img;
+        let pict =  img;
         setMainPicture(pict);
     }
 
@@ -355,7 +355,7 @@ const TelescopeProduct = () => {
                                 return (
                                     <div key={el.id} className="telescopeProduct__top__left__tinyImg__cont">
                                         <div onClick={() => changeImg(el.img, el.ind)} className={el.ind === 0 ? "telescopeProduct__top__left__tinyImg__cont__cover telescopeProduct__top__left__tinyImg__cont__cover--active" : "telescopeProduct__top__left__tinyImg__cont__cover" }></div>
-                                        <img className='telescopeProduct__top__left__tinyImg__cont__img' src={process.env.PUBLIC_URL + el.img} alt={'photo de ' + telescopeData.name} />
+                                        <img className='telescopeProduct__top__left__tinyImg__cont__img' src={el.img} alt={'photo de ' + telescopeData.name} />
                                     </div>
                                 ) 
                             }
@@ -387,7 +387,7 @@ const TelescopeProduct = () => {
                 <h3>Tout savoir sur {telescopeData.name}</h3>
                 <p className='telescopeInfos__infos__description'>{telescopeData.description1}</p>
                 {telescopeData.description2 !== null && <p className='telescopeInfos__infos__description'>{telescopeData.description2}</p>}
-                {telescopeData.imgDesc !== null && <img className='telescopeInfos__infos__img' src={process.env.PUBLIC_URL + telescopeData.imgDesc} alt={"photo de " + telescopeData.name} />}
+                {telescopeData.imgDesc !== null && <img className='telescopeInfos__infos__img' src={telescopeData.imgDesc} alt={"photo de " + telescopeData.name} />}
                 {telescopeData.description3 !== null && <p className='telescopeInfos__infos__description'>{telescopeData.description3}</p>}
             </div>
             <div className="telescopeInfos__infos">
