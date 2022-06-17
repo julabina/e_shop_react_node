@@ -19,8 +19,10 @@ const sequelize = new Sequelize(
     {
         host: 'localhost',
         dialect: 'mariadb',
+        port: 3306,
         dialectOptions: {
-            timezone: 'Etc/GMT-2'
+            timezone: 'Etc/GMT-2',
+            socketPath: '/opt/lampp/var/mysql/mysql.sock'
         },
         logging: false
     }
