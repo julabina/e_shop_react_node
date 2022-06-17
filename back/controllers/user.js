@@ -3,9 +3,15 @@ const { User } = require('../db/sequelize');
 const jwt = require('jsonwebtoken');
 const { v4 } = require('uuid');
 const { ValidationError, UniqueConstraintError } = require('sequelize');
-const product = require('../models/product');
 
+/**
+ * USER SIGNIN
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.signup = (req, res, next) => {
+
     if(req.body.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)) {
         bcrypt.hash(req.body.password, 10)
         .then(hash => {
@@ -17,7 +23,7 @@ exports.signup = (req, res, next) => {
                 user.save()
                     .then(() => {
                         const message = 'Utilisateur créé.';
-                        res.status(201).json({ message })
+                        res.status(201).json({ message });
                     })
                     .catch(error => {
                         if (error instanceof ValidationError) {
@@ -26,7 +32,7 @@ exports.signup = (req, res, next) => {
                         if (error instanceof UniqueConstraintError) {
                             return res.status(400).json({message: error.message, data: error});
                         }
-                        res.status(500).json({ error })
+                        res.status(500).json({ error });
                     });
             })
             .catch(error => {
@@ -37,18 +43,22 @@ exports.signup = (req, res, next) => {
                     return res.status(400).json({message: error.message, data: error});
                 }
                 const message = 'L\'utilisateur n\'a pas pu être créé, réessayez dans quelques instant.';
-                res.status(500).json({ message, data: error })
+                res.status(500).json({ message, data: error });
             });
     } else {
-        const message = "Le mot de passe doit contenir minimiun 1 lettre, 1 majuscule et 1 chiffre et etre composé de minimun 8 caratères."
-        res.status(400).json({ message })
+        const message = "Le mot de passe doit contenir minimiun 1 lettre, 1 majuscule et 1 chiffre et etre composé de minimun 8 caratères.";
+        res.status(400).json({ message });
     }
 };
 
+/**
+ * USER LOGIN
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.login = (req, res, next) => {
-    
-   
-                        
+                     
     User.findOne({ where : { email: req.body.email } })
         .then(user => {
             if (user === null) {
@@ -75,12 +85,19 @@ exports.login = (req, res, next) => {
         .catch(error => res.status(500).json({ error })); 
 };
 
+/**
+ * GET ONE USER
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.findOneUser = (req, res, next) => {
+
     User.findOne({ where: { userId : req.body.userId }})
-    .then(user => {
+        .then(user => {
             if(user !== null) {
                 const message = 'Un utilisateur a bien été trouvé.';
-                res.status(200).json({ message, data: user })
+                res.status(200).json({ message, data: user });
             } else {
                 const message = 'Aucun utilisateur trouvé.';
                 res.status(404).json({ message });
@@ -89,7 +106,14 @@ exports.findOneUser = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
 };
 
+/**
+ * MODIFY PROFIL
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.modifyProfilInfos = (req, res, next) => {
+
     if(req.body.password) {
         req.body.password = null;
     }
@@ -112,7 +136,7 @@ exports.modifyProfilInfos = (req, res, next) => {
                 .then(user => {
                 if(user !== null) {
                     const message = 'Utilisateur bien modifié.';
-                    res.status(200).json({ message })
+                    res.status(200).json({ message });
                 } else {
                     const message = 'Aucun utilisateur trouvé.';
                     res.status(404).json({ message });
@@ -125,7 +149,7 @@ exports.modifyProfilInfos = (req, res, next) => {
                 if (error instanceof UniqueConstraintError) {
                     return res.status(400).json({message: error.message, data: error});
                 }
-                res.status(500).json({ message: "Un problème est survenu.", data: error })
+                res.status(500).json({ message: "Un problème est survenu.", data: error });
             });
         })
         .catch(error => {
@@ -136,11 +160,18 @@ exports.modifyProfilInfos = (req, res, next) => {
                 return res.status(400).json({message: error.message, data: error});
             }
             const message = 'L\'utilisateur n\'a pas pu être modifié, réessayez dans quelques instant.';
-            res.status(500).json({ message, data: error })
+            res.status(500).json({ message, data: error });
         });
-    };
+};
     
+/**
+ * MODIFY PASSWORD
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.modifyPassword = (req, res, next) => {
+
         if(req.body.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)) {
             let password = undefined;
             bcrypt.hash(req.body.password, 10)
@@ -153,7 +184,7 @@ exports.modifyPassword = (req, res, next) => {
                             .then(user => {
                                     if(user !== null) {
                                         const message = 'Mot de passe bien modifié.';
-                                        res.status(200).json({ message })
+                                        res.status(200).json({ message });
                                     } else {
                                         const message = 'Aucun utilisateur trouvé.';
                                         res.status(404).json({ message });
@@ -167,218 +198,51 @@ exports.modifyPassword = (req, res, next) => {
                                 if (error instanceof UniqueConstraintError) {
                                     return res.status(400).json({message: error.message, data: error});
                                 }
-                                res.status(500).json({ message: "Une erreur est survenu.", data: error })
+                                res.status(500).json({ message: "Une erreur est survenu.", data: error });
                             });
                 })
                 .catch(error => res.status(500).json({ error }));  
         } else {
-            const message = "Le mot de passe doit contenir minimiun 1 lettre, 1 majuscule et 1 chiffre et etre composé de minimun 8 caratères."
-            res.status(400).json({ message })
+            const message = "Le mot de passe doit contenir minimiun 1 lettre, 1 majuscule et 1 chiffre et etre composé de minimun 8 caratères.";
+            res.status(400).json({ message });
         }    
-        };
-        
-        exports.modifyEmail = (req, res, next) => {
-            let email = {email: req.body.new};
+};
+  
+/**
+ * MODIFY EMAIL
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+exports.modifyEmail = (req, res, next) => {
+
+    let email = {email: req.body.new};
             
-            User.findOne({where: {userId: req.params.id}}) 
-                .then(user => {
-                    if(user !== null) {
-                        if(user.email === req.body.email) {
-                            return User.update(email, { where: { userId : req.params.id }})
-                            .then(() => {
-                                return User.findOne({ where: { userId : req.params.id }})
-                                        .then(user => {
-                                            if(user !== null) {
-                                                const message = 'Adresse email bien modifié.';
-                                                res.status(200).json({ message })
-                                            } else {
-                                                const message = 'Aucun utilisateur trouvé.';
-                                                res.status(404).json({ message });
-                                            }
-                                        })
-                                        .catch(error => {
-                                            if (error instanceof ValidationError) {
-                                                return res.status(400).json({message: error.message, data: error});
-                                            }
-                                            if (error instanceof UniqueConstraintError) {
-                                                return res.status(400).json({message: error.message, data: error});
-                                            }
-                                            res.status(500).json({ message: "Une erreur est survenu.", data: error })
-                                        });  
-                            })
-                            .catch(error => {
-                                if (error instanceof ValidationError) {
-                                    return res.status(400).json({message: error.message, data: error});
-                                }
-                                if (error instanceof UniqueConstraintError) {
-                                    return res.status(400).json({message: error.message, data: error});
-                                }
-                                res.status(500).json({ message: "Une erreur est survenu.", data: error })
-                            });  
-                        } else {
-                            const message = "L'email ne correspond pas.";
-                            return res.status(401).json({ message });
-                        }
-                    } else {
-                        const message = 'Aucun utilisateur trouvé.';
-                        return res.status(404).json({ message });
-                    }
-                })
-                .catch(error => {
-                    if (error instanceof ValidationError) {
-                        return res.status(400).json({message: error.message, data: error});
-                    }
-                    if (error instanceof UniqueConstraintError) {
-                        return res.status(400).json({message: error.message, data: error});
-                    }
-                    res.status(500).json({ message: "Une erreur est survenu.", data: error })
-                });  
-
-            /* User.update(email, { where: { userId : req.params.id }})
-                .then(() => {
-                    return User.findOne({ where: { userId : req.params.id }})
-                    .then(user => {
-                            if(user !== null) {
-                                const message = 'Adresse email bien modifié.';
-                                res.status(200).json({ message })
-                            } else {
-                                const message = 'Aucun utilisateur trouvé.';
-                                res.status(404).json({ message });
-                            }
-                        })
-                        .catch(error => {
-                            if (error instanceof ValidationError) {
-                                return res.status(400).json({message: error.message, data: error});
-                            }
-                            if (error instanceof UniqueConstraintError) {
-                                return res.status(400).json({message: error.message, data: error});
-                            }
-                            res.status(500).json({ message: "Une erreur est survenu.", data: error })
-                        });      
-                    })
-                    .catch(error => {
-                        if (error instanceof ValidationError) {
-                            return res.status(400).json({message: error.message, data: error});
-                        }
-                        if (error instanceof UniqueConstraintError) {
-                            return res.status(400).json({message: error.message, data: error});
-                        }
-                        res.status(500).json({ message: "Une erreur est survenu.", data: error })
-                    });  */     
-    };
-
-    exports.findName = (req, res, next) => {
-        User.findOne({
-            where: {
-                userId: req.params.id
-            },
-            attributes: ['firstName', 'lastName', 'email', 'mobile'],
-            raw: true
-        })
-            .then(infos => {
-                if (infos !== null) {
-                    const message = "Les infos ont bien été récupéré.";
-                    return res.status(200).json({ message, data: infos })
-                }
-                const message = "Aucun utilisateur trouvé.";
-                res.status(404).json({ message })
-            })
-            .catch(error => res.status(500).json({ error }))
-    };
-
-    exports.deleteAccount = (req, res, next) => {
-        const token = req.headers.authorization.split(' ')[1];
-        const decodeToken = jwt.verify(token,'' + process.env.REACT_APP_JWT_PRIVATE_KEY + '');
-        const idUser = decodeToken.userId;
-
-        let userToDelete = null
-
-        if(req.params.id === idUser) {
-            userToDelete = req.params.id
-        }
-        
-        User.findOne({
-            where: {
-                userId: userToDelete
-            }
-        })
-            .then(user => {
-                let characters  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-                let letters  = 'abcdefghijklmnopqrstuvwxyz';
-                
-                let start = "", body = "", end = ""
-                
-                let startLength = Math.ceil(Math.random() * 100);
-                let bodyLength = Math.ceil(Math.random() * 100);
-                let endLength = Math.ceil(Math.random() * 3) + 1;
-                
-                let charactersLength = characters.length;
-                let lettersLength = letters.length
-                
-                for(let i = 0; i < startLength; i++) {
-                    start += characters.charAt(Math.floor(Math.random() * 
-                 charactersLength));
-                }
-                for(let i = 0; i < bodyLength; i++) {
-                    body += characters.charAt(Math.floor(Math.random() * 
-                   charactersLength));
-                }
-                for(let i = 0; i < endLength; i++) {
-                    end += letters.charAt(Math.floor(Math.random() * 
-                 lettersLength));
-                }    
-
-                let newMail = start + "@" + body + "." + end
-
-                let newUser = {
-                    email: newMail,
-                    password: v4(),
-                    firstName: null,
-                    lastName: null,
-                    mobile: null,
-                    fixe: null,
-                    newsletter: false,
-                    pub: false,
-                    address: null,
-                    addressComp: null,
-                    zip: null,
-                    city: null,
-                    deleveryAddress: null,
-                    deliveryAddressComp: null,
-                    deliveryZip: null,
-                    deliveryCity: null,
-                    company: null,
-                    companyName: null,
-                    fax: null,
-                    tva: null,
-                    siret: null
-                }
-                
-                return User.update( newUser, {
-                     where : {
-                         userId : userToDelete
-                     }
-                 })
-                 .then(() => {
-                    return User.findOne({ where: { userId : userToDelete }})
-                    .then(user => {
-                            if(user !== null) {
-                                const message = 'Utilisateur bien supprimé.';
-                                res.status(200).json({ message })
-                            } else {
-                                const message = 'Aucun utilisateur trouvé.';
-                                res.status(404).json({ message });
-                            }
-                        })
-                        .catch(error => {
-                            if (error instanceof ValidationError) {
-                                return res.status(400).json({message: error.message, data: error});
-                            }
-                            if (error instanceof UniqueConstraintError) {
-                                return res.status(400).json({message: error.message, data: error});
-                            }
-                            res.status(500).json({ message: "Une erreur est survenu.", data: error })
-                        });      
+    User.findOne({where: {userId: req.params.id}}) 
+        .then(user => {
+            if(user !== null) {
+                if(user.email === req.body.email) {
+                    return User.update(email, { where: { userId : req.params.id }})
+                    .then(() => {
+                        return User.findOne({ where: { userId : req.params.id }})
+                                .then(user => {
+                                    if(user !== null) {
+                                        const message = 'Adresse email bien modifié.';
+                                        res.status(200).json({ message })
+                                    } else {
+                                        const message = 'Aucun utilisateur trouvé.';
+                                        res.status(404).json({ message });
+                                    }
+                                })
+                                .catch(error => {
+                                    if (error instanceof ValidationError) {
+                                        return res.status(400).json({message: error.message, data: error});
+                                    }
+                                    if (error instanceof UniqueConstraintError) {
+                                        return res.status(400).json({message: error.message, data: error});
+                                    }
+                                    res.status(500).json({ message: "Une erreur est survenu.", data: error })
+                                });  
                     })
                     .catch(error => {
                         if (error instanceof ValidationError) {
@@ -389,9 +253,165 @@ exports.modifyPassword = (req, res, next) => {
                         }
                         res.status(500).json({ message: "Une erreur est survenu.", data: error })
                     });  
-                    
+                } else {
+                    const message = "L'email ne correspond pas.";
+                    return res.status(401).json({ message });
+                }
+            } else {
+                const message = 'Aucun utilisateur trouvé.';
+                return res.status(404).json({ message });
+            }
+        })
+        .catch(error => {
+            if (error instanceof ValidationError) {
+                return res.status(400).json({message: error.message, data: error});
+            }
+            if (error instanceof UniqueConstraintError) {
+                return res.status(400).json({message: error.message, data: error});
+            }
+            res.status(500).json({ message: "Une erreur est survenu.", data: error })
+        });  
+    
+};
+
+/**
+ * FIND INFOS FROM ONE USER
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+exports.findName = (req, res, next) => {
+
+    User.findOne({
+        where: {
+            userId: req.params.id
+        },
+        attributes: ['firstName', 'lastName', 'email', 'mobile'],
+        raw: true
+    })
+        .then(infos => {
+            if (infos !== null) {
+                const message = "Les infos ont bien été récupéré.";
+                return res.status(200).json({ message, data: infos });
+            }
+            const message = "Aucun utilisateur trouvé.";
+            res.status(404).json({ message });
+        })
+        .catch(error => res.status(500).json({ error }));
+};
+
+/**
+ * DELETE ONE USER
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+exports.deleteAccount = (req, res, next) => {
+
+    const token = req.headers.authorization.split(' ')[1];
+    const decodeToken = jwt.verify(token,'' + process.env.REACT_APP_JWT_PRIVATE_KEY + '');
+    const idUser = decodeToken.userId;
+
+    let userToDelete = null;
+
+    if(req.params.id === idUser) {
+        userToDelete = req.params.id
+    }
+        
+    User.findOne({
+        where: {
+            userId: userToDelete
+        }
+    })
+        .then(user => {
+            let characters  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let letters  = 'abcdefghijklmnopqrstuvwxyz';
+                
+            let start = "", body = "", end = "";
+            
+            let startLength = Math.ceil(Math.random() * 100);
+            let bodyLength = Math.ceil(Math.random() * 100);
+            let endLength = Math.ceil(Math.random() * 3) + 1;
+                
+            let charactersLength = characters.length;
+            let lettersLength = letters.length;
+                
+            for(let i = 0; i < startLength; i++) {
+                start += characters.charAt(Math.floor(Math.random() * 
+             charactersLength));
+            }
+            for(let i = 0; i < bodyLength; i++) {
+                body += characters.charAt(Math.floor(Math.random() * 
+               charactersLength));
+            }
+            for(let i = 0; i < endLength; i++) {
+                end += letters.charAt(Math.floor(Math.random() * 
+             lettersLength));
+            }    
+
+            let newMail = start + "@" + body + "." + end;
+
+            let newUser = {
+                email: newMail,
+                password: v4(),
+                firstName: null,
+                lastName: null,
+                mobile: null,
+                fixe: null,
+                newsletter: false,
+                pub: false,
+                address: null,
+                addressComp: null,
+                zip: null,
+                city: null,
+                deleveryAddress: null,
+                deliveryAddressComp: null,
+                deliveryZip: null,
+                deliveryCity: null,
+                company: null,
+                companyName: null,
+                fax: null,
+                tva: null,
+                siret: null
+            };
+                
+            return User.update( newUser, {
+                where : {
+                     userId : userToDelete
+                 }
             })
-            .catch(error => res.status(500).json({ error }));
+                .then(() => {
+                    return User.findOne({ where: { userId : userToDelete }})
+                    .then(user => {
+                        if(user !== null) {
+                            const message = 'Utilisateur bien supprimé.';
+                            res.status(200).json({ message });
+                        } else {
+                            const message = 'Aucun utilisateur trouvé.';
+                            res.status(404).json({ message });
+                        }
+                    })
+                    .catch(error => {
+                        if (error instanceof ValidationError) {
+                            return res.status(400).json({message: error.message, data: error});
+                        }
+                        if (error instanceof UniqueConstraintError) {
+                            return res.status(400).json({message: error.message, data: error});
+                        }
+                        res.status(500).json({ message: "Une erreur est survenue.", data: error });
+                    });      
+                })
+                .catch(error => {
+                    if (error instanceof ValidationError) {
+                        return res.status(400).json({message: error.message, data: error});
+                    }
+                    if (error instanceof UniqueConstraintError) {
+                        return res.status(400).json({message: error.message, data: error});
+                    }
+                    res.status(500).json({ message: "Une erreur est survenue.", data: error });
+                });  
+            
+    })
+    .catch(error => res.status(500).json({ error }));
 
-
-    };
+};

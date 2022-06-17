@@ -12,6 +12,9 @@ const OrderTypeModel = require('../models/order');
 const RestoreStockModel = require('../models/restoreStock');
 const data = require('../db/mock-products');
 
+/**
+ * CONNECT TO DB
+ */
 const sequelize = new Sequelize(
     'react-Eshop',
     'root',
@@ -28,6 +31,11 @@ const sequelize = new Sequelize(
     }
 )
 
+/**
+ * FIRST INIT DB
+ * CAREFULL
+ * THE DATABASE WILL BE RESET
+ */
 const initDb = () => {
     return sequelize.sync({force: true}).then(() => {
 
@@ -125,4 +133,4 @@ const RestoreStock = RestoreStockModel(sequelize, DataTypes);
 
 module.exports= {
     Comment, User, Product, Order, ProductAttribute, Category, Brand, OculaireCollection, TelescopeType, MountType, RestoreStock, initDb
-}
+};

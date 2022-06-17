@@ -1,5 +1,6 @@
 const { Product } = require('../db/sequelize');
 
+
 exports.stockRestore = (req, res, next) => {
 
     Product.findAll()

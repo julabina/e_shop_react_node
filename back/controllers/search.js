@@ -1,7 +1,14 @@
 const { Op } = require('sequelize');
 const { Product, Category } = require('../db/sequelize');
 
+/**
+ * GET ALL SEEKED PRODUCTS
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.searchProducts = (req, res, next) => {
+
     Category.hasMany(Product, { foreignKey: "categoryId" });
     Product.belongsTo(Category);
     const query = req.query.query;
@@ -17,14 +24,21 @@ exports.searchProducts = (req, res, next) => {
         },
     })
         .then(({count, rows}) => {
-            console.log(rows)
-            res.status(200).json({ count,rows })
+            res.status(200).json({ count,rows });
         })
-    };
+};
     
+/**
+ * GET ALL SEEKED FILTERED PRODUCTS
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.searchProductsFiltered = (req, res, next) => {
+
     Category.hasMany(Product, { foreignKey: "categoryId" });
     Product.belongsTo(Category);
+
     const query = req.query.query;
 
     let categoriesQuery = [];
@@ -70,6 +84,6 @@ exports.searchProductsFiltered = (req, res, next) => {
         },
     })
         .then(({count, rows}) => {
-            res.status(200).json({ count,rows })
+            res.status(200).json({ count,rows });
         })
 };

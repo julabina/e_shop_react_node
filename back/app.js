@@ -31,7 +31,7 @@ app.use('/api/orders', orderRoute);
 app.use('/api/search', searchRoute);
 app.use('/api/contact', contactRoute);
 app.use('/api/restore', restoreRoute);
-app.use('/img', express.static('assets'))
+app.use('/img', express.static('assets'));
 
 
 module.exports = app;
