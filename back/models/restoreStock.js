@@ -3,6 +3,10 @@ module.exports = (sequelize, DataTypes) => {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
+        },
+        date: {
+            type: DataTypes.DATE, 
+            allowNull: true
         }
     },{
         timestamps: true,

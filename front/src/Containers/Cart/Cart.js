@@ -573,7 +573,7 @@ const Cart = () => {
                 
                 {/* 4TH STEP : PAIEMENT */}
                 <section className='cartStepPayment cartStepCart'>
-                    <CartPayment next={() => toNextStep()} previous={() => toPreviousStep()} cart={orderArticles} sendInfos={paymentInfosReceived} delivery={deliveryOptions.price} />
+                    <CartPayment next={() => toNextStep()} previous={() => toPreviousStep()} cart={orderArticles} sendInfos={paymentInfosReceived} delivery={deliveryOptions.price} token={user.token} />
                 </section>
 
                 {/* LAST STEP : CONFIRMATION */}

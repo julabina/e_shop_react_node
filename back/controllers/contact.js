@@ -1,5 +1,11 @@
 let nodeOutlook = require('nodejs-nodemailer-outlook');
 
+/**
+ * SEND EMAIL
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.sendMail = (req, res, next) => {
 
     let mobile = "";
@@ -9,7 +15,6 @@ exports.sendMail = (req, res, next) => {
         }
     }
 
-    /* */
     nodeOutlook.sendEmail({
         auth: {
             user: "julabina@hotmail.fr",
@@ -21,6 +26,6 @@ exports.sendMail = (req, res, next) => {
         text: req.body.contactEmail + " - " + mobile + "  , message :    " + req.body.message,
         onError: (e) => res.status(500).json({error: e}),
         onSuccess: (i) => res.status(200).json({message: "Email envoyé"})
-    })
+    });
 
-}
+};

@@ -1,8 +1,9 @@
 const bcrypt = require('bcrypt');
-const { User, RestoreStock } = require('../db/sequelize');
+const { User } = require('../db/sequelize');
 const jwt = require('jsonwebtoken');
 const { v4 } = require('uuid');
 const { ValidationError, UniqueConstraintError } = require('sequelize');
+const product = require('../models/product');
 
 exports.signup = (req, res, next) => {
     if(req.body.password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)) {
@@ -45,19 +46,9 @@ exports.signup = (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
-
-   /*  RestoreStock.findOne({
-        id: 1
-    })
-        .then(rest => {
-            const currentDate = new Date()
-            const updatedDate = Date.parse(rest.updated)
-            const time = Date.parse(currentDate) - updatedDate
-            if(time > 200000000) {
-
-            }
-        })  */ 
-
+    
+   
+                        
     User.findOne({ where : { email: req.body.email } })
         .then(user => {
             if (user === null) {
@@ -81,7 +72,7 @@ exports.login = (req, res, next) => {
                 })
                 .catch(error => res.status(500).json({ error }));
         })
-        .catch(error => res.status(500).json({ error }));
+        .catch(error => res.status(500).json({ error })); 
 };
 
 exports.findOneUser = (req, res, next) => {

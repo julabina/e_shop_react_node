@@ -1,7 +1,14 @@
 const { Op } = require("sequelize");
 const {Product, ProductAttribute, Brand, Category, TelescopeType, OculaireCollection, MountType,} = require("../db/sequelize");
 
+/**
+ * GET ALL TELESCOPES PRODUCTS
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.findAllTelescope = (req, res, next) => {
+
   Product.hasMany(ProductAttribute, { foreignKey: "productId" });
   ProductAttribute.belongsTo(Product);
   Category.hasMany(Product, { foreignKey: "categoryId" });
@@ -42,7 +49,14 @@ exports.findAllTelescope = (req, res, next) => {
         });
 };
 
+/**
+ * GET ALL OCULAIRES PRODUCTS
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.findAllOculaire = (req, res, next) => {
+
   Product.hasMany(ProductAttribute, { foreignKey: "productId" });
   ProductAttribute.belongsTo(Product);
   Category.hasMany(Product, { foreignKey: "categoryId" });
@@ -83,7 +97,14 @@ exports.findAllOculaire = (req, res, next) => {
     });
 };
 
+/**
+ * GET ALL MONTURES PRODUCTS
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.findAllMonture = (req, res, next) => {
+
   Product.hasMany(ProductAttribute, { foreignKey: "productId" });
   ProductAttribute.belongsTo(Product);
   Category.hasMany(Product, { foreignKey: "categoryId" });
@@ -124,7 +145,14 @@ exports.findAllMonture = (req, res, next) => {
     });
 };
 
+/**
+ * GET ONE TELESCOPE PRODUCT
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.findOneTelescope = (req, res, next) => {
+
   Product.hasMany(ProductAttribute, { foreignKey: "productId" });
   ProductAttribute.belongsTo(Product);
   Category.hasMany(Product, { foreignKey: "categoryId" });
@@ -165,7 +193,14 @@ exports.findOneTelescope = (req, res, next) => {
     });
 };
 
+/**
+ * GET ONE OCULAIRE PRODUCT
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.findOneOculaire = (req, res, next) => {
+    
   Product.hasMany(ProductAttribute, { foreignKey: "productId" });
   ProductAttribute.belongsTo(Product);
   Category.hasMany(Product, { foreignKey: "categoryId" });
@@ -206,7 +241,14 @@ exports.findOneOculaire = (req, res, next) => {
     });
 };
 
+/**
+ * GET ONE MONTURE PRODUCT
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.findOneMonture = (req, res, next) => {
+
   Product.hasMany(ProductAttribute, { foreignKey: "productId" });
   ProductAttribute.belongsTo(Product);
   Category.hasMany(Product, { foreignKey: "categoryId" });
@@ -239,7 +281,7 @@ exports.findOneMonture = (req, res, next) => {
     ],
   })
     .then((monture) => {
-        const message = "Une monture a bien été trouvé.";
+        const message = "Une monture a bien été trouvée.";
         res.status(200).json({ message, data: monture });
     })
     .catch((error) => {
@@ -247,11 +289,19 @@ exports.findOneMonture = (req, res, next) => {
     });
 };
 
+/**
+ * GET ALL PROMOTION PRODUCTS
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.findPromo = (req, res, next) => {
+
     Category.hasMany(Product, { foreignKey: "categoryId" });
     Product.belongsTo(Category);
 
     let catArr = [], includeOption;
+
     if(req.body.telescope) {
         catArr.push("telescope")
     }
@@ -304,7 +354,14 @@ exports.findPromo = (req, res, next) => {
         .catch((error) => res.status(500).json({ error }));
 };
 
+/**
+ * GET FILTERED TELESCOPES PRODUCTS
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.findFilteredTelescopes = (req, res, next) => {
+
   Product.hasMany(ProductAttribute, { foreignKey: "productId" });
   ProductAttribute.belongsTo(Product);
   Category.hasMany(Product, { foreignKey: "categoryId" });
@@ -429,7 +486,14 @@ exports.findFilteredTelescopes = (req, res, next) => {
   });
 };
 
+/**
+ * GET FILTERED OCULAIRES PRODUCTS
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.findFilteredOculaires = (req, res, next) => {
+
   Product.hasMany(ProductAttribute, { foreignKey: "productId"});
   ProductAttribute.belongsTo(Product);
   Category.hasMany(Product, { foreignKey: "categoryId" });
@@ -455,8 +519,7 @@ exports.findFilteredOculaires = (req, res, next) => {
 
 
   if(req.body.model !== undefined) {
-  
-
+ 
         if (req.body.brand[0] === "Sky-Watcher") {
             if (req.body.model === "Super Plössl") {
                 oculaireModel = req.body.model;
@@ -587,7 +650,14 @@ exports.findFilteredOculaires = (req, res, next) => {
   });
 };
 
+/**
+ * GET FILTERED MONTURES PRODUCTS
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.findFilteredMontures = (req, res, next) => {
+
   Product.hasMany(ProductAttribute, { foreignKey: "productId" });
   ProductAttribute.belongsTo(Product);
   Category.hasMany(Product, { foreignKey: "categoryId" });
@@ -713,7 +783,14 @@ if(req.body.type === undefined) {
   });
 };
 
+/**
+ * DECREASE STCOK TO ONE PRODUCT 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.removeStock = (req, res, next) => {
+
     if(req.body.id) {
         req.body.id = null
     }
@@ -754,14 +831,23 @@ exports.removeStock = (req, res, next) => {
     Product.findByPk(req.params.id)
         .then(product => {
             if(product !== null) {
+
+                let newStock;
+
+                if (req.body.stock > product.stock) {
+                    return res.status(401).json({message: "Le stock ne peut pas etre inférieur au stock disponible."});
+                } else {
+                    newStock = product.stock - req.body.stock;
+                }
+
                 return product.update({
-                    stock: req.body.stock
+                    stock: newStock
                 })
                     .then(() => {
-                       res.status(200).json({ product })
+                       res.status(200).json({ message : "Le stock a bien été mis à jour.", data: product });
                     })
-                    .catch(error => res.status(500).json({ error }))
+                    .catch(error => res.status(500).json({ error }));
             }
         })
-        .catch(error => res.status(500).json({ error }))
+        .catch(error => res.status(500).json({ error }));
 };

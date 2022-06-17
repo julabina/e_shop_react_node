@@ -119,9 +119,32 @@ const CartPayment = (props) => {
             }
             
             if(validate) {
-                sendInfos();
+                removeStock()
             }
         })  
+    }
+
+    const removeStock = () => {
+        let promiseArr = [];
+
+        for(let i = 0; i < cart.length; i++) {
+            let promise = fetch('http://localhost:3000/api/products/' + cart[i].id, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    "Authorization": "Bearer " + props.token
+                },
+                method : 'PUT',
+                body: JSON.stringify({ stock: parseInt(cart[i].count) })
+            });
+            promiseArr.push(promise);
+        }
+
+        Promise.all(promiseArr)
+            .then(() => {
+                sendInfos()
+            })
+            
     }
 
     const emptyCart = () => {

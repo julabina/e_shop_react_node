@@ -1,7 +1,14 @@
 const { Order } = require('../db/sequelize');
 const { v4 } = require('uuid');
 
+/**
+ * CREATE ORDER
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.createOrder = (req, res, next) => {
+
     let instruction, deliveryInformation;
 
     if(req.body.instruction === "" || req.body.instruction === undefined) {
@@ -35,6 +42,12 @@ exports.createOrder = (req, res, next) => {
 
 };
 
+/**
+ * GET ORDER
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 exports.getOrders = (req, res, next) => {
     Order.findAll({
         where: {
@@ -44,10 +57,10 @@ exports.getOrders = (req, res, next) => {
         .then(orders => {
             if(orders !== null) {
                 const message = "La liste des commandes a bien été récupérée.";
-                return res.status(200).json({ message, data: orders })
+                return res.status(200).json({ message, data: orders });
             }
             const message = "Aucune commande trouvée.";
-            return res.status(404).json({ message })
+            return res.status(404).json({ message });
         })
-        .catch(error => res.status(500).json({ error }))
+        .catch(error => res.status(500).json({ error }));
 };
