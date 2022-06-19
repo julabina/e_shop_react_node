@@ -6,30 +6,44 @@ const ProductCarrousel = (props) => {
     const previous = '<', next = ">";
 
     useEffect(() => {
+
         const tinyImgs = document.querySelectorAll('.carrousel__modal__tinyImgs__cont__cover');
         for(let i = 0; i < props.images.length; i++) {
             let img = props.images[i].img;
             if (img === props.mainImg) {
-                tinyImgs[i].classList.add('carrousel__modal__tinyImgs__cont__cover--active')
+                tinyImgs[i].classList.add('carrousel__modal__tinyImgs__cont__cover--active');
             }
         }
+
     },[])
 
+    /**
+     * CHANGE CARROSUSEL IMAGE
+     * @param {*} img 
+     * @param {*} ind 
+     */
     const changeImg = (img, ind) => {
+
         const tinyImgs = document.querySelectorAll('.carrousel__modal__tinyImgs__cont__cover');
         for (let i = 0; i < tinyImgs.length; i++) {
             if (tinyImgs[i].classList.contains('carrousel__modal__tinyImgs__cont__cover--active') && i !== parseInt(ind)) {
                 tinyImgs[i].classList.remove('carrousel__modal__tinyImgs__cont__cover--active');
             }
             if(i === parseInt(ind) && !tinyImgs[i].classList.contains('carrousel__modal__tinyImgs__cont__cover--active')) {
-                tinyImgs[i].classList.add('carrousel__modal__tinyImgs__cont__cover--active')
+                tinyImgs[i].classList.add('carrousel__modal__tinyImgs__cont__cover--active');
             }
         }
         let pict =  img;
         setMainPicture(pict);
     }
 
+    /**
+     * CONTROL BUTTON FOR IMAGE CHANGING
+     * @param {*} action 
+     * @returns 
+     */
     const changeImage = (action) => {
+
         const tinyImgs = document.querySelectorAll('.carrousel__modal__tinyImgs__cont__cover'); 
         let main = mainPicture;
         let index;
@@ -48,25 +62,25 @@ const ProductCarrousel = (props) => {
         if(action === 'next') {
             if(index === (props.images.length - 1)) {
                 tinyImgs[0].classList.add('carrousel__modal__tinyImgs__cont__cover--active');
-                return setMainPicture(props.images[0].img)
+                return setMainPicture(props.images[0].img);
             } else {
                 let val = index + 1;
                 tinyImgs[val].classList.add('carrousel__modal__tinyImgs__cont__cover--active');
-                return setMainPicture(props.images[val].img)
+                return setMainPicture(props.images[val].img);
             }
         } else if (action === 'prev') {
             if(index === 0) {
                 let val = props.images.length - 1;
                 tinyImgs[val].classList.add('carrousel__modal__tinyImgs__cont__cover--active');
-                return setMainPicture(props.images[val].img)
+                return setMainPicture(props.images[val].img);
             } else {
                 let val = index - 1;
                 tinyImgs[val].classList.add('carrousel__modal__tinyImgs__cont__cover--active');
-                return setMainPicture(props.images[val].img)
+                return setMainPicture(props.images[val].img);
             }
         }
         
-    }
+    };
 
     return (
         <div className='carrousel'>

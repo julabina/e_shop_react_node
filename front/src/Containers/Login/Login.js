@@ -16,6 +16,7 @@ const Login = () => {
     const [toggleUserAction, setToggleUserAction] = useState(true);
 
     useEffect(() => {
+
         window.scrollTo(0, 0);
 
         if (localStorage.getItem('token') !== null) {
@@ -27,30 +28,36 @@ const Login = () => {
                 if (decodedToken.userId !== token.content || isTokenExpired === true) {
                     dispatch ({
                         type: 'DISCONNECT'
-                    })
+                    });
                     localStorage.removeItem('token');
                     return setIsLogged(false);
                 };
                 dispatch ({
                     type: 'LOG'
-                })
+                });
                 setIsLogged(true);
             } else {
                 dispatch ({
                     type: 'DISCONNECT'
-                })
+                });
                 setIsLogged(false);
             };
         } else {
             dispatch ({
                 type: 'DISCONNECT'
-            })
+            });
             setIsLogged(false);
         }; 
 
     },[]);
 
+    /**
+     * VALIDATE LOG INPUTS
+     * @param {*} e 
+     * @returns 
+     */
     const verifyToLog = (e) => {
+
         if (e !== undefined) {
             e.preventDefault();
         }
@@ -68,6 +75,13 @@ const Login = () => {
         tryToLog(loginInputs.email, loginInputs.password);
     };
 
+    /**
+     * POST TO BACK-END LOGIN INFORMATIONS
+     * IF OK BACK-END SEND TOKEN
+     * GO TO USER ACCOUNT PAGE
+     * @param {*} email 
+     * @param {*} password 
+     */
     const tryToLog = (email, password) => {
 
         fetch("http://localhost:3000/api/users/login", {
@@ -84,9 +98,9 @@ const Login = () => {
                         let newObj = {
                             version: data.token,
                             content: data.userId
-                        }
+                        };
                         localStorage.setItem('token', JSON.stringify(newObj)); 
-                        navigate('/userAccount', { replace: true })
+                        navigate('/userAccount', { replace: true });
                     } else if (data.message) {
                         setLogErrorMsg(data.message || data.error);
                     }
@@ -94,7 +108,13 @@ const Login = () => {
                 .catch(error => setLogErrorMsg(error));
     };
 
+    /**
+     * VALIDATE SIGN INPUTS
+     * @param {*} e 
+     * @returns 
+     */
     const verifyToSign = (e) => {
+
         if (e !== undefined) {
             e.preventDefault();
         }
@@ -115,6 +135,12 @@ const Login = () => {
         tryToSign(signInputs.email, signInputs.password);
     };
 
+    /**
+     * POST SIGNIN INFORMATIONS TO BACK-END
+     * IF OK TRY TO LOG
+     * @param {*} email 
+     * @param {*} password 
+     */
     const tryToSign = (email, password) => {
 
         fetch("http://localhost:3000/api/users/signup", {
@@ -129,23 +155,28 @@ const Login = () => {
                     if (res.status === 201) {
                         const newObj = {
                             ...signInputs
-                        }
+                        };
                         setLoginInputs(newObj);
                         setToggleUserAction(!toggleActionUser);
                         return tryToLog(email, password);
                     } 
                     
-                    return res.json()
+                    return res.json();
                     
                 })
-                .then(data => {
-                    return setSignErrorMsg(data.message);    
-                })
-                .catch(error => {
-                    return console.error(error)
-                });
-    }
+                    .then(data => {
+                        return setSignErrorMsg(data.message);    
+                    })
+                    .catch(error => {
+                        return console.error(error);
+                    });
+    };
 
+    /**
+     * CONTROL LOG INPUTS
+     * @param {*} action 
+     * @param {*} value 
+     */
     const handleLoginInputs = (action, value) => {
         if (action === "email") {
             const newObj = {
@@ -162,6 +193,11 @@ const Login = () => {
         }
     }
 
+    /**
+     * CONTROL SIGN INPUTS
+     * @param {*} action 
+     * @param {*} value 
+     */
     const handleSignInputs = (action, value) => {
         if (action === "email") {
             const newObj = {
@@ -178,25 +214,34 @@ const Login = () => {
         }
     }
 
+    /**
+     * TOGGLE LOG OR SIGN
+     */
     const toggleActionUser = () => {
         setToggleUserAction(!toggleUserAction);
     }
 
+    /**
+     * CONTROL ACCEPT CGU INPUT
+     */
     const toggleCguCheck = () => {
         const newObj = {
             ...signInputs,
             cgu: !signInputs.cgu
-        }
-        setSignInputs(newObj)
+        };
+        setSignInputs(newObj);
     }
     
+    /**
+     * DISCONNECTING
+     */
     const logOut = () => {
         dispatch ({
             type: 'DISCONNECT'
-        })
+        });
         localStorage.removeItem('token');
-        window.location.reload(false)
-    }
+        window.location.reload(false);
+    };
 
     return (
         <main className='login'>

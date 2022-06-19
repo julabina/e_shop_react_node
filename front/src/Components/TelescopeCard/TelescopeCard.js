@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 
 const TelescopeCard = (props) => {
-    const dispatch = useDispatch();
+
     let inputFirstValue;
     
     (props.stock === 0) ? (inputFirstValue = 0): (inputFirstValue = 1);
@@ -14,6 +13,7 @@ const TelescopeCard = (props) => {
     const [productLink, setProductLink] = useState(props.id);
 
     useEffect(() => {
+
         let val;
         if(props.promo === true) {
             let reduction = (props.price / 100) * props.promoValue;
@@ -23,11 +23,17 @@ const TelescopeCard = (props) => {
         }
         setPrice((val).toFixed(2));
         if(props.lastSeen) {
-            let newId = props.id.slice(0, (props.id.length - 8))
-            setProductLink(newId)
+            let newId = props.id.slice(0, (props.id.length - 8));
+            setProductLink(newId);
         }
+
     },[]);
 
+    /**
+     * CONTROL INPUTS
+     * @param {*} action 
+     * @param {*} value 
+     */
     const changeInputValue = (action, value) => {
         const lessBtn = document.getElementById('telescopeCard__lessBtn' + props.id);
         const addBtn = document.getElementById('telescopeCard__addBtn' + props.id);
@@ -39,49 +45,48 @@ const TelescopeCard = (props) => {
 
         if(action === 'add') {
             
-            (inputValue !== props.stock) ? (newVal = val + 1) : (newVal = val)
+            (inputValue !== props.stock) ? (newVal = val + 1) : (newVal = val);
 
         } else if(action === 'less') {
             
-            (val > 1) ? (newVal = val -1) : (newVal = val)
+            (val > 1) ? (newVal = val -1) : (newVal = val);
             
         } else if(action === 'change') {
             newVal = parseInt(value);
             
-            (newVal >= props.stock) && (newVal = props.stock)
+            (newVal >= props.stock) && (newVal = props.stock);
         }
         
         if(newVal > 1 && newVal !== props.stock) {
-            console.log("TEST");
             if(lessBtn.classList.contains('telescopeCard__addCount__btn--unselected')) {
-                lessBtn.classList.remove('telescopeCard__addCount__btn--unselected')
+                lessBtn.classList.remove('telescopeCard__addCount__btn--unselected');
             } 
             if(addBtn.classList.contains('telescopeCard__addCount__btn--unselected')) {
-                addBtn.classList.remove('telescopeCard__addCount__btn--unselected')
+                addBtn.classList.remove('telescopeCard__addCount__btn--unselected');
             }
         } else if(newVal === 1) {
             if(addBtn.classList.contains('telescopeCard__addCount__btn--unselected')) {
-                addBtn.classList.remove('telescopeCard__addCount__btn--unselected')
+                addBtn.classList.remove('telescopeCard__addCount__btn--unselected');
             }
 
             if(!lessBtn.classList.contains('telescopeCard__addCount__btn--unselected')) {
-                lessBtn.classList.add('telescopeCard__addCount__btn--unselected')
+                lessBtn.classList.add('telescopeCard__addCount__btn--unselected');
             }
         } else if(newVal === props.stock) {
             if (newVal === 2) {
                 if(lessBtn.classList.contains('telescopeCard__addCount__btn--unselected')) {
-                    lessBtn.classList.remove('telescopeCard__addCount__btn--unselected')
+                    lessBtn.classList.remove('telescopeCard__addCount__btn--unselected');
                 } 
                 if(addBtn.classList.contains('telescopeCard__addCount__btn--unselected')) {
-                    addBtn.classList.remove('telescopeCard__addCount__btn--unselected')
+                    addBtn.classList.remove('telescopeCard__addCount__btn--unselected');
                 }
             }
             if(!addBtn.classList.contains('telescopeCard__addCount__btn--unselected')) {
-                addBtn.classList.add('telescopeCard__addCount__btn--unselected')
+                addBtn.classList.add('telescopeCard__addCount__btn--unselected');
             }
         }
         setInputValue(newVal);
-    }
+    };
 
     return (
             <li className='telescopeCard' >

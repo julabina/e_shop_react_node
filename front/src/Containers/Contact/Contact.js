@@ -9,6 +9,7 @@ const Contact = () => {
     const [contactFormData, setContactFormData] = useState({ firstName: "", lastName: "", email: "", mobile: "", message: "" });
 
     useEffect(() => {
+
         window.scrollTo(0, 0);
 
         if (localStorage.getItem('token') !== null) {
@@ -20,43 +21,53 @@ const Contact = () => {
                 if (decodedToken.userId !== token.content || isTokenExpired === true) {
                     dispatch ({
                         type: 'DISCONNECT'
-                    })
+                    });
                     return localStorage.removeItem('token'); 
                 };
                 dispatch ({
                     type: 'LOG'
-                })
+                });
                 getInfos(token.content);
             } else {
                 dispatch ({
                     type: 'DISCONNECT'
-                })
+                });
             };
         } else {
             dispatch ({
                 type: 'DISCONNECT'
-            })
+            });
         }; 
 
-    },[])
+    },[]);
 
+    /**
+     * GET FIRSTNAME, LASTNAME, EMAIL AND MOBILE FROM USER
+     * @param {*} userId 
+     */
     const getInfos = (userId) => {
+
         fetch('http://localhost:3000/api/users/' + userId)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 let newObj = {
                     ...contactFormData,
                     firstName: data.data.firstName === null ? "" : data.data.firstName ,
                     lastName: data.data.lastName === null ? "" : data.data.lastName,
                     email: data.data.email,
                     mobile: data.data.mobile === null ? "" : data.data.mobile,
-                }
-                setContactFormData(newObj)
+                };
+                setContactFormData(newObj);
             })
     };
 
+    /**
+     * CONTROL INPUTS
+     * @param {*} action 
+     * @param {*} value 
+     */
     const handleInputs = (action, value) => {
+
         if(action === "firstName") {
             const newObj = {
                 ...contactFormData,
@@ -88,64 +99,74 @@ const Contact = () => {
             };
             setContactFormData(newObj);
         } 
-    }
+    };
     
+    /**
+     * VALIDATE INPUTS
+     * @param {*} e 
+     * @returns 
+     */
     const sendMsg = (e) => {
         e.preventDefault();
+
         const errorCont = document.querySelector(".contact__errorCont");        
         let error = "";
 
-        // vérification prenom
+        // VALIDATE FIRSTNAME
         if(contactFormData.firstName === "") {
-            error += `<p>- Le prénom ne doit pas être vide.</p>`
+            error += `<p>- Le prénom ne doit pas être vide.</p>`;
         } else if (contactFormData.firstName.length < 3 || contactFormData.firstName.length > 25) {
-            error += `<p>- Le prénom doit être compris entre 2 et 25 caratères.</p>`
+            error += `<p>- Le prénom doit être compris entre 2 et 25 caratères.</p>`;
         } else if (!contactFormData.firstName.match(/^[a-zA-Zé èà]*$/)) {
-            error += `<p>- Le prénom ne doit comporter que des lettres.</p>`
+            error += `<p>- Le prénom ne doit comporter que des lettres.</p>`;
         } 
         
-        // vérification nom
+        // VALIDATE LASTNAME
         if(contactFormData.lastName === "") {
-            error += `<p>- Le nom ne doit pas être vide.</p>`
+            error += `<p>- Le nom ne doit pas être vide.</p>`;
         } else if (contactFormData.lastName.length < 3 || contactFormData.lastName.length > 25) {
-            error += `<p>- Le nom doit être compris entre 2 et 25 caratères.</p>`
+            error += `<p>- Le nom doit être compris entre 2 et 25 caratères.</p>`;
         } else if (!contactFormData.lastName.match(/^[a-zA-Zé èà]*$/)) {
-            error += `<p>- Le nom ne doit comporter que des lettres.</p>`
+            error += `<p>- Le nom ne doit comporter que des lettres.</p>`;
         } 
 
-        // vérification mail
+        // VALIDATE EMAIL
         if(contactFormData.email === "") {
-            error += `<p>- Le mail ne doit pas être vide.</p>`
+            error += `<p>- Le mail ne doit pas être vide.</p>`;
         } else if (!contactFormData.email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i)) {
-            error += `<p>- Le mail n'a pas un format valide. </p>`
+            error += `<p>- Le mail n'a pas un format valide. </p>`;
         } 
 
-        // vérification mobile
+        // VALIDATE MOBILE
         if(contactFormData.mobile === "") {
         } else if (!contactFormData.mobile.match(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/)) {
-            error += `<p>- Le mobile n'a pas un format valide'. </p>`
+            error += `<p>- Le mobile n'a pas un format valide'. </p>`;
         }
      
-        // vérification message
+        // VALIDATE MESSAGE
         if(contactFormData.message !== "") {
             if (contactFormData.message.length < 3 || contactFormData.message.length > 200) {
-                error += `<p>- Le message doit avoir entre 2 et 200 caratères.</p>`
+                error += `<p>- Le message doit avoir entre 2 et 200 caratères.</p>`;
             } else if (!contactFormData.message.match(/^[a-zA-Z0-9 -/'",.!?€$%()éèçà]+$/)) {
-                error += `<p>- Les caractères spéciaux ne sont pas admis. </p>`
+                error += `<p>- Les caractères spéciaux ne sont pas admis. </p>`;
             }
         } else {
-            error += `<p>- Le message ne doit pas être vide.</p>`
+            error += `<p>- Le message ne doit pas être vide.</p>`;
         }
 
         if (error !== "") {
             return errorCont.innerHTML = error;
         }
         
-        mailSend()
+        mailSend();
 
-    }
+    };
 
+    /**
+     * SEND TO BACK-END, MESSAGE AND INFORMATIONS
+     */
     const mailSend = () => {
+
         fetch('http://localhost:3000/api/contact/send', {
             headers: {
                 'Accept': 'application/json',
@@ -164,14 +185,14 @@ const Contact = () => {
                     const newObj = {
                         ...contactFormData,
                         message: ""
-                    }
-                    setContactFormData(newObj)
+                    };
+                    setContactFormData(newObj);
                 } else {
                     successCont.innerHTML = "";
                     errorCont.innerHTML = `<p>- Le message n'a pas pu être envoyé, veuillez réessayer plus tard.</p>`;
                 }
             })
-    }
+    };
 
     return (
         <main>

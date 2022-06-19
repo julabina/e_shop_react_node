@@ -1,6 +1,6 @@
 const INITIAL_STATE = {
     cart : []
-}
+};
 
 function cartReducer(state= INITIAL_STATE, action) {
 
@@ -13,10 +13,10 @@ function cartReducer(state= INITIAL_STATE, action) {
         }
         case 'ADDTOCART': {
             const cartArr = [...state.cart];
-            const actPay = action.payload
+            const actPay = action.payload;
             
-            let newArr = cartArr.filter(el => el.category === actPay.category)
-            let newArrFiltered = cartArr.filter(el => el.category !== actPay.category)
+            let newArr = cartArr.filter(el => el.category === actPay.category);
+            let newArrFiltered = cartArr.filter(el => el.category !== actPay.category);
             
             if (newArr.length > 0) {
                 let exist = false;
@@ -28,7 +28,7 @@ function cartReducer(state= INITIAL_STATE, action) {
                             val = newArr[i].stock;
                         }
                         newArr[i].count = val;
-                        exist = true
+                        exist = true;
                     } 
                 }
                 if (exist === false) {
@@ -54,6 +54,6 @@ function cartReducer(state= INITIAL_STATE, action) {
 
     return state;
 
-}
+};
 
 export default cartReducer;

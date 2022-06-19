@@ -13,7 +13,7 @@ const Cart = () => {
 
     const { cart } = useSelector(state => ({
         ...state.cartReducer
-    }))
+    }));
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -28,7 +28,7 @@ const Cart = () => {
     const [orderHour, setOrderHour] = useState();
     const [orderNumber, setOrderNumber] = useState("");
     const [isLogged, setIsLogged] = useState(false);
-    const [user, setUser] = useState({id: "", token: ""})
+    const [user, setUser] = useState({id: "", token: ""});
     const [modalDelete, setModalDelete] = useState(false);
     const [idToDelete, setIdToDelete] = useState("");
     const [modalCartInfos, setModalCartInfos] = useState(false);
@@ -36,9 +36,10 @@ const Cart = () => {
     const [emptyCartModal, setEmptyCartModal] = useState(false);
     
     useEffect(() => {
+
         window.scrollTo(0, 0);
 
-        let promiseArr = []
+        let promiseArr = [];
 
         for(let i = 0; i < cart.length; i++) {
             let promise = fetch('http://localhost:3000/api/products/' + cart[i].category + 's/' + cart[i].id).then(res => res.json());
@@ -46,42 +47,40 @@ const Cart = () => {
         }
 
         Promise.all(promiseArr)
-        .then(data => {
-            console.log(data);
-            let newArr = [], total = 0;
-            for (let i = 0; i < data.length; i++) {
-                if(data[i].data !== undefined) {              
-                    let image, price = 0;
-                    if (cart[i].category === "oculaire") {
-                        image = data[i].data.pictures 
-                    } else {
-                        image = data[i].data.pictures[0] 
+            .then(data => {
+                let newArr = [], total = 0;
+                for (let i = 0; i < data.length; i++) {
+                    if(data[i].data !== undefined) {              
+                        let image, price = 0;
+                        if (cart[i].category === "oculaire") {
+                            image = data[i].data.pictures; 
+                        } else {
+                            image = data[i].data.pictures[0]; 
+                        }
+                        if(data[i].data.promo) {
+                            price = (parseFloat(data[i].data.price) - (parseFloat(data[i].data.price / 100) * data[i].data.promoValue));
+                        } else {
+                            price = data[i].data.price;
+                        }
+                        let item = {
+                            category: cart[i].category,
+                            id: data[i].data.id,
+                            count: cart[i].count,
+                            price: (price).toFixed(2),
+                            name: data[i].data.name,
+                            image: image,
+                            stock: data[i].data.stock,
+                            key: uuidv4()
+                        };
+                        
+                        total += price * parseInt(cart[i].count);
+                        
+                        newArr.push(item);
                     }
-                    if(data[i].data.promo) {
-                        price = (parseFloat(data[i].data.price) - (parseFloat(data[i].data.price / 100) * data[i].data.promoValue))
-                    } else {
-                        price = data[i].data.price;
-                    }
-                    let item = {
-                        category: cart[i].category,
-                        id: data[i].data.id,
-                        count: cart[i].count,
-                        price: (price).toFixed(2),
-                        name: data[i].data.name,
-                        image: image,
-                        stock: data[i].data.stock,
-                        key: uuidv4()
-                    }
-                    
-                    total += price * parseInt(cart[i].count);
-                    
-                    newArr.push(item);
                 }
-            }
-            console.log(newArr);
-            setTotalCart(total.toFixed(2));
-            setCartData(newArr);
-        });
+                setTotalCart(total.toFixed(2));
+                setCartData(newArr);
+            });
         
         if (localStorage.getItem('token') !== null) {
             let getToken = localStorage.getItem('token');
@@ -92,35 +91,39 @@ const Cart = () => {
                 if (decodedToken.userId !== token.content || isTokenExpired === true) {
                     dispatch ({
                         type: 'DISCONNECT'
-                    })
+                    });
                     localStorage.removeItem('token');
                     return setIsLogged(false);
                 };
                 const newUserObj = {
                     id: decodedToken.userId,
                     token: token.version
-                }
+                };
                 setUser(newUserObj);
                 dispatch ({
                     type: 'LOG'
-                })
+                });
                 setIsLogged(true);
             } else {
                 dispatch ({
                     type: 'DISCONNECT'
-                })
+                });
                 setIsLogged(false);
             };
         } else {
             dispatch ({
                 type: 'DISCONNECT'
-            })
+            });
             setIsLogged(false);
         }; 
          
-    },[])
+    },[]);
 
+    /**
+     * UPDATE CART LOCALSTORAGE
+     */
     const changeLocalStorage = () => {
+
         let newArr = [];
         for (let i = 0; i < cartData.length; i++) {
             let item = {
@@ -131,18 +134,21 @@ const Cart = () => {
                 stock: cartData[i].stock,
                 name: cartData[i].name,
                 image: cartData[i].image
-            }
+            };
             newArr.push(item);
         }
 
         dispatch ({
             type: 'UPDATECART',
             payload: newArr
-        }) 
-    }
+        }) ;
+    };
 
+    /**
+     * CHECK CART INVENTORY
+     */
     const verifyCart = () => {
-        let promiseArr = []
+        let promiseArr = [];
 
         for(let i = 0; i < cart.length; i++) {
             let promise = fetch('http://localhost:3000/api/products/' + cart[i].category + 's/' + cart[i].id).then(res => res.json());
@@ -150,49 +156,53 @@ const Cart = () => {
         }
 
         Promise.all(promiseArr)
-        .then(data => {
-            for (let i = 0; i < data.length; i++) {
-                
-                if (data[i].data.stock === 0) {
-                    const newArr = cartData;
-                    newArr[i].stock = data[i].data.stock;
-                    newArr[i].count = data[i].data.stock;
+            .then(data => {
+                for (let i = 0; i < data.length; i++) {
+                    
+                    if (data[i].data.stock === 0) {
+                        const newArr = cartData;
+                        newArr[i].stock = data[i].data.stock;
+                        newArr[i].count = data[i].data.stock;
 
-                    dispatch ({
-                        type: 'UPDATECART',
-                        payload: newArr
-                    }) 
+                        dispatch ({
+                            type: 'UPDATECART',
+                            payload: newArr
+                        }); 
 
-                    calculTotalCart(newArr);
-                    setCartData(newArr);
-                    changeLocalStorage();
-                    return toggleInfosModal('Le produit ' + cartData[i].name + ' n\'est plus disponible')
-                } else if (data[i].data.stock < cartData[i].stock) {
-                    const newArr = cartData;
-                    newArr[i].stock = data[i].data.stock;
-                    newArr[i].count = data[i].data.stock;
+                        calculTotalCart(newArr);
+                        setCartData(newArr);
+                        changeLocalStorage();
+                        return toggleInfosModal('Le produit ' + cartData[i].name + ' n\'est plus disponible');
+                    } else if (data[i].data.stock < cartData[i].stock) {
+                        const newArr = cartData;
+                        newArr[i].stock = data[i].data.stock;
+                        newArr[i].count = data[i].data.stock;
 
-                    dispatch ({
-                        type: 'UPDATECART',
-                        payload: newArr
-                    }) 
+                        dispatch ({
+                            type: 'UPDATECART',
+                            payload: newArr
+                        }); 
 
-                    calculTotalCart(newArr);
-                    setCartData(newArr);
-                    changeLocalStorage();
-                    return toggleInfosModal('Le produit ' + cartData[i].name + ' a été mis à jour')
+                        calculTotalCart(newArr);
+                        setCartData(newArr);
+                        changeLocalStorage();
+                        return toggleInfosModal('Le produit ' + cartData[i].name + ' a été mis à jour');
+                    }
                 }
-            }
-            
-            const newArr = cartData;
-            setOrderArticles(newArr);
+                
+                const newArr = cartData;
+                setOrderArticles(newArr);
 
-            toNextStep();
-            
-        })  
-    }
+                toNextStep();
+                
+            })  
+    };
 
+    /**
+     * GO TO NEXT STEP
+     */
     const toNextStep = () => {
+
         const steps = document.querySelectorAll(".cartSteps__step");
         const stepsContent = document.querySelectorAll(".cartStepCart");
 
@@ -206,9 +216,13 @@ const Cart = () => {
             }
         }  
         window.scrollTo(0, 0);
-    }
+    };
     
+    /**
+     * BACK TO PREVIOUS STEP
+     */
     const toPreviousStep = () => {
+
         const steps = document.querySelectorAll(".cartSteps__step");
         const stepsContent = document.querySelectorAll(".cartStepCart");
         
@@ -222,12 +236,20 @@ const Cart = () => {
             }
         }
         window.scrollTo(0, 0);
-    }
+    };
 
+    /**
+     * GET LOCATION INFOS
+     * @param {*} infos 
+     */
     const infosReceived = (infos) => {
         setInfosData(infos);
-    }
+    };
 
+    /**
+     * GET DELIVERY INFOS
+     * @param {*} options 
+     */
     const deliveryOptionsReceived = (options) => {
         let deliveryPrice = 0;
 
@@ -243,11 +265,15 @@ const Cart = () => {
             method: options.method,
             informations: options.informations,
             price: deliveryPrice
-        }
+        };
 
         setDeliveryOptions(item);
-    }
+    };
 
+    /**
+     * GET PAYMENT INFOS
+     * @param {*} method 
+     */
     const paymentInfosReceived = (method) => {
         let paymentMethod;
         console.log(method);
@@ -262,25 +288,29 @@ const Cart = () => {
             paymentMethod = 'Virement bancaire'
         }
 
-        setPaymentInfos(paymentMethod)
+        setPaymentInfos(paymentMethod);
 
         const DATE_OPTIONS = {year: 'numeric', month: 'long', day: 'numeric'};
-        const HOUR_OPTIONS = {hour: 'numeric', minute: 'numeric'}
+        const HOUR_OPTIONS = {hour: 'numeric', minute: 'numeric'};
         const currentDate = new Date().toLocaleDateString('fr-FR', DATE_OPTIONS);
-        const actualHour = new Date().toLocaleTimeString('fr-FR', HOUR_OPTIONS)
+        const actualHour = new Date().toLocaleTimeString('fr-FR', HOUR_OPTIONS);
         const date = new Date();
-        const orderTime = [("0" + date.getUTCDate()).slice(-2), ("0" + (date.getUTCMonth() + 1)).slice(-2), date.getUTCFullYear().toString(), ("0" + date.getUTCHours()).slice(-2), ("0" + date.getUTCMinutes()).slice(-2), ("0" + date.getUTCSeconds()).slice(-2)].join("")
-        // Remplacer 124 par le numero client
-        const order = orderTime + "124"
+        const orderTime = [("0" + date.getUTCDate()).slice(-2), ("0" + (date.getUTCMonth() + 1)).slice(-2), date.getUTCFullYear().toString(), ("0" + date.getUTCHours()).slice(-2), ("0" + date.getUTCMinutes()).slice(-2), ("0" + date.getUTCSeconds()).slice(-2)].join("");
+        const order = orderTime;
         
         setOrderDate(currentDate);
         setOrderHour(actualHour);
         setOrderNumber(order);
 
         sendOrder(order);
-    }
+    };
 
+    /**
+     * SEND ORDER TO BACK-END
+     * @param {*} orderNumb 
+     */
     const sendOrder = (orderNumb) => {
+
         const idArr = cartData.map(el => {
             return el.id;
         })
@@ -302,9 +332,7 @@ const Cart = () => {
             names: names,
             instruction: infosData.instruction,
             deliveryInformation: deliveryOptions.informations
-        }
-
-        console.log(newOrder);
+        };
 
         fetch("http://localhost:3000/api/orders/", {
             headers: {
@@ -314,34 +342,46 @@ const Cart = () => {
             },
             method: 'POST', 
             body: JSON.stringify( newOrder )})
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data);
-                })
-                .catch(error => console.error(error));
-    }
+            
+    };
 
+    /**
+     * GO TO LOGIN PAGE
+     */
     const toLoginPage = () => {
         navigate('/login', { replace: true });
-    }
+    };
 
+    /**
+     * EMPTY CART
+     * AND CART LOCALSTORAGE
+     */
     const emptyCart = () => {
+
         let newArr = [];
         dispatch ({
             type: 'UPDATECART',
             payload: newArr
-        }) 
+        }); 
 
-        toggleEmptyCartModal()
+        toggleEmptyCartModal();
         
         setCartData([]);
-    }
+    };
     
+    /**
+     * RELOAD THE PAGE
+     */
     const reloadPage = () => {
         window.location.reload();
-    }
+    };
 
+    /**
+     * DELETE ONE CART PRODUCT
+     * @param {*} productId 
+     */
     const deleteItem = (productId) => {
+
         toggleDeleteModal();
         const newArr = cartData.filter(el => {
             return el.id !== productId;
@@ -350,12 +390,18 @@ const Cart = () => {
         dispatch ({
             type: 'UPDATECART',
             payload: newArr
-        }) 
+        });
 
         calculTotalCart(newArr);
         setCartData(newArr);
-    }
+    };
 
+    /**
+     * CONTROL INPUTS
+     * @param {*} productId 
+     * @param {*} btn 
+     * @param {*} value 
+     */
     const ctrlInput = (productId, btn, value) => {
 
         const newArr = cartData.map(el => {
@@ -364,66 +410,82 @@ const Cart = () => {
                     if (el.count < el.stock) {
                         value = el.count + 1;
                     } else {
-                        value = el.count
+                        value = el.count;
                     }
                 } else if (btn === "minus") {
                     if (el.count > 1) {
                         value = el.count - 1;
                     } else {
-                        value = el.count
+                        value = el.count;
                     }
                 } else {
                     if(value > el.stock) {
-                        value = el.stock
+                        value = el.stock;
                     } else if (value <= 0) {
-                        value = 1
+                        value = 1;
                     }
                 }
                 const newObj = {
                     ...el,
                     count: value
-                }
+                };
                 return newObj;
             } else {
-                return el
+                return el;
             }
-        })
+        });
 
 
         dispatch ({
             type: 'UPDATECART',
             payload: newArr
-        })  
+        });  
         
         calculTotalCart(newArr);
         setCartData(newArr); 
-    }
+    };
 
+    /**
+     * CALCUL THE TOTAL CART
+     * @param {*} productArr 
+     */
     const calculTotalCart = (productArr) => {
+
         let total = 0;
         for(let i = 0; i < productArr.length; i++) {
             total += (productArr[i].count * productArr[i].price);
         }
-        setTotalCart((total).toFixed(2))
-    }
+        setTotalCart((total).toFixed(2));
+    };
 
+    /**
+     * TOGGLE THE DELETE CONFIRMATION MODAL
+     * @param {*} id 
+     */
     const toggleDeleteModal = (id) => {
         if(id){
-            setIdToDelete(id)
+            setIdToDelete(id);
         }
         setModalDelete(!modalDelete);
-    }
+    };
 
+    /**
+     * TOGGLE INFO MODAL
+     * @param {*} message 
+     */
     const toggleInfosModal = (message) => {
         if(message) {
             setModalInfosMsg(message);
         }
         setModalCartInfos(!modalCartInfos);
-    }
+    };
 
+    /**
+     * TOGGLE EMPTY CART CONFIRMATION MODAL
+     */
     const toggleEmptyCartModal = () => {
         setEmptyCartModal(!emptyCartModal);
-    }
+    };
 
     return (
         <main>

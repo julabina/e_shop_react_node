@@ -7,10 +7,13 @@ const NavBar = (props) => {
 
     const [visible, setVisible] = useState(false);
 
+    /**
+     * TOGGLE VISIBLE LINK IF SCROLLING
+     */
     const toggleVisible = () => {
         const scrolled = document.documentElement.scrollTop;
             scrolled > 110 ? setVisible(true) : setVisible(false);
-    }
+    };
 
     window.addEventListener("scroll", toggleVisible);
 

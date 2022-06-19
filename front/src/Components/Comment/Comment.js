@@ -20,24 +20,26 @@ const Comment = (props) => {
 
     useEffect(() => {
 
-        
-        getUserName()
+        getUserName();
         
         convertTime();
         
         if(props.comment.includes(`<br />`)) {
             const brCommentArr = props.comment.split('<br />');
-            const brComment = brCommentArr.join('\n')
+            const brComment = brCommentArr.join('\n');
             setNewTextComment(brComment);
-            setComment(brCommentArr)
+            setComment(brCommentArr);
         } else {
-            const toArr = [props.comment]
+            const toArr = [props.comment];
             setNewTextComment(props.comment);
-            setComment(toArr)
+            setComment(toArr);
         }
 
     },[props.updated]);
 
+    /**
+     * GET USER NAME
+     */
     const getUserName = () => {
 
         fetch("http://localhost:3000/api/users/" + props.userId)
@@ -53,9 +55,13 @@ const Comment = (props) => {
                 };
                 setUserName(newObj);
             })
-    }
+    };
 
+    /**
+     * CONVERT THE API DATE FOR APPLICATE TO COMMENTS
+     */
     const convertTime = () => {
+
         let createdTS = props.created;
         let updatedTS = props.updated;
         let createdDate = new Date(createdTS);
@@ -68,10 +74,10 @@ const Comment = (props) => {
         let updatedSecondes = (updatedDate.getSeconds() < 10 ? '0' : '') + updatedDate.getSeconds();
         let options = { year: 'numeric', month: 'long', day: 'numeric' };
         let timeOptions = { hh: 'numeric', mm: 'numeric', ss: 'numeric' };
-        let createdLocale = createdDate.toLocaleDateString("fr-FR", options)
-        let updatedLocale = updatedDate.toLocaleDateString("fr-FR", options)
-        let createdTimeLocale = createdDate.toLocaleString("fr-FR", options)
-        let updatedTimeLocale = updatedDate.toLocaleString("fr-FR", options)
+        let createdLocale = createdDate.toLocaleDateString("fr-FR", options);
+        let updatedLocale = updatedDate.toLocaleDateString("fr-FR", options);
+        let createdTimeLocale = createdDate.toLocaleString("fr-FR", options);
+        let updatedTimeLocale = updatedDate.toLocaleString("fr-FR", options);
         const newObjDate = {
             created: createdLocale,
             updated: updatedLocale
@@ -80,7 +86,6 @@ const Comment = (props) => {
             created: createdTS,
             updated: updatedTS
         };
-        console.log(newObjTS);
         const newObjTime = {
             created: createdHours + ":" + createdMinutes + ":" + createdSecondes,
             updated: updatedHours + ":" + updatedMinutes + ":" + updatedSecondes
@@ -90,7 +95,15 @@ const Comment = (props) => {
         setCommentDate(newObjDate);
     };
     
+    /**
+     * HANDLE COMMENT AFTER LOG CONFIRMATION
+     * DELETE AND MODIFY
+     * @param {*} action 
+     * @param {*} newCom 
+     * @returns 
+     */
     const handleComment = (action, newCom) => {
+
         let userIdToSend = "", tokenToSend = "";
         
         if (localStorage.getItem('token') !== null) {
@@ -103,29 +116,29 @@ const Comment = (props) => {
                 if (decodedToken.userId !== token.content || isTokenExpired === true) {
                     dispatch ({
                         type: 'DISCONNECT'
-                    })
+                    });
                     localStorage.removeItem('token');
                     if(action === "modify") {
-                        return toggleCommentModal("Vous devez etre connecté pour modifier un commentaire.")
+                        return toggleCommentModal("Vous devez etre connecté pour modifier un commentaire.");
                     } else if (action === "delete") {
                         toggleModalDelete();
-                        return toggleCommentModal("Vous devez etre connecté pour supprimer un commentaire.")
+                        return toggleCommentModal("Vous devez etre connecté pour supprimer un commentaire.");
                     }
                 };
                 userIdToSend = decodedToken.userId;
                 dispatch ({
                     type: 'LOG'
-                })
+                });
             };
         } else {
             dispatch ({
                 type: 'DISCONNECT'
-            })
+            });
             if(action === "modify") {
-                return toggleCommentModal("Vous devez etre connecté pour modifier un commentaire.")
+                return toggleCommentModal("Vous devez etre connecté pour modifier un commentaire.");
             } else if (action === "delete") {
                 toggleModalDelete();
-                return toggleCommentModal("Vous devez etre connecté pour supprimer un commentaire.")
+                return toggleCommentModal("Vous devez etre connecté pour supprimer un commentaire.");
             }
         }; 
         
@@ -136,6 +149,12 @@ const Comment = (props) => {
         }
     };
     
+    /**
+     * SEND TO BACK-END THE MODIFIED COMMENT
+     * @param {*} userId 
+     * @param {*} token 
+     * @param {*} newCom 
+     */
     const postModifyComment = (userId, token, newCom) => {
 
         fetch('http://localhost:3000/api/comments/' + props.commentId , {
@@ -149,39 +168,43 @@ const Comment = (props) => {
         })
             .then(res => res.json())
             .then(rep => {
-                console.log(rep);
                 props.fetchFunc(props.productId);
             })
     
     };
     
+    /**
+     * DELETE TO BACK-END THE COMMENT
+     * @param {*} userId 
+     * @param {*} token 
+     */
     const postDeleteComment = (userId, token) => {
 
-        toggleModalDelete()
-        props.deleteFunc(userId, token, props.commentId)
+        toggleModalDelete();
+        props.deleteFunc(userId, token, props.commentId);
 
     };
 
+    /**
+     * TOGGLE MODIFY TEXTAREA
+     * IF TRUE, VALIDATE MODIFIED COMMENT AND SEND IT TO handleComment FUNCTION
+     */
     const openModify = () => {
+
         if(onModify) {
             
             if(newTextComment !== "") {
                 let newCommentArr = newTextComment.split('\n');
-                console.log(newCommentArr);
                 for (let i = 0;i < newCommentArr.length; i++) {
                     if(!newCommentArr[i].match(/^[a-zA-Zé èà,.'-€:!?]*$/)) {
                         setOnModify(!onModify); 
-                         return toggleCommentModal('Le commentaire ne doit comporter que des lettres')
+                         return toggleCommentModal('Le commentaire ne doit comporter que des lettres');
                     }
                 }
                 const newComment = newCommentArr.join('<br />');
-                console.log(newTextComment);
-                console.log(newCommentArr.join('\n'));
-                console.log(comment);
-                console.log(newComment);
+
                 if(newTextComment !== comment.join('\n')) {
                     console.log("CPAREILLOL");
-                    /* setCommentToSend(newComment); */
                     handleComment("modify", newComment);
                 }
             }
@@ -189,20 +212,31 @@ const Comment = (props) => {
         setOnModify(!onModify); 
     };
 
+    /**
+     * CONTROL MODIFY COMMENT INPUT
+     * @param {*} value 
+     */
     const handleTextArea = (value) => {
         setNewTextComment(value);
     };
 
+    /**
+     * TOGGLE DELETE MODAL
+     */
     const toggleModalDelete = () => {
         setModalDeleteVisible(!modalDeleteVisible);
-    }
+    };
 
+    /**
+     * TOGGLE COMMENT MODAL
+     * @param {*} message 
+     */
     const toggleCommentModal = (message) => {
         if(message) {
-            setModalMsg(message)
+            setModalMsg(message);
         }
         setModalComment(!modalComment);
-    }
+    };
 
     return (
         <>

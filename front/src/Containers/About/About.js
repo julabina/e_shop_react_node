@@ -19,24 +19,24 @@ const About = () => {
                 if (decodedToken.userId !== token.content || isTokenExpired === true) {
                     dispatch ({
                         type: 'DISCONNECT'
-                    })
+                    });
                     localStorage.removeItem('token');
                 };
                 dispatch ({
                     type: 'LOG'
-                })
+                });
             } else {
                 dispatch ({
                     type: 'DISCONNECT'
-                })
+                });
             };
         } else {
             dispatch ({
                 type: 'DISCONNECT'
-            })
+            });
         }; 
 
-    },[])
+    },[]);
 
     return (
         <main>

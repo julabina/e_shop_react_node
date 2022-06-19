@@ -10,11 +10,12 @@ const Monture = () => {
 
     const [montureData, setMontureData] = useState([]);
     const [filterOptions, setFilterOptions] = useState({brand: [], type: [], goTo: undefined, onStock : false});
-    const [filterBrand, setFilterBrand] = useState([false, false, false, false])
-    const [filterType, setFilterType] = useState([false, false])
+    const [filterBrand, setFilterBrand] = useState([false, false, false, false]);
+    const [filterType, setFilterType] = useState([false, false]);
     const [sortValue, setSortValue] = useState("ascName");
 
     useEffect(() => {
+
         window.scrollTo(0, 0);
 
         if (localStorage.getItem('token') !== null) {
@@ -26,87 +27,102 @@ const Monture = () => {
                 if (decodedToken.userId !== token.content || isTokenExpired === true) {
                     dispatch ({
                         type: 'DISCONNECT'
-                    })
+                    });
                     localStorage.removeItem('token');
                 };
                 dispatch ({
                     type: 'LOG'
-                })
+                });
             } else {
                 dispatch ({
                     type: 'DISCONNECT'
-                })
+                });
             };
         } else {
             dispatch ({
                 type: 'DISCONNECT'
-            })
+            });
         }; 
 
         getMonturesList(sortValue)
 
-    },[])
+    },[]);
 
+    /**
+     * GET ALL MONTURE PRODUCTS
+     * @param {*} sort 
+     */
     const getMonturesList = (sort) => {
+
         window.scrollTo(0, 0);
 
         fetch('http://localhost:3000/api/products/montures')
-        .then(res => res.json())
-        .then(data => {
-            let newArr = [];
-            for (let i = 0; i < data.data.length; i++) {
-                if (data.data[i] !== undefined) {
-                    let item = {
-                        name: data.data[i].name,
-                        pictures: data.data[i].pictures,
-                        price: data.data[i].price,
-                        id: data.data[i].id,
-                        promo: data.data[i].promo,
-                        promoValue: data.data[i].promoValue,
-                        stock: data.data[i].stock
+            .then(res => res.json())
+            .then(data => {
+                let newArr = [];
+                for (let i = 0; i < data.data.length; i++) {
+                    if (data.data[i] !== undefined) {
+                        let item = {
+                            name: data.data[i].name,
+                            pictures: data.data[i].pictures,
+                            price: data.data[i].price,
+                            id: data.data[i].id,
+                            promo: data.data[i].promo,
+                            promoValue: data.data[i].promoValue,
+                            stock: data.data[i].stock
+                        };
+                        newArr.push(item);
                     }
-                    newArr.push(item);
                 }
-            }
 
-            if(sort === "ascPrice") {
-                newArr.sort((a, b) => a.price - b.price)
-            } else if(sort === "descPrice") {
-                newArr.sort((a, b) => b.price - a.price)
-            } else if(sort === "descName") {
-                newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
-            } else if (sort === "ascName") {
-                newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
-            }
+                if(sort === "ascPrice") {
+                    newArr.sort((a, b) => a.price - b.price);
+                } else if(sort === "descPrice") {
+                    newArr.sort((a, b) => b.price - a.price);
+                } else if(sort === "descName") {
+                    newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
+                } else if (sort === "ascName") {
+                    newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
+                }
 
-            setMontureData(newArr);
-        });
+                setMontureData(newArr);
+            });
     }
 
+    /**
+     * SORTING FUNCTION FOR PRODUCTS
+     * @param {*} option 
+     */
     const handleSort = (option) => {
         setSortValue(option);
         
         let newArr = montureData;
 
         if(option === "ascPrice") {
-            newArr.sort((a, b) => a.price - b.price)
+            newArr.sort((a, b) => a.price - b.price);
         } else if(option === "descPrice") {
-            newArr.sort((a, b) => b.price - a.price)
+            newArr.sort((a, b) => b.price - a.price);
         } else if(option === "descName") {
             newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
         } else if (option === "ascName") {
             newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
         }
 
-        setMontureData(newArr)
+        setMontureData(newArr);
     };
 
+    /**
+     * CONTROL FILTERS INPUTS
+     * @param {*} action 
+     * @param {*} value 
+     */
     const handleFilter = (action, value) => {
+
         if (action === "sky") {
             let newArr = filterOptions.brand;
             let filterCtrl = filterBrand;
             if(filterCtrl[0] === true) {
-                let arrFiltered = newArr.filter(el => el !== value)
+                let arrFiltered = newArr.filter(el => el !== value);
                 newArr = arrFiltered;
             } else {
                 if(!filterOptions.brand.includes(value)){
@@ -117,9 +133,9 @@ const Monture = () => {
             const newObj = {
                 ...filterOptions,
                 brand : newArr
-            }
+            };
             setFilterOptions(newObj);
-            setFilterBrand(filterCtrl)
+            setFilterBrand(filterCtrl);
         } else if (action === "10Micron") {
             let newArr = filterOptions.brand;
             let filterCtrl = filterBrand;
@@ -135,14 +151,14 @@ const Monture = () => {
             const newObj = {
                 ...filterOptions,
                 brand : newArr
-            }
+            };
             setFilterOptions(newObj);
-            setFilterBrand(filterCtrl)   
+            setFilterBrand(filterCtrl); 
         } else if (action === "celestron") {
             let newArr = filterOptions.brand;
             let filterCtrl = filterBrand;
             if(filterCtrl[2] === true) {
-                let arrFiltered = newArr.filter(el => el !== value)
+                let arrFiltered = newArr.filter(el => el !== value);
                 newArr = arrFiltered;
             } else {
                 if(!filterOptions.brand.includes(value)){
@@ -153,9 +169,9 @@ const Monture = () => {
             const newObj = {
                 ...filterOptions,
                 brand : newArr
-            }
+            };
             setFilterOptions(newObj);
-            setFilterBrand(filterCtrl)          
+            setFilterBrand(filterCtrl);         
         } else if (action === "orion") {
             let newArr = filterOptions.brand;
             let filterCtrl = filterBrand;
@@ -171,14 +187,14 @@ const Monture = () => {
             const newObj = {
                 ...filterOptions,
                 brand : newArr
-            }
+            };
             setFilterOptions(newObj);
-            setFilterBrand(filterCtrl)
+            setFilterBrand(filterCtrl);
         } else if (action === "azi") {
             let newArr = filterOptions.type;
             let filterCtrl = filterType;
             if(filterCtrl[0] === true) {
-                let arrFiltered = newArr.filter(el => el !== value)
+                let arrFiltered = newArr.filter(el => el !== value);
                 newArr = arrFiltered;
             } else {
                 if(!filterOptions.type.includes(value)){
@@ -189,14 +205,14 @@ const Monture = () => {
             const newObj = {
                 ...filterOptions,
                 type : newArr
-            }
+            };
             setFilterOptions(newObj);
-            setFilterType(filterCtrl)
+            setFilterType(filterCtrl);
         } else if (action === "equa") {
             let newArr = filterOptions.type;
             let filterCtrl = filterType;
             if(filterCtrl[1] === true) {
-                let arrFiltered = newArr.filter(el => el !== value)
+                let arrFiltered = newArr.filter(el => el !== value);
                 newArr = arrFiltered;
             } else {
                 if(!filterOptions.type.includes(value)){
@@ -207,37 +223,41 @@ const Monture = () => {
             const newObj = {
                 ...filterOptions,
                 type : newArr
-            }
+            };
             setFilterOptions(newObj);
-            setFilterType(filterCtrl)         
+            setFilterType(filterCtrl);        
         } else if (action === "with") {
             const newObj = {
                 ...filterOptions,
                 goTo : true
-            }
+            };
             setFilterOptions(newObj);        
         } else if (action === "withNot") {
             const newObj = {
                 ...filterOptions,
                 goTo : false
-            }
+            };
             setFilterOptions(newObj);          
         } else if (action === "both") {
             const newObj = {
                 ...filterOptions,
                 goTo : undefined
-            }
+            };
             setFilterOptions(newObj);          
         } else if (action === "stock") {
             const newObj = {
                 ...filterOptions,
                 onStock : !filterOptions.onStock
-            }
+            };
             setFilterOptions(newObj);
         } 
     };
 
+    /**
+     * GET FILTERED MONTURE PRODUCTS
+     */
     const getFilteredList = () => {
+
         window.scrollTo(0, 0);
 
         if(filterOptions.brand.length > 0 || filterOptions.type.length > 0 || filterOptions.goTo !== undefined || filterOptions.onStock === true) {
@@ -249,16 +269,15 @@ const Monture = () => {
                 brand = filterOptions.brand;
             }
             if(filterOptions.type.length > 0) {
-                type = filterOptions.type
+                type = filterOptions.type;
             }
             if(filterOptions.goTo !== undefined) {
-                goto = filterOptions.goTo
+                goto = filterOptions.goTo;
             }
             if(filterOptions.onStock) {
-                onStock = true
+                onStock = true;
             }
 
-            console.log(onStock);
             
             fetch('http://localhost:3000/api/products/montures', {
                 headers: {
@@ -273,62 +292,66 @@ const Monture = () => {
                     onStock: onStock
                 })
             })
-            .then(res => res.json())
-            .then(data => {
-                let newArr = [];
-            for (let i = 0; i < data.data.length; i++) {
-                if (data.data[i] !== undefined) {
-                    let item = {
-                        name: data.data[i].name,
-                        pictures: data.data[i].pictures,
-                        price: data.data[i].price,
-                        id: data.data[i].id,
-                        promo: data.data[i].promo,
-                        promoValue: data.data[i].promoValue,
-                        stock: data.data[i].stock
+                .then(res => res.json())
+                .then(data => {
+                    let newArr = [];
+                    for (let i = 0; i < data.data.length; i++) {
+                        if (data.data[i] !== undefined) {
+                            let item = {
+                                name: data.data[i].name,
+                                pictures: data.data[i].pictures,
+                                price: data.data[i].price,
+                                id: data.data[i].id,
+                                promo: data.data[i].promo,
+                                promoValue: data.data[i].promoValue,
+                                stock: data.data[i].stock
+                            };
+                            newArr.push(item);
+                        }
                     }
-                    newArr.push(item);
-                }
-            }
 
-            if(sortValue === "ascPrice") {
-                newArr.sort((a, b) => a.price - b.price)
-            } else if(sortValue === "descPrice") {
-                newArr.sort((a, b) => b.price - a.price)
-            } else if(sortValue === "descName") {
-                newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
-            } else if (sortValue === "ascName") {
-                newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
-            }
+                    if(sortValue === "ascPrice") {
+                        newArr.sort((a, b) => a.price - b.price);
+                    } else if(sortValue === "descPrice") {
+                        newArr.sort((a, b) => b.price - a.price);
+                    } else if(sortValue === "descName") {
+                        newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
+                    } else if (sortValue === "ascName") {
+                        newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
+                    }
 
-            setMontureData(newArr);
+                    setMontureData(newArr);
                 })
             } else {
                 getMonturesList(sortValue);
             }
-    }
+    };
 
+    /**
+     * RESET FILTERS
+     */
     const removeFilter = () => {
+
         const inputsBrand = document.getElementsByName('mountBrand');
         const inputsType = document.getElementsByName('mountType');
         const inputsGoto = document.getElementsByName('mountGoto');
         const stockInput = document.getElementById('mountOnStock');
         
         inputsBrand.forEach(el => {
-            el.checked = false
+            el.checked = false;
         })
         inputsType.forEach(el => {
-            el.checked = false
+            el.checked = false;
         })
         inputsGoto.forEach(el => {
-            el.checked = false
+            el.checked = false;
         })
         stockInput.checked = false;
 
-        let filter = {brand: [], type: [], goTo: undefined, onStock : false}
+        let filter = {brand: [], type: [], goTo: undefined, onStock : false};
         setFilterOptions(filter);
         getMonturesList(sortValue);
-    }
+    };
 
 
     return (

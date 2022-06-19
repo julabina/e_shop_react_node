@@ -10,7 +10,7 @@ const CartLocation = (props) => {
 
     const [toggleStatus, setToggleStatus] = useState(false);
     const [togglelocation, setTogglelocation] = useState(false);
-    const [checkBox, setCheckBox] = useState({newletter: false, pub: false})
+    const [checkBox, setCheckBox] = useState({newletter: false, pub: false});
     const [inputs, setInputs] = useState({
         firstName: "",
         lastName: "",
@@ -29,7 +29,7 @@ const CartLocation = (props) => {
         deliveryZip: "",
         deliveryCity: "",
         instruction: ""
-    })
+    });
     
     useEffect(() => {
         
@@ -42,9 +42,8 @@ const CartLocation = (props) => {
             method : 'POST',
             body: JSON.stringify({ userId : props.user })
         })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
+            .then(res => res.json())
+            .then(data => {
                 let newObj = {
                     address: data.data.address === null ? "" : data.data.address,
                     addressComp: data.data.addressComp === null ? "" : data.data.addressComp,
@@ -68,155 +67,166 @@ const CartLocation = (props) => {
                 const newCheckboxObj = {
                     newletter: data.data.newsletter === true ? true : false,
                     pub: data.data.pub === true ? true : false
-                }
-                setCheckBox(newCheckboxObj)
-            }) 
+                };
+                setCheckBox(newCheckboxObj);
+            });
 
     },[])
 
-    // Ajoute des champs si le client est une société
+    /**
+     * ADD COMPANY INFO IF THE CLIENT IS A COMPANY
+     */
     const changeToggleStatus = () => {
         setToggleStatus(!toggleStatus);
-    }
+    };
 
-    // verifie si l' adresse et l'adresse de livraison sont les memes
+    /**
+     * CHANGE SAME LOCATION STATUS
+     */
     const changeSameLocation = () => {
         setTogglelocation(!togglelocation);
-    }
+    };
 
-    // verifie si cocher ou non
+    /**
+     * CONTROL OPTIONS CHECKBOX
+     * @param {*} checkbox 
+     */
     const toggleCheckBox = (checkbox) => {
         if (checkbox === "letter") {
             const newObj = {
                 ...checkBox,
                 newletter: !checkBox.newletter
-            }
+            };
             setCheckBox(newObj);
         } else if (checkbox === 'advertisement') {
             const newObj = {
                 ...checkBox,
                 pub: !checkBox.pub
-            }
+            };
             setCheckBox(newObj);
         }
-    }
+    };
 
-    // controler les inputs
+     /**
+     * CONTROL ALL INPUTS
+     * @param {*} action 
+     * @param {*} value 
+     */
     const changeInput = (action, value) => {
         if (action === 'firstName') {
             const newObj = {
                 ...inputs,
                 firstName: value
-            }        
-            setInputs(newObj)
+            };        
+            setInputs(newObj);
         } else if (action === 'lastName') {
             const newObj = {
                 ...inputs,
                 lastName: value
-            }            
-            setInputs(newObj)
+            };            
+            setInputs(newObj);
         } else if (action === 'mobile') {   
             const newObj = {
                 ...inputs,
                 mobile : value
-            }
-            setInputs(newObj)
+            };
+            setInputs(newObj);
         } else if (action === 'tel') {
             const newObj = {
                 ...inputs,
                 fixe : value
-            }
-            setInputs(newObj)
+            };
+            setInputs(newObj);
             
         } else if (action === 'societe') {
             const newObj = {
                 ...inputs,
                 companyName : value
-            }         
-            setInputs(newObj)
+            };         
+            setInputs(newObj);
         } else if (action === 'fax') {
             const newObj = {
                 ...inputs,
                 fax : value
-            }
-            setInputs(newObj)
+            };
+            setInputs(newObj);
             
         } else if (action === 'tva') {
             const newObj = {
                 ...inputs,
                 tva : value
-            }
-            
-            setInputs(newObj)
+            };
+            setInputs(newObj);
         } else if (action === 'siret') {
             const newObj = {
                 ...inputs,
                 siret : value
-            }
-            
-            setInputs(newObj)
+            };          
+            setInputs(newObj);
         } else if (action === 'address') {
             const newObj = {
                 ...inputs,
                 address : value
-            }
-            
-            setInputs(newObj)
+            };
+            setInputs(newObj);
         } else if (action === 'addressComp') {
             const newObj = {
                 ...inputs,
                 addressComp : value
-            }
-            
-            setInputs(newObj)
+            };       
+            setInputs(newObj);
         } else if (action === 'zipCode') {
             const newObj = {
                 ...inputs,
                 zip : value
-            }
-            
-            setInputs(newObj)
+            };   
+            setInputs(newObj);
         } else if (action === 'city') {
             const newObj = {
                 ...inputs,
                 city : value
-            }
-            
-            setInputs(newObj)
+            };       
+            setInputs(newObj);
         } else if (action === 'deliveryAddress') {
             const newObj = {
                 ...inputs,
                 deliveryAddress : value
-            }
-            setInputs(newObj)
+            };
+            setInputs(newObj);
         } else if (action === 'deliveryAddressComp') {
             const newObj = {
                 ...inputs,
                 deliveryAddressComp : value
-            }
-            setInputs(newObj)
+            };
+            setInputs(newObj);
         } else if (action === 'deliveryZipCode') {
             const newObj = {
                 ...inputs,
                 deliveryZip : value
-            }
-            setInputs(newObj)
+            };
+            setInputs(newObj);
         } else if (action === 'deliveryCity') {
             const newObj = {
                 ...inputs,
                 deliveryCity : value
-            }
-            setInputs(newObj)
+            };
+            setInputs(newObj);
         } else if (action === 'instruction') {
             const newObj = {
                 ...inputs,
                 instruction : value
-            }
-            setInputs(newObj)
+            };
+            setInputs(newObj);
         } 
-    }
+    };
 
-    // Affiche les erreurs
+    /**
+     * DISPLAY ERRORS
+     * @param {*} message 
+     * @param {*} input 
+     * @param {*} span 
+     * @param {*} valid 
+     */
     const errorDisplay = (message, input, span, valid) => {
         const spanError = document.querySelector('.' + span + '__span');
         const inputError = document.getElementById(input);
@@ -229,50 +239,52 @@ const CartLocation = (props) => {
             inputError.classList.add('cartStepLocation__individual__inputs__errorInput');
         }
         
-    }
+    };
 
 
-    // Verifier les champs du formulaire
+    /**
+     * VALIDATE FORM
+     */
     const verifyInfosForm = () => {
         const inputs = document.querySelectorAll('.cartStepLocation__individual__inputs');
         const textArea = document.getElementById('instruction');
         let totalCheck = 0;
         
-        // vérification prenom
+        // validate firstname
         if(inputs[0].value === "") {
-            errorDisplay("Le prénom ne doit pas être vide.","firstName", "cartStepLocation__individual__names__firstName")
+            errorDisplay("Le prénom ne doit pas être vide.","firstName", "cartStepLocation__individual__names__firstName");
         } else if (inputs[0].value.length < 3 || inputs[0].value.length > 25) {
-            errorDisplay("Le prénom doit être compris entre 2 et 25 caratères.","firstName", "cartStepLocation__individual__names__firstName")
+            errorDisplay("Le prénom doit être compris entre 2 et 25 caratères.","firstName", "cartStepLocation__individual__names__firstName");
         } else if (!inputs[0].value.match(/^[a-zA-Zé èà]*$/)) {
-            errorDisplay("Le prénom ne doit comporter que des lettres.","firstName", "cartStepLocation__individual__names__firstName")
+            errorDisplay("Le prénom ne doit comporter que des lettres.","firstName", "cartStepLocation__individual__names__firstName");
         } else {
-            errorDisplay("", "firstName", "cartStepLocation__individual__names__firstName", true)
+            errorDisplay("", "firstName", "cartStepLocation__individual__names__firstName", true);
             totalCheck += 1;
         }
         
-        // vérification nom
+        // validate lastname
         if(inputs[1].value === "") {
-            errorDisplay("Le nom ne doit pas être vide.","lastName", "cartStepLocation__individual__names__lastName")
+            errorDisplay("Le nom ne doit pas être vide.","lastName", "cartStepLocation__individual__names__lastName");
         } else if (inputs[1].value.length < 3 || inputs[1].value.length > 25) {
-            errorDisplay("Le nom doit être compris entre 2 et 25 caratères.","lastName", "cartStepLocation__individual__names__lastName")
+            errorDisplay("Le nom doit être compris entre 2 et 25 caratères.","lastName", "cartStepLocation__individual__names__lastName");
         } else if (!inputs[1].value.match(/^[a-zA-Zé èà]*$/)) {
-            errorDisplay("Le nom ne doit comporter que des lettres.","lastName", "cartStepLocation__individual__names__lastName")
+            errorDisplay("Le nom ne doit comporter que des lettres.","lastName", "cartStepLocation__individual__names__lastName");
         } else {
-            errorDisplay("", "lastName", "cartStepLocation__individual__names__lastName", true)
+            errorDisplay("", "lastName", "cartStepLocation__individual__names__lastName", true);
             totalCheck += 1;
         }
 
-        // vérification mobile
+        // validate mobile
         if(inputs[2].value === "") {
-            errorDisplay("Le mobile ne doit pas être vide.","mobile", "cartStepLocation__individual__names__mobile")
+            errorDisplay("Le mobile ne doit pas être vide.","mobile", "cartStepLocation__individual__names__mobile");
         } else if (!inputs[2].value.match(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/)) {
-            errorDisplay("Le mobile n'a pas un format valide'. ","mobile", "cartStepLocation__individual__names__mobile")
+            errorDisplay("Le mobile n'a pas un format valide'. ","mobile", "cartStepLocation__individual__names__mobile");
         } else {
-            errorDisplay("", "mobile", "cartStepLocation__individual__names__mobile", true)
+            errorDisplay("", "mobile", "cartStepLocation__individual__names__mobile", true);
             totalCheck += 1;
         }
         
-        // vérification fixe si pas vide
+        // validate phone
         if (inputs[3].value !== "") {
             if (!inputs[3].value.match(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/)) {
                 errorDisplay("Le fixe n'a pas un format valide. ","fixe", "cartStepLocation__individual__names__fixe")
@@ -286,51 +298,51 @@ const CartLocation = (props) => {
 
         let indPro = 0;
 
-        // SI LE CLIENT EST UNE SOCIETE
+        // IF A COMPANY
         if (toggleStatus) {
             
-            // verification nom societé
+            // validate company name
             if(inputs[6].value === "") {
-                errorDisplay("La société ne doit pas être vide.","societe", "cartStepLocation__individual__names__societe")
+                errorDisplay("La société ne doit pas être vide.","societe", "cartStepLocation__individual__names__societe");
             } else if (!inputs[6].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
-                errorDisplay("La société n'a pas un format valide'. ","societe", "cartStepLocation__individual__names__societe")
+                errorDisplay("La société n'a pas un format valide'. ","societe", "cartStepLocation__individual__names__societe");
             } else {
-                errorDisplay("", "societe", "cartStepLocation__individual__names__societe", true)
+                errorDisplay("", "societe", "cartStepLocation__individual__names__societe", true);
                 totalCheck += 1;
             }
             
-            // verification fax
+            // validate fax
             if(inputs[7].value !== "") {
                 if (!inputs[7].value.match(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/)) {
-                    errorDisplay("L'adresse n'a pas un format valide. ","fax", "cartStepLocation__individual__names__fax")
+                    errorDisplay("L'adresse n'a pas un format valide. ","fax", "cartStepLocation__individual__names__fax");
                 } else {
-                    errorDisplay("", "fax", "cartStepLocation__individual__names__fax", true)
+                    errorDisplay("", "fax", "cartStepLocation__individual__names__fax", true);
                     totalCheck += 1;
                 }
             } else {
                 totalCheck += 1;
             }
             
-            // verification siret
+            // validate siret
             if(inputs[9].value === "") {
-                errorDisplay("Le siret ne doit pas être vide.","siret", "cartStepLocation__individual__names__siret")
+                errorDisplay("Le siret ne doit pas être vide.","siret", "cartStepLocation__individual__names__siret");
             } else if (!inputs[9].value.match(/^[0-9]{9}$/)) {
-                errorDisplay("Le siret n'a pas un format valide. ","siret", "cartStepLocation__individual__names__siret")
+                errorDisplay("Le siret n'a pas un format valide. ","siret", "cartStepLocation__individual__names__siret");
             } else {
-                errorDisplay("", "siret", "cartStepLocation__individual__names__siret", true)
+                errorDisplay("", "siret", "cartStepLocation__individual__names__siret", true);
                 totalCheck += 1;
             }
             
-            // verification tva
+            // validate tva
             if(inputs[8].value !== "") {
                 if (!inputs[8].value.match(/^(FR){0,1}[0-9A-Z]{2}\ [0-9]{9}$/)) {
-                    errorDisplay("Le numéro de tva n'a pas un format valide, n'indiquer pas FR. ","tva", "cartStepLocation__individual__names__tva")
+                    errorDisplay("Le numéro de tva n'a pas un format valide, n'indiquer pas FR. ","tva", "cartStepLocation__individual__names__tva");
                 } else {
-                    errorDisplay("", "tva", "cartStepLocation__individual__names__tva", true)
+                    errorDisplay("", "tva", "cartStepLocation__individual__names__tva", true);
                     totalCheck += 1;
                 }
             } else {
-                totalCheck += 1
+                totalCheck += 1;
             }
 
 
@@ -338,109 +350,109 @@ const CartLocation = (props) => {
         } else {
             indPro = 0;
         }
-        // vérification adresse
+        // validate address
         if(inputs[6 + indPro].value === "") {
-            errorDisplay("L'adresse ne doit pas être vide.","billAddress", "cartStepLocation__individual__names__billAddress")
+            errorDisplay("L'adresse ne doit pas être vide.","billAddress", "cartStepLocation__individual__names__billAddress");
         } else if (!inputs[6 + indPro].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
-            errorDisplay("L'adresse n'a pas un format valide'. ","billAddress", "cartStepLocation__individual__names__billAddress")
+            errorDisplay("L'adresse n'a pas un format valide'. ","billAddress", "cartStepLocation__individual__names__billAddress");
         } else {
-            errorDisplay("", "billAddress", "cartStepLocation__individual__names__billAddress", true)
+            errorDisplay("", "billAddress", "cartStepLocation__individual__names__billAddress", true);
             totalCheck += 1;
         }
         
-        // vérification complement adresse
+        // validate address comp
         if(inputs[7 + indPro].value !== "") {
             if (!inputs[7 + indPro].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
-                errorDisplay("Le complément d'adresse n'a pas un format valide'. ","billCompAddress", "cartStepLocation__individual__names__billCompAddress")
+                errorDisplay("Le complément d'adresse n'a pas un format valide'. ","billCompAddress", "cartStepLocation__individual__names__billCompAddress");
             } else {
-                errorDisplay("", "billCompAddress", "cartStepLocation__individual__names__billCompAddress", true)
+                errorDisplay("", "billCompAddress", "cartStepLocation__individual__names__billCompAddress", true);
                 totalCheck += 1;
             }
         } else {
             totalCheck += 1;
         }
         
-        // vérification code postal
+        // validate zip code
         if(inputs[8 + indPro].value === "") {
-            errorDisplay("Le code postal ne doit pas être vide.","billZipCode", "cartStepLocation__individual__names__billZipCode")
+            errorDisplay("Le code postal ne doit pas être vide.","billZipCode", "cartStepLocation__individual__names__billZipCode");
         } else if (!inputs[8 + indPro].value.match(/^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$/)) {
-            errorDisplay("Le code postal n'a pas un format valide'. ","billZipCode", "cartStepLocation__individual__names__billZipCode")
+            errorDisplay("Le code postal n'a pas un format valide'. ","billZipCode", "cartStepLocation__individual__names__billZipCode");
         } else {
-            errorDisplay("", "billZipCode", "cartStepLocation__individual__names__billZipCode", true)
+            errorDisplay("", "billZipCode", "cartStepLocation__individual__names__billZipCode", true);
             totalCheck += 1;
         }
         
-        // vérification nom ville
+        // validate city name
         if(inputs[9 + indPro].value === "") {
-            errorDisplay("Le ville ne doit pas être vide.","billCity", "cartStepLocation__individual__names__billCity")
+            errorDisplay("Le ville ne doit pas être vide.","billCity", "cartStepLocation__individual__names__billCity");
         } else if (inputs[9 + indPro].value.length < 3 || inputs[9 + indPro].value.length > 30) {
-            errorDisplay("La ville doit avoir entre 2 et 30 caratères.","billCity", "cartStepLocation__individual__names__billCity")
+            errorDisplay("La ville doit avoir entre 2 et 30 caratères.","billCity", "cartStepLocation__individual__names__billCity");
         } else if (!inputs[9 + indPro].value.match(/^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/)) {
-            errorDisplay("La ville n'a pas un format valide'. ","billCity", "cartStepLocation__individual__names__billCity")
+            errorDisplay("La ville n'a pas un format valide'. ","billCity", "cartStepLocation__individual__names__billCity");
         } else {
-            errorDisplay("", "billCity", "cartStepLocation__individual__names__billCity", true)
+            errorDisplay("", "billCity", "cartStepLocation__individual__names__billCity", true);
             totalCheck += 1;
         }
 
 
-        // SI L'ADRESSE DE LIVRAISON N'EST PAS LA MEME QUE LA FACTURATION
+        // IF DELIVERY ADDRESS IS NOT THE SAME AS THE ADDRESS
         if (togglelocation) {
 
-            // vérification livraison adresse
+            // validate delivery address
             if(inputs[11 + indPro].value === "") {
-                errorDisplay("L'adresse ne doit pas être vide.","deliveryAddress", "cartStepLocation__individual__names__deliveryAddress")
+                errorDisplay("L'adresse ne doit pas être vide.","deliveryAddress", "cartStepLocation__individual__names__deliveryAddress");
             } else if (!inputs[11 + indPro].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
-                errorDisplay("L'adresse n'a pas un format valide'. ","deliveryAddress", "cartStepLocation__individual__names__deliveryAddress")
+                errorDisplay("L'adresse n'a pas un format valide'. ","deliveryAddress", "cartStepLocation__individual__names__deliveryAddress");
             } else {
-                errorDisplay("", "deliveryAddress", "cartStepLocation__individual__names__deliveryAddress", true)
+                errorDisplay("", "deliveryAddress", "cartStepLocation__individual__names__deliveryAddress", true);
                 totalCheck += 1;
             }
             
-            // vérification livraison complement adresse
+            // validate delivery address comp
             if(inputs[12 + indPro].value !== "") {
                 if (!inputs[12 + indPro].value.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
-                    errorDisplay("Le complément d'adresse n'a pas un format valide'. ","deliveryCompAddress", "cartStepLocation__individual__names__deliveryCompAddress")
+                    errorDisplay("Le complément d'adresse n'a pas un format valide'. ","deliveryCompAddress", "cartStepLocation__individual__names__deliveryCompAddress");
                 } else {
-                    errorDisplay("", "deliveryCompAddress", "cartStepLocation__individual__names__deliveryCompAddress", true)
+                    errorDisplay("", "deliveryCompAddress", "cartStepLocation__individual__names__deliveryCompAddress", true);
                     totalCheck += 1;
                 }
             } else {
                 totalCheck += 1;
             }
             
-            // vérification livraison code postal
+            // validate delivery zip code
             if(inputs[13 + indPro].value === "") {
-                errorDisplay("Le code postal ne doit pas être vide.","deliveryZipCode", "cartStepLocation__individual__names__deliveryZipCode")
+                errorDisplay("Le code postal ne doit pas être vide.","deliveryZipCode", "cartStepLocation__individual__names__deliveryZipCode");
             } else if (!inputs[13 + indPro].value.match(/^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$/)) {
-                errorDisplay("Le code postal n'a pas un format valide'. ","deliveryZipCode", "cartStepLocation__individual__names__deliveryZipCode")
+                errorDisplay("Le code postal n'a pas un format valide'. ","deliveryZipCode", "cartStepLocation__individual__names__deliveryZipCode");
             } else {
-                errorDisplay("", "deliveryZipCode", "cartStepLocation__individual__names__deliveryZipCode", true)
+                errorDisplay("", "deliveryZipCode", "cartStepLocation__individual__names__deliveryZipCode", true);
                 totalCheck += 1;
             }
             
-            // vérification livraison nom ville
+            // validate delivery city name
             if(inputs[14 + indPro].value === "") {
-                errorDisplay("Le ville ne doit pas être vide.","deliveryCity", "cartStepLocation__individual__names__deliveryCity")
+                errorDisplay("Le ville ne doit pas être vide.","deliveryCity", "cartStepLocation__individual__names__deliveryCity");
             } else if (inputs[14 + indPro].value.length < 3 || inputs[14 + indPro].value.length > 30) {
-                errorDisplay("La ville doit avoir entre 2 et 30 caratères.","deliveryCity", "cartStepLocation__individual__names__deliveryCity")
+                errorDisplay("La ville doit avoir entre 2 et 30 caratères.","deliveryCity", "cartStepLocation__individual__names__deliveryCity");
             } else if (!inputs[14 + indPro].value.match(/^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/)) {
-                errorDisplay("La ville n'a pas un format valide'. ","deliveryCity", "cartStepLocation__individual__names__deliveryCity")
+                errorDisplay("La ville n'a pas un format valide'. ","deliveryCity", "cartStepLocation__individual__names__deliveryCity");
             } else {
-                errorDisplay("", "deliveryCity", "cartStepLocation__individual__names__deliveryCity", true)
+                errorDisplay("", "deliveryCity", "cartStepLocation__individual__names__deliveryCity", true);
                 totalCheck += 1;
             }
             
         }
         
 
-        // vérification instructions spéciales
+        // validate special instruction
         if(textArea.value !== "") {
             if (textArea.value.length < 3 || textArea.value.length > 200) {
-                errorDisplay("Les instructions doivent avoir entre 2 et 200 caratères.","instruction", "cartStepLocation__individual__names__instruction")
+                errorDisplay("Les instructions doivent avoir entre 2 et 200 caratères.","instruction", "cartStepLocation__individual__names__instruction");
             } else if (!textArea.value.match(/^[a-zA-Z0-9 -/'",.!?€$%()éèçà]+$/)) {
-                errorDisplay("Les caractères spéciaux ne sont pas admis. ","instruction", "cartStepLocation__individual__names__instruction")
+                errorDisplay("Les caractères spéciaux ne sont pas admis. ","instruction", "cartStepLocation__individual__names__instruction");
             } else {
-                errorDisplay("", "instruction", "cartStepLocation__individual__names__instruction", true)
+                errorDisplay("", "instruction", "cartStepLocation__individual__names__instruction", true);
                 totalCheck += 1;
             }
         } 
@@ -451,27 +463,26 @@ const CartLocation = (props) => {
         // if checked
         if (toggleStatus && togglelocation) {
             if (totalCheck === 17) {
-                console.log('1');
                 prepareInfos();
             }
         } else if (toggleStatus || togglelocation) {
             if (totalCheck === 13) {
-                console.log('2');
                 prepareInfos();
             }
         } else {
             if (totalCheck === 9) {
-                console.log('3');
                 prepareInfos();
             }
         }
 
-    }
+    };
 
-    // preparation avant d'envoyer les infos
+    /**
+     * PREPARE INFOS BEFORE SENDING
+     */
     const prepareInfos = () => {
         
-        let companyName, fax, tva, siret, address, addressComp, zip, city
+        let companyName, fax, tva, siret, address, addressComp, zip, city;
 
         if (toggleStatus) {
             companyName = inputs.companyName;
@@ -517,14 +528,18 @@ const CartLocation = (props) => {
             instruction: inputs.instruction,
             newsLetter: checkBox.newletter,
             ad: checkBox.pub
-        }
+        };
 
         props.sendInfos(infos);
 
-        updateProfil()  
+        updateProfil(); 
 
-    }
+    };
 
+    /**
+     * UPDATE THE PROFIL
+     * @returns 
+     */
     const updateProfil = () => {
         
         let newObj = {
@@ -560,19 +575,19 @@ const CartLocation = (props) => {
                 if (decodedToken.userId !== token.content || isTokenExpired === true) {
                     dispatch ({
                         type: 'DISCONNECT'
-                    })
+                    });
                     localStorage.removeItem('token');
                     return navigate('/login', { replace: true });
                 };
                 userIdToSend = decodedToken.userId;
                 dispatch ({
                     type: 'LOG'
-                })
+                });
             };
         } else {
             dispatch ({
                 type: 'DISCONNECT'
-            })
+            });
             return navigate('/login', { replace: true });
         }; 
 
@@ -587,9 +602,8 @@ const CartLocation = (props) => {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
+            props.next();
         })
-        props.next();
               
 
     }

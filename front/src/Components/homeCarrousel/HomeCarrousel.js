@@ -7,7 +7,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const HomeCarrousel = () => {
 
+    /**
+     * HANDLE THE CARROUSEL
+     * @param {*} action 
+     * @returns 
+     */
     const handleCarrousel = (action) => {
+
         const imgs = document.querySelectorAll('.home__carrousel__img');
         const btnsNav = document.querySelectorAll('.home__carrousel__nav__btn');
         
@@ -40,9 +46,14 @@ const HomeCarrousel = () => {
                 }
             }
         }
-    }
+    };
     
+    /**
+     * HANDLE NAV CARROUSEL
+     * @param {*} ind 
+     */
     const handleNavCarrousel = (ind) => {
+
         const imgs = document.querySelectorAll('.home__carrousel__img');
         const btnsNav = document.querySelectorAll('.home__carrousel__nav__btn');
         
@@ -53,7 +64,7 @@ const HomeCarrousel = () => {
 
         imgs[ind].classList.add('home__carrousel__img--active');
         btnsNav[ind].classList.add('home__carrousel__nav__btn--active');
-    }
+    };
 
     return (
         <>

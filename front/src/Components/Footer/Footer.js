@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Footer = () => {
 
     const [modalQuit, setModalQuit] = useState(false);
     const [toLink, setToLink] = useState("");
 
+    /**
+     * TOGGLE LEAVE SITE MODAL
+     * @param {*} link 
+     */
     const toggleModalQuit = (link) => {
         if(link) {
-            setToLink(link)
+            setToLink(link);
         }
         setModalQuit(!modalQuit);
-    }
+    };
 
     return (
         <footer className='footer'>

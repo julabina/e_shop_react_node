@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { decodeToken, isExpired } from 'react-jwt';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAddressBook, faLock, faTruckRampBox, faAt } from '@fortawesome/free-solid-svg-icons';
 
 const UserAccount = () => {
@@ -11,8 +11,8 @@ const UserAccount = () => {
     const dispatch = useDispatch();
 
     const [toggleBusiness, setToggleBusiness] = useState(false);
-    const [profilUpdateInputs, setProfilUpdateInputs] = useState({firstName: "", lastName: "", address: "", addressComp: "", zip: "", city: "", mobile: "", fixe: "", companyName: "", fax: "", siret: "", tva: "", deliveryAddress: "", deliveryAddressComp: "", deliveryZip: "", deliveryCity: "", newsletter: false, pub: false})
-    const [passwordUpdateInputs, setPasswordUpdateInputs] = useState({password : "", newPassword: "", confirmNewPassword: ""})
+    const [profilUpdateInputs, setProfilUpdateInputs] = useState({firstName: "", lastName: "", address: "", addressComp: "", zip: "", city: "", mobile: "", fixe: "", companyName: "", fax: "", siret: "", tva: "", deliveryAddress: "", deliveryAddressComp: "", deliveryZip: "", deliveryCity: "", newsletter: false, pub: false});
+    const [passwordUpdateInputs, setPasswordUpdateInputs] = useState({password : "", newPassword: "", confirmNewPassword: ""});
     const [emailUpdateInputs, setEmailUpdateInputs] = useState({email: "", new: ""});
     const [successMsg, setSuccessMsg] = useState("");
     const [orderData, setOrderData] = useState([]);
@@ -34,19 +34,19 @@ const UserAccount = () => {
                 if (decodedToken.userId !== token.content || isTokenExpired === true) {
                     dispatch ({
                         type: 'DISCONNECT'
-                    })
+                    });
                     localStorage.removeItem('token');
                     return navigate('/login', { replace: true });
                 };
                 userIdToSend = decodedToken.userId;
                 dispatch ({
                     type: 'LOG'
-                })
+                });
             };
         } else {
             dispatch ({
                 type: 'DISCONNECT'
-            })
+            });
             return navigate('/login', { replace: true });
         }; 
         console.log(userIdToSend);
@@ -62,7 +62,6 @@ const UserAccount = () => {
         })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
                     
                     if (data.data.company) {
                         setToggleBusiness(true);
@@ -93,14 +92,22 @@ const UserAccount = () => {
                
     },[]);
     
+    /**
+     * DISCONNECT USER
+     */
     const logOut = () => {
         dispatch ({
             type: 'DISCONNECT'
-        })
+        });
         localStorage.removeItem('token');
         navigate('/login', { replace: true });
     };
 
+    /**
+     * GET USER ORDERS
+     * @param {*} userId 
+     * @param {*} token 
+     */
     const getUserOrders = (userId, token) => {
         fetch('http://localhost:3000/api/orders/' + userId,  {
             headers: {
@@ -108,19 +115,27 @@ const UserAccount = () => {
                 'Content-Type': 'application/json',
                 "Authorization": "Bearer " + token
             }})
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                const newArr = data.data
-                setOrderData(newArr);
-            })
+                .then(res => res.json())
+                .then(data => {
+                    const newArr = data.data;
+                    setOrderData(newArr);
+                })
     };
 
+    /**
+     * TOGGLE ISCOMPANY
+     */
     const isBusinessToggle = () => {
         setToggleBusiness(!toggleBusiness);
-    }
+    };
 
+    /**
+     * CONTROL UPDATE PROFIL INPUTS
+     * @param {*} action 
+     * @param {*} value 
+     */
     const ctrlInputsProfilUpdate = (action, value) => {
+
         if (action === "address") {
             const newObj = {
                 ...profilUpdateInputs,
@@ -232,6 +247,11 @@ const UserAccount = () => {
         } 
     };
 
+    /**
+     * CONTROL PASSWORD INPUT
+     * @param {*} action 
+     * @param {*} value 
+     */
     const ctrlPasswordInputs = (action, value) => {
         if (action === "actual") {
             const newObj = {
@@ -254,6 +274,11 @@ const UserAccount = () => {
         }
     };
 
+    /**
+     * CONTROL EMAIL INPUT
+     * @param {*} action 
+     * @param {*} value 
+     */
     const ctrlEmailInputs = (action, value) => {
         if (action === "actual") {
             const newObj = {
@@ -270,115 +295,121 @@ const UserAccount = () => {
         }
     };
 
+    /**
+     * VALIDATE AND SEND UPDATE PROFIL INFORMATIONS
+     * @param {*} e 
+     * @returns 
+     */
     const sendProfilUpdated = (e) => {
         e.preventDefault();
+
         const errorCont = document.querySelector(".profilUpdate__userProfil__errorCont");
         let error = "";
 
         if (profilUpdateInputs.firstName !== "") {
             if(profilUpdateInputs.firstName.length < 3 || profilUpdateInputs.firstName.length > 25) {
-                error += `<p>- Le prénom doit être compris entre 2 et 25 caratères.</p>`
+                error += `<p>- Le prénom doit être compris entre 2 et 25 caratères.</p>`;
             } else if (!profilUpdateInputs.firstName.match(/^[a-zA-Zé èà]*$/)) {
-                error += `<p>- Le prénom ne doit comporter que des lettres.</p>`
+                error += `<p>- Le prénom ne doit comporter que des lettres.</p>`;
             }
         } 
 
         if (profilUpdateInputs.lastName !== "") {
             if(profilUpdateInputs.lastName.length < 3 || profilUpdateInputs.lastName.length > 25) {
-                error += `<p>- Le nom doit être compris entre 2 et 25 caratères.</p>`
+                error += `<p>- Le nom doit être compris entre 2 et 25 caratères.</p>`;
             } else if (!profilUpdateInputs.lastName.match(/^[a-zA-Zé èà]*$/)) {
-                error += `<p>- Le nom ne doit comporter que des lettres.</p>`
+                error += `<p>- Le nom ne doit comporter que des lettres.</p>`;
             }
         } 
         
         if (profilUpdateInputs.mobile !== "") {
             if (!profilUpdateInputs.mobile.match(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/)) {
-                error += `<p>- Le mobile n'a pas un format valide.</p>`
+                error += `<p>- Le mobile n'a pas un format valide.</p>`;
             }
         } 
         
         if (profilUpdateInputs.fixe !== "") {
             if (!profilUpdateInputs.fixe.match(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/)) {
-                error += `<p>- Le fixe n'a pas un format valide.</p>`
+                error += `<p>- Le fixe n'a pas un format valide.</p>`;
             }
         } 
         
         if (profilUpdateInputs.address !== "") {
             if (!profilUpdateInputs.address.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
-                error += `<p>- L'adresse n'a pas un format valide.</p>`
+                error += `<p>- L'adresse n'a pas un format valide.</p>`;
             }
         } 
         
         if (profilUpdateInputs.addressComp !== "") {
             if (!profilUpdateInputs.addressComp.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
-                error += `<p>- Le complément d'adresse n'a pas un format valide.</p>`
+                error += `<p>- Le complément d'adresse n'a pas un format valide.</p>`;
             }
         } 
         
         if (profilUpdateInputs.zip !== "") {
             if (!profilUpdateInputs.zip.match(/^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$/)) {
-                error += `<p>- Le code postal n'a pas un format valide.</p>`
+                error += `<p>- Le code postal n'a pas un format valide.</p>`;
             }
         } 
         
         if (profilUpdateInputs.city !== "") {
             if (profilUpdateInputs.city.length < 3 || profilUpdateInputs.city.length > 25) {
-                error += `<p>- La ville doit être comprise entre 2 et 25 caratères.</p>`
+                error += `<p>- La ville doit être comprise entre 2 et 25 caratères.</p>`;
             } else if (!profilUpdateInputs.city.match(/^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/)) {
-                error += `<p>- La ville n'a pas un format valide.</p>`
+                error += `<p>- La ville n'a pas un format valide.</p>`;
             }
         } 
         
         if (profilUpdateInputs.deliveryAddress !== "") {
             if (!profilUpdateInputs.deliveryAddress.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
-                error += `<p>- L'adresse de livraison n'a pas un format valide.</p>`
+                error += `<p>- L'adresse de livraison n'a pas un format valide.</p>`;
             }
         } 
         
         if (profilUpdateInputs.deliveryAddressComp !== "") {
             if (!profilUpdateInputs.deliveryAddressComp.match(/^[a-zA-Zé èà0-9\s,.'-]{3,}$/)) {
-                error += `<p>- Le complément d'adresse de livraison n'a pas un format valide.</p>`
+                error += `<p>- Le complément d'adresse de livraison n'a pas un format valide.</p>`;
             }
         } 
         
         if (profilUpdateInputs.deliveryZip !== "") {
             if (!profilUpdateInputs.deliveryZip.match(/^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$/)) {
-                error += `<p>- Le code postal de livraison n'a pas un format valide.</p>`
+                error += `<p>- Le code postal de livraison n'a pas un format valide.</p>`;
             }
         } 
         
         if (profilUpdateInputs.deliveryCity !== "") {
             if (profilUpdateInputs.deliveryCity.length < 3 || profilUpdateInputs.deliveryCity.length > 25) {
-                error += `<p>- La ville doit être comprise entre 2 et 25 caratères.</p>`
+                error += `<p>- La ville doit être comprise entre 2 et 25 caratères.</p>`;
             } else if (!profilUpdateInputs.deliveryCity.match(/^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/)) {
-                error += `<p>- La ville de livraison n'a pas un format valide.</p>`
+                error += `<p>- La ville de livraison n'a pas un format valide.</p>`;
             }
         } 
         
        if(toggleBusiness) {            
                 if (profilUpdateInputs.companyName !== "") {
                     if (profilUpdateInputs.companyName.length < 3 || profilUpdateInputs.companyName.length > 25) {
-                        error += `<p>- Le nom de la société doit être comprise entre 2 et 25 caratères.</p>`
+                        error += `<p>- Le nom de la société doit être comprise entre 2 et 25 caratères.</p>`;
                     } else if (!profilUpdateInputs.companyName.match(/^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$/)) {
-                        error += `<p>- Le nom de la société n'a pas un format valide.</p>`
+                        error += `<p>- Le nom de la société n'a pas un format valide.</p>`;
                     }
                 } 
 
                 if (profilUpdateInputs.fax !== "") {
                     if (!profilUpdateInputs.fax.match(/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/)) {
-                        error += `<p>- Le fax n'a pas un format valide.</p>`
+                        error += `<p>- Le fax n'a pas un format valide.</p>`;
                     }
                 } 
 
                 if (profilUpdateInputs.siret !== "") {
                     if (!profilUpdateInputs.siret.match(/^[0-9]{9}$/)) {
-                        error += `<p>- Le siret n'a pas un format valide.</p>`
+                        error += `<p>- Le siret n'a pas un format valide.</p>`;
                     }
                 } 
 
                 if (profilUpdateInputs.tva !== "") {
                     if (!profilUpdateInputs.tva.match(/^(FR){0,1}[0-9A-Z]{2}\ [0-9]{9}$/)) {
-                        error += `<p>- La tva n'a pas un format valide.</p>`
+                        error += `<p>- La tva n'a pas un format valide.</p>`;
                     }
                 } 
         }
@@ -421,19 +452,19 @@ const UserAccount = () => {
                 if (decodedToken.userId !== token.content || isTokenExpired === true) {
                     dispatch ({
                         type: 'DISCONNECT'
-                    })
+                    });
                     localStorage.removeItem('token');
                     return navigate('/login', { replace: true });
                 };
                 userIdToSend = decodedToken.userId;
                 dispatch ({
                     type: 'LOG'
-                })
+                });
             };
         } else {
             dispatch ({
                 type: 'DISCONNECT'
-            })
+            });
             return navigate('/login', { replace: true });
         }; 
 
@@ -447,7 +478,6 @@ const UserAccount = () => {
             body: JSON.stringify( newObj )
         })
               .then(res => {
-                console.log(res);
                if (res.status === 200) {
                     setSuccessMsg("Infos personnelles bien modifiées !");
                     errorCont.innerHTML = "";
@@ -457,16 +487,18 @@ const UserAccount = () => {
                 } 
             })
             .catch(error => {
-                return errorCont.innerHTML = error
+                return errorCont.innerHTML = error;
             }) 
         
     };  
 
+    /**
+     * CLOSE MODIFY SECTION
+     */
     const closeSectionToModify = () => {
+
         const modifySections = document.querySelectorAll('.profilUpdate__part');
         const btns = document.querySelectorAll('.profil__options__row__link');
-        console.log(modifySections);
-        console.log();
     
         for (let i = 0; i < modifySections.length; i++) {
             modifySections[i].classList.remove('profilUpdate__part--visible');
@@ -474,7 +506,12 @@ const UserAccount = () => {
         }
     };
 
+    /**
+     * OPEN MODIFY TAB
+     * @param {*} tab 
+     */
     const openModifyTab = (tab) => {
+
         const modifySections = document.querySelectorAll('.profilUpdate__part');
         const btns = document.querySelectorAll('.profil__options__row__link');
 
@@ -497,24 +534,30 @@ const UserAccount = () => {
         setSuccessMsg('');
     };
 
+    /**
+     * VALIDATE AND SEND PASSWORD TO BACK-END
+     * @param {*} e 
+     * @returns 
+     */
     const updatePassword = (e) => {
         e.preventDefault();
+
         const errorCont = document.querySelector('.profilUpdate__password__errorCont');
 
         errorCont.innerHTML = '';
 
         if(passwordUpdateInputs.newPassword === "" || passwordUpdateInputs.password === "" || passwordUpdateInputs.confirmNewPassword === "") {
-            return errorCont.innerHTML = `<p>- Tous les champs sont requis.</p>`
+            return errorCont.innerHTML = `<p>- Tous les champs sont requis.</p>`;
         }
         
         if (!passwordUpdateInputs.newPassword.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)) {
-            return errorCont.innerHTML = `<p>- Le nouveau mot de passe doit contenir minimun 1 lettre 1 chiffre 1 lettre majuscule et 8 caractères.</p>`
+            return errorCont.innerHTML = `<p>- Le nouveau mot de passe doit contenir minimun 1 lettre 1 chiffre 1 lettre majuscule et 8 caractères.</p>`;
         }
         if(passwordUpdateInputs.newPassword !== passwordUpdateInputs.confirmNewPassword) {
-            return errorCont.innerHTML = `<p>- Le nouveau mot de passe doit etre identique au mot de passe de confirmation.</p>`
+            return errorCont.innerHTML = `<p>- Le nouveau mot de passe doit etre identique au mot de passe de confirmation.</p>`;
         }
         if(passwordUpdateInputs.password === passwordUpdateInputs.newPassword) {
-            return errorCont.innerHTML = `<p>- Le nouveau mot de passe ne doit pas être identique à l'ancien.</p>`
+            return errorCont.innerHTML = `<p>- Le nouveau mot de passe ne doit pas être identique à l'ancien.</p>`;
         }
 
        let userIdToSend = "", tokenToSend = "";
@@ -529,19 +572,19 @@ const UserAccount = () => {
             if (decodedToken.userId !== token.content || isTokenExpired === true) {
                 dispatch ({
                     type: 'DISCONNECT'
-                })
+                });
                 localStorage.removeItem('token');
                 return navigate('/login', { replace: true });
             };
             userIdToSend = decodedToken.userId;
             dispatch ({
                 type: 'LOG'
-            })
+            });
         };
     } else {
         dispatch ({
             type: 'DISCONNECT'
-        })
+        });
         return navigate('/login', { replace: true });
     }; 
 
@@ -556,9 +599,8 @@ const UserAccount = () => {
             body: JSON.stringify( {password : passwordUpdateInputs.newPassword} )
         })
             .then(res => {
-                console.log(res);
                  if (res.status === 200) {
-                    setSuccessMsg("Mot de passe modifié !")
+                    setSuccessMsg("Mot de passe modifié !");
             
                     closeSectionToModify();
                     const newObj = {
@@ -577,20 +619,26 @@ const UserAccount = () => {
             
     };
         
+    /**
+     * VALIDATE AND SEND NEW EMAIL TO BACK-END
+     * @param {*} e 
+     * @returns 
+     */
     const updateMail = (e) => {
         e.preventDefault();
-        const errorCont = document.querySelector('.profilUpdate__email__errorCont')
 
-        errorCont.innerHTML = ''
+        const errorCont = document.querySelector('.profilUpdate__email__errorCont');
+
+        errorCont.innerHTML = '';
         
         if (emailUpdateInputs.email === "" || emailUpdateInputs.new === "") {
-            return errorCont.innerHTML = `<p>- Tous les champs sont requis.</p>`
+            return errorCont.innerHTML = `<p>- Tous les champs sont requis.</p>`;
         }
         if (!emailUpdateInputs.email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i) || !emailUpdateInputs.new.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i)) {
-            return errorCont.innerHTML = `<p>- Mauvais format d'email.</p>`            
+            return errorCont.innerHTML = `<p>- Mauvais format d'email.</p>`;         
         }
         if (emailUpdateInputs.email === emailUpdateInputs.new) {
-            return errorCont.innerHTML = `<p>- L'ancien email ne doit pas être identique au nouveau.</p>`
+            return errorCont.innerHTML = `<p>- L'ancien email ne doit pas être identique au nouveau.</p>`;
         }
 
         let userIdToSend = "", tokenToSend = "";
@@ -605,22 +653,21 @@ const UserAccount = () => {
             if (decodedToken.userId !== token.content || isTokenExpired === true) {
                 dispatch ({
                     type: 'DISCONNECT'
-                })
+                });
                 localStorage.removeItem('token');
                 return navigate('/login', { replace: true });
             };
             userIdToSend = decodedToken.userId;
             dispatch ({
                 type: 'LOG'
-            })
+            });
         };
     } else {
         dispatch ({
             type: 'DISCONNECT'
-        })
+        });
         return navigate('/login', { replace: true });
     }; 
-    console.log(typeof emailUpdateInputs.email,typeof emailUpdateInputs.new );
         fetch('http://localhost:3000/api/users/email/' + userIdToSend, {
             headers: {
                 'Accept': 'application/json',
@@ -631,21 +678,20 @@ const UserAccount = () => {
             body: JSON.stringify({email: emailUpdateInputs.email , new: emailUpdateInputs.new})
         })
             .then(res => {
-                console.log(res);
                  if (res.status === 200) {
-                    setSuccessMsg("Adresse email modifié !")
+                    setSuccessMsg("Adresse email modifié !");
                     let newObj = {
                         email: "", 
                         new: ""
-                    }
-                    setEmailUpdateInputs(newObj)
+                    };
+                    setEmailUpdateInputs(newObj);
                     closeSectionToModify();
                     
                     window.scrollTo(0,0);
                 } else if(res.status === 401) {
-                    errorCont.innerHTML = "- L'email ne correspond pas."
+                    errorCont.innerHTML = "- L'email ne correspond pas.";
                 } else {
-                    errorCont.innerHTML = "- Un probleme est survenu."
+                    errorCont.innerHTML = "- Un probleme est survenu.";
                 }
             })
             .catch(error => {
@@ -653,6 +699,10 @@ const UserAccount = () => {
             }) 
     };
 
+    /**
+     * IF  LOGGED DELETE ACCOUNT
+     * @returns 
+     */
     const handleDeleteAccount = () => {
 
         let userIdToSend = "", tokenToSend = "";
@@ -667,19 +717,19 @@ const UserAccount = () => {
             if (decodedToken.userId !== token.content || isTokenExpired === true) {
                 dispatch ({
                     type: 'DISCONNECT'
-                })
+                });
                 localStorage.removeItem('token');
                 return navigate('/login', { replace: true });
             };
             userIdToSend = decodedToken.userId;
             dispatch ({
                 type: 'LOG'
-            }) 
+            }) ;
         };
     } else {
         dispatch ({
             type: 'DISCONNECT'
-        })
+        });
         return navigate('/login', { replace: true });
     }; 
 
@@ -692,33 +742,39 @@ const UserAccount = () => {
             method : 'PUT'
         })
             .then(res => {
-                console.log(res);
                 if(res.status === 200) {
                     toggleMsgModal('Utilisateur supprimer');
                     dispatch ({
                         type: 'DISCONNECT'
-                    })
+                    });
                     localStorage.removeItem('token');
-                    navigate('/login', { replace: true })
+                    navigate('/login', { replace: true });
                 } else {
-                    toggleDeleteModal()
-                    toggleMsgModal('Un probleme est survenu.')
+                    toggleDeleteModal();
+                    toggleMsgModal('Un probleme est survenu.');
                 }
             })
 
 
-    }
+    };
   
+    /**
+     * TOGGLE DELETE ACCOUNT CONFIRMATION MODAL
+     */
     const toggleDeleteModal = () => {
         setDeleteModal(!deleteModal);
-    }
+    };
 
+    /**
+     * TOGGLE MESSAGE MODAL
+     * @param {*} message 
+     */
     const toggleMsgModal = (message) => {
         if(message) {
             setModalMsg(message);
         }
         setDeleteResModal(!deleteResModal);
-    }
+    };
 
     return (
         <main>

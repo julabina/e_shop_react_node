@@ -8,6 +8,7 @@ const Legals = () => {
 
 
     useEffect(() => {
+
         window.scrollTo(0, 0);
 
         if (localStorage.getItem('token') !== null) {
@@ -19,24 +20,24 @@ const Legals = () => {
                 if (decodedToken.userId !== token.content || isTokenExpired === true) {
                     dispatch ({
                         type: 'DISCONNECT'
-                    })
+                    });
                     localStorage.removeItem('token');
                 };
                 dispatch ({
                     type: 'LOG'
-                })
+                });
             } else {
                 dispatch ({
                     type: 'DISCONNECT'
-                })
+                });
             };
         } else {
             dispatch ({
                 type: 'DISCONNECT'
-            })
+            });
         }; 
 
-    },[])
+    },[]);
 
     return (
         <main>

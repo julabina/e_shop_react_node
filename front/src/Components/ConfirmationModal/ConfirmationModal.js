@@ -12,16 +12,25 @@ const ConfirmationModal = (props) => {
     const [isProductPage, setIsProductPage] = useState(false);
 
     useEffect(() => {
-        if (props.isProductPage) {
-            setIsProductPage(true)
-        }
-    },[])
 
+        if (props.isProductPage) {
+            setIsProductPage(true);
+        }
+
+    },[]);
+
+    /**
+     * TOGGLE MODAL
+     */
     const modalToggle = () => {
         setToggleModal(!toggleModal);
-    }
+    };
 
+    /**
+     * ADD PRODUCT TO CART IN LOCALSTORAGE
+     */
     const addToCart = () => {
+
         if(props.stock !== 0) {
             let item;
 
@@ -34,7 +43,7 @@ const ConfirmationModal = (props) => {
                     stock: props.stock,
                     name: props.name,
                     image: props.img[0].img
-                }
+                };
             } else if(props.category === "telescope") {
                 item = {
                     category: "telescope",
@@ -44,7 +53,7 @@ const ConfirmationModal = (props) => {
                     stock: props.stock,
                     name: props.name,
                     image: props.img[0].img
-                }
+                };
             } else if (props.category === "oculaire") {
                 item = {
                     category: "oculaire",
@@ -54,17 +63,16 @@ const ConfirmationModal = (props) => {
                     stock: props.stock,
                     name: props.name,
                     image: props.img
-                }
+                };
             }
-            console.log(props.price);
             dispatch({
                 type: 'ADDTOCART',
                 payload: item
-            })
+            });
 
             modalToggle();
         }
-    }
+    };
 
     return (
         <>

@@ -7,27 +7,38 @@ const CartDelivery = (props) => {
 
     const [options, setOptions] = useState({method: "collisimo", informations : ""});
 
+    /**
+     * CONTROL RADIOS INPUTS
+     * @param {*} value 
+     */
     const changeInputs = (value) => {
         const newObj = {
             ...options,
             method: value
-        }
-        setOptions(newObj)
-    }
+        };
+        setOptions(newObj);
+    };
 
+    /**
+     * CONTROL INFORMATION TEXT INPUT
+     * @param {*} text 
+     */
     const changeInformationText = (text) => {
         const newObj = {
             ...options,
             informations: text
-        }
-        setOptions(newObj)
-    }
+        };
+        setOptions(newObj);
+    };
 
+    /**
+     * SEND INFOS AND TO PAYMENT NEXT 
+     */
     const prepareToSend = () => {
-        props.sendInfos(options)
+        props.sendInfos(options);
 
         props.next();
-    }
+    };
 
 
     return (

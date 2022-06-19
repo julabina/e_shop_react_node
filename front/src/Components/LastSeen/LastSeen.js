@@ -8,16 +8,19 @@ const LastSeen = () => {
     const [lastSeenData, setLastSeenData] = useState([]);
 
     useEffect(() => {
-        getLastSeen()
-    },[])
+        getLastSeen();
+    },[]);
     
+    /**
+     * GET LAST SEEN PRODUCTS FROM LOCALSTORAGE
+     */
     const getLastSeen = () => {
         if (localStorage.getItem('lastSeen') !== null) {
             let lastSeenArr = JSON.parse(localStorage.getItem('lastSeen'));
             console.log(lastSeenData);
             setLastSeenData(lastSeenArr);
         }
-    }
+    };
 
     return (
         <div className='lastSeen__bot'>

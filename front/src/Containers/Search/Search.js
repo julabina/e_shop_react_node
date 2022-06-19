@@ -18,6 +18,7 @@ const Search = () => {
     const [sortValue, setSortValue] = useState("ascName");
 
     useEffect(() => {
+
         if (localStorage.getItem('token') !== null) {
             let getToken = localStorage.getItem('token');
             let token = JSON.parse(getToken);
@@ -27,38 +28,42 @@ const Search = () => {
                 if (decodedToken.userId !== token.content || isTokenExpired === true) {
                     dispatch ({
                         type: 'DISCONNECT'
-                    })
+                    });
                     localStorage.removeItem('token');
                 };
                 dispatch ({
                     type: 'LOG'
-                })
+                });
             } else {
                 dispatch ({
                     type: 'DISCONNECT'
-                })
+                });
             };
         } else {
             dispatch ({
                 type: 'DISCONNECT'
-            })
+            });
         }; 
 
         if (params.query) {
-            getSearchList(sortValue)
+            getSearchList(sortValue);
             } else {
             setResultData([]);
         }
 
-    },[params.query])
+    },[params.query]);
 
+    /**
+     * GET SEEKED PRODUCTS
+     * @param {*} sort 
+     */
     const getSearchList = (sort) => {
+
         window.scrollTo(0, 0);
 
         fetch('http://localhost:3000/api/search?query=' + params.query)
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
                     let newArr = [];
                     for (let i = 0; i < data.rows.length; i++) {
                         if(data.rows[i] !== undefined) {
@@ -71,15 +76,15 @@ const Search = () => {
                                 promo: data.rows[i].promo,
                                 promoValue: data.rows[i].promoValue,
                                 stock: data.rows[i].stock
-                            }
-                            newArr.push(item)
+                            };
+                            newArr.push(item);
                         }
                     }
 
                     if(sort === "ascPrice") {
-                        newArr.sort((a, b) => a.price - b.price)
+                        newArr.sort((a, b) => a.price - b.price);
                     } else if(sort === "descPrice") {
-                        newArr.sort((a, b) => b.price - a.price)
+                        newArr.sort((a, b) => b.price - a.price);
                     } else if(sort === "descName") {
                         newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
                     } else if (sort === "ascName") {
@@ -90,30 +95,40 @@ const Search = () => {
                 })
     }
 
+    /**
+     * SORT SEEKED PRODUCTS
+     * @param {*} option 
+     */
     const handleSort = (option) => {
+
         setSortValue(option);
         
         let newArr = resultData;
 
         if(option === "ascPrice") {
-            newArr.sort((a, b) => a.price - b.price)
+            newArr.sort((a, b) => a.price - b.price);
         } else if(option === "descPrice") {
-            newArr.sort((a, b) => b.price - a.price)
+            newArr.sort((a, b) => b.price - a.price);
         } else if(option === "descName") {
             newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
         } else if (option === "ascName") {
             newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
         }
 
-        setResultData(newArr)
+        setResultData(newArr);
     }
 
+    /**
+     * CONTROL INPUTS
+     * @param {*} action 
+     * @param {*} value 
+     */
     const handleFilter = (action, value) => {
         if(action === "telescope") {
             let newArr = filterOptions.categories;
             let filteredCtrl = filterOptions;
             if(filterOptions[0] === true) {
-                let arrFiltered = newArr.filter(el => el !== value)
+                let arrFiltered = newArr.filter(el => el !== value);
                 newArr = arrFiltered;
             } else {
                 if(!filterOptions.categories.includes(value)){
@@ -124,14 +139,14 @@ const Search = () => {
             const newObj = {
                 ...filterOptions,
                 categories: newArr
-            }
+            };
             setFilterOptions(newObj);
-            setFilterCat(filteredCtrl)
+            setFilterCat(filteredCtrl);
         } else if(action === "oculaire") {
             let newArr = filterOptions.categories;
             let filteredCtrl = filterOptions;
             if(filterOptions[1] === true) {
-                let arrFiltered = newArr.filter(el => el !== value)
+                let arrFiltered = newArr.filter(el => el !== value);
                 newArr = arrFiltered;
             } else {
                 if(!filterOptions.categories.includes(value)){
@@ -142,14 +157,14 @@ const Search = () => {
             const newObj = {
                 ...filterOptions,
                 categories: newArr
-            }
+            };
             setFilterOptions(newObj);
-            setFilterCat(filteredCtrl)           
+            setFilterCat(filteredCtrl);           
         } else if(action === "monture") {
             let newArr = filterOptions.categories;
             let filteredCtrl = filterOptions;
             if(filterOptions[2] === true) {
-                let arrFiltered = newArr.filter(el => el !== value)
+                let arrFiltered = newArr.filter(el => el !== value);
                 newArr = arrFiltered;
             } else {
                 if(!filterOptions.categories.includes(value)){
@@ -160,19 +175,23 @@ const Search = () => {
             const newObj = {
                 ...filterOptions,
                 categories: newArr
-            }
+            };
             setFilterOptions(newObj);
-            setFilterCat(filteredCtrl)
+            setFilterCat(filteredCtrl);
         } else if (action === "onStock") {
             const newObj = {
                 ...filterOptions,
                 onStock : !filterOptions.onStock
-            }
+            };
             setFilterOptions(newObj);
         } 
     }
 
+    /**
+     * GET FILTERED SEEKD PRODUCTS
+     */
     const getFilteredList = () => {
+
         window.scrollTo(0, 0);
 
         if(filterOptions.categories.length > 0 || filterOptions.onStock === true) {
@@ -184,7 +203,7 @@ const Search = () => {
                 categories = filterOptions.categories;
             }
             if(filterOptions.onStock) {
-                onStock = true
+                onStock = true;
             }
             
             fetch('http://localhost:3000/api/search?query=' + params.query, {
@@ -198,56 +217,58 @@ const Search = () => {
                     onStock: onStock
                 })
             })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                let newArr = [];
-                for (let i = 0; i < data.rows.length; i++) {
-                    if(data.rows[i] !== undefined) {
-                        const item = {
-                            cat: data.rows[i].Category.name,
-                            name: data.rows[i].name,
-                            pictures: data.rows[i].pictures,
-                            price: data.rows[i].price,
-                            id: data.rows[i].id,
-                            promo: data.rows[i].promo,
-                            promoValue: data.rows[i].promoValue,
-                            stock: data.rows[i].stock
+                .then(res => res.json())
+                .then(data => {
+                    let newArr = [];
+                    for (let i = 0; i < data.rows.length; i++) {
+                        if(data.rows[i] !== undefined) {
+                            const item = {
+                                cat: data.rows[i].Category.name,
+                                name: data.rows[i].name,
+                                pictures: data.rows[i].pictures,
+                                price: data.rows[i].price,
+                                id: data.rows[i].id,
+                                promo: data.rows[i].promo,
+                                promoValue: data.rows[i].promoValue,
+                                stock: data.rows[i].stock
+                            };
+                            newArr.push(item);
                         }
-                        newArr.push(item)
                     }
-                }
 
-                if(sortValue === "ascPrice") {
-                    newArr.sort((a, b) => a.price - b.price)
-                } else if(sortValue === "descPrice") {
-                    newArr.sort((a, b) => b.price - a.price)
-                } else if(sortValue === "descName") {
-                    newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
-                } else if (sortValue === "ascName") {
-                    newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
-                }
+                    if(sortValue === "ascPrice") {
+                        newArr.sort((a, b) => a.price - b.price);
+                    } else if(sortValue === "descPrice") {
+                        newArr.sort((a, b) => b.price - a.price);
+                    } else if(sortValue === "descName") {
+                        newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
+                    } else if (sortValue === "ascName") {
+                        newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
+                    }
 
-                setResultData(newArr);  
+                    setResultData(newArr);  
                 })
             } else {
                 getSearchList(sortValue);
             }
-    }
+    };
 
+    /**
+     * RESET FILTER
+     */
     const removeFilter = () => {
         const inputCat = document.getElementsByName('searchCategory');
         const onStockFilter = document.getElementById('telescopeOnStock');
 
         inputCat.forEach(el => {
-            el.checked = false
+            el.checked = false;
         })
-        onStockFilter.checked = false
+        onStockFilter.checked = false;
 
-        let filter = {categories: [], onStock: false}
+        let filter = {categories: [], onStock: false};
         setFilterOptions(filter);
-        getSearchList(sortValue)
-    }
+        getSearchList(sortValue);
+    };
 
     return (
         <main className='mainList'>

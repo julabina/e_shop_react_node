@@ -19,56 +19,55 @@ const OculaireProduct = () => {
     const [inputAddCart, setInputAddCart] = useState("");
     const [isLogged, setIsLogged] = useState(false);
     const [actualUser, setActualUser] = useState({id: '', token: ''});
-    let back = '< retour'
+    let back = '< retour';
 
     useEffect(() => {
+
         window.scrollTo(0, 0);
         
         fetch('http://localhost:3000/api/products/oculaires/' + params.id)
-        .then(res => res.json())
-        .then(data => {
-            console.log(data.data);
-            let price;
-            const productId = data.data.id;
-            if (data.data !== undefined) {
-                if (data.data.promo) {
-                    let reduction = (data.data.price / 100) * data.data.promoValue;
-                    price = data.data.price - reduction;
-                } else {
-                    price = data.data.price;
+            .then(res => res.json())
+            .then(data => {
+                let price;
+                const productId = data.data.id;
+                if (data.data !== undefined) {
+                    if (data.data.promo) {
+                        let reduction = (data.data.price / 100) * data.data.promoValue;
+                        price = data.data.price - reduction;
+                    } else {
+                        price = data.data.price;
+                    }
+                    let item = {
+                        id: data.data.id,
+                        imgDesc: data.data.descriptionPicture,
+                        name: data.data.name,
+                        price: (price).toFixed(2),
+                        stock: data.data.stock,
+                        description1: data.data.description1,
+                        description2: data.data.description2,
+                        description3: data.data.description3,
+                        focal: data.data.Product_attributes[0].focal,
+                        priceNoPromo: data.data.price,
+                        promoValue: data.data.promoValue,
+                        promo: data.data.promo,
+                        fov: data.data.Product_attributes[0].fov,
+                        eyeRelief: data.data.Product_attributes[0].eyeRelief,
+                        model: data.data.Product_attributes[0].OculaireModel.name,
+                        brand: data.data.Product_attributes[0].Brand.name,
+                        coulant: data.data.Product_attributes[0].coulant,
+                        productId: data.data.id
+                    };
+                    if (data.data.stock < 1) {
+                        setInputAddCart("0");
+                    } else {
+                        setInputAddCart("1");
+                    }
+                    addToLastSeen(item, data.data.pictures[0]);
+                    fetchComment(productId);
+                    setOculaireData(item);
+                    setMainPicture(data.data.pictures);
                 }
-                let item = {
-                    id: data.data.id,
-                    imgDesc: data.data.descriptionPicture,
-                    name: data.data.name,
-                    price: (price).toFixed(2),
-                    stock: data.data.stock,
-                    description1: data.data.description1,
-                    description2: data.data.description2,
-                    description3: data.data.description3,
-                    focal: data.data.Product_attributes[0].focal,
-                    priceNoPromo: data.data.price,
-                    promoValue: data.data.promoValue,
-                    promo: data.data.promo,
-                    fov: data.data.Product_attributes[0].fov,
-                    eyeRelief: data.data.Product_attributes[0].eyeRelief,
-                    model: data.data.Product_attributes[0].OculaireModel.name,
-                    brand: data.data.Product_attributes[0].Brand.name,
-                    coulant: data.data.Product_attributes[0].coulant,
-                    productId: data.data.id
-                }
-                  console.log(item);  
-                if (data.data.stock < 1) {
-                    setInputAddCart("0");
-                } else {
-                    setInputAddCart("1");
-                }
-                addToLastSeen(item, data.data.pictures[0]);
-                fetchComment(productId);
-                setOculaireData(item);
-                setMainPicture(data.data.pictures)
-            }
-        });
+            });
 
         if (localStorage.getItem('token') !== null) {
             let getToken = localStorage.getItem('token');
@@ -79,38 +78,44 @@ const OculaireProduct = () => {
                 let newObj = {
                     id: token.content,
                     token: token.version
-                }
+                };
                 if (decodedToken.userId !== token.content || isTokenExpired === true) {
                     dispatch ({
                         type: 'DISCONNECT'
-                    })
+                    });
                     localStorage.removeItem('token');
-                    setActualUser({id: "", token: ""})
+                    setActualUser({id: "", token: ""});
                     return setIsLogged(false);
                 };
                 dispatch ({
                     type: 'LOG'
-                })
-                setActualUser({id: "", token: ""})
+                });
+                setActualUser({id: "", token: ""});
                 setIsLogged(true);
                 setActualUser(newObj);
             } else {
                 dispatch ({
                     type: 'DISCONNECT'
-                })
+                });
                 setIsLogged(false);
             };
         } else {
             dispatch ({
                 type: 'DISCONNECT'
-            })
-            setActualUser({id: "", token: ""})
+            });
+            setActualUser({id: "", token: ""});
             setIsLogged(false);
         }; 
 
     },[]);
 
+    /**
+     * ADD PRODUCT TO LASTSEEN LOCALSTORAGE
+     * @param {*} itemData 
+     * @param {*} imgData 
+     */
     const addToLastSeen = (itemData, imgData) => {
+
         let lastSeenArr = [];
         let item = {
             category: "oculaire",
@@ -121,11 +126,10 @@ const OculaireProduct = () => {
             promo: itemData.promo,
             promoValue: itemData.promoValue,
             image: imgData
-        }
+        };
         if (localStorage.getItem('lastSeen') !== null) {
             lastSeenArr = JSON.parse(localStorage.getItem('lastSeen'));
         }
-        console.log(lastSeenArr);
         for(let i = 0; i < lastSeenArr.length;i++) {
             if(lastSeenArr[i].id === item.id) {
                 let newArr = lastSeenArr.filter(el => el.id !== item.id);
@@ -140,34 +144,43 @@ const OculaireProduct = () => {
                 lastSeenArr.unshift(item);
             }
         } else {
-            lastSeenArr.unshift(item)
+            lastSeenArr.unshift(item);
         }
-        console.log(lastSeenArr);
         localStorage.setItem('lastSeen', JSON.stringify(lastSeenArr));
-    }
-
-    const fetchComment = (productId) => {
-        fetch("http://localhost:3000/api/comments/" + productId)
-        .then(res => res.json())
-        .then(data => {
-            if(data.data !== undefined) {
-                const arr = data.data;
-                let n1 = arr.map(el => {
-                    el.created = Date.parse(el.created);
-                    el.updated = Date.parse(el.updated);
-                   return el
-                })
-                n1.sort((a,b) => {
-                    return b.updated - a.updated
-                })
-                setCommentsData(n1);
-            } else {
-                setCommentsData("");
-            }
-        })
-        .catch(error => console.error(error));
     };
 
+    /**
+     * GET ALL PRODUCT COMMENTS
+     * @param {*} productId 
+     */
+    const fetchComment = (productId) => {
+
+        fetch("http://localhost:3000/api/comments/" + productId)
+            .then(res => res.json())
+            .then(data => {
+                if(data.data !== undefined) {
+                    const arr = data.data;
+                    let n1 = arr.map(el => {
+                        el.created = Date.parse(el.created);
+                        el.updated = Date.parse(el.updated);
+                    return el;
+                    });
+                    n1.sort((a,b) => {
+                        return b.updated - a.updated;
+                    });
+                    setCommentsData(n1);
+                } else {
+                    setCommentsData("");
+                }
+            })
+            .catch(error => console.error(error));
+    };
+
+    /**
+     * VALIDATE AND SEND COMMENT TO BACK-END
+     * @param {*} e 
+     * @returns 
+     */
     const sendComment = (e) => {
         e.preventDefault();
 
@@ -177,7 +190,7 @@ const OculaireProduct = () => {
             if(commentValue !== "") {
                 for (let i = 0;i < commentValueArr.length; i++) {
                     if(!commentValueArr[i].match(/^[a-zA-Zé èà,.'-€:!?]*$/)) {
-                        return setErrorComment("Le commentaire ne doit comporter que des lettres");
+                        return setErrorComment("Le commentaire ne doit comporter que des lettres.");
                     }
                 }
             } else {
@@ -206,8 +219,12 @@ const OculaireProduct = () => {
                 })
                 .catch(error => console.error(error));
         }
-    }
+    };
 
+    /**
+     * CHANGE TAB INFORMATIONS
+     * @param {*} valArr 
+     */
     const changeTab = (valArr) => {
         const tabs = document.querySelectorAll('.oculaireInfos__tabsCont__tab');
         const infos = document.querySelectorAll('.oculaireInfos__infos');
@@ -225,16 +242,28 @@ const OculaireProduct = () => {
                 }
             }
         }
-    }
+    };
 
+    /**
+     * TOGGLE CARROUSEL
+     */
     const toggleCarrouselFunc = () => {
         setToggleCarrousel(!toggleCarrousel);
-    }
+    };
 
+    /**
+     * CONTROL COMMENT INPUT
+     * @param {*} value 
+     */
     const changeCommentValue = (value) => {
         setCommentValue(value);
-    }
+    };
 
+    /**
+     * CONTROL OTHER INPUTS
+     * @param {*} action 
+     * @param {*} value 
+     */
     const changeInputValue = (action, value) => {
         const lessBtn = document.getElementById('oculaireProduct__lessBtn');
         const addBtn = document.getElementById('oculaireProduct__addBtn');
@@ -246,54 +275,60 @@ const OculaireProduct = () => {
 
         if(action === 'add') {
             
-            (inputAddCart !== oculaireData.stock) ? (newVal = val + 1) : (newVal = val)
+            (inputAddCart !== oculaireData.stock) ? (newVal = val + 1) : (newVal = val);
 
         } else if(action === 'less') {
 
-            (val > 1) ? (newVal = val -1) : (newVal = val)
+            (val > 1) ? (newVal = val -1) : (newVal = val);
 
         } else if(action === 'change') {
             newVal = parseInt(value);
             
-            (newVal >= oculaireData.stock) && (newVal = oculaireData.stock)
+            (newVal >= oculaireData.stock) && (newVal = oculaireData.stock);
 
             if (newVal > 1) {
-                lessBtn.classList.remove('oculaireProduct__top__right__addCart__countCont__btn--unselected')
+                lessBtn.classList.remove('oculaireProduct__top__right__addCart__countCont__btn--unselected');
             }
         }
 
         if(newVal > 1 && newVal !== oculaireData.stock) {
             if(lessBtn.classList.contains('oculaireProduct__top__right__addCart__countCont__btn--unselected')) {
-                lessBtn.classList.remove('oculaireProduct__top__right__addCart__countCont__btn--unselected')
+                lessBtn.classList.remove('oculaireProduct__top__right__addCart__countCont__btn--unselected');
             } 
             if(addBtn.classList.contains('oculaireProduct__top__right__addCart__countCont__btn--unselected')) {
-                addBtn.classList.remove('oculaireProduct__top__right__addCart__countCont__btn--unselected')
+                addBtn.classList.remove('oculaireProduct__top__right__addCart__countCont__btn--unselected');
             }
         } else if(newVal === 1) {
             if(addBtn.classList.contains('oculaireProduct__top__right__addCart__countCont__btn--unselected')) {
-                addBtn.classList.remove('oculaireProduct__top__right__addCart__countCont__btn--unselected')
+                addBtn.classList.remove('oculaireProduct__top__right__addCart__countCont__btn--unselected');
             }
 
             if(!lessBtn.classList.contains('oculaireProduct__top__right__addCart__countCont__btn--unselected')) {
-                lessBtn.classList.add('oculaireProduct__top__right__addCart__countCont__btn--unselected')
+                lessBtn.classList.add('oculaireProduct__top__right__addCart__countCont__btn--unselected');
             }
         } else if(newVal === oculaireData.stock) {
             if (newVal === 2) {
                 if(lessBtn.classList.contains('oculaireProduct__top__right__addCart__countCont__btn--unselected')) {
-                    lessBtn.classList.remove('oculaireProduct__top__right__addCart__countCont__btn--unselected')
+                    lessBtn.classList.remove('oculaireProduct__top__right__addCart__countCont__btn--unselected');
                 } 
                 if(addBtn.classList.contains('oculaireProduct__top__right__addCart__countCont__btn--unselected')) {
-                    addBtn.classList.remove('oculaireProduct__top__right__addCart__countCont__btn--unselected')
+                    addBtn.classList.remove('oculaireProduct__top__right__addCart__countCont__btn--unselected');
                 }
             }
             if(!addBtn.classList.contains('oculaireProduct__top__right__addCart__countCont__btn--unselected')) {
-                addBtn.classList.add('oculaireProduct__top__right__addCart__countCont__btn--unselected')
+                addBtn.classList.add('oculaireProduct__top__right__addCart__countCont__btn--unselected');
             }
         }
         let valueString = newVal.toString();
         setInputAddCart(valueString);
     };
 
+    /**
+     * DELETE COMMENT
+     * @param {*} userId 
+     * @param {*} token 
+     * @param {*} commentId 
+     */
     const deleteComment = (userId, token, commentId) => {
 
         fetch('http://localhost:3000/api/comments/' + commentId , {
@@ -309,7 +344,7 @@ const OculaireProduct = () => {
             .then(data => {
                 fetchComment(oculaireData.productId);
             })
-    }
+    };
 
     return (
         <main>

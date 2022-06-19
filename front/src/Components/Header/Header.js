@@ -36,7 +36,7 @@ const Header = () => {
         let item = {
             totalCart: totalCart.toFixed(2),
             artCount: artCount
-        }
+        };
 
         if(logged) {
             setIsLogged(true);
@@ -46,31 +46,44 @@ const Header = () => {
 
         setHeaderCart(item);
 
-    },[cart, logged])
+    },[cart, logged]);
 
+    /**
+     * VALIDATE SEARCH INPUT
+     * IF OK OPEN THE SEARCH PAGE WITH SEARCH QUERY
+     * @param {*} e 
+     */
     const toSearch = (e) => {
         e.preventDefault();
+
         if (searchValue === ""){
-            toggleMobileNav()
-            navigate("/search" ,{ replace: true })
+            toggleMobileNav();
+            navigate("/search" ,{ replace: true });
         } else if(!searchValue.match(/^[a-zA-Zé èà0-9]*$/)) { 
-            setErrorMsg("La recherche ne doit contenir que des chiffres et des lettres");
+            setErrorMsg("La recherche ne doit contenir que des chiffres et des lettres.");
         } else if(searchValue !== "") {    
-            toggleMobileNav()
+            toggleMobileNav();
             const query = '/search/query_=' + searchValue;
-            navigate(query ,{ replace: true })
+            navigate(query ,{ replace: true });
         } 
     };
 
+    /**
+     * VALIDATE AND CONTROL SEARCH INPUT
+     * @param {*} value 
+     */
     const handleSearchInput = (value) => {
         if(!value.match(/^[a-zA-Zé èà0-9]*$/)) {
-            setErrorMsg("La recherche ne doit contenir que des chiffres et des lettres");
+            setErrorMsg("La recherche ne doit contenir que des chiffres et des lettres.");
         } else {
             setErrorMsg("");
         }
         setSearchValue(value);
     };
 
+    /**
+     * TOGGLE HAMBURGER MENU FOR MOBILE
+     */
     const toggleHambMenu = () => {
         const header = document.querySelector('.header');
         
@@ -83,12 +96,15 @@ const Header = () => {
         setHambMenuOpen(!hambMenuOpen);
     };
     
+    /**
+     * CLOSE THE HAMBURGER MENU FOR MOBILE
+     */
     const toggleMobileNav = () => {
         const header = document.querySelector('.header');
         
         header.classList.add('header--hidden');
         setHambMenuOpen(false);
-    }
+    };
 
     return (
         <header className='header header--hidden'>

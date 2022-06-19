@@ -1,6 +1,6 @@
 const INITIAL_STATE = {
     logged : false
-}
+};
 
 function loggedReducer(state= INITIAL_STATE, action) {
     
@@ -19,6 +19,6 @@ function loggedReducer(state= INITIAL_STATE, action) {
 
     return state;
 
-}
+};
 
 export default loggedReducer;

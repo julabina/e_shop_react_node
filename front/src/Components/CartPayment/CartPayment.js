@@ -10,8 +10,8 @@ const CartPayment = (props) => {
 
     const { cart } = useSelector(state => ({
         ...state.cartReducer
-    }))
-    const dispatch = useDispatch()
+    }));
+    const dispatch = useDispatch();
 
     const [totalCart, setTotalCart] = useState(45);
     const [method, setMethode] = useState("creditCard");
@@ -20,11 +20,12 @@ const CartPayment = (props) => {
     const [modalInfosMsg, setModalInfosMsg] = useState('');
 
     useEffect(() => {
+
         let total = 0;
-        let newArr = props.cart
+        let newArr = props.cart;
 
         for(let i = 0; i < newArr.length; i++) { 
-            total += newArr[i].count * newArr[i].price     
+            total += newArr[i].count * newArr[i].price   ;  
         }
 
         let newCartArr = [];
@@ -39,22 +40,28 @@ const CartPayment = (props) => {
                 name: cart[i].name,
                 image: cart[i].image,
                 key: cart[i].key
-            }
+            };
             newCartArr.push(item);
         }
         setCartData(newCartArr);
 
         setTotalCart(total);
 
-    },[props.cart])
+    },[props.cart]);
 
+    /**
+     * CHANGE VALUE OF PAYMENT METHOD
+     * @param {*} value 
+     */
     const changePaymentMethod = (value) => {
-        setMethode(value)
-    }
+        setMethode(value);
+    };
 
+    /**
+     * CHANGE THE CART IN THE LOCALSTORAGE
+     */
     const changeLocalStorage = () => {
 
-        const changeLocalStorage = () => {
             let newArr = [];
             for (let i = 0; i < cartData.length; i++) {
                 let item = {
@@ -65,20 +72,22 @@ const CartPayment = (props) => {
                     stock: cartData[i].stock,
                     name: cartData[i].name,
                     image: cartData[i].image
-                }
+                };
                 newArr.push(item);
             }
     
             dispatch ({
                 type: 'UPDATECART',
                 payload: newArr
-            }) 
-        }
+            });
+    };
 
-    }
-
+    /**
+     * CHECK IN BACKEND IF ALL PRODUCTS ARE ON STOCK
+     */
     const watchStock = () => {
-        let promiseArr = [], validate = true
+
+        let promiseArr = [], validate = true;
 
         for(let i = 0; i < cart.length; i++) {
             let promise = fetch('http://localhost:3000/api/products/' + cart[i].category + 's/' + cart[i].id).then(res => res.json());
@@ -86,45 +95,49 @@ const CartPayment = (props) => {
         }
 
         Promise.all(promiseArr)
-        .then(data => {
-            for (let i = 0; i < data.length; i++) {     
+            .then(data => {
+                for (let i = 0; i < data.length; i++) {     
 
-                if (data[i].data.stock === 0) {
-                    const newArr = cartData;
-                    newArr[i].stock = data[i].data.stock;
-                    newArr[i].count = data[i].data.stock;
+                    if (data[i].data.stock === 0) {
+                        const newArr = cartData;
+                        newArr[i].stock = data[i].data.stock;
+                        newArr[i].count = data[i].data.stock;
 
-                    dispatch ({
-                        type: 'UPDATECART',
-                        payload: newArr
-                    }) 
+                        dispatch ({
+                            type: 'UPDATECART',
+                            payload: newArr
+                        }); 
 
-                    changeLocalStorage();
-                    toggleInfoModal('Le produit ' + cartData[i].name + ' n\'est plus disponible');
-                    return validate = false
-                } else if (data[i].data.stock < cartData[i].stock) {
-                    const newArr = cartData;
-                    newArr[i].stock = data[i].data.stock;
-                    newArr[i].count = data[i].data.stock;
+                        changeLocalStorage();
+                        toggleInfoModal('Le produit ' + cartData[i].name + ' n\'est plus disponible.');
+                        return validate = false;
+                    } else if (data[i].data.stock < cartData[i].stock) {
+                        const newArr = cartData;
+                        newArr[i].stock = data[i].data.stock;
+                        newArr[i].count = data[i].data.stock;
 
-                    dispatch ({
-                        type: 'UPDATECART',
-                        payload: newArr
-                    }) 
+                        dispatch ({
+                            type: 'UPDATECART',
+                            payload: newArr
+                        }); 
 
-                    changeLocalStorage();
-                    toggleInfoModal('Le produit ' + cart[i].name + ' ne dispose plus en stock du nombres d\'articles sélectionnés')
-                    return validate = false
+                        changeLocalStorage();
+                        toggleInfoModal('Le produit ' + cart[i].name + ' ne dispose plus en stock du nombres d\'articles sélectionnés.');
+                        return validate = false;
+                    }
                 }
-            }
-            
-            if(validate) {
-                removeStock()
-            }
-        })  
-    }
+                
+                if(validate) {
+                    removeStock();
+                }
+            })  
+    };
 
+    /**
+     * REMOVE CART PRODUCTS INVENTORY FROM CART IN BACK-END
+     */
     const removeStock = () => {
+
         let promiseArr = [];
 
         for(let i = 0; i < cart.length; i++) {
@@ -142,35 +155,47 @@ const CartPayment = (props) => {
 
         Promise.all(promiseArr)
             .then(() => {
-                sendInfos()
+                sendInfos();
             })
             
-    }
+    };
 
+    /**
+     * EMPTY THE CART
+     */
     const emptyCart = () => {
-        let emptyArr = []
+
+        let emptyArr = [];
 
         dispatch ({
             type: 'UPDATECART',
             payload: emptyArr
-        })
-    }
+        });
+    };
 
+    /**
+     * SEEND PAYMENT INFO TO cart.js
+     */
     const sendInfos = () => {
         props.sendInfos(method);
         emptyCart();
         props.next();
-    }
+    };
 
+    /**
+     * TOGGLE INFO MODAL
+     * @param {*} message 
+     * @param {*} redirection 
+     */
     const toggleInfoModal = (message, redirection) => {
         if(message) {
             setModalInfosMsg(message);
         }
         if(redirection) {
-            window.location.reload(false)
+            window.location.reload(false);
         }
         setModalInfos(!modalInfos);
-    }
+    };
 
     return (
         <>

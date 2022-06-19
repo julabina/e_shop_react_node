@@ -10,11 +10,12 @@ const Oculaire = () => {
 
     const [oculaireData, setOculaireData] = useState([]);
     const [filterOptions, setFilterOptions] = useState({brand: [], model: "", onStock : false});
-    const [filterBrand, setFilterBrand] = useState([false, false, false, false, false, false, false])
-    const [optionChoice, setOptionChoice] = useState(false)
+    const [filterBrand, setFilterBrand] = useState([false, false, false, false, false, false, false]);
+    const [optionChoice, setOptionChoice] = useState(false);
     const [sortValue, setSortValue] = useState("ascName");
 
     useEffect(() => {
+
         window.scrollTo(0, 0);
 
         if (localStorage.getItem('token') !== null) {
@@ -26,95 +27,110 @@ const Oculaire = () => {
                 if (decodedToken.userId !== token.content || isTokenExpired === true) {
                     dispatch ({
                         type: 'DISCONNECT'
-                    })
+                    });
                     localStorage.removeItem('token');
                 };
                 dispatch ({
                     type: 'LOG'
-                })
+                });
             } else {
                 dispatch ({
                     type: 'DISCONNECT'
-                })
+                });
             };
         } else {
             dispatch ({
                 type: 'DISCONNECT'
-            })
+            });
         }; 
 
-        getOculairesList(sortValue)
+        getOculairesList(sortValue);
 
-    },[])
+    },[]);
 
+    /**
+     * GET OCULAIRE PRODUCTS
+     * @param {*} sort 
+     */
     const getOculairesList = (sort) => {
+
         window.scrollTo(0, 0);
         
         fetch('http://localhost:3000/api/products/oculaires')
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-            let newArr = [];
-            for (let i = 0; i < data.data.length; i++) {
-                if(data.data[i] !== undefined) {
-                    let item = {
-                        name: data.data[i].name,
-                        pictures: data.data[i].pictures,
-                        price: data.data[i].price,
-                        id: data.data[i].id,
-                        promo: data.data[i].promo,
-                        promoValue: data.data[i].promoValue,
-                        stock: data.data[i].stock
+            .then(res => res.json())
+            .then(data => {
+                let newArr = [];
+                for (let i = 0; i < data.data.length; i++) {
+                    if(data.data[i] !== undefined) {
+                        let item = {
+                            name: data.data[i].name,
+                            pictures: data.data[i].pictures,
+                            price: data.data[i].price,
+                            id: data.data[i].id,
+                            promo: data.data[i].promo,
+                            promoValue: data.data[i].promoValue,
+                            stock: data.data[i].stock
+                        };
+                        newArr.push(item);
                     }
-                    newArr.push(item);
                 }
-            }
 
-            if(sort === "ascPrice") {
-                newArr.sort((a, b) => a.price - b.price)
-            } else if(sort === "descPrice") {
-                newArr.sort((a, b) => b.price - a.price)
-            } else if(sort === "descName") {
-                newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
-            } else if (sort === "ascName") {
-                newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
-            }
+                if(sort === "ascPrice") {
+                    newArr.sort((a, b) => a.price - b.price);
+                } else if(sort === "descPrice") {
+                    newArr.sort((a, b) => b.price - a.price);
+                } else if(sort === "descName") {
+                    newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
+                } else if (sort === "ascName") {
+                    newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
+                }
 
-            setOculaireData(newArr);
-        });
-    }
+                setOculaireData(newArr);
+            });
+    };
 
+    /**
+     * SORTING FUNCTION FOR PRODUCTS
+     * @param {*} option 
+     */
     const handleSort = (option) => {
+
         setSortValue(option);
 
         let newArr = oculaireData;
 
         if(option === "ascPrice") {
-            newArr.sort((a, b) => a.price - b.price)
+            newArr.sort((a, b) => a.price - b.price);
         } else if(option === "descPrice") {
-            newArr.sort((a, b) => b.price - a.price)
+            newArr.sort((a, b) => b.price - a.price);
         } else if(option === "descName") {
             newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
         } else if (option === "ascName") {
             newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
         }
 
-        setOculaireData(newArr)
-    }
+        setOculaireData(newArr);
+    };
 
+    /**
+     * CONTROL FILTERS INPUTS
+     * @param {*} action 
+     * @param {*} value 
+     */
     const handleFilter = (action, value) => {
+
         if (action === "sky") {
             if(optionChoice) {
                 const newObj = {
                     ...filterOptions,
                     brand : [value]
-                }
+                };
                 setFilterOptions(newObj);
             } else {
                 let newArr = filterOptions.brand;
                 let filterCtrl = filterBrand;
                 if(filterCtrl[0] === true) {
-                    let arrFiltered = newArr.filter(el => el !== value)
+                    let arrFiltered = newArr.filter(el => el !== value);
                     newArr = arrFiltered;
                 } else {
                     if(!filterOptions.brand.includes(value)){
@@ -126,7 +142,7 @@ const Oculaire = () => {
                     ...filterOptions,
                     brand : newArr,
                     model: ""
-                }
+                };
                 setFilterOptions(newObj);
                 setFilterBrand(filterCtrl);
             }
@@ -135,13 +151,13 @@ const Oculaire = () => {
                 const newObj = {
                     ...filterOptions,
                     brand : [value]
-                }
+                };
                 setFilterOptions(newObj);
             } else {
                 let newArr = filterOptions.brand;
                 let filterCtrl = filterBrand;
                 if(filterCtrl[1] === true) {
-                    let arrFiltered = newArr.filter(el => el !== value)
+                    let arrFiltered = newArr.filter(el => el !== value);
                     newArr = arrFiltered;
                 } else {
                     if(!filterOptions.brand.includes(value)){
@@ -153,7 +169,7 @@ const Oculaire = () => {
                     ...filterOptions,
                     brand : newArr,
                     model: ""
-                }
+                };
                 setFilterOptions(newObj);
                 setFilterBrand(filterCtrl);
             }   
@@ -162,13 +178,13 @@ const Oculaire = () => {
                 const newObj = {
                     ...filterOptions,
                     brand : [value]
-                }
+                };
                 setFilterOptions(newObj);
             } else {
                 let newArr = filterOptions.brand;
                 let filterCtrl = filterBrand;
                 if(filterCtrl[2] === true) {
-                    let arrFiltered = newArr.filter(el => el !== value)
+                    let arrFiltered = newArr.filter(el => el !== value);
                     newArr = arrFiltered;
                 } else {
                     if(!filterOptions.brand.includes(value)){
@@ -180,7 +196,7 @@ const Oculaire = () => {
                     ...filterOptions,
                     brand : newArr,
                     model: ""
-                }
+                };
                 setFilterOptions(newObj);
                 setFilterBrand(filterCtrl);
             }          
@@ -189,13 +205,13 @@ const Oculaire = () => {
                 const newObj = {
                     ...filterOptions,
                     brand : [value]
-                }
+                };
                 setFilterOptions(newObj);
             } else {
                 let newArr = filterOptions.brand;
                 let filterCtrl = filterBrand;
                 if(filterCtrl[3] === true) {
-                    let arrFiltered = newArr.filter(el => el !== value)
+                    let arrFiltered = newArr.filter(el => el !== value);
                     newArr = arrFiltered;
                 } else {
                     if(!filterOptions.brand.includes(value)){
@@ -207,7 +223,7 @@ const Oculaire = () => {
                     ...filterOptions,
                     brand : newArr,
                     model: ""
-                }
+                };
                 setFilterOptions(newObj);
                 setFilterBrand(filterCtrl);
             }
@@ -216,13 +232,13 @@ const Oculaire = () => {
                 const newObj = {
                     ...filterOptions,
                     brand : [value]
-                }
+                };
                 setFilterOptions(newObj);
             } else {
                 let newArr = filterOptions.brand;
                 let filterCtrl = filterBrand;
                 if(filterCtrl[4] === true) {
-                    let arrFiltered = newArr.filter(el => el !== value)
+                    let arrFiltered = newArr.filter(el => el !== value);
                     newArr = arrFiltered;
                 } else {
                     if(!filterOptions.brand.includes(value)){
@@ -234,7 +250,7 @@ const Oculaire = () => {
                     ...filterOptions,
                     brand : newArr,
                     model: ""
-                }
+                };
                 setFilterOptions(newObj);
                 setFilterBrand(filterCtrl);
             }
@@ -243,13 +259,13 @@ const Oculaire = () => {
                 const newObj = {
                     ...filterOptions,
                     brand : [value]
-                }
+                };
                 setFilterOptions(newObj);
             } else {
                 let newArr = filterOptions.brand;
                 let filterCtrl = filterBrand;
                 if(filterCtrl[5] === true) {
-                    let arrFiltered = newArr.filter(el => el !== value)
+                    let arrFiltered = newArr.filter(el => el !== value);
                     newArr = arrFiltered;
                 } else {
                     if(!filterOptions.brand.includes(value)){
@@ -261,7 +277,7 @@ const Oculaire = () => {
                     ...filterOptions,
                     brand : newArr,
                     model: ""
-                }
+                };
                 setFilterOptions(newObj);
                 setFilterBrand(filterCtrl);
             }
@@ -270,7 +286,7 @@ const Oculaire = () => {
                 const newObj = {
                     ...filterOptions,
                     brand : [value]
-                }
+                };
                 setFilterOptions(newObj);
             } else {
                 let newArr = filterOptions.brand;
@@ -288,7 +304,7 @@ const Oculaire = () => {
                     ...filterOptions,
                     brand : newArr,
                     model: ""
-                }
+                };
                 setFilterOptions(newObj);
                 setFilterBrand(filterCtrl);
             }
@@ -296,18 +312,22 @@ const Oculaire = () => {
             const newObj = {
                 ...filterOptions,
                 model : value
-            }
+            };
             setFilterOptions(newObj);
         } else if (action === "onStock") {
             const newObj = {
                 ...filterOptions,
                 onStock : !filterOptions.onStock
-            }
+            };
             setFilterOptions(newObj);
         } 
-    }
+    };
 
+    /**
+     * GET FILTERED OCULAIRE PRODUCTS
+     */
     const getFilteredList = () => {
+
         window.scrollTo(0, 0);
 
         if(filterOptions.brand.length > 0 || filterOptions.model !== "" || filterOptions.onStock === true) {
@@ -318,10 +338,10 @@ const Oculaire = () => {
                 brand = filterOptions.brand;
             }
             if(filterOptions.model !== "") {
-                model = filterOptions.model
+                model = filterOptions.model;
             }
             if(filterOptions.onStock) {
-                onStock = true
+                onStock = true;
             }
             
             fetch('http://localhost:3000/api/products/oculaires', {
@@ -336,58 +356,65 @@ const Oculaire = () => {
                     onStock: onStock
                 })
             })
-            .then(res => res.json())
-            .then(data => {
-                let newArr = [];
-                for (let i = 0; i < data.data.length; i++) {
-                    if(data.data[i] !== undefined) {
-                        let item = {
-                            name: data.data[i].name,
-                            pictures: data.data[i].pictures,
-                            price: data.data[i].price,
-                            id: data.data[i].id,
-                            promo: data.data[i].promo,
-                            promoValue: data.data[i].promoValue,
-                            stock: data.data[i].stock
+                .then(res => res.json())
+                .then(data => {
+                    let newArr = [];
+                    for (let i = 0; i < data.data.length; i++) {
+                        if(data.data[i] !== undefined) {
+                            let item = {
+                                name: data.data[i].name,
+                                pictures: data.data[i].pictures,
+                                price: data.data[i].price,
+                                id: data.data[i].id,
+                                promo: data.data[i].promo,
+                                promoValue: data.data[i].promoValue,
+                                stock: data.data[i].stock
+                            };
+                            newArr.push(item);
                         }
-                        newArr.push(item);
                     }
-                }
 
-                if(sortValue === "ascPrice") {
-                    newArr.sort((a, b) => a.price - b.price)
-                } else if(sortValue === "descPrice") {
-                    newArr.sort((a, b) => b.price - a.price)
-                } else if(sortValue === "descName") {
-                    newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
-                } else if (sortValue === "ascName") {
-                    newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
-                }
+                    if(sortValue === "ascPrice") {
+                        newArr.sort((a, b) => a.price - b.price);
+                    } else if(sortValue === "descPrice") {
+                        newArr.sort((a, b) => b.price - a.price);
+                    } else if(sortValue === "descName") {
+                        newArr.sort((a, b) => (a.name < b.name) ? 1 : (b.name < a.name) ? -1 : 0);
+                    } else if (sortValue === "ascName") {
+                        newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
+                    }
 
-                setOculaireData(newArr);
+                    setOculaireData(newArr);
                 })
             } else {
-                getOculairesList(sortValue)
+                getOculairesList(sortValue);
             }
-    }
+    };
 
+    /**
+     * RESET FILTERS
+     */
     const removeFilter = () => {
+
         const inputsBrand = document.getElementsByName('oculaireBrand');
         const stockInput = document.getElementById('oculaireOnStock');
         
         inputsBrand.forEach(el => {
-            el.checked = false
+            el.checked = false;
         })
         stockInput.checked = false;
 
-        let filter = {brand: [], model: "", onStock : false}
+        let filter = {brand: [], model: "", onStock : false};
         setFilterOptions(filter);
-        getOculairesList(sortValue)
-    }
+        getOculairesList(sortValue);
+    };
 
+    /**
+     * TOGGLE FILTERS MODEL CHOICE
+     */
     const toggleOptionChoice = () => {
         setOptionChoice(!optionChoice);
-    }
+    };
 
     return (
         <main className='mainList'>

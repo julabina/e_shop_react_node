@@ -21,64 +21,65 @@ const TelescopeProduct = () => {
     const [inputAddCart, setInputAddCart] = useState("");
     const [isLogged, setIsLogged] = useState(false);
     const [actualUser, setActualUser] = useState({id: '', token: ''});
-    let back = '< retour'
+    let back = '< retour';
 
     useEffect(() => {
+
         window.scrollTo(0, 0);
         
         fetch('http://localhost:3000/api/products/telescopes/' + params.id)
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-            let price;
-            const productId = data.data.id;
-            let newArr = [];
-            if (data.data !== undefined){
-                if (data.data.promo) {
-                    let reduction = (data.data.price / 100) * data.data.promoValue;
-                    price = data.data.price - reduction;
-                } else {
-                    price = data.data.price;
-                }
-                let item = {
-                    id: data.data.id,
-                    imgDesc: data.data.descriptionPicture,
-                    name: data.data.name,
-                    price: (price).toFixed(2),
-                    stock: data.data.stock,
-                    description1: data.data.description1,
-                    description2: data.data.description2,
-                    description3: data.data.description3,
-                    diameter: data.data.Product_attributes[0].diameter,
-                    focal: data.data.Product_attributes[0].focal,
-                    fd: data.data.Product_attributes[0].fd,
-                    mount: data.data.Product_attributes[0].mount,
-                    type: data.data.Product_attributes[0].TelescopeType.name,
-                    priceNoPromo: data.data.price,
-                    promoValue: data.data.promoValue,
-                    promo: data.data.promo,
-                    productId: data.data.id
-                }
-                for(let i = 0; i < data.data.pictures.length; i++) {
-                    let pict = {
-                        img: data.data.pictures[i],
-                        id: uuidv4(),
-                        ind: i
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                let price;
+                const productId = data.data.id;
+                let newArr = [];
+                if (data.data !== undefined){
+                    if (data.data.promo) {
+                        let reduction = (data.data.price / 100) * data.data.promoValue;
+                        price = data.data.price - reduction;
+                    } else {
+                        price = data.data.price;
                     }
-                    newArr.push(pict);
+                    let item = {
+                        id: data.data.id,
+                        imgDesc: data.data.descriptionPicture,
+                        name: data.data.name,
+                        price: (price).toFixed(2),
+                        stock: data.data.stock,
+                        description1: data.data.description1,
+                        description2: data.data.description2,
+                        description3: data.data.description3,
+                        diameter: data.data.Product_attributes[0].diameter,
+                        focal: data.data.Product_attributes[0].focal,
+                        fd: data.data.Product_attributes[0].fd,
+                        mount: data.data.Product_attributes[0].mount,
+                        type: data.data.Product_attributes[0].TelescopeType.name,
+                        priceNoPromo: data.data.price,
+                        promoValue: data.data.promoValue,
+                        promo: data.data.promo,
+                        productId: data.data.id
+                    };
+                    for(let i = 0; i < data.data.pictures.length; i++) {
+                        let pict = {
+                            img: data.data.pictures[i],
+                            id: uuidv4(),
+                            ind: i
+                        };
+                        newArr.push(pict);
+                    }
+                    if (data.data.stock < 1) {
+                        setInputAddCart(0);
+                    } else {
+                        setInputAddCart(1);
+                    }
+                    addToLastSeen(item, data.data.pictures[0]);
+                    fetchComment(productId);
+                    setPicturesData(newArr);
+                    setTelescopeData(item);
+                    setMainPicture(data.data.pictures[0]);
                 }
-                if (data.data.stock < 1) {
-                    setInputAddCart(0);
-                } else {
-                    setInputAddCart(1);
-                }
-                addToLastSeen(item, data.data.pictures[0]);
-                fetchComment(productId);
-                setPicturesData(newArr);
-                setTelescopeData(item);
-                setMainPicture(data.data.pictures[0])
-            }
-        });
+            });
 
         if (localStorage.getItem('token') !== null) {
             let getToken = localStorage.getItem('token');
@@ -89,37 +90,42 @@ const TelescopeProduct = () => {
                 let newObj = {
                     id: token.content,
                     token: token.version
-                }
+                };
                 if (decodedToken.userId !== token.content || isTokenExpired === true) {
                     dispatch ({
                         type: 'DISCONNECT'
-                    })
+                    });
                     localStorage.removeItem('token');
-                    setActualUser({id: "", token: ""})
+                    setActualUser({id: "", token: ""});
                     return setIsLogged(false);
                 };
                 dispatch ({
                     type: 'LOG'
-                })
+                });
                 setIsLogged(true);
                 setActualUser(newObj);
             } else {
                 dispatch ({
                     type: 'DISCONNECT'
-                })
-                setActualUser({id: "", token: ""})
+                });
+                setActualUser({id: "", token: ""});
                 setIsLogged(false);
             };
         } else {
             dispatch ({
                 type: 'DISCONNECT'
-            })
-            setActualUser({id: "", token: ""})
+            });
+            setActualUser({id: "", token: ""});
             setIsLogged(false);
         }; 
         
     },[]);
     
+    /**
+     * ADD PRODUCT TO LASTSEEN IN LOCALSTORAGE
+     * @param {*} itemData 
+     * @param {*} imgData 
+     */
     const addToLastSeen = (itemData, imgData) => {
         let lastSeenArr = [];
         let item = {
@@ -131,7 +137,7 @@ const TelescopeProduct = () => {
             promo: itemData.promo,
             promoValue: itemData.promoValue,
             image: imgData
-        }
+        };
         if (localStorage.getItem('lastSeen') !== null) {
             lastSeenArr = JSON.parse(localStorage.getItem('lastSeen'));
         }
@@ -150,27 +156,30 @@ const TelescopeProduct = () => {
                 lastSeenArr.unshift(item);
             }
         } else {
-            lastSeenArr.unshift(item)
+            lastSeenArr.unshift(item);
         }
         console.log(lastSeenArr);
         localStorage.setItem('lastSeen', JSON.stringify(lastSeenArr));
-    }
+    };
     
+    /**
+     * GET ALL PRODUCT COMMENTS
+     * @param {*} productId 
+     */
     const fetchComment = (productId) => {
 
         fetch("http://localhost:3000/api/comments/" + productId)
         .then(res => res.json())
         .then(data => {
-            console.log(data);
             if(data.data !== undefined) {
                 const arr = data.data;
                 let n1 = arr.map(el => {
                     el.created = Date.parse(el.created);
                     el.updated = Date.parse(el.updated);
-                   return el
+                   return el;
                 })
                 n1.sort((a,b) => {
-                    return b.updated - a.updated
+                    return b.updated - a.updated;
                 })
                 setCommentsData(n1);
             } else {
@@ -180,6 +189,11 @@ const TelescopeProduct = () => {
         .catch(error => console.error(error));
     };
 
+    /**
+     * VALIDATE AND SEND COMMENT TO BACK-END
+     * @param {*} e 
+     * @returns 
+     */
     const sendComment = (e) => {
         e.preventDefault();
        
@@ -190,7 +204,7 @@ const TelescopeProduct = () => {
             if(commentValue !== "") {
                 for (let i = 0;i < commentValueArr.length; i++) {
                     if(!commentValueArr[i].match(/^[a-zA-Zé èà,.'-€:!?]*$/)) {
-                        return setErrorComment("Le commentaire ne doit comporter que des lettres");
+                        return setErrorComment("Le commentaire ne doit comporter que des lettres.");
                     }
                 }
             } else {
@@ -219,22 +233,32 @@ const TelescopeProduct = () => {
                 })
                 .catch(error => console.error(error));
         }
-    }
+    };
 
+    /**
+     * CHANGE CARROUSEL IMAGE
+     * @param {*} img 
+     * @param {*} ind 
+     */
     const changeImg = (img, ind) => {
+
         const tinyImgs = document.querySelectorAll('.telescopeProduct__top__left__tinyImg__cont__cover');
         for (let i = 0; i < tinyImgs.length; i++) {
             if (tinyImgs[i].classList.contains('telescopeProduct__top__left__tinyImg__cont__cover--active') && i !== parseInt(ind)) {
                 tinyImgs[i].classList.remove('telescopeProduct__top__left__tinyImg__cont__cover--active');
             }
             if(i === parseInt(ind) && !tinyImgs[i].classList.contains('telescopeProduct__top__left__tinyImg__cont__cover--active')) {
-                tinyImgs[i].classList.add('telescopeProduct__top__left__tinyImg__cont__cover--active')
+                tinyImgs[i].classList.add('telescopeProduct__top__left__tinyImg__cont__cover--active');
             }
         }
         let pict =  img;
         setMainPicture(pict);
-    }
+    };
 
+    /**
+     * CHANGE TAB INFORMATIONS
+     * @param {*} valArr 
+     */
     const changeTab = (valArr) => {
         const tabs = document.querySelectorAll('.telescopeInfos__tabsCont__tab');
         const infos = document.querySelectorAll('.telescopeInfos__infos');
@@ -247,22 +271,35 @@ const TelescopeProduct = () => {
             
             if(i === parseInt(valArr)) {
                 if(!tabs[i].classList.contains('telescopeInfos__tabsCont__tab--active')) {
-                    tabs[i].classList.add('telescopeInfos__tabsCont__tab--active')
+                    tabs[i].classList.add('telescopeInfos__tabsCont__tab--active');
                     infos[i].classList.add('telescopeInfos__infos--active');
                 }
             }
         }
-    }
+    };
 
+    /**
+     * TOGGLE CARROUSEL
+     */
     const toggleCarrouselFunc = () => {
         setToggleCarrousel(!toggleCarrousel);
-    }
+    };
 
+    /**
+     * CONTROL COMMENT INPUT
+     * @param {*} value 
+     */
     const changeCommentValue = (value) => {
         setCommentValue(value);
-    }
+    };
 
+    /**
+     * CONTROL OTHER INPUT
+     * @param {*} action 
+     * @param {*} value 
+     */
     const changeInputValue = (action, value) => {
+
         const lessBtn = document.getElementById('telescopeProduct__lessBtn');
         const addBtn = document.getElementById('telescopeProduct__addBtn');
         let val = inputAddCart, newVal; 
@@ -273,53 +310,59 @@ const TelescopeProduct = () => {
 
         if(action === 'add') {
             
-            (inputAddCart !== telescopeData.stock) ? (newVal = val + 1) : (newVal = val)
+            (inputAddCart !== telescopeData.stock) ? (newVal = val + 1) : (newVal = val);
 
         } else if(action === 'less') {
 
-            (val > 1) ? (newVal = val -1) : (newVal = val)
+            (val > 1) ? (newVal = val -1) : (newVal = val);
 
         } else if(action === 'change') {
             newVal = parseInt(value);
             
-            (newVal >= telescopeData.stock) && (newVal = telescopeData.stock)
+            (newVal >= telescopeData.stock) && (newVal = telescopeData.stock);
 
             if (newVal > 1) {
-                lessBtn.classList.remove('telescopeProduct__top__right__addCart__countCont__btn--unselected')
+                lessBtn.classList.remove('telescopeProduct__top__right__addCart__countCont__btn--unselected');
             }
         }
 
         if(newVal > 1 && newVal !== telescopeData.stock) {
             if(lessBtn.classList.contains('telescopeProduct__top__right__addCart__countCont__btn--unselected')) {
-                lessBtn.classList.remove('telescopeProduct__top__right__addCart__countCont__btn--unselected')
+                lessBtn.classList.remove('telescopeProduct__top__right__addCart__countCont__btn--unselected');
             } 
             if(addBtn.classList.contains('telescopeProduct__top__right__addCart__countCont__btn--unselected')) {
-                addBtn.classList.remove('telescopeProduct__top__right__addCart__countCont__btn--unselected')
+                addBtn.classList.remove('telescopeProduct__top__right__addCart__countCont__btn--unselected');
             }
         } else if(newVal === 1) {
             if(addBtn.classList.contains('telescopeProduct__top__right__addCart__countCont__btn--unselected')) {
-                addBtn.classList.remove('telescopeProduct__top__right__addCart__countCont__btn--unselected')
+                addBtn.classList.remove('telescopeProduct__top__right__addCart__countCont__btn--unselected');
             }
 
             if(!lessBtn.classList.contains('telescopeProduct__top__right__addCart__countCont__btn--unselected')) {
-                lessBtn.classList.add('telescopeProduct__top__right__addCart__countCont__btn--unselected')
+                lessBtn.classList.add('telescopeProduct__top__right__addCart__countCont__btn--unselected');
             }
         } else if(newVal === telescopeData.stock) {
             if (newVal === 2) {
                 if(lessBtn.classList.contains('telescopeProduct__top__right__addCart__countCont__btn--unselected')) {
-                    lessBtn.classList.remove('telescopeProduct__top__right__addCart__countCont__btn--unselected')
+                    lessBtn.classList.remove('telescopeProduct__top__right__addCart__countCont__btn--unselected');
                 } 
                 if(addBtn.classList.contains('telescopeProduct__top__right__addCart__countCont__btn--unselected')) {
-                    addBtn.classList.remove('telescopeProduct__top__right__addCart__countCont__btn--unselected')
+                    addBtn.classList.remove('telescopeProduct__top__right__addCart__countCont__btn--unselected');
                 }
             }
             if(!addBtn.classList.contains('telescopeProduct__top__right__addCart__countCont__btn--unselected')) {
-                addBtn.classList.add('telescopeProduct__top__right__addCart__countCont__btn--unselected')
+                addBtn.classList.add('telescopeProduct__top__right__addCart__countCont__btn--unselected');
             }
         }
         setInputAddCart(newVal);
-    }
+    };
 
+    /**
+     * DELETE COMMENT
+     * @param {*} userId 
+     * @param {*} token 
+     * @param {*} commentId 
+     */
     const deleteComment = (userId, token, commentId) => {
 
             fetch('http://localhost:3000/api/comments/' + commentId , {
@@ -335,7 +378,7 @@ const TelescopeProduct = () => {
                 .then(data => {
                     fetchComment(telescopeData.productId);
                 })
-    }
+    };
 
     return (
         <main>
