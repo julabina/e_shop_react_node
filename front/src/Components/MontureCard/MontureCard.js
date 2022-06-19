@@ -60,7 +60,6 @@ const MontureCard = (props) => {
         
         if(newVal > 1 && newVal !== props.stock) {
             if(lessBtn.classList.contains('montureCard__addCount__btn--unselected')) {
-                console.log("montureTest", newVal);
                 lessBtn.classList.remove('montureCard__addCount__btn--unselected');
             } 
             if(addBtn.classList.contains('montureCard__addCount__btn--unselected')) {

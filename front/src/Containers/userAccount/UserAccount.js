@@ -49,7 +49,6 @@ const UserAccount = () => {
             });
             return navigate('/login', { replace: true });
         }; 
-        console.log(userIdToSend);
 
         fetch('http://localhost:3000/api/users', {
             headers: {

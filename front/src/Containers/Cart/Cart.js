@@ -276,7 +276,6 @@ const Cart = () => {
      */
     const paymentInfosReceived = (method) => {
         let paymentMethod;
-        console.log(method);
 
         if (method === 'creditCard') {
             paymentMethod = 'Carte de crédit';

@@ -204,7 +204,6 @@ const Comment = (props) => {
                 const newComment = newCommentArr.join('<br />');
 
                 if(newTextComment !== comment.join('\n')) {
-                    console.log("CPAREILLOL");
                     handleComment("modify", newComment);
                 }
             }

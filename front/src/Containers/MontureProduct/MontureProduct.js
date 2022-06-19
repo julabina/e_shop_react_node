@@ -155,7 +155,6 @@ const MontureProduct = () => {
         } else {
             lastSeenArr.unshift(item);
         }
-        console.log(lastSeenArr);
         localStorage.setItem('lastSeen', JSON.stringify(lastSeenArr));
     };
     

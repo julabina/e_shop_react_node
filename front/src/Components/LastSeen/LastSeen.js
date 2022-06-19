@@ -17,7 +17,6 @@ const LastSeen = () => {
     const getLastSeen = () => {
         if (localStorage.getItem('lastSeen') !== null) {
             let lastSeenArr = JSON.parse(localStorage.getItem('lastSeen'));
-            console.log(lastSeenData);
             setLastSeenData(lastSeenArr);
         }
     };

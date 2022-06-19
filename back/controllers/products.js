@@ -595,7 +595,6 @@ exports.findFilteredOculaires = (req, res, next) => {
                 } else {
                     modelOption = {}
                 }
-                console.log(modelOption);
 
                 return OculaireCollection.findAll({
                     where: modelOption,

@@ -30,7 +30,6 @@ const TelescopeProduct = () => {
         fetch('http://localhost:3000/api/products/telescopes/' + params.id)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 let price;
                 const productId = data.data.id;
                 let newArr = [];
@@ -141,7 +140,6 @@ const TelescopeProduct = () => {
         if (localStorage.getItem('lastSeen') !== null) {
             lastSeenArr = JSON.parse(localStorage.getItem('lastSeen'));
         }
-        console.log(lastSeenArr);
         for(let i = 0; i < lastSeenArr.length;i++) {
             if(lastSeenArr[i].id === item.id) {
                 let newArr = lastSeenArr.filter(el => el.id !== item.id);
@@ -158,7 +156,6 @@ const TelescopeProduct = () => {
         } else {
             lastSeenArr.unshift(item);
         }
-        console.log(lastSeenArr);
         localStorage.setItem('lastSeen', JSON.stringify(lastSeenArr));
     };
     
