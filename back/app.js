@@ -6,8 +6,8 @@ const productsRoute = require('./routes/products');
 const orderRoute = require('./routes/order');
 const searchRoute = require('./routes/search');
 const contactRoute = require('./routes/contact');
-const restoreRoute = require('./routes/restoreStock');
 const { initDb } = require('./db/sequelize');
+const { restoreStock } = require('./cron/cron-restore');
 
 const app = express();
 
@@ -23,6 +23,7 @@ app.use((req, res, next) => {
 app.use(morgan('dev'));
 
 /* initDb(); */
+restoreStock();
 
 app.use('/api/users', userRoute);
 app.use('/api/comments', commentRoute);
@@ -30,7 +31,6 @@ app.use('/api/products', productsRoute);
 app.use('/api/orders', orderRoute);
 app.use('/api/search', searchRoute);
 app.use('/api/contact', contactRoute);
-app.use('/api/restore', restoreRoute);
 app.use('/img', express.static('assets'));
 
 

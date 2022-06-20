@@ -131,6 +131,6 @@ const MountType = MountTypeModel(sequelize, DataTypes);
 const Order = OrderTypeModel(sequelize, DataTypes);
 const RestoreStock = RestoreStockModel(sequelize, DataTypes);
 
-module.exports= {
+module.exports = {
     Comment, User, Product, Order, ProductAttribute, Category, Brand, OculaireCollection, TelescopeType, MountType, RestoreStock, initDb
 };
