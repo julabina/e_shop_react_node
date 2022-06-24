@@ -68,7 +68,7 @@ const Home = () => {
      */
     const getPromo = () => {
 
-        fetch('http://localhost:3000/api/products/promotion', {
+        fetch('https://api-e-commerce.julienlenfume.com/api/products/promotion', {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

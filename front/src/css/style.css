@@ -4636,6 +4636,9 @@ main {
     height: 80px;
     width: 100%;
   }
+  .contact__separator {
+    margin-bottom: 0;
+  }
 }
 
 .legals {

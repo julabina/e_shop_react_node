@@ -47,7 +47,7 @@ const Contact = () => {
      */
     const getInfos = (userId) => {
 
-        fetch('http://localhost:3000/api/users/' + userId)
+        fetch('https://api-e-commerce.julienlenfume.com/api/users/' + userId)
             .then(res => res.json())
             .then(data => {
                 let newObj = {
@@ -167,7 +167,7 @@ const Contact = () => {
      */
     const mailSend = () => {
 
-        fetch('http://localhost:3000/api/contact/send', {
+        fetch('https://api-e-commerce.julienlenfume.com/api/contact/send', {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

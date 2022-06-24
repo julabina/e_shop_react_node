@@ -84,7 +84,7 @@ const Login = () => {
      */
     const tryToLog = (email, password) => {
 
-        fetch("http://localhost:3000/api/users/login", {
+        fetch("https://api-e-commerce.julienlenfume.com/api/users/login", {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -143,7 +143,7 @@ const Login = () => {
      */
     const tryToSign = (email, password) => {
 
-        fetch("http://localhost:3000/api/users/signup", {
+        fetch("https://api-e-commerce.julienlenfume.com/api/users/signup", {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

@@ -50,7 +50,7 @@ const UserAccount = () => {
             return navigate('/login', { replace: true });
         }; 
 
-        fetch('http://localhost:3000/api/users', {
+        fetch('https://api-e-commerce.julienlenfume.com/api/users', {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -108,7 +108,7 @@ const UserAccount = () => {
      * @param {*} token 
      */
     const getUserOrders = (userId, token) => {
-        fetch('http://localhost:3000/api/orders/' + userId,  {
+        fetch('https://api-e-commerce.julienlenfume.com/api/orders/' + userId,  {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -467,7 +467,7 @@ const UserAccount = () => {
             return navigate('/login', { replace: true });
         }; 
 
-        fetch('http://localhost:3000/api/users/' + userIdToSend, {
+        fetch('https://api-e-commerce.julienlenfume.com/api/users/' + userIdToSend, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -588,7 +588,7 @@ const UserAccount = () => {
     }; 
 
 
-        fetch('http://localhost:3000/api/users/password/' + userIdToSend, {
+        fetch('https://api-e-commerce.julienlenfume.com/api/users/password/' + userIdToSend, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -667,7 +667,7 @@ const UserAccount = () => {
         });
         return navigate('/login', { replace: true });
     }; 
-        fetch('http://localhost:3000/api/users/email/' + userIdToSend, {
+        fetch('https://api-e-commerce.julienlenfume.com/api/users/email/' + userIdToSend, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -732,7 +732,7 @@ const UserAccount = () => {
         return navigate('/login', { replace: true });
     }; 
 
-        fetch('http://localhost:3000/api/users/delete/' + userIdToSend, {
+        fetch('https://api-e-commerce.julienlenfume.com/api/users/delete/' + userIdToSend, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',

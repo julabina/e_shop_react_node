@@ -33,7 +33,7 @@ const CartLocation = (props) => {
     
     useEffect(() => {
         
-        fetch("http://localhost:3000/api/users" , {
+        fetch("https://api-e-commerce.julienlenfume.com/api/users" , {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -591,7 +591,7 @@ const CartLocation = (props) => {
             return navigate('/login', { replace: true });
         }; 
 
-        fetch('http://localhost:3000/api/users/' + userIdToSend, {
+        fetch('https://api-e-commerce.julienlenfume.com/api/users/' + userIdToSend, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',

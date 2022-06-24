@@ -25,7 +25,7 @@ const OculaireProduct = () => {
 
         window.scrollTo(0, 0);
         
-        fetch('http://localhost:3000/api/products/oculaires/' + params.id)
+        fetch('https://api-e-commerce.julienlenfume.com/api/products/oculaires/' + params.id)
             .then(res => res.json())
             .then(data => {
                 let price;
@@ -155,7 +155,7 @@ const OculaireProduct = () => {
      */
     const fetchComment = (productId) => {
 
-        fetch("http://localhost:3000/api/comments/" + productId)
+        fetch("https://api-e-commerce.julienlenfume.com/api/comments/" + productId)
             .then(res => res.json())
             .then(data => {
                 if(data.data !== undefined) {
@@ -200,7 +200,7 @@ const OculaireProduct = () => {
 
             let loggedUser = localStorage.getItem('token');
 
-            fetch("http://localhost:3000/api/comments", {
+            fetch("https://api-e-commerce.julienlenfume.com/api/comments", {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -331,7 +331,7 @@ const OculaireProduct = () => {
      */
     const deleteComment = (userId, token, commentId) => {
 
-        fetch('http://localhost:3000/api/comments/' + commentId , {
+        fetch('https://api-e-commerce.julienlenfume.com/api/comments/' + commentId , {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',

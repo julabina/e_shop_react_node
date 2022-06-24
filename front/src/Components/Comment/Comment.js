@@ -42,7 +42,7 @@ const Comment = (props) => {
      */
     const getUserName = () => {
 
-        fetch("http://localhost:3000/api/users/" + props.userId)
+        fetch("https://api-e-commerce.julienlenfume.com/api/users/" + props.userId)
             .then(res => res.json())
             .then(data => {
                 let lastName = null;
@@ -157,7 +157,7 @@ const Comment = (props) => {
      */
     const postModifyComment = (userId, token, newCom) => {
 
-        fetch('http://localhost:3000/api/comments/' + props.commentId , {
+        fetch('https://api-e-commerce.julienlenfume.com/api/comments/' + props.commentId , {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',

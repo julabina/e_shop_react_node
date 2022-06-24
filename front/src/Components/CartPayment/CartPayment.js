@@ -90,7 +90,7 @@ const CartPayment = (props) => {
         let promiseArr = [], validate = true;
 
         for(let i = 0; i < cart.length; i++) {
-            let promise = fetch('http://localhost:3000/api/products/' + cart[i].category + 's/' + cart[i].id).then(res => res.json());
+            let promise = fetch('https://api-e-commerce.julienlenfume.com/api/products/' + cart[i].category + 's/' + cart[i].id).then(res => res.json());
             promiseArr.push(promise);
         }
 
@@ -141,7 +141,7 @@ const CartPayment = (props) => {
         let promiseArr = [];
 
         for(let i = 0; i < cart.length; i++) {
-            let promise = fetch('http://localhost:3000/api/products/' + cart[i].id, {
+            let promise = fetch('https://api-e-commerce.julienlenfume.com/api/products/' + cart[i].id, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',

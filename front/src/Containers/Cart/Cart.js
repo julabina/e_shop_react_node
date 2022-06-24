@@ -42,7 +42,7 @@ const Cart = () => {
         let promiseArr = [];
 
         for(let i = 0; i < cart.length; i++) {
-            let promise = fetch('http://localhost:3000/api/products/' + cart[i].category + 's/' + cart[i].id).then(res => res.json());
+            let promise = fetch('https://api-e-commerce.julienlenfume.com/api/products/' + cart[i].category + 's/' + cart[i].id).then(res => res.json());
             promiseArr.push(promise);
         }
 
@@ -151,7 +151,7 @@ const Cart = () => {
         let promiseArr = [];
 
         for(let i = 0; i < cart.length; i++) {
-            let promise = fetch('http://localhost:3000/api/products/' + cart[i].category + 's/' + cart[i].id).then(res => res.json());
+            let promise = fetch('https://api-e-commerce.julienlenfume.com/api/products/' + cart[i].category + 's/' + cart[i].id).then(res => res.json());
             promiseArr.push(promise);
         }
 
@@ -333,7 +333,7 @@ const Cart = () => {
             deliveryInformation: deliveryOptions.informations
         };
 
-        fetch("http://localhost:3000/api/orders/", {
+        fetch("https://api-e-commerce.julienlenfume.com/api/orders/", {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',

@@ -56,7 +56,7 @@ const Oculaire = () => {
 
         window.scrollTo(0, 0);
         
-        fetch('http://localhost:3000/api/products/oculaires')
+        fetch('https://api-e-commerce.julienlenfume.com/api/products/oculaires')
             .then(res => res.json())
             .then(data => {
                 let newArr = [];
@@ -345,7 +345,7 @@ const Oculaire = () => {
                 onStock = true;
             }
             
-            fetch('http://localhost:3000/api/products/oculaires', {
+            fetch('https://api-e-commerce.julienlenfume.com/api/products/oculaires', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'

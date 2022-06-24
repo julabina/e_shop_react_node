@@ -56,7 +56,7 @@ const Monture = () => {
 
         window.scrollTo(0, 0);
 
-        fetch('http://localhost:3000/api/products/montures')
+        fetch('https://api-e-commerce.julienlenfume.com/api/products/montures')
             .then(res => res.json())
             .then(data => {
                 let newArr = [];
@@ -280,7 +280,7 @@ const Monture = () => {
             }
 
             
-            fetch('http://localhost:3000/api/products/montures', {
+            fetch('https://api-e-commerce.julienlenfume.com/api/products/montures', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'

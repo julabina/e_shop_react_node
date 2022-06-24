@@ -61,7 +61,7 @@ const Search = () => {
 
         window.scrollTo(0, 0);
 
-        fetch('http://localhost:3000/api/search?query=' + params.query)
+        fetch('https://api-e-commerce.julienlenfume.com/api/search?query=' + params.query)
                 .then(res => res.json())
                 .then(data => {
                     let newArr = [];
@@ -207,7 +207,7 @@ const Search = () => {
                 onStock = true;
             }
             
-            fetch('http://localhost:3000/api/search?query=' + params.query, {
+            fetch('https://api-e-commerce.julienlenfume.com/api/search?query=' + params.query, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'

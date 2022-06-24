@@ -16,7 +16,7 @@ const data = require('../db/mock-products');
  * CONNECT TO DB
  */
 const sequelize = new Sequelize(
-    'react-Eshop',
+    'react_ecommerce',
     'root',
     '',
     {
@@ -26,6 +26,10 @@ const sequelize = new Sequelize(
         dialectOptions: {
             timezone: 'Etc/GMT-2',
             socketPath: '/opt/lampp/var/mysql/mysql.sock'
+            /* for production 
+            
+            socketPath: '/var/run/mysqld/mysqld.sock',
+           cachingRsaPublicKey: '/var/lib/mysql/public_key.pem', */
         },
         logging: false
     }

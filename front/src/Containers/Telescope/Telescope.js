@@ -56,7 +56,7 @@ const Telescope = () => {
 
         window.scrollTo(0, 0);
 
-        fetch('http://localhost:3000/api/products/telescopes')
+        fetch('https://api-e-commerce.julienlenfume.com/api/products/telescopes')
             .then(res => res.json())
             .then(data => {
                 let newArr = [];
@@ -331,7 +331,7 @@ const Telescope = () => {
                 onStock = true;
             }
             
-            fetch('http://localhost:3000/api/products/telescopes', {
+            fetch('https://api-e-commerce.julienlenfume.com/api/products/telescopes', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
