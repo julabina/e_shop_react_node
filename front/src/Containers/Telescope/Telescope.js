@@ -84,7 +84,7 @@ const Telescope = () => {
                 } else if (sort === "ascName") {
                     newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
                 }
-
+                
                 setTelescopeData(newArr);
             });
     };
@@ -108,7 +108,7 @@ const Telescope = () => {
         } else if (option === "ascName") {
             newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
         }
-
+        
         setTelescopeData(newArr);
 
     };
@@ -315,6 +315,7 @@ const Telescope = () => {
     const getFilteredList = () => {
 
         window.scrollTo(0, 0);
+        const filterMenu = document.querySelector('.telescopesFilter');
 
         if(filterOptions.brand.length > 0 || filterOptions.type.length > 0 || filterOptions.onStock === true) {
           
@@ -369,12 +370,12 @@ const Telescope = () => {
                     } else if (sortValue === "ascName") {
                         newArr.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0);
                     }
-
                     setTelescopeData(newArr);
                 })
             } else {
                 getTelescopeslist(sortValue);
             }
+            filterMenu.classList.add('telescopesFilter--hidden');
     };
         
     /**
@@ -385,6 +386,7 @@ const Telescope = () => {
         const inputsBrand = document.getElementsByName('telescopeBrand');
         const inputsType = document.getElementsByName('telescopeType');
         const stockInput = document.getElementById('telescopeOnStock');
+        const filterMenu = document.querySelector('.telescopesFilter');
         
         inputsBrand.forEach(el => {
             el.checked = false;
@@ -395,13 +397,31 @@ const Telescope = () => {
         stockInput.checked = false;
 
         let filter = {brand: [], type: [], onStock : false};
+        filterMenu.classList.add('telescopesFilter--hidden');
+        setFilterBrand([false, false, false, false]);
+        setFilterType([false, false, false, false, false, false]);
         setFilterOptions(filter);
         getTelescopeslist(sortValue);
     };
 
+    /**
+     * ON MOBILE VERSION, DISPLAY FILTERS MENU
+     */
+    const displayFilters = () => {
+
+        const filter = document.querySelector('.telescopesFilter');
+
+        if(filter.classList.contains('telescopesFilter--hidden')) {
+            filter.classList.remove('telescopesFilter--hidden');
+        } else {
+            filter.classList.add('telescopesFilter--hidden');
+        }
+    };
+
     return (
         <main className='mainList'>
-            <section className='telescopesFilter'>
+            <button onClick={displayFilters} className='mobileFilterHide'>Afficher les filtres</button>
+            <section className='telescopesFilter telescopesFilter--hidden'>
                 <div className='telescopesFilter__optionsCont'>
                     <div className="telescopesFilter__optionsCont__filter">
                         <h2>Marque</h2>

@@ -192,6 +192,7 @@
     }
     @include forMobile1 {
         &__top {
+            margin-top: 90px;
             select {
                 width: 100%;
                 height: 50px;
@@ -324,6 +325,9 @@
         }
         &__separator {
             border: 1px solid map-get($map: $colors, $key:whiteTrans );
+        }
+        &--hidden {
+            display: none;
         }
     }
 }

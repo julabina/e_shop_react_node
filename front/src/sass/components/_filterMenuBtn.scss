@@ -1,0 +1,16 @@
+.mobileFilterHide {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    height: 45px;
+    max-width: 70%;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1.1em;
+    background: map-get($colors, primary);
+    color: map-get($map: $colors, $key:whiteLight );
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 150ms ease-in-out;
+}

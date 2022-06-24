@@ -259,6 +259,7 @@ const Monture = () => {
     const getFilteredList = () => {
 
         window.scrollTo(0, 0);
+        const filterMenu = document.querySelector('.montureFilter');
 
         if(filterOptions.brand.length > 0 || filterOptions.type.length > 0 || filterOptions.goTo !== undefined || filterOptions.onStock === true) {
 
@@ -325,6 +326,7 @@ const Monture = () => {
             } else {
                 getMonturesList(sortValue);
             }
+            filterMenu.classList.add('montureFilter--hidden');
     };
 
     /**
@@ -336,6 +338,7 @@ const Monture = () => {
         const inputsType = document.getElementsByName('mountType');
         const inputsGoto = document.getElementsByName('mountGoto');
         const stockInput = document.getElementById('mountOnStock');
+        const filterMenu = document.querySelector('.montureFilter');
         
         inputsBrand.forEach(el => {
             el.checked = false;
@@ -349,14 +352,31 @@ const Monture = () => {
         stockInput.checked = false;
 
         let filter = {brand: [], type: [], goTo: undefined, onStock : false};
+        filterMenu.classList.add('montureFilter--hidden');
+        setFilterBrand([false, false, false, false]);
+        setFilterType([false, false]);
         setFilterOptions(filter);
         getMonturesList(sortValue);
     };
 
+    /**
+     * ON MOBILE VERSION, DISPLAY FILTERS MENU
+     */
+     const displayFilters = () => {
+
+        const filter = document.querySelector('.montureFilter');
+
+        if(filter.classList.contains('montureFilter--hidden')) {
+            filter.classList.remove('montureFilter--hidden');
+        } else {
+            filter.classList.add('montureFilter--hidden');
+        }
+    };
 
     return (
         <main className='mainList'>
-            <section className="montureFilter">
+            <button onClick={displayFilters} className='mobileFilterHide'>Afficher les filtres</button>
+            <section className="montureFilter montureFilter--hidden">
             <div className='montureFilter__optionsCont'>
                 <div className="montureFilter__optionsCont__filter">
                     <h2>Marque</h2>

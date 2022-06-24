@@ -329,6 +329,7 @@ const Oculaire = () => {
     const getFilteredList = () => {
 
         window.scrollTo(0, 0);
+        const filterMenu = document.querySelector('.oculaireFilter');
 
         if(filterOptions.brand.length > 0 || filterOptions.model !== "" || filterOptions.onStock === true) {
             
@@ -389,6 +390,7 @@ const Oculaire = () => {
             } else {
                 getOculairesList(sortValue);
             }
+            filterMenu.classList.add('oculaireFilter--hidden');
     };
 
     /**
@@ -398,6 +400,7 @@ const Oculaire = () => {
 
         const inputsBrand = document.getElementsByName('oculaireBrand');
         const stockInput = document.getElementById('oculaireOnStock');
+        const filterMenu = document.querySelector('.oculaireFilter');
         
         inputsBrand.forEach(el => {
             el.checked = false;
@@ -405,6 +408,8 @@ const Oculaire = () => {
         stockInput.checked = false;
 
         let filter = {brand: [], model: "", onStock : false};
+        filterMenu.classList.add('oculaireFilter--hidden');
+        setFilterBrand([false, false, false, false, false, false, false]);
         setFilterOptions(filter);
         getOculairesList(sortValue);
     };
@@ -416,9 +421,24 @@ const Oculaire = () => {
         setOptionChoice(!optionChoice);
     };
 
+    /**
+     * ON MOBILE VERSION, DISPLAY FILTERS MENU
+     */
+     const displayFilters = () => {
+
+        const filter = document.querySelector('.oculaireFilter');
+
+        if(filter.classList.contains('oculaireFilter--hidden')) {
+            filter.classList.remove('oculaireFilter--hidden');
+        } else {
+            filter.classList.add('oculaireFilter--hidden');
+        }
+    };
+
     return (
         <main className='mainList'>
-            <section className="oculaireFilter">
+            <button onClick={displayFilters} className='mobileFilterHide'>Afficher les filtres</button>
+            <section className="oculaireFilter oculaireFilter--hidden">
                 {
                     optionChoice ?
                     <button className='oculaireFilter__btn' onClick={toggleOptionChoice}>Sélectionner marques</button>

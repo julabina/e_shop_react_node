@@ -193,6 +193,7 @@ const Search = () => {
     const getFilteredList = () => {
 
         window.scrollTo(0, 0);
+        const filterMenu = document.querySelector('.searchFilter');
 
         if(filterOptions.categories.length > 0 || filterOptions.onStock === true) {
 
@@ -251,6 +252,7 @@ const Search = () => {
             } else {
                 getSearchList(sortValue);
             }
+            filterMenu.classList.add('searchFilter--hidden');
     };
 
     /**
@@ -259,6 +261,7 @@ const Search = () => {
     const removeFilter = () => {
         const inputCat = document.getElementsByName('searchCategory');
         const onStockFilter = document.getElementById('telescopeOnStock');
+        const filterMenu = document.querySelector('.searchFilter');
 
         inputCat.forEach(el => {
             el.checked = false;
@@ -266,13 +269,30 @@ const Search = () => {
         onStockFilter.checked = false;
 
         let filter = {categories: [], onStock: false};
+        filterMenu.classList.add('searchFilter--hidden');
         setFilterOptions(filter);
+        setFilterCat([false, false, false]);
         getSearchList(sortValue);
+    };
+
+    /**
+     * ON MOBILE VERSION, DISPLAY FILTERS MENU
+     */
+     const displayFilters = () => {
+
+        const filter = document.querySelector('.searchFilter');
+
+        if(filter.classList.contains('searchFilter--hidden')) {
+            filter.classList.remove('searchFilter--hidden');
+        } else {
+            filter.classList.add('searchFilter--hidden');
+        }
     };
 
     return (
         <main className='mainList'>
-            <section className='searchFilter'>
+            <button onClick={displayFilters} className='mobileFilterHide'>Afficher les filtres</button>
+            <section className='searchFilter searchFilter--hidden'>
             <div className='searchFilter__optionsCont'>
                 <div className="searchFilter__optionsCont__filter">
                     <h2>Categorie</h2>

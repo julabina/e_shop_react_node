@@ -1569,6 +1569,9 @@ body {
   }
 }
 @media screen and (max-width: 809px) {
+  .lastSeen__top {
+    margin-top: 90px;
+  }
   .lastSeen__top select {
     width: 100%;
     height: 50px;
@@ -1579,6 +1582,23 @@ body {
   text-align: center;
   width: 100%;
   margin: 100px 0;
+}
+
+.mobileFilterHide {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  height: 45px;
+  max-width: 70%;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1.1em;
+  background: #14416A;
+  color: #f3f3f3;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 150ms ease-in-out;
 }
 
 html, body {
@@ -2009,6 +2029,9 @@ main {
   }
 }
 @media screen and (max-width: 809px) {
+  .telescopesList__top {
+    margin-top: 90px;
+  }
   .telescopesList__top select {
     width: 100%;
     height: 50px;
@@ -2144,6 +2167,9 @@ main {
   }
   .telescopesFilter__separator {
     border: 1px solid #f3f3f388;
+  }
+  .telescopesFilter--hidden {
+    display: none;
   }
 }
 
@@ -2734,6 +2760,9 @@ main {
   }
 }
 @media screen and (max-width: 809px) {
+  .oculaireList__top {
+    margin-top: 90px;
+  }
   .oculaireList__top select {
     width: 100%;
     height: 50px;
@@ -2869,6 +2898,9 @@ main {
   }
   .oculaireFilter__separator {
     border: 1px solid #f3f3f388;
+  }
+  .oculaireFilter--hidden {
+    display: none;
   }
 }
 .oculaireFilter__btn {
@@ -3441,6 +3473,9 @@ main {
   }
 }
 @media screen and (max-width: 809px) {
+  .montureList__top {
+    margin-top: 90px;
+  }
   .montureList__top select {
     width: 100%;
     height: 50px;
@@ -3576,6 +3611,9 @@ main {
   }
   .montureFilter__separator {
     border: 1px solid #f3f3f388;
+  }
+  .montureFilter--hidden {
+    display: none;
   }
 }
 
@@ -5243,6 +5281,9 @@ main {
   }
 }
 @media screen and (max-width: 809px) {
+  .promotionList__top {
+    margin-top: 90px;
+  }
   .promotionList__top select {
     width: 100%;
     height: 50px;
@@ -5379,6 +5420,9 @@ main {
   .promotionFilter__separator {
     border: 1px solid #f3f3f388;
   }
+  .promotionFilter--hidden {
+    display: none;
+  }
 }
 
 .searchList {
@@ -5444,6 +5488,9 @@ main {
   }
 }
 @media screen and (max-width: 809px) {
+  .searchList__top {
+    margin-top: 90px;
+  }
   .searchList__top select {
     width: 100%;
     height: 50px;
@@ -5597,6 +5644,9 @@ main {
   }
   .searchFilter__separator {
     border: 1px solid #f3f3f388;
+  }
+  .searchFilter--hidden {
+    display: none;
   }
 }
 

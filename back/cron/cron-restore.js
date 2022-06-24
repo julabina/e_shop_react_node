@@ -1,6 +1,5 @@
 const cron = require('node-cron');
 const { Product } = require('../db/sequelize');
-/* 0,3 */
 
 const restoreStock = () => {
 

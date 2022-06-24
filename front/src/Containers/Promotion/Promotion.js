@@ -164,6 +164,7 @@ const Promotion = () => {
     const getFilteredList = () => {
 
         window.scrollTo(0, 0);
+        const filterMenu = document.querySelector('.promotionFilter');
 
         if(filterOptions.telescope === true || filterOptions.oculaire === true || filterOptions.monture === true || filterOptions.onStock === true) {
             
@@ -233,6 +234,7 @@ const Promotion = () => {
             } else {
                 getPromoProducts(sortValue);
             }
+            filterMenu.classList.add('promotionFilter--hidden');
     };
 
     /**
@@ -244,18 +246,36 @@ const Promotion = () => {
         const filterOculaire = document.getElementById('optionFilterOculaire');
         const filterMonture = document.getElementById('optionFilterMonture');
         const filterOnStock = document.getElementById('optionFilterOnStock');
+        const filterMenu = document.querySelector('.promotionFilter');
 
         filterTelescope.checked = false;
         filterOculaire.checked = false;
         filterMonture.checked = false;
         filterOnStock.checked = false;
 
+        filterMenu.classList.add('promotionFilter--hidden');
+        setFilterOptions({telescope : false, oculaire: false, monture: false, onStock: false});
         getPromoProducts(sortValue);
+    };
+
+    /**
+     * ON MOBILE VERSION, DISPLAY FILTERS MENU
+     */
+     const displayFilters = () => {
+
+        const filter = document.querySelector('.promotionFilter');
+
+        if(filter.classList.contains('promotionFilter--hidden')) {
+            filter.classList.remove('promotionFilter--hidden');
+        } else {
+            filter.classList.add('promotionFilter--hidden');
+        }
     };
 
     return (
         <main className='mainList'>
-            <section className="promotionFilter">
+            <button onClick={displayFilters} className='mobileFilterHide'>Afficher les filtres</button>
+            <section className="promotionFilter promotionFilter--hidden">
             <div className='promotionFilter__optionsCont'>
                 <div className="promotionFilter__optionsCont__filter">
                     <h2>Categorie</h2>
