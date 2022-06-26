@@ -195,6 +195,10 @@ const Contact = () => {
             })
     };
 
+    const testCapcha = (value) => {
+        console.log(value);
+    }
+
     return (
         <>
         <Helmet>
@@ -236,6 +240,7 @@ const Contact = () => {
                         <label htmlFor="contactMsg">Message</label>
                         <textarea onChange={(e) => handleInputs("message", e.target.value)} value={contactFormData.message} id="contactMsg"></textarea>
                     </div>
+                    
                     <div className="contact__form__btnCont">
                         <button onClick={sendMsg}>Envoyer</button>
                     </div>
