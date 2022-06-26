@@ -5,6 +5,7 @@ import TelescopeCard from '../../Components/TelescopeCard/TelescopeCard';
 import OculaireCard from '../../Components/OculaireCard/OculaireCard';
 import MontureCard from '../../Components/MontureCard/MontureCard';
 import LastSeen from '../../Components/LastSeen/LastSeen';
+import { Helmet } from 'react-helmet';
 
 const Promotion = () => {
 
@@ -273,6 +274,15 @@ const Promotion = () => {
     };
 
     return (
+        <>
+        <Helmet>
+            <title>Promotions - React optique shop</title>
+            <meta name="title" content="Promotions - React optique shop" />
+            <meta
+            name="description"
+            content="Vous trouverez une liste de toute les promotions disponible."
+            />
+        </Helmet>
         <main className='mainList'>
             <button onClick={displayFilters} className='mobileFilterHide'>Afficher les filtres</button>
             <section className="promotionFilter promotionFilter--hidden">
@@ -325,10 +335,10 @@ const Promotion = () => {
                 </div>
                 <div className="promotionList__main">
                     {
-                     promoData.length === 0 ?
+                        promoData.length === 0 ?
                         <h3 className="promotionList__noResult">Aucun produit ne correspond à la recherche</h3>
-                     :
-                     <ul>
+                        :
+                        <ul>
                         {promoData.map(el => {
                             if(el.cat === "telescope") {
                                 return <TelescopeCard id={el.id} name={el.name} price={el.price} key={el.id} image={el.pictures[0]} stock={el.stock} promo={el.promo} promoValue={el.promoValue} />
@@ -345,6 +355,7 @@ const Promotion = () => {
                 <LastSeen />
             </section>
         </main>
+        </>
     );
 };
 

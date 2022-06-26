@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { decodeToken, isExpired } from 'react-jwt';
+import { Helmet } from 'react-helmet';
 
 const Cgu = () => {
 
@@ -37,6 +38,15 @@ const Cgu = () => {
     },[]);
 
     return (
+        <>
+        <Helmet>
+            <title>Cgu - React optique shop</title>
+            <meta name="title" content="Cgu - React optique shop" />
+            <meta
+            name="description"
+            content="Vous trouverez sur cette page les conditions générales d'utilisation du site."
+            />
+        </Helmet>
         <main>
             <section className="cgu">
                 <h2>CONDITIONS GÉNÉRALES D'UTILISATION</h2>
@@ -44,7 +54,7 @@ const Cgu = () => {
                 <h3>Définitions</h3>
                 <p>On désignera par la suite:</p>
                 <ul>
-                    <li className="cgu__list"><q>"Site"</q> ou <q>"Service"</q>: le site <a href='http://react-optique-shop.dev'>http://react-optique-shop.dev</a> et l'ensemble de ses pages.</li>
+                    <li className="cgu__list"><q>"Site"</q> ou <q>"Service"</q>: le site <a href='https://e-commerce.julienlenfume.com'>https://e-commerce.julienlenfume.com</a> et l'ensemble de ses pages.</li>
                     <li className="cgu__list"><q>"Editeur"</q>: Lenfumé Julien, personne physique responsable de l'édition et du contenu du Site.</li>
                     <li className="cgu__list"><q>"Utilisateur"</q>: l'internaute visitant et utilisant les Services du Site.</li>
                 </ul>
@@ -97,6 +107,7 @@ const Cgu = () => {
                 <p className='cgu__marginTop'>Sauf disposition contraire, d’ordre public, toute action judiciaire relative à l’exécution des présentes CGU devra être soumise à la compétence des juridictions du ressort du lieu du domicile du défendeur.</p>
             </section>
         </main>
+        </>
     );
 };
 

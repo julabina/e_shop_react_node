@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAddressBook, faLock, faTruckRampBox, faAt } from '@fortawesome/free-solid-svg-icons';
+import { Helmet } from 'react-helmet';
 
 const UserAccount = () => {
 
@@ -776,6 +777,15 @@ const UserAccount = () => {
     };
 
     return (
+        <>
+        <Helmet>
+            <title>Profil - React optique shop</title>
+            <meta name="title" content="Profil - React optique shop" />
+            <meta
+            name="description"
+            content="Vous pouvez via cette page modifier les informations de votre profil, voir les commandes que vous avez validées ou bien supprimer votre compte."
+            />
+        </Helmet>
         <main>
             <section className='profil'>
                 <h2>Votre compte</h2>
@@ -1058,6 +1068,7 @@ const UserAccount = () => {
                 </form>
             </section>
         </main>
+        </>
     );
 };
 

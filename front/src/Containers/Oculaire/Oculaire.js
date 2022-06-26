@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { decodeToken, isExpired } from 'react-jwt';
 import OculaireCard from '../../Components/OculaireCard/OculaireCard';
 import LastSeen from '../../Components/LastSeen/LastSeen';
+import { Helmet } from 'react-helmet';
 
 const Oculaire = () => {
 
@@ -436,6 +437,15 @@ const Oculaire = () => {
     };
 
     return (
+        <>
+        <Helmet>
+            <title>Oculaires - React optique shop</title>
+            <meta name="title" content="Oculaires - React optique shop" />
+            <meta
+            name="description"
+            content="Vous trouverez une liste de toute les oculaires disponible."
+            />
+        </Helmet>
         <main className='mainList'>
             <button onClick={displayFilters} className='mobileFilterHide'>Afficher les filtres</button>
             <section className="oculaireFilter oculaireFilter--hidden">
@@ -486,13 +496,13 @@ const Oculaire = () => {
                     <div className="oculaireFilter__optionsCont__select">
                 <h2>Modèle</h2>
                     {
-                            filterOptions.brand[0] === "Sky-Watcher" ? 
-                                <select onChange={(e) => handleFilter("model", e.target.value)} id="modelSelect">
+                        filterOptions.brand[0] === "Sky-Watcher" ? 
+                        <select onChange={(e) => handleFilter("model", e.target.value)} id="modelSelect">
                                     <option value="">Tous les modèles</option>
                                     <option value="Super Plössl">Super Plössl</option>
                                 </select>
                             : filterOptions.brand[0] === "TeleVue" ?
-                                <select onChange={(e) => handleFilter("model", e.target.value)} id="modelSelect">
+                            <select onChange={(e) => handleFilter("model", e.target.value)} id="modelSelect">
                                 <option value="">Tous les modèles</option>
                                 <option value="Plössl">Plössl</option>
                                 <option value="DeLite">DeLite</option>
@@ -501,36 +511,36 @@ const Oculaire = () => {
                                 <option value="Delos">Delos</option>
                             </select>
                            : filterOptions.brand[0] === "Celestron" ?
-                                <select onChange={(e) => handleFilter("model", e.target.value)} id="modelSelect">
+                           <select onChange={(e) => handleFilter("model", e.target.value)} id="modelSelect">
                                     <option value="">Tous les modèles</option>
                                     <option value="X-cel">X-Cel</option>
                                     <option value="Luminos">Luminos</option>
                                 </select>
                            : filterOptions.brand[0] === "Orion" ?
-                                <select onChange={(e) => handleFilter("model", e.target.value)} id="modelSelect">
+                           <select onChange={(e) => handleFilter("model", e.target.value)} id="modelSelect">
                                     <option value="">Tous les modèles</option>
                                     <option value="edge-On">Edge-On</option>
                                     <option value="Lanthanum">Lanthanum</option>
                                 </select>
                            : filterOptions.brand[0] === "Pentax" ?
-                                <select onChange={(e) => handleFilter("model", e.target.value)} id="modelSelect">
+                           <select onChange={(e) => handleFilter("model", e.target.value)} id="modelSelect">
                                     <option value="">Tous les modèles</option>
                                     <option value="XW">XW</option>
                                 </select>
                            : filterOptions.brand[0] === "Explore Scientific" ?
-                                <select onChange={(e) => handleFilter("model", e.target.value)} id="modelSelect">
+                           <select onChange={(e) => handleFilter("model", e.target.value)} id="modelSelect">
                                     <option value="">Tous les modèles</option>
                                     <option value="68°">68°</option>
                                     <option value="82°">82°</option>
                                     <option value="100°">100°</option>
                                 </select>
                            : filterOptions.brand[0] === "Baader" ? 
-                                <select onChange={(e) => handleFilter("model", e.target.value)} id="modelSelect">
+                           <select onChange={(e) => handleFilter("model", e.target.value)} id="modelSelect">
                                     <option value="">Tous les modèles</option>
                                     <option value="Hyperion">Hyperion</option>
                                 </select>
                            :
-                                <select onChange={(e) => handleFilter("model", e.target.value)} id="modelSelect">
+                           <select onChange={(e) => handleFilter("model", e.target.value)} id="modelSelect">
                                     <option value="">Tous les modèles</option>
                                 </select>
                     }
@@ -617,6 +627,7 @@ const Oculaire = () => {
                 <LastSeen />
             </section>
         </main>
+        </>
     );
 };
 

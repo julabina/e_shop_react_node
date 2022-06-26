@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { decodeToken, isExpired } from 'react-jwt';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const Login = () => {
 
@@ -244,6 +245,11 @@ const Login = () => {
     };
 
     return (
+        <>
+        <Helmet>
+            <title>Se connecter - React optique shop</title>
+            <meta name="title" content="Se connecter - React optique shop" />
+        </Helmet>
         <main className='login'>
             {
                 isLogged ?
@@ -298,6 +304,7 @@ const Login = () => {
                 </section>
             }
         </main>
+        </>
     );
 };
 

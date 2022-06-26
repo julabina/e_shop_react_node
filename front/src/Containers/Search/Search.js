@@ -6,6 +6,7 @@ import TelescopeCard from '../../Components/TelescopeCard/TelescopeCard';
 import OculaireCard from '../../Components/OculaireCard/OculaireCard';
 import MontureCard from '../../Components/MontureCard/MontureCard';
 import LastSeen from '../../Components/LastSeen/LastSeen';
+import { Helmet } from 'react-helmet';
 
 const Search = () => {
 
@@ -290,6 +291,15 @@ const Search = () => {
     };
 
     return (
+        <>
+        <Helmet>
+            <title>Recherche - React optique shop</title>
+            <meta name="title" content="Recherche - React optique shop" />
+            <meta
+            name="description"
+            content="Vous trouverez une liste des produits trouvés grace au formulaire de recherche."
+            />
+        </Helmet>
         <main className='mainList'>
             <button onClick={displayFilters} className='mobileFilterHide'>Afficher les filtres</button>
             <section className='searchFilter searchFilter--hidden'>
@@ -375,6 +385,7 @@ const Search = () => {
             <LastSeen />
             </section>
         </main>
+        </>
     );
 };
 

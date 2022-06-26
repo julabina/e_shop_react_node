@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { decodeToken, isExpired } from 'react-jwt';
 import { NavLink } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const NotFound = () => {
 
@@ -40,12 +41,18 @@ const NotFound = () => {
     },[]);
 
     return (
+        <>
+        <Helmet>
+            <title>404 not found</title>
+            <meta name="404 not found" />
+        </Helmet>
         <main className='notFound'>
             <h2>404 not found</h2>
             <NavLink to="/">
                 <button>Retour à l'accueil</button>
             </NavLink>
         </main>
+        </>
     );
 };
 

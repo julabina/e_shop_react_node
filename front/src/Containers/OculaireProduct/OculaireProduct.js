@@ -5,6 +5,7 @@ import { decodeToken, isExpired } from 'react-jwt';
 import OculaireZoom from '../../Components/OculaireZoom/OculaireZoom';
 import ConfirmationModal from '../../Components/ConfirmationModal/ConfirmationModal';
 import Comment from '../../Components/Comment/Comment';
+import { Helmet } from 'react-helmet';
 
 const OculaireProduct = () => {
 
@@ -19,7 +20,8 @@ const OculaireProduct = () => {
     const [inputAddCart, setInputAddCart] = useState("");
     const [isLogged, setIsLogged] = useState(false);
     const [actualUser, setActualUser] = useState({id: '', token: ''});
-    let back = '< retour';
+    const back = '< retour';
+    const headTitle = oculaireData.name + " - React optique shop";
 
     useEffect(() => {
 
@@ -347,6 +349,15 @@ const OculaireProduct = () => {
     };
 
     return (
+        <>
+        <Helmet>
+            <title>{headTitle}</title>
+            <meta name="title" content={oculaireData.name + " - React optique shop"} />
+            <meta
+            name="description"
+            content={oculaireData.name + " - React optique shop"}
+            />
+        </Helmet>
         <main>
         <section className='oculaireProduct'>
             <NavLink to={"/oculaire"}>
@@ -448,6 +459,7 @@ const OculaireProduct = () => {
             </div>
         </section>
         </main>
+        </>
     );
 };
 

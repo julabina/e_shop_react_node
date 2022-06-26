@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { decodeToken, isExpired } from 'react-jwt';
 import MontureCard from '../../Components/MontureCard/MontureCard';
 import LastSeen from '../../Components/LastSeen/LastSeen';
+import { Helmet } from 'react-helmet';
 
 const Monture = () => {
 
@@ -374,6 +375,15 @@ const Monture = () => {
     };
 
     return (
+        <>
+        <Helmet>
+            <title>Montures - React optique shop</title>
+            <meta name="title" content="Montures - React optique shop" />
+            <meta
+            name="description"
+            content="Vous trouverez une liste de toute les montures disponible."
+            />
+        </Helmet>
         <main className='mainList'>
             <button onClick={displayFilters} className='mobileFilterHide'>Afficher les filtres</button>
             <section className="montureFilter montureFilter--hidden">
@@ -456,10 +466,10 @@ const Monture = () => {
                 </div>
                 <div className="montureList__main">
                     {
-                    montureData.length === 0 ?
+                        montureData.length === 0 ?
                         <h3 className="montureList__noResult">Aucune monture ne correspond à la recherche</h3>
                         :
-                    <ul>
+                        <ul>
                         {montureData.map(el => {
                             return <MontureCard id={el.id} name={el.name} price={el.price} key={el.id} image={el.pictures} stock={el.stock} promo={el.promo} promoValue={el.promoValue} />
                         })} 
@@ -470,6 +480,7 @@ const Monture = () => {
                 <LastSeen />
             </section>
         </main>
+        </>
     );
 };
 

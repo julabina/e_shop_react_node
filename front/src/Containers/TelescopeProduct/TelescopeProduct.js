@@ -6,6 +6,7 @@ import ProductCarrousel from '../../Components/ProductCarrousel/ProductCarrousel
 import { useDispatch } from 'react-redux';
 import ConfirmationModal from '../../Components/ConfirmationModal/ConfirmationModal';
 import Comment from '../../Components/Comment/Comment';
+import { Helmet } from 'react-helmet';
 
 const TelescopeProduct = () => {
 
@@ -21,7 +22,8 @@ const TelescopeProduct = () => {
     const [inputAddCart, setInputAddCart] = useState("");
     const [isLogged, setIsLogged] = useState(false);
     const [actualUser, setActualUser] = useState({id: '', token: ''});
-    let back = '< retour';
+    const back = '< retour';
+    const headTitle = telescopeData.name + " - React optique shop";
 
     useEffect(() => {
 
@@ -378,6 +380,15 @@ const TelescopeProduct = () => {
     };
 
     return (
+        <>
+        <Helmet>
+            <title>{headTitle}</title>
+            <meta name="title" content={telescopeData.name + " - React optique shop"} />
+            <meta
+            name="description"
+            content={telescopeData.name + " - React optique shop"}
+            />
+        </Helmet>
         <main>
         <section className='telescopeProduct'>
             <NavLink to={"/telescope"}>
@@ -487,6 +498,7 @@ const TelescopeProduct = () => {
             </div>
         </section>
         </main>
+        </>
     );
 };
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { decodeToken, isExpired } from 'react-jwt';
+import { Helmet } from 'react-helmet';
 
 const Contact = () => {
 
@@ -195,6 +196,15 @@ const Contact = () => {
     };
 
     return (
+        <>
+        <Helmet>
+            <title>Page de contact - React optique shop</title>
+            <meta name="title" content="Page de contact - React optique shop" />
+            <meta
+            name="description"
+            content="Besoin de me contacter, n'hésitez pas à utilisé notre formulaire de contact."
+            />
+        </Helmet>
         <main>
             <section className='contact'>
                 <h2>Contactez nous</h2>
@@ -232,6 +242,7 @@ const Contact = () => {
                 </form>
             </section>
         </main>
+        </>
     );
 };
 

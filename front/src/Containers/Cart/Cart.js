@@ -8,6 +8,7 @@ import { faTrashCan, faCartShopping, faTruck, faCreditCard, faCheck, faPerson } 
 import CartLocation from '../../Components/CartLocation/CartLocation';
 import CartDelivery from '../../Components/CartDelivery/CartDelivery';
 import CartPayment from '../../Components/CartPayment/CartPayment';
+import { Helmet } from 'react-helmet';
 
 const Cart = () => {
 
@@ -487,6 +488,15 @@ const Cart = () => {
     };
 
     return (
+        <>
+        <Helmet>
+            <title>Panier - React optique shop</title>
+            <meta name="title" content="Panier - React optique shop" />
+            <meta
+            name="description"
+            content="Simulez vos achats via le panier et son tunnel de commande."
+            />
+        </Helmet>
         <main>
             <section className="cartSteps">
                 <div className="cartSteps__step cartSteps__step--active">
@@ -752,6 +762,7 @@ const Cart = () => {
                 </>
             }
         </main>
+        </>
     );
 };
 

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { decodeToken, isExpired } from 'react-jwt';
 import TelescopeCard from '../../Components/TelescopeCard/TelescopeCard';
 import LastSeen from '../../Components/LastSeen/LastSeen';
+import { Helmet } from 'react-helmet';
 
 const Telescope = () => {
 
@@ -419,6 +420,15 @@ const Telescope = () => {
     };
 
     return (
+        <>
+        <Helmet>
+            <title>Telescopes - React optique shop</title>
+            <meta name="title" content="Telescopes - React optique shop" />
+            <meta
+            name="description"
+            content="Vous trouverez une liste de toute les telescopes disponible."
+            />
+        </Helmet>
         <main className='mainList'>
             <button onClick={displayFilters} className='mobileFilterHide'>Afficher les filtres</button>
             <section className='telescopesFilter telescopesFilter--hidden'>
@@ -501,10 +511,10 @@ const Telescope = () => {
                 </div>
                 <div className="telescopesList__main">
                     {
-                    telescopeData.length === 0 ?
+                        telescopeData.length === 0 ?
                         <h3 className="telescopesList__noResult">Aucun télescope ne correspond à la recherche</h3>
-                    :
-                    <ul>
+                        :
+                        <ul>
                         {telescopeData.map(el => {
                             return <TelescopeCard id={el.id} name={el.name} price={el.price} key={el.id} image={el.pictures[0]} stock={el.stock} promo={el.promo} promoValue={el.promoValue} />
                         })} 
@@ -515,6 +525,7 @@ const Telescope = () => {
                 <LastSeen />
             </section>
         </main>
+        </>
     );
 };
 

@@ -16,6 +16,7 @@ import OculaireCard from '../../Components/OculaireCard/OculaireCard';
 import MontureCard from '../../Components/MontureCard/MontureCard';
 import { NavLink } from 'react-router-dom';
 import HomeCarrousel from '../../Components/homeCarrousel/HomeCarrousel';
+import { Helmet } from 'react-helmet';
 
 const Home = () => {
 
@@ -107,6 +108,15 @@ const Home = () => {
     };
 
     return (
+        <>
+        <Helmet>
+            <title>React optique shop</title>
+            <meta name="title" content="React optique shop" />
+            <meta
+            name="description"
+            content="React optique shop est un site e-commerce de présentation, réalisé grace à React et Nodejs."
+            />
+        </Helmet>
         <main className='home'> 
             <HomeCarrousel />
             <section className="home__categories">
@@ -177,6 +187,7 @@ const Home = () => {
                 </div>
             </section>
         </main>
+        </>
     );
 };
 
