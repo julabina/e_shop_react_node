@@ -1225,6 +1225,12 @@ body {
     width: 90%;
   }
 }
+@media screen and (max-width: 809px) {
+  .cartStepConfirm__recap__content {
+    white-space: inherit;
+    width: 360px;
+  }
+}
 
 .confirmModal {
   position: fixed;
@@ -1582,6 +1588,12 @@ body {
   text-align: center;
   width: 100%;
   margin: 100px 0;
+}
+@media screen and (max-width: 809px) {
+  .lastSeen__bot__title {
+    text-align: center;
+    font-weight: 600;
+  }
 }
 
 .mobileFilterHide {
@@ -2633,6 +2645,7 @@ main {
   }
   .telescopeInfos__infos__caractCont__caract__value {
     text-align: end;
+    margin-right: 5px;
   }
   .telescopeInfos__infos__caractCont__caract__title {
     height: auto;
@@ -2646,6 +2659,9 @@ main {
   }
   .telescopeInfos__infos__commentsCont__form__textArea {
     width: 100%;
+  }
+  .telescopeInfos__infos__commentsCont__form__notLoggedMsg {
+    text-align: center;
   }
   .telescopeInfos__infos__commentsCont__separator {
     width: 100%;
@@ -3391,6 +3407,7 @@ main {
   }
   .oculaireInfos__infos__caractCont__caract__value {
     text-align: end;
+    margin-right: 5px;
   }
   .oculaireInfos__infos__caractCont__caract__title {
     height: auto;
@@ -3404,6 +3421,9 @@ main {
   }
   .oculaireInfos__infos__commentsCont__form__textArea {
     width: 100%;
+  }
+  .oculaireInfos__infos__commentsCont__form__notLoggedMsg {
+    text-align: center;
   }
   .oculaireInfos__infos__commentsCont__separator {
     width: 100%;
@@ -4077,6 +4097,7 @@ main {
   }
   .montureInfos__infos__caractCont__caract__value {
     text-align: end;
+    margin-right: 5px;
   }
   .montureInfos__infos__caractCont__caract__title {
     height: auto;
@@ -4090,6 +4111,9 @@ main {
   }
   .montureInfos__infos__commentsCont__form__textArea {
     width: 100%;
+  }
+  .montureInfos__infos__commentsCont__form__notLoggedMsg {
+    text-align: center;
   }
   .montureInfos__infos__commentsCont__separator {
     width: 100%;

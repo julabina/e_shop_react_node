@@ -76,4 +76,10 @@
     @include forTablet {
         width: 90%;   
     }
+    @include forMobile1 {
+        &__recap__content {
+            white-space: inherit;
+            width: 360px;
+        }
+    }
 }

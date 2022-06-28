@@ -797,6 +797,7 @@
                 &__caract {
                     &__value {
                         text-align: end;
+                        margin-right: 5px;
                     }
                     &__title {
                         height: auto;
@@ -810,6 +811,9 @@
                     width: 100%;
                     &__textArea {
                         width: 100%;
+                    }
+                    &__notLoggedMsg {
+                        text-align: center;
                     }
                 }
                 &__separator {

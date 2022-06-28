@@ -14,6 +14,7 @@ const Promotion = () => {
     const [promoData, setPromoData] = useState([]);
     const [filterOptions, setFilterOptions] = useState({telescope : false, oculaire: false, monture: false, onStock: false});
     const [sortValue, setSortValue] = useState("ascName");
+    const [toggleFilterBtn, setToggleFilterBtn] = useState(false);
 
     useEffect(() => {
 
@@ -268,8 +269,10 @@ const Promotion = () => {
 
         if(filter.classList.contains('promotionFilter--hidden')) {
             filter.classList.remove('promotionFilter--hidden');
+            setToggleFilterBtn(true);
         } else {
             filter.classList.add('promotionFilter--hidden');
+            setToggleFilterBtn(false);
         }
     };
 
@@ -284,7 +287,12 @@ const Promotion = () => {
             />
         </Helmet>
         <main className='mainList'>
-            <button onClick={displayFilters} className='mobileFilterHide'>Afficher les filtres</button>
+            {
+                toggleFilterBtn ?
+                <button onClick={displayFilters} className='mobileFilterHide'>Cacher les filtres</button>
+                :
+                <button onClick={displayFilters} className='mobileFilterHide'>Afficher les filtres</button>
+            }
             <section className="promotionFilter promotionFilter--hidden">
             <div className='promotionFilter__optionsCont'>
                 <div className="promotionFilter__optionsCont__filter">

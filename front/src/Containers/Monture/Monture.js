@@ -14,6 +14,7 @@ const Monture = () => {
     const [filterBrand, setFilterBrand] = useState([false, false, false, false]);
     const [filterType, setFilterType] = useState([false, false]);
     const [sortValue, setSortValue] = useState("ascName");
+    const [toggleFilterBtn, setToggleFilterBtn] = useState(false);
 
     useEffect(() => {
 
@@ -369,8 +370,10 @@ const Monture = () => {
 
         if(filter.classList.contains('montureFilter--hidden')) {
             filter.classList.remove('montureFilter--hidden');
+            setToggleFilterBtn(true);
         } else {
             filter.classList.add('montureFilter--hidden');
+            setToggleFilterBtn(false);
         }
     };
 
@@ -385,7 +388,12 @@ const Monture = () => {
             />
         </Helmet>
         <main className='mainList'>
-            <button onClick={displayFilters} className='mobileFilterHide'>Afficher les filtres</button>
+            {
+                toggleFilterBtn ?
+                <button onClick={displayFilters} className='mobileFilterHide'>Cacher les filtres</button>
+                :
+                <button onClick={displayFilters} className='mobileFilterHide'>Afficher les filtres</button>
+            }
             <section className="montureFilter montureFilter--hidden">
             <div className='montureFilter__optionsCont'>
                 <div className="montureFilter__optionsCont__filter">

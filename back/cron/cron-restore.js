@@ -3,7 +3,7 @@ const { Product } = require('../db/sequelize');
 
 const restoreStock = () => {
 
-    cron.schedule('* * * * 0,3', () => {
+    cron.schedule('* 3 * * 0,3', () => {
        
        Product.findAll()
        .then(products => {

@@ -17,6 +17,7 @@ const Search = () => {
     const [filterOptions, setFilterOptions] = useState({categories:[], onStock: false});
     const [filterCat, setFilterCat] = useState([false, false, false]);
     const [sortValue, setSortValue] = useState("ascName");
+    const [toggleFilterBtn, setToggleFilterBtn] = useState(false);
 
     useEffect(() => {
 
@@ -285,8 +286,10 @@ const Search = () => {
 
         if(filter.classList.contains('searchFilter--hidden')) {
             filter.classList.remove('searchFilter--hidden');
+            setToggleFilterBtn(true);
         } else {
             filter.classList.add('searchFilter--hidden');
+            setToggleFilterBtn(false);
         }
     };
 
@@ -301,7 +304,12 @@ const Search = () => {
             />
         </Helmet>
         <main className='mainList'>
-            <button onClick={displayFilters} className='mobileFilterHide'>Afficher les filtres</button>
+            {
+                toggleFilterBtn ?
+                <button onClick={displayFilters} className='mobileFilterHide'>Cacher les filtres</button>
+                :
+                <button onClick={displayFilters} className='mobileFilterHide'>Afficher les filtres</button>
+            }
             <section className='searchFilter searchFilter--hidden'>
             <div className='searchFilter__optionsCont'>
                 <div className="searchFilter__optionsCont__filter">

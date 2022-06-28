@@ -14,6 +14,7 @@ const Telescope = () => {
     const [filterBrand, setFilterBrand] = useState([false, false, false, false]);
     const [filterType, setFilterType] = useState([false, false, false, false, false, false]);
     const [sortValue, setSortValue] = useState("ascName");
+    const [toggleFilterBtn, setToggleFilterBtn] = useState(false);
 
     useEffect(() => {
 
@@ -414,8 +415,10 @@ const Telescope = () => {
 
         if(filter.classList.contains('telescopesFilter--hidden')) {
             filter.classList.remove('telescopesFilter--hidden');
+            setToggleFilterBtn(true);
         } else {
             filter.classList.add('telescopesFilter--hidden');
+            setToggleFilterBtn(false);
         }
     };
 
@@ -430,7 +433,12 @@ const Telescope = () => {
             />
         </Helmet>
         <main className='mainList'>
-            <button onClick={displayFilters} className='mobileFilterHide'>Afficher les filtres</button>
+            {
+                toggleFilterBtn ?
+                <button onClick={displayFilters} className='mobileFilterHide'>Cacher les filtres</button>
+                :
+                <button onClick={displayFilters} className='mobileFilterHide'>Afficher les filtres</button>
+            }
             <section className='telescopesFilter telescopesFilter--hidden'>
                 <div className='telescopesFilter__optionsCont'>
                     <div className="telescopesFilter__optionsCont__filter">

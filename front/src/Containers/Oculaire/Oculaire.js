@@ -14,6 +14,7 @@ const Oculaire = () => {
     const [filterBrand, setFilterBrand] = useState([false, false, false, false, false, false, false]);
     const [optionChoice, setOptionChoice] = useState(false);
     const [sortValue, setSortValue] = useState("ascName");
+    const [toggleFilterBtn, setToggleFilterBtn] = useState(false);
 
     useEffect(() => {
 
@@ -431,8 +432,10 @@ const Oculaire = () => {
 
         if(filter.classList.contains('oculaireFilter--hidden')) {
             filter.classList.remove('oculaireFilter--hidden');
+            setToggleFilterBtn(true);
         } else {
             filter.classList.add('oculaireFilter--hidden');
+            setToggleFilterBtn(false);
         }
     };
 
@@ -447,7 +450,12 @@ const Oculaire = () => {
             />
         </Helmet>
         <main className='mainList'>
-            <button onClick={displayFilters} className='mobileFilterHide'>Afficher les filtres</button>
+            {
+                toggleFilterBtn ?
+                <button onClick={displayFilters} className='mobileFilterHide'>Cacher les filtres</button>
+                :
+                <button onClick={displayFilters} className='mobileFilterHide'>Afficher les filtres</button>
+            }
             <section className="oculaireFilter oculaireFilter--hidden">
                 {
                     optionChoice ?
