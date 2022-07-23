@@ -1,6 +1,6 @@
 # REACT OPTIQUE SHOP
 
-React optique shop est un site d'e-commerce fictif, réalisé avec React et redux pour la partie front-end, sass pour le css, Node JS et son framework express pour la partie back-end et MariaDB comme base de données, le tout hébergés sur un server ubuntu via Nginx.
+React optique shop est un site d'e-commerce fictif, réalisé avec React et redux pour la partie front-end, sass pour le css, Node JS et son framework express pour la partie back-end et MariaDB comme base de données, le tout hébergés sur un server Ubuntu via Nginx.
 
 Le site fonctionne comme une boutique en ligne classique hormis la phase de paiement, qui est juste simulée.
 
