@@ -21,9 +21,13 @@
             font-size: 1.2em;
             cursor: pointer;
             z-index: 30;
+            opacity: 0.45;
+            transition: all 150ms ease-in-out;
             &:hover {
+                opacity: 1;
                 border-color: map-get($map: $colors, $key:whiteLight );
                 color: map-get($map: $colors, $key:whiteLight );
+                transition: all 150ms ease-in-out;
             }
         }
         &__img {
@@ -272,11 +276,11 @@
 
 #homeCarrouselRight {
     right: 0;
-    border-radius: 20px 0 0 20px;
+    border-radius: 8px 0 0 8px;
 }
 
 #homeCarrouselLeft {
     transform: rotate(180deg);
     left: 0;
-    border-radius: 20px 0 0 20px ;
+    border-radius: 8px 0 0 8px ;
 }
